@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Vitaria — Acceso clientes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;0,9..144,900;1,9..144,500&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#EDF0E2;
+    --bg-alt:#E2E7D4;
+    --card:#FBF9F2;
+    --ink:#26301F;
+    --ink-soft:#4C5741;
+    --tomato:#D6552C;
+    --yolk:#E8A93B;
+    --herb:#4F6F3F;
+    --berry:#8B3A4A;
+    --line: rgba(38,48,31,0.14);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:'Karla',sans-serif;line-height:1.55;min-height:100vh;
+  }
+  h1,h2,h3{font-family:'Fraunces',serif;font-weight:650;margin:0 0 .4em;letter-spacing:-0.01em;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--herb);font-weight:600;
+  }
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+  .hidden{display:none !important;}
+
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(237,240,226,0.88);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:16px;padding-bottom:16px;gap:14px;}
+  .brand{font-family:'Fraunces',serif;font-weight:900;font-size:1.25rem;display:flex;align-items:center;gap:8px;}
+  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--tomato);display:inline-block;}
+  .nav-user{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.9rem;}
+  .user-chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;}
+
+  .btn{
+    display:inline-block;padding:11px 20px;border-radius:999px;
+    font-weight:700;font-size:.9rem;text-decoration:none;cursor:pointer;
+    border:1.5px solid var(--ink);background:transparent;font-family:'Karla',sans-serif;
+    transition:transform .15s ease, background .2s ease, color .2s ease;
+  }
+  .btn-solid{background:var(--ink);color:var(--bg);}
+  .btn-solid:hover{background:var(--herb);border-color:var(--herb);transform:translateY(-2px);}
+  .btn-ghost{color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink);color:var(--bg);transform:translateY(-2px);}
+  .btn-small{padding:8px 16px;font-size:.8rem;}
+  .btn-danger{border-color:var(--tomato);color:var(--tomato);}
+  .btn-danger:hover{background:var(--tomato);color:var(--bg);}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--tomato);outline-offset:2px;}
+
+  /* Auth */
+  #view-auth{padding:70px 0 90px;}
+  .auth-card{max-width:460px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:40px 36px;}
+  .auth-card h1{font-size:1.7rem;margin-top:10px;}
+  .auth-card .eyebrow{color:var(--tomato);}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin:0 0 8px;}
+  .field input,.field select{
+    width:100%;padding:12px 16px;border-radius:12px;border:1.5px solid var(--line);
+    background:var(--bg);color:var(--ink);font-family:'Karla',sans-serif;font-size:.95rem;
+  }
+  .field input:focus,.field select:focus{border-color:var(--herb);outline:none;}
+  .field-row{display:flex;gap:16px;}
+  .field-row .field{flex:1;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{
+    border:1.5px solid var(--line);background:transparent;color:var(--ink);
+    padding:8px 15px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;
+    transition:background .2s,color .2s,border-color .2s;
+  }
+  .chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+  .auth-msg{margin:0 0 16px;font-size:.88rem;font-weight:700;min-height:0;}
+  .auth-msg.err{color:var(--tomato);}
+  .auth-msg.ok{color:var(--herb);}
+  .auth-switch{margin-top:18px;font-size:.9rem;color:var(--ink-soft);}
+  .auth-switch button{background:none;border:0;color:var(--tomato);font-weight:700;cursor:pointer;text-decoration:underline;font-size:.9rem;font-family:'Karla',sans-serif;}
+  .demo-note{margin-top:24px;padding-top:18px;border-top:1px dashed var(--line);font-size:.82rem;color:var(--ink-soft);}
+  .demo-note b{font-family:'IBM Plex Mono',monospace;color:var(--ink);}
+
+  /* Dashboard */
+  #view-dashboard{padding:44px 0 80px;}
+  .dash{display:grid;grid-template-columns:230px 1fr;gap:32px;align-items:start;}
+  @media (max-width:780px){.dash{grid-template-columns:1fr;}}
+  .dash-nav{display:flex;flex-direction:column;gap:10px;position:sticky;top:90px;}
+  @media (max-width:780px){.dash-nav{position:static;flex-direction:row;flex-wrap:wrap;}}
+  .dash-tab{
+    text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:14px;
+    padding:14px 18px;cursor:pointer;font-family:'Karla',sans-serif;font-size:.92rem;font-weight:700;color:var(--ink-soft);
+    transition:border-color .2s, background .2s, color .2s;
+  }
+  .dash-tab:hover{border-color:var(--ink);color:var(--ink);}
+  .dash-tab.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+
+  .dash-main{min-width:0;}
+  .section-head{max-width:640px;margin-bottom:30px;}
+  .section-head h2{font-size:clamp(1.5rem,2.6vw,2rem);}
+  .section-head p{color:var(--ink-soft);font-size:.98rem;margin-top:8px;}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;}
+  .dash-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px;}
+  .dash-card h3{font-size:1.08rem;margin-bottom:8px;}
+  .dash-card .label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;display:block;margin-bottom:10px;}
+  .dash-card ul{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:8px;font-size:.9rem;}
+  .dash-card ul li{display:flex;gap:10px;align-items:flex-start;}
+  .dash-card ul li::before{content:"✓";color:var(--herb);font-weight:700;flex:none;}
+  .price-big{font-family:'Fraunces',serif;font-weight:900;font-size:1.9rem;letter-spacing:-0.02em;margin:6px 0 2px;}
+  .tagline{color:var(--ink-soft);font-size:.9rem;margin:0 0 14px;}
+  .plan-badge{display:inline-block;background:var(--tomato);color:var(--bg);font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:4px 12px;border-radius:999px;}
+  .meta-row{display:flex;justify-content:space-between;gap:12px;font-size:.85rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:12px;margin-top:14px;}
+  .meta-row b{color:var(--ink);}
+
+  .menu-scroll{overflow-x:auto;}
+  .menu-table{width:100%;border-collapse:collapse;font-size:.88rem;background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);}
+  .menu-table th,.menu-table td{padding:13px 12px;text-align:left;border-bottom:1px solid var(--line);}
+  .menu-table th{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;font-size:.66rem;letter-spacing:.07em;color:var(--ink-soft);background:var(--bg-alt);}
+  .menu-table tr:last-child td{border-bottom:none;}
+  .menu-table td b{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--herb);}
+
+  .shop-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
+  .shop-list li{display:flex;justify-content:space-between;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;font-size:.9rem;}
+  .shop-list li b{font-family:'IBM Plex Mono',monospace;color:var(--tomato);flex:none;}
+
+  .inline-actions{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;}
+  .note{font-size:.82rem;color:var(--ink-soft);}
+
+  footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand"><span class="dot"></span>Vitaria <span style="font-size:.7rem;font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);letter-spacing:.1em;">PORTAL</span></div>
+    <div class="nav-user hidden" id="navUser">
+      <span class="user-chip" id="userChip"></span>
+      <button class="btn btn-small" id="logoutBtn">Salir</button>
+    </div>
+  </div>
+</nav>
+
+<!-- Autenticación -->
+<div id="view-auth" class="view">
+  <div class="wrap">
+    <div class="auth-card">
+
+      <form id="loginForm">
+        <p class="eyebrow">Acceso clientes</p>
+        <h1>Bienvenido de nuevo</h1>
+        <p class="auth-msg" id="loginMsg"></p>
+        <div class="field">
+          <label for="loginEmail">Correo electrónico</label>
+          <input type="email" id="loginEmail" autocomplete="email" placeholder="tu@email.com">
+        </div>
+        <div class="field">
+          <label for="loginPw">Contraseña</label>
+          <input type="password" id="loginPw" autocomplete="current-password" placeholder="••••••••">
+        </div>
+        <button class="btn btn-solid" type="submit" style="width:100%;text-align:center;">Entrar</button>
+        <p class="auth-switch">¿Aún no tienes cuenta? <button type="button" id="toRegister">Crear cuenta</button></p>
+      </form>
+
+      <form id="registerForm" class="hidden">
+        <p class="eyebrow">Alta de cliente</p>
+        <h1>Crea tu cuenta</h1>
+        <p class="auth-msg" id="regMsg"></p>
+        <div class="field">
+          <label for="regName">Nombre</label>
+          <input type="text" id="regName" autocomplete="name" placeholder="Cómo te llamas">
+        </div>
+        <div class="field">
+          <label for="regEmail">Correo electrónico</label>
+          <input type="email" id="regEmail" autocomplete="email" placeholder="tu@email.com">
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="regPw">Contraseña</label>
+            <input type="password" id="regPw" autocomplete="new-password" placeholder="Mínimo 6 caracteres">
+          </div>
+          <div class="field">
+            <label for="regPw2">Repite</label>
+            <input type="password" id="regPw2" autocomplete="new-password" placeholder="Repite la contraseña">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="regTipo">Tipo de alimentación</label>
+            <select id="regTipo">
+              <option>Equilibrada</option>
+              <option>Vegetariana</option>
+              <option>Vegana</option>
+              <option>Sin gluten</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="regObjetivo">Objetivo</label>
+            <select id="regObjetivo">
+              <option>Aprender a comer bien</option>
+              <option>Más energía</option>
+              <option>Regular el peso</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Alergias o restricciones</label>
+          <div class="chips" id="regChips"></div>
+        </div>
+        <div class="field">
+          <label>Plan</label>
+          <div class="chips" id="regPlans">
+            <button type="button" class="chip" data-plan="starter">Starter 6 €/mes</button>
+            <button type="button" class="chip active" data-plan="pro">Pro 20 €/mes</button>
+            <button type="button" class="chip" data-plan="premium">Premium 30 €/mes</button>
+          </div>
+        </div>
+        <button class="btn btn-solid" type="submit" style="width:100%;text-align:center;">Crear mi cuenta</button>
+        <p class="auth-switch">¿Ya tienes cuenta? <button type="button" id="toLogin">Entrar</button></p>
+      </form>
+
+      <p class="demo-note">Cuenta de prueba: <b>test@vitaria.com</b> / <b>vitaria123</b>. Esta demo guarda los datos solo en tu navegador.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Dashboard -->
+<div id="view-dashboard" class="view hidden">
+  <div class="wrap">
+    <div class="dash">
+      <aside class="dash-nav" role="tablist" aria-label="Secciones del portal">
+        <button class="dash-tab active" data-tab="resumen" role="tab">Resumen</button>
+        <button class="dash-tab" data-tab="menu" role="tab">Mi menú semanal</button>
+        <button class="dash-tab" data-tab="lista" role="tab">Lista de la compra</button>
+        <button class="dash-tab" data-tab="perfil" role="tab">Mi perfil</button>
+      </aside>
+
+      <main class="dash-main">
+
+        <section id="tab-resumen" class="tab">
+          <div class="section-head">
+            <p class="eyebrow">Resumen</p>
+            <h2>Tu plan está activo</h2>
+            <p id="resSaludo"></p>
+          </div>
+          <div class="cards">
+            <div class="dash-card">
+              <span class="label">Tu plan</span>
+              <span class="plan-badge" id="resPlanName"></span>
+              <div class="price-big" id="resPlanPrice"></div>
+              <p class="tagline" id="resPlanTagline"></p>
+              <ul id="resPlanFeatures"></ul>
+              <div class="meta-row">
+                <span>Próxima renovación</span>
+                <b id="resPlanFecha"></b>
+              </div>
+            </div>
+            <div class="dash-card">
+              <span class="label">Tu perfil nutricional</span>
+              <p style="margin:0 0 12px;font-size:.92rem;"><b style="font-family:'IBM Plex Mono',monospace;color:var(--herb);">Alimentación:</b> <span id="resTipo"></span></p>
+              <p style="margin:0 0 12px;font-size:.92rem;"><b style="font-family:'IBM Plex Mono',monospace;color:var(--herb);">Objetivo:</b> <span id="resObjetivo"></span></p>
+              <p style="margin:0;font-size:.92rem;"><b style="font-family:'IBM Plex Mono',monospace;color:var(--herb);">Alergias:</b> <span id="resAlergias"></span></p>
+            </div>
+          </div>
+          <div class="dash-card" style="margin-top:22px;">
+            <span class="label">Cambiar de plan</span>
+            <div class="chips" id="resUpgrades"></div>
+            <p class="note" style="margin-top:12px;">En esta demo los cambios de plan son instantáneos y gratuitos.</p>
+          </div>
+        </section>
+
+        <section id="tab-menu" class="tab hidden">
+          <div class="section-head">
+            <p class="eyebrow">Mi menú semanal</p>
+            <h2>Tu semana, hecha para ti</h2>
+            <p>Tipo de alimentación: <b id="menuTipo" style="color:var(--herb);"></b>. Regenera cuando quieras: el plan se adapta a ti, no al revés.</p>
+          </div>
+          <div class="menu-scroll">
+            <table class="menu-table">
+              <thead><tr><th>Día</th><th>Desayuno</th><th>Comida</th><th>Cena</th></tr></thead>
+              <tbody id="menuBody"></tbody>
+            </table>
+          </div>
+          <div class="inline-actions">
+            <button class="btn btn-solid" id="menuRegen">Regenerar mi semana</button>
+            <button class="btn btn-ghost" data-tab-short="lista">Ver lista de la compra</button>
+          </div>
+        </section>
+
+        <section id="tab-lista" class="tab hidden">
+          <div class="section-head">
+            <p class="eyebrow">Lista de la compra</p>
+            <h2>Lo que necesitas esta semana</h2>
+            <p>Generada a partir de tu menú de <b id="listaTipo" style="color:var(--herb);"></b>. Compra cantidades según tu hogar.</p>
+          </div>
+          <ul class="shop-list" id="shopList"></ul>
+        </section>
+
+        <section id="tab-perfil" class="tab hidden">
+          <div class="section-head">
+            <p class="eyebrow">Mi perfil</p>
+            <h2>Tus datos</h2>
+            <p>Mantén tu perfil al día para que el plan se ajuste mejor.</p>
+          </div>
+          <div class="dash-card" style="max-width:560px;">
+            <p class="auth-msg" id="perfilMsg"></p>
+            <div class="field">
+              <label for="perfName">Nombre</label>
+              <input type="text" id="perfName">
+            </div>
+            <div class="field">
+              <label for="perfEmail">Correo</label>
+              <input type="email" id="perfEmail" disabled style="opacity:.6;">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="perfTipo">Tipo de alimentación</label>
+                <select id="perfTipo">
+                  <option>Equilibrada</option>
+                  <option>Vegetariana</option>
+                  <option>Vegana</option>
+                  <option>Sin gluten</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="perfObjetivo">Objetivo</label>
+                <select id="perfObjetivo">
+                  <option>Aprender a comer bien</option>
+                  <option>Más energía</option>
+                  <option>Regular el peso</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label>Alergias o restricciones</label>
+              <div class="chips" id="perfChips"></div>
+            </div>
+            <button class="btn btn-solid" id="perfSave">Guardar cambios</button>
+          </div>
+          <div class="dash-card" style="max-width:560px;margin-top:22px;border-color:var(--tomato);">
+            <span class="label">Seguridad</span>
+            <div class="field">
+              <label for="pwActual">Contraseña actual</label>
+              <input type="password" id="pwActual" autocomplete="current-password">
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="pwNueva">Nueva contraseña</label>
+                <input type="password" id="pwNueva" autocomplete="new-password">
+              </div>
+              <div class="field">
+                <label for="pwNueva2">Repite</label>
+                <input type="password" id="pwNueva2" autocomplete="new-password">
+              </div>
+            </div>
+            <button class="btn btn-ghost" id="pwSave">Cambiar contraseña</button>
+            <p class="note" style="margin-top:14px;">Para cancelar el plan, escríbenos a <b>hola@vitaria.com</b>.</p>
+          </div>
+          <div class="inline-actions">
+            <button class="btn btn-danger btn-small" id="delBtn">Eliminar mi cuenta</button>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;">
+    <div class="brand"><span class="dot"></span>Vitaria</div>
+    <span>Portal de clientes · demo con datos guardados en tu navegador</span>
+  </div>
+</footer>
+
+<script>
+(()=>{
+  'use strict';
+  const $ = s=>document.querySelector(s);
+
+  const PLANS = {
+    starter: {name:'Starter', price:'6 €/mes', tagline:'Plan de referencia y guía de despensa', features:['Plan estático personalizado','Guía de despensa y principios','Acceso a todos los consejos']},
+    pro:     {name:'Pro', price:'20 €/mes', tagline:'Plan dinámico con ajuste mensual', features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal']},
+    premium: {name:'Premium', price:'30 €/mes', tagline:'Seguimiento continuo con nutricionista', features:['Seguimiento continuo con nutricionista','Feedback sobre tus comidas','Atención prioritaria sin esperas']}
+  };
+  const DIAS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+  const ALERGIAS = ['Lácteos','Frutos secos','Pescado','Ninguna'];
+
+  const MEALS = {
+    Equilibrada: {
+      desayuno:['Avena con fruta y nueces','Tostada integral con aguacate y huevo','Yogur natural con fruta y semillas'],
+      comida:['Lentejas con verduras y arroz integral','Pollo al horno, quinoa y brócoli','Garbanzos salteados con espinaca'],
+      cena:['Pescado a la plancha con ensalada','Crema de calabacín y huevo cocido','Tortilla de espinacas y ensalada']
+    },
+    Vegetariana: {
+      desayuno:['Porridge de avena y plátano','Tostada con queso fresco y tomate','Yogur con granola y frutos rojos'],
+      comida:['Garbanzos salteados con espinaca','Bowl de quinoa, hummus y verduras','Pasta integral con verduras al pesto'],
+      cena:['Crema de calabacín y huevo cocido','Revuelto de tofu con champiñones','Ensalada de lentejas y queso feta']
+    },
+    Vegana: {
+      desayuno:['Batido de avena, plátano y cacao','Avena nocturna con bebida de almendra','Tostada con hummus y tomate'],
+      comida:['Tofu salteado con verduras y quinoa','Curry de garbanzos y arroz integral','Pisto con alubias y pan integral'],
+      cena:['Crema de boniato y garbanzos','Salteado de verduras con fideos de arroz','Ensalada de quinoa, aguacate y maíz']
+    },
+    "Sin gluten": {
+      desayuno:['Pan de trigo sarraceno con aguacate','Yogur con fruta y semillas','Huevos revueltos con tomate'],
+      comida:['Arroz integral con pollo y brócoli','Salmorejo con atún y huevo','Garbanzos con espinaca y comino'],
+      cena:['Tortilla de espinacas y ensalada','Pescado al horno con verduras','Crema de calabaza con semillas']
+    }
+  };
+
+  const ALLERGENS = {
+    'Yogur natural con fruta y semillas':['Lácteos','Frutos secos'],
+    'Yogur con granola y frutos rojos':['Lácteos'],
+    'Tostada con queso fresco y tomate':['Lácteos'],
+    'Bowl de quinoa, hummus y verduras':['Frutos secos'],
+    'Ensalada de lentejas y queso feta':['Lácteos'],
+    'Pescado a la plancha con ensalada':['Pescado'],
+    'Salmorejo con atún y huevo':['Pescado'],
+    'Pescado al horno con verduras':['Pescado'],
+    'Pan de trigo sarraceno con aguacate':['Huevo'],
+    'Tortilla de espinacas y ensalada':['Huevo'],
+    'Crema de calabacín y huevo cocido':['Huevo']
+  };
+
+  const INGREDIENTS = {
+    'Avena con fruta y nueces':['Avena','Fruta de temporada','Nueces'],
+    'Tostada integral con aguacate y huevo':['Pan integral','Aguacate','Huevos'],
+    'Yogur natural con fruta y semillas':['Yogur natural','Fruta de temporada','Semillas de chía'],
+    'Lentejas con verduras y arroz integral':['Lentejas','Verduras de temporada','Arroz integral'],
+    'Pollo al horno, quinoa y brócoli':['Pechuga de pollo','Quinoa','Brócoli'],
+    'Garbanzos salteados con espinaca':['Garbanzos','Espinacas','Ajo'],
+    'Pescado a la plancha con ensalada':['Pescado blanco','Lechuga','Tomate','Cebolla'],
+    'Crema de calabacín y huevo cocido':['Calabacín','Huevos','Patata'],
+    'Tortilla de espinacas y ensalada':['Huevos','Espinacas','Lechuga','Tomate'],
+    'Porridge de avena y plátano':['Avena','Plátano','Bebida vegetal'],
+    'Tostada con queso fresco y tomate':['Pan integral','Queso fresco','Tomate'],
+    'Yogur con granola y frutos rojos':['Yogur','Granola','Frutos rojos'],
+    'Bowl de quinoa, hummus y verduras':['Quinoa','Hummus','Zanahoria','Pepino','Aguacate'],
+    'Pasta integral con verduras al pesto':['Pasta integral','Calabacín','Pimiento','Pesto'],
+    'Revuelto de tofu con champiñones':['Tofu','Champiñones','Cebolla'],
+    'Ensalada de lentejas y queso feta':['Lentejas','Queso feta','Tomate','Aceitunas'],
+    'Batido de avena, plátano y cacao':['Avena','Plátano','Cacao puro','Bebida vegetal'],
+    'Avena nocturna con bebida de almendra':['Avena','Bebida de almendra','Fruta de temporada'],
+    'Tostada con hummus y tomate':['Pan integral','Hummus','Tomate'],
+    'Tofu salteado con verduras y quinoa':['Tofu','Verduras de temporada','Quinoa','Salsa de soja'],
+    'Curry de garbanzos y arroz integral':['Garbanzos','Leche de coco','Curry','Arroz integral'],
+    'Pisto con alubias y pan integral':['Calabacín','Pimiento','Tomate','Alubias','Pan integral'],
+    'Crema de boniato y garbanzos':['Boniato','Garbanzos','Puerro'],
+    'Salteado de verduras con fideos de arroz':['Verduras de temporada','Fideos de arroz','Salsa de soja'],
+    'Ensalada de quinoa, aguacate y maíz':['Quinoa','Aguacate','Maíz','Tomate'],
+    'Pan de trigo sarraceno con aguacate':['Pan de trigo sarraceno','Aguacate','Huevos'],
+    'Yogur con fruta y semillas':['Yogur','Fruta de temporada','Semillas'],
+    'Huevos revueltos con tomate':['Huevos','Tomate','Aceite de oliva'],
+    'Arroz integral con pollo y brócoli':['Arroz integral','Pechuga de pollo','Brócoli'],
+    'Salmorejo con atún y huevo':['Tomate','Atún','Huevos','Aceite de oliva'],
+    'Garbanzos con espinaca y comino':['Garbanzos','Espinacas','Comino'],
+    'Pescado al horno con verduras':['Pescado blanco','Verduras de temporada'],
+    'Crema de calabaza con semillas':['Calabaza','Cebolla','Semillas de calabaza']
+  };
+
+  /* Almacenamiento local (demo) */
+  function getUsers(){ try{ return JSON.parse(localStorage.getItem('vitaria_users')||'[]'); }catch(e){ return []; } }
+  function setUsers(u){ try{ localStorage.setItem('vitaria_users', JSON.stringify(u)); }catch(e){} }
+  function getSession(){ return localStorage.getItem('vitaria_session'); }
+  function setSession(e){ if(e) localStorage.setItem('vitaria_session', e); else localStorage.removeItem('vitaria_session'); }
+
+  function hash(pw){
+    let h = 5381;
+    for(let i=0;i<pw.length;i++) h = ((h*33) ^ pw.charCodeAt(i)) >>> 0;
+    return 'h'+h.toString(36);
+  }
+
+  function pick(opt, alergias){
+    let pool = opt;
+    const no = alergias.filter(a=>a!=='Ninguna');
+    if(no.length){
+      const filt = pool.filter(m=>!(ALLERGENS[m]||[]).some(a=>no.includes(a)));
+      if(filt.length) pool = filt;
+    }
+    return pool[Math.floor(Math.random()*pool.length)];
+  }
+
+  function newMenu(tipo, alergias){
+    return DIAS.map(dia=>({
+      dia,
+      desayuno: pick(MEALS[tipo].desayuno, alergias),
+      comida:   pick(MEALS[tipo].comida, alergias),
+      cena:     pick(MEALS[tipo].cena, alergias)
+    }));
+  }
+
+  function currentUser(){
+    const s = getSession();
+    return s ? (getUsers().find(u=>u.email===s)||null) : null;
+  }
+  function saveUser(u){ setUsers(getUsers().map(x=>x.email===u.email ? u : x)); }
+  function fmtDate(iso){
+    const d = new Date(iso);
+    return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+  }
+
+  /* Navegación */
+  function showView(id){ document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden', v.id!==id)); }
+  function showAuth(form){
+    $('#loginForm').classList.toggle('hidden', form!=='login');
+    $('#registerForm').classList.toggle('hidden', form!=='register');
+  }
+  function setMsg(sel, text, type){
+    const el = $(sel); el.textContent = text; el.className = 'auth-msg '+(type||'');
+  }
+
+  function renderChips(containerId, options, selected){
+    const c = $('#'+containerId); c.innerHTML='';
+    options.forEach(o=>{
+      const b = document.createElement('button');
+      b.type='button'; b.className='chip'+(selected.includes(o)?' active':'');
+      b.textContent = o;
+      b.addEventListener('click', ()=>{
+        if(o==='Ninguna'){
+          if(b.classList.contains('active')){ b.classList.remove('active'); }
+          else{ c.querySelectorAll('.chip').forEach(x=>x.classList.remove('active')); b.classList.add('active'); }
+        } else {
+          b.classList.toggle('active');
+          const ning = Array.from(c.querySelectorAll('.chip')).find(x=>x.textContent==='Ninguna');
+          if(ning && c.querySelectorAll('.chip.active').length>0) ning.classList.remove('active');
+        }
+      });
+      c.appendChild(b);
+    });
+  }
+  function selectedChips(id){
+    return Array.from($('#'+id).querySelectorAll('.chip.active')).map(b=>b.textContent);
+  }
+
+  /* Autenticación */
+  $('#toRegister').addEventListener('click', ()=>{ showAuth('register'); setMsg('#regMsg','',''); });
+  $('#toLogin').addEventListener('click', ()=>{ showAuth('login'); setMsg('#loginMsg','',''); });
+
+  $('#loginForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const email = $('#loginEmail').value.trim().toLowerCase();
+    const pw = $('#loginPw').value;
+    const user = getUsers().find(u=>u.email===email && u.pw===hash(pw));
+    if(!user){ setMsg('#loginMsg','Correo o contraseña incorrectos.','err'); return; }
+    setSession(user.email);
+    enterPortal();
+  });
+
+  $('#registerForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const name = $('#regName').value.trim();
+    const email = $('#regEmail').value.trim().toLowerCase();
+    const pw = $('#regPw').value;
+    const pw2 = $('#regPw2').value;
+    const tipo = $('#regTipo').value;
+    const objetivo = $('#regObjetivo').value;
+    const alergias = selectedChips('regChips');
+    const planChip = $('#regPlans .chip.active');
+    const plan = planChip ? planChip.dataset.plan : 'pro';
+
+    if(!name || !email || !pw){ setMsg('#regMsg','Completa todos los campos.','err'); return; }
+    if(!/^\S+@\S+\.\S+$/.test(email)){ setMsg('#regMsg','Introduce un correo válido.','err'); return; }
+    if(pw.length<6){ setMsg('#regMsg','La contraseña debe tener al menos 6 caracteres.','err'); return; }
+    if(pw!==pw2){ setMsg('#regMsg','Las contraseñas no coinciden.','err'); return; }
+    if(getUsers().some(u=>u.email===email)){ setMsg('#regMsg','Ya existe una cuenta con ese correo.','err'); return; }
+
+    const user = {
+      id:'u-'+Date.now(), name, email, pw:hash(pw), plan, tipo, objetivo, alergias,
+      createdAt:new Date().toISOString(),
+      menu:newMenu(tipo, alergias)
+    };
+    setUsers([...getUsers(), user]);
+    setSession(email);
+    enterPortal();
+  });
+
+  $('#regPlans').addEventListener('click', e=>{
+    const chip = e.target.closest('.chip');
+    if(!chip) return;
+    $('#regPlans').querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+  });
+
+  function enterPortal(){
+    const u = currentUser();
+    if(!u){ showView('view-auth'); showAuth('login'); return; }
+    showView('view-dashboard');
+    $('#navUser').classList.remove('hidden');
+    $('#userChip').textContent = u.name+' · '+PLANS[u.plan].name;
+    activateTab('resumen');
+  }
+
+  $('#logoutBtn').addEventListener('click', ()=>{
+    setSession(null);
+    $('#navUser').classList.add('hidden');
+    showView('view-auth'); showAuth('login');
+    ['loginEmail','loginPw','loginMsg'].forEach(id=>{ if(id==='loginMsg') setMsg('#loginMsg','',''); else $('#'+id).value=''; });
+  });
+
+  /* Tabs del dashboard */
+  document.querySelectorAll('.dash-tab').forEach(tab=>{
+    tab.addEventListener('click', ()=> activateTab(tab.dataset.tab));
+  });
+  document.querySelectorAll('[data-tab-short]').forEach(btn=>{
+    btn.addEventListener('click', ()=> activateTab(btn.dataset.tabShort));
+  });
+
+  function activateTab(name){
+    document.querySelectorAll('.dash-tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden', t.id!=='tab-'+name));
+    const u = currentUser();
+    if(!u) return;
+    if(name==='resumen') renderResumen(u);
+    if(name==='menu') renderMenu(u);
+    if(name==='lista') renderLista(u);
+    if(name==='perfil') renderPerfil(u);
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  /* Resumen */
+  function renderResumen(u){
+    const p = PLANS[u.plan];
+    $('#resSaludo').textContent = 'Hola '+u.name+', esto es lo que tienes activo ahora mismo.';
+    $('#resPlanName').textContent = p.name;
+    $('#resPlanPrice').textContent = p.price;
+    $('#resPlanTagline').textContent = p.tagline;
+    $('#resPlanFeatures').innerHTML = p.features.map(f=>'<li>'+f+'</li>').join('');
+    const next = new Date(u.createdAt); next.setMonth(next.getMonth()+1);
+    $('#resPlanFecha').textContent = fmtDate(next.toISOString());
+    $('#resTipo').textContent = u.tipo;
+    $('#resObjetivo').textContent = u.objetivo;
+    $('#resAlergias').textContent = u.alergias.length ? u.alergias.join(', ') : 'Ninguna';
+
+    const ups = $('#resUpgrades'); ups.innerHTML='';
+    const rank = {starter:0, pro:1, premium:2};
+    Object.keys(PLANS).forEach(k=>{
+      if(k===u.plan) return;
+      const dir = rank[k] > rank[u.plan] ? 'Subir a ' : 'Bajar a ';
+      const b = document.createElement('button');
+      b.type='button'; b.className='chip'; b.textContent = dir+PLANS[k].name+' ('+PLANS[k].price+')';
+      b.addEventListener('click', ()=>{
+        u.plan = k; saveUser(u); renderResumen(u);
+        $('#userChip').textContent = u.name+' · '+PLANS[u.plan].name;
+      });
+      ups.appendChild(b);
+    });
+  }
+
+  /* Menú */
+  function renderMenu(u){
+    $('#menuTipo').textContent = u.tipo;
+    $('#menuBody').innerHTML = u.menu.map(m=>
+      '<tr><td><b>'+m.dia+'</b></td><td>'+m.desayuno+'</td><td>'+m.comida+'</td><td>'+m.cena+'</td></tr>'
+    ).join('');
+  }
+  $('#menuRegen').addEventListener('click', ()=>{
+    const u = currentUser(); if(!u) return;
+    u.menu = newMenu(u.tipo, u.alergias);
+    saveUser(u);
+    renderMenu(u); renderLista(u);
+  });
+
+  /* Lista de la compra */
+  function renderLista(u){
+    $('#listaTipo').textContent = u.tipo;
+    const counts = {};
+    u.menu.forEach(m=>{
+      ['desayuno','comida','cena'].forEach(k=>{
+        const ing = INGREDIENTS[m[k]] || [m[k]];
+        ing.forEach(i=>{ counts[i] = (counts[i]||0)+1; });
+      });
+    });
+    const items = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+    $('#shopList').innerHTML = items.map(([i,c])=>'<li><span>'+i+'</span><b>×'+c+'</b></li>').join('');
+  }
+
+  /* Perfil */
+  function renderPerfil(u){
+    $('#perfName').value = u.name;
+    $('#perfEmail').value = u.email;
+    $('#perfTipo').value = u.tipo;
+    $('#perfObjetivo').value = u.objetivo;
+    renderChips('perfChips', ALERGIAS, u.alergias.length ? u.alergias : ['Ninguna']);
+    setMsg('#perfilMsg','','');
+  }
+  $('#perfSave').addEventListener('click', ()=>{
+    const u = currentUser(); if(!u) return;
+    const name = $('#perfName').value.trim();
+    if(!name){ setMsg('#perfilMsg','El nombre no puede quedar vacío.','err'); return; }
+    u.name = name;
+    u.tipo = $('#perfTipo').value;
+    u.objetivo = $('#perfObjetivo').value;
+    u.alergias = selectedChips('perfChips').filter(a=>a!=='Ninguna');
+    u.menu = newMenu(u.tipo, u.alergias);
+    saveUser(u);
+    $('#userChip').textContent = u.name+' · '+PLANS[u.plan].name;
+    setMsg('#perfilMsg','Cambios guardados. Tu menú se ha regenerado con las nuevas preferencias.','ok');
+  });
+
+  $('#pwSave').addEventListener('click', ()=>{
+    const u = currentUser(); if(!u) return;
+    const cur = $('#pwActual').value, n1 = $('#pwNueva').value, n2 = $('#pwNueva2').value;
+    if(u.pw !== hash(cur)){ setMsg('#perfilMsg','La contraseña actual no es correcta.','err'); return; }
+    if(n1.length<6){ setMsg('#perfilMsg','La nueva contraseña debe tener al menos 6 caracteres.','err'); return; }
+    if(n1!==n2){ setMsg('#perfilMsg','Las contraseñas nuevas no coinciden.','err'); return; }
+    u.pw = hash(n1); saveUser(u);
+    ['pwActual','pwNueva','pwNueva2'].forEach(id=>$('#'+id).value='');
+    setMsg('#perfilMsg','Contraseña actualizada.','ok');
+  });
+
+  $('#delBtn').addEventListener('click', ()=>{
+    const u = currentUser(); if(!u) return;
+    if(!confirm('¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) return;
+    setUsers(getUsers().filter(x=>x.email!==u.email));
+    setSession(null);
+    $('#navUser').classList.add('hidden');
+    showView('view-auth'); showAuth('login');
+  });
+
+  /* Inicio */
+  function init(){
+    if(!getUsers().length){
+      const demo = {
+        id:'u-demo', name:'Demo Vitaria', email:'test@vitaria.com', pw:hash('vitaria123'),
+        plan:'pro', tipo:'Equilibrada', objetivo:'Aprender a comer bien', alergias:[],
+        createdAt:new Date().toISOString(),
+        menu:newMenu('Equilibrada',[])
+      };
+      setUsers([demo]);
+    }
+    renderChips('regChips', ALERGIAS, []);
+    const u = currentUser();
+    if(u) enterPortal();
+    else { showView('view-auth'); showAuth('login'); }
+  }
+  init();
+})();
+</script>
+</body>
+</html>

@@ -94,6 +94,28 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .meal-btn.done{background:var(--herb);color:var(--bg);border-color:var(--herb);pointer-events:none;}
 .meal-check{position:absolute;top:16px;right:20px;font-size:1.2rem;opacity:0;transition:opacity .3s;}.meal-card.eaten .meal-check{opacity:1;}
 
+/* Food input modal */
+.food-overlay{position:fixed;inset:0;background:rgba(38,48,31,.55);backdrop-filter:blur(6px);z-index:210;display:flex;align-items:center;justify-content:center;padding:20px;}
+.food-modal{background:var(--card);border-radius:22px;padding:32px 28px;max-width:480px;width:100%;position:relative;}
+.food-modal h2{font-size:1.3rem;margin-bottom:4px;}
+.food-modal .food-subtitle{color:var(--ink-soft);font-size:.88rem;margin:0 0 18px;}
+.food-modal textarea{width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font-family:'Karla',sans-serif;font-size:.95rem;resize:none;height:70px;line-height:1.5;}
+.food-modal textarea:focus{border-color:var(--herb);outline:none;}
+.food-modal textarea::placeholder{color:var(--ink-soft);opacity:.6;}
+.food-qty{display:flex;align-items:center;gap:12px;margin-top:14px;}
+.food-qty label{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;}
+.food-qty input{width:70px;padding:8px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-family:'Karla',sans-serif;font-size:1rem;text-align:center;font-weight:700;}
+.food-qty span{font-size:.85rem;color:var(--ink-soft);}
+.food-est{margin-top:16px;padding:16px;background:var(--bg-alt);border-radius:14px;text-align:center;}
+.food-est .est-kcal{font-family:'Fraunces',serif;font-weight:900;font-size:1.8rem;color:var(--tomato);}
+.food-est .est-label{font-size:.78rem;color:var(--ink-soft);margin-top:2px;}
+.food-est .est-macros{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft);margin-top:6px;}
+.food-est .est-match{font-size:.78rem;color:var(--herb);font-weight:600;margin-top:6px;}
+.food-actions{display:flex;gap:10px;margin-top:18px;}
+.food-actions .btn{flex:1;text-align:center;}
+.food-skip{display:block;width:100%;text-align:center;margin-top:10px;font-size:.82rem;color:var(--ink-soft);background:none;border:0;cursor:pointer;text-decoration:underline;font-family:'Karla',sans-serif;}
+.food-skip:hover{color:var(--ink);}
+
 /* Daily summary */
 .daily-summary{background:var(--ink);color:var(--bg);border-radius:20px;padding:28px 28px 24px;}
 .daily-summary h3{font-size:1.1rem;margin-bottom:12px;color:var(--bg);}
@@ -243,6 +265,31 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
     </div>
   </div>
 </div>
+<!-- Food input modal -->
+<div class="food-overlay hidden" id="foodOverlay">
+  <div class="food-modal">
+    <h2 id="foodTitle">¿Qué has comido?</h2>
+    <p class="food-subtitle" id="foodSubtitle">Describe lo que comes para estimar las calorías reales</p>
+    <textarea id="foodInput" placeholder="Ej: pechuga de pollo a la plancha con arroz y brócoli..."></textarea>
+    <div class="food-qty">
+      <label>Porción aprox.</label>
+      <input type="number" id="foodQty" min="10" max="1000" value="200" step="10">
+      <span>gramos</span>
+    </div>
+    <div class="food-est hidden" id="foodEstimate">
+      <div class="est-match" id="foodMatch"></div>
+      <div class="est-kcal" id="foodKcal">0</div>
+      <div class="est-label">kcal estimadas</div>
+      <div class="est-macros" id="foodMacros">P: 0g · C: 0g · G: 0g</div>
+    </div>
+    <div class="food-actions">
+      <button class="btn btn-solid" id="foodConfirm">Confirmar</button>
+      <button class="btn btn-ghost" id="foodCancel">Cancelar</button>
+    </div>
+    <button class="food-skip" id="foodSkip">Usar la comida del plan sin modificar</button>
+  </div>
+</div>
+
 <div class="confetti-wrap" id="confetti"></div>
 <div class="mascot hidden" id="mascot">
   <div class="mascot-body">
@@ -467,7 +514,7 @@ $('#registerForm').addEventListener('submit',e=>{
   if(pw.length<6){setMsg('#regMsg','Mínimo 6 caracteres.','err');return;}
   if(pw!==pw2){setMsg('#regMsg','Las contraseñas no coinciden.','err');return;}
   if(getUsers().some(u=>u.email===email)){setMsg('#regMsg','Ya existe una cuenta con ese correo.','err');return;}
-  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,createdAt:new Date().toISOString(),menu:newMenu(tipo,alergias),consumed:{},glassed:{},sleep:{}};
+  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,createdAt:new Date().toISOString(),menu:newMenu(tipo,alergias),consumed:{},glassed:{},sleep:{},customFoods:{}};
   setUsers([...getUsers(),user]);setSession(email);showOnboarding();
 });
 
@@ -571,10 +618,7 @@ function renderHoy(u){
   $('#todayMeals').querySelectorAll('.meal-btn:not(.done)').forEach(btn=>{
     btn.addEventListener('click',function(){
       const card=this.closest('.meal-card');const mt=card.dataset.type;const ky=card.dataset.key;
-      if(!u.consumed[ky])u.consumed[ky]={};u.consumed[ky][mt]=true;saveUser(u);
-      card.classList.add('eaten');this.classList.add('done');this.textContent='✓ Comido';this.disabled=true;
-      updateHoySummary(u);showMascotMessage(u);
-      if(u.consumed[ky].desayuno&&u.consumed[ky].comida&&u.consumed[ky].cena)launchConfetti();
+      openFoodModal(mt,ky,u);
     });
   });
   updateHoySummary(u);
@@ -584,7 +628,11 @@ function updateHoySummary(u){
   const key=todayKey();const idx=todayIndex();const day=u.menu[idx];if(!day)return;
   const eaten=u.consumed[key]||{};
   let tk=0,tp=0,tc=0,tg=0;
-  ['desayuno','comida','cena'].forEach(mt=>{if(eaten[mt]){const nd=getND(day[mt]);tk+=nd.k;tp+=nd.p;tc+=nd.c;tg+=nd.g;}});
+  ['desayuno','comida','cena'].forEach(mt=>{if(eaten[mt]){
+    const cf=u.customFoods&&u.customFoods[key]&&u.customFoods[key][mt];
+    if(cf){tk+=cf.k;tp+=cf.p;tc+=cf.c;tg+=cf.g;}
+    else{const nd=getND(day[mt]);tk+=nd.k;tp+=nd.p;tc+=nd.c;tg+=nd.g;}
+  }});
   if(u.stats){
     $('#dailySummary').classList.remove('hidden');
     const pct=Math.min(100,tk/u.stats.calorias*100);
@@ -605,7 +653,7 @@ function renderSemana(u){
   const ti=todayIndex();
   $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td><td>${m.desayuno}</td><td>${m.comida}</td><td>${m.cena}</td></tr>`).join('');
 }
-$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};saveUser(u);renderSemana(u);renderLista(u);});
+$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};saveUser(u);renderSemana(u);renderLista(u);});
 
 /* LISTA */
 function renderLista(u){
@@ -626,10 +674,127 @@ function renderPerfil(u){
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
 }
-$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
+$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
 $('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;saveUser(u);setMsg('#perfilMsg','Datos físicos actualizados. Plan recalculado.','ok');});
 $('#pwSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const cur=$('#pwActual').value,n1=$('#pwNueva').value,n2=$('#pwNueva2').value;if(u.pw!==hash(cur)){setMsg('#perfilMsg','Contraseña actual incorrecta.','err');return;}if(n1.length<6){setMsg('#perfilMsg','Mínimo 6 caracteres.','err');return;}if(n1!==n2){setMsg('#perfilMsg','Las contraseñas no coinciden.','err');return;}u.pw=hash(n1);saveUser(u);['pwActual','pwNueva','pwNueva2'].forEach(i=>$('#'+i).value='');setMsg('#perfilMsg','Contraseña actualizada.','ok');});
 $('#delBtn').addEventListener('click',()=>{const u=currentUser();if(!u)return;if(!confirm('¿Eliminar tu cuenta? No se puede deshacer.'))return;setUsers(getUsers().filter(x=>x.email!==u.email));setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
+
+/* Food recognition database — kcal per 100g */
+const FOOD_DB={
+/* Proteínas */
+'pollo':{k:165,p:31,c:0,g:3.6},'pechuga de pollo':{k:165,p:31,c:0,g:3.6},'muslo de pollo':{k:209,p:26,c:0,g:10.9},'pollo al horno':{k:190,p:27,c:0,g:8},'pollo a la plancha':{k:165,p:31,c:0,g:3.6},'pollo frito':{k:230,p:24,c:2,g:13},
+'ternera':{k:250,p:26,c:0,g:15},'bistec':{k:271,p:26,c:0,g:18},'filete de ternera':{k:250,p:26,c:0,g:15},'carne picada':{k:254,p:17,c:0,g:20},'chuleta':{k:260,p:25,c:0,g:17},
+'cerdo':{k:242,p:27,c:0,g:14},'lomo de cerdo':{k:143,p:26,c:0,g:3.5},'solomillo':{k:143,p:26,c:0,g:3.5},'chashu':{k:220,p:20,c:2,g:15},
+'salchicha':{k:277,p:12,c:2,g:25},'salchichas':{k:277,p:12,c:2,g:25},'salchichas de Frankfurt':{k:277,p:12,c:2,g:25},'salchichas de vacuno':{k:260,p:14,c:1,g:22},'chorizo':{k:455,p:24,c:2,g:38},'longaniza':{k:400,p:22,c:2,g:34},'morcilla':{k:379,p:14,c:12,g:32},'fiambre':{k:150,p:16,c:3,g:8},'jamón':{k:145,p:21,c:1,g:6},'jamón serrano':{k:145,p:21,c:1,g:6},'jamón cocido':{k:145,p:20,c:1,g:6},'lomo embuchado':{k:250,p:28,c:1,g:14},
+'tofu':{k:76,p:8,c:1.9,g:4.8},'tofu firme':{k:130,p:15,c:2,g:8},'tofu seda':{k:55,p:5,c:2,g:3},
+'atún':{k:132,p:28,c:0,g:1.3},'atún a la plancha':{k:132,p:28,c:0,g:1.3},'atún en aceite':{k:198,p:24,c:0,g:11},'bonito':{k:132,p:28,c:0,g:1.3},
+'salmón':{k:208,p:20,c:0,g:13},'salmón a la plancha':{k:208,p:20,c:0,g:13},'salmón ahumado':{k:177,p:21,c:0,g:10},'sardinas':{k:208,p:25,c:0,g:11},'jurel':{k:155,p:24,c:0,g:6},'merluza':{k:86,p:18,c:0,g:1.5},'bacalao':{k:82,p:18,c:0,g:0.7},'calamares':{k:175,p:21,c:8,g:7},'gambas':{k:99,p:24,c:0,g:0.3},'langostinos':{k:99,p:24,c:0,g:0.3},'pescado':{k:130,p:22,c:0,g:5},'pescado a la plancha':{k:130,p:22,c:0,g:5},'pescado al horno':{k:130,p:22,c:0,g:5},'pescado frito':{k:230,p:18,c:12,g:13},
+'huevo':{k:155,p:13,c:1.1,g:11},'huevos':{k:155,p:13,c:1.1,g:11},'huevo cocido':{k:155,p:13,c:1.1,g:11},'huevo frito':{k:196,p:14,c:1,g:15},'revuelto':{k:148,p:10,c:2,g:11},'tortilla':{k:155,p:13,c:1,g:11},'omelette':{k:154,p:11,c:2,g:11},
+'queso':{k:402,p:25,c:1.3,g:33},'queso fresco':{k:174,p:18,c:3,g:10},'queso manchego':{k:402,p:25,c:1.3,g:33},'queso batata':{k:360,p:21,c:3,g:29},'mozzarella':{k:280,p:28,c:3,g:17},'yogur':{k:59,p:10,c:3.5,g:0.7},'yogur natural':{k:59,p:10,c:3.5,g:0.7},'yogur griego':{k:97,p:9,c:3.6,g:5},'queso de untar':{k:235,p:6,c:4,g:22},'ricotta':{k:174,p:11,c:3,g:13},
+/* Legumbres */
+'lentejas':{k:116,p:9,c:20,g:0.4},'lentejas guisadas':{k:130,p:9,c:18,g:2},'garbanzos':{k:164,p:8.9,c:27,g:2.6},'garbanzos salteados':{k:164,p:8.9,c:27,g:2.6},'alubias':{k:127,p:8.7,c:22.8,g:0.5},'alubias blancas':{k:139,p:9,c:24,g:0.4},'alubias negras':{k:132,p:8.9,c:23.7,g:0.5},'soja':{k:173,p:17,c:10,g:9},
+/* Cereales y tubérculos */
+'arroz':{k:130,p:2.7,c:28,g:0.3},'arroz blanco':{k:130,p:2.7,c:28,g:0.3},'arroz integral':{k:111,p:2.6,c:23,g:0.9},'arroz basmati':{k:130,p:2.7,c:28,g:0.3},'pasta':{k:131,p:5,c:25,g:1.1},'pasta integral':{k:124,p:5.3,c:26,g:0.5},'espaguetis':{k:131,p:5,c:25,g:1.1},'macarrones':{k:131,p:5,c:25,g:1.1},'fideos':{k:131,p:5,c:25,g:1.1},'noodles':{k:138,p:4.5,c:25,g:2},'fideos de arroz':{k:109,p:0.9,c:25,g:0.2},'quinoa':{k:120,p:4.4,c:21.3,g:1.9},'avena':{k:389,p:16.9,c:66,g:6.9},'copos de avena':{k:389,p:16.9,c:66,g:6.9},'porridge':{k:150,p:5,c:25,g:3},'avena con leche':{k:150,p:5,c:25,g:3},'pan':{k:265,p:9,c:49,g:3.2},'pan integral':{k:247,p:13,c:41,g:3.4},'pan de molde':{k:265,p:9,c:49,g:3.2},'tostada':{k:265,p:9,c:49,g:3.2},'tostada integral':{k:247,p:13,c:41,g:3.4},'tostada con aguacate':{k:230,p:4,c:20,g:16},'tostada con tomate':{k:160,p:5,c:26,g:4},'boniato':{k:86,p:1.6,c:20,g:0.1},'batata':{k:86,p:1.6,c:20,g:0.1},'patata':{k:77,p:2,c:17,g:0.1},'patatas fritas':{k:312,p:3.4,c:41,g:15},'puré de patata':{k:74,p:1.8,c:17,g:0.1},'maíz':{k:86,p:3.2,c:19,g:1.2},
+/* Verduras */
+'brócoli':{k:34,p:2.8,c:7,g:0.4},'espinaca':{k:23,p:2.9,c:3.6,g:0.4},'espinacas':{k:23,p:2.9,c:3.6,g:0.4},'calabacín':{k:17,p:1.2,c:3.1,g:0.3},'calabaza':{k:26,p:1,c:6.5,g:0.1},'cebolla':{k:40,p:1.1,c:9.3,g:0.1},'cebolla morada':{k:40,p:1.1,c:9.3,g:0.1},'ajo':{k:149,p:6.4,c:33,g:0.5},'pimiento':{k:31,p:1,c:6,g:0.3},'pimiento rojo':{k:31,p:1,c:6,g:0.3},'tomate':{k:18,p:0.9,c:3.9,g:0.2},'jitomate':{k:18,p:0.9,c:3.9,g:0.2},'lechuga':{k:15,p:1.4,c:2.9,g:0.2},'zanahoria':{k:41,p:0.9,c:10,g:0.2},'pepino':{k:15,p:0.7,c:3.6,g:0.1},'champiñones':{k:22,p:3.1,c:3.3,g:0.3},'setas':{k:22,p:3.1,c:3.3,g:0.3},'berenjena':{k:25,p:1,c:6,g:0.2},'coliflor':{k:25,p:1.9,c:5,g:0.3},'apio':{k:16,p:0.7,c:3,g:0.2},'puerro':{k:61,p:1.5,c:14,g:0.3},'judías verdes':{k:31,p:1.8,c:7,g:0.1},'guisantes':{k:81,p:5.4,c:14,g:0.4},'maíz dulce':{k:86,p:3.2,c:19,g:1.2},'alcachofa':{k:47,p:3.3,c:11,g:0.2},'remolacha':{k:43,p:1.6,c:10,g:0.2},'col':{k:25,p:1.3,c:5.8,g:0.1},
+/* Frutas */
+'plátano':{k:89,p:1.1,c:23,g:0.3},'manzana':{k:52,p:0.3,c:14,g:0.2},'naranja':{k:47,p:0.9,c:12,g:0.1},'fresa':{k:32,p:0.7,c:7.7,g:0.3},'frutos rojos':{k:50,p:0.7,c:12,g:0.3},'uvas':{k:69,p:0.7,c:18,g:0.2},'pera':{k:57,p:0.4,c:15,g:0.1},'melocotón':{k:39,p:0.9,c:10,g:0.3},'sandía':{k:30,p:0.6,c:7.6,g:0.2},'limón':{k:29,p:1.1,c:9.3,g:0.3},'kiwi':{k:61,p:1.1,c:15,g:0.5},'mango':{k:60,p:0.8,c:15,g:0.4},'piña':{k:50,p:0.5,c:13,g:0.1},'cerezas':{k:50,p:1,c:12,g:0.3},'ciruelas':{k:46,p:0.7,c:11,g:0.3},'melón':{k:34,p:0.8,c:8,g:0.1},
+/* Frutos secos y semillas */
+'nueces':{k:654,p:15,c:14,g:65},'almendras':{k:579,p:21,c:22,g:49},'cacahuetes':{k:567,p:26,c:16,g:49},'avellanas':{k:628,p:15,c:17,g:61},'pipas':{k:575,p:23,c:20,g:49},'semillas de chía':{k:486,p:16,c:42,g:31},'semillas de girasol':{k:584,p:21,c:20,g:51},'piñones':{k:673,p:14,c:13,g:68},'marañón':{k:553,p:18,c:30,g:44},
+/* Lácteos */
+'leche':{k:61,p:3.2,c:4.8,g:3.3},'leche entera':{k:61,p:3.2,c:4.8,g:3.3},'leche semidesnatada':{k:50,p:3.4,c:5,g:2},'leche desnatada':{k:34,p:3.4,c:5,g:0.1},'leche de almendra':{k:15,p:0.6,c:0.3,g:1.2},'leche de soja':{k:33,p:2.8,c:1.6,g:1.8},'leche de avena':{k:40,p:1,c:6.5,g:1.5},'leche de coco':{k:230,p:2.3,c:6,g:24},
+/* Bebidas */
+'café':{k:2,p:0.3,c:0,g:0},'café con leche':{k:30,p:1.5,c:2.5,g:1.5},'café con leche entera':{k:40,p:1.5,c:3,g:2.5},'té':{k:1,p:0,g:0.3,g:0},'zumo de naranja':{k:45,p:0.7,c:10,g:0.2},'zumo':{k:45,p:0.5,c:11,g:0.1},'batido':{k:100,p:4,c:15,g:2},'coca-cola':{k:42,p:0,g:11,g:0},'cerveza':{k:43,p:0.5,c:3.6,g:0},'vino tinto':{k:85,p:0.1,c:2.6,g:0},
+/* Salsas y condimentos */'aceite de oliva':{k:884,p:0,c:0,g:100},'aceite':{k:884,p:0,c:0,g:100},'mantequilla':{k:717,p:0.9,c:0.1,g:81},'mayonesa':{k:680,p:1,c:1,g:75},'ketchup':{k:112,p:1.7,c:26,g:0.1},'mayonesa light':{k:390,p:1,c:3,g:42},'salsa de soja':{k:53,p:8,c:5,g:0},'salsa teriyaki':{k:89,p:5,c:16,g:0},'pesto':{k:378,p:4,c:4,g:39},'hummus':{k:166,p:8,c:14,g:10},'guacamole':{k:150,p:2,c:9,g:13},'mostaza':{k:66,p:4,c:6,g:3},
+/* Preparados y platos */
+'ensalada':{k:20,p:1.5,c:3.5,g:0.3},'ensalada mixta':{k:65,p:3,c:4,g:4},'ensalada con pollo':{k:120,p:15,c:5,g:4},'ensalada cesar':{k:180,p:16,c:6,g:10},'sándwich':{k:250,p:12,c:28,g:10},'bocadillo':{k:250,p:12,c:28,g:10},'hummus con pan':{k:180,p:6,c:18,g:9},'wrap':{k:230,p:10,c:30,g:8},'pizza':{k:266,p:11,c:33,g:10},'hamburguesa':{k:295,p:17,c:24,g:13},'bocadillo de pollo':{k:250,p:18,c:22,g:9},'pasta con tomate':{k:130,p:4,c:25,g:1.5},'pasta con pesto':{k:200,p:5,c:22,g:10},'pasta con boloñesa':{k:160,p:9,c:20,g:5},'arroz con pollo':{k:180,p:14,c:22,g:4},'arroz con verduras':{k:120,p:3,c:22,g:2},'lentejas con arroz':{k:130,p:8,c:20,g:2},'guiso':{k:120,p:8,c:12,g:3},'pisto':{k:60,p:2,c:7,g:3},'crema de verduras':{k:45,p:2,c:6,g:1.5},'sopa':{k:30,p:1.5,c:5,g:0.3},'salmorejo':{k:120,p:3,c:10,g:8},'gazpacho':{k:40,p:1.5,c:6,g:1},'croquetas':{k:280,p:10,c:22,g:17},'empanada':{k:320,p:10,c:35,g:16},'churros':{k:370,p:5,c:44,g:20},'dátiles':{k:277,p:1.8,c:75,g:0.2},'fruta':{k:50,p:0.5,c:12,g:0.3}
+};
+
+/* Estimate food from text */
+function estimateFood(text,qtyGrams){
+  const txt=text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-záéíóúñü\s]/g,'');
+  const words=txt.split(/\s+/).filter(w=>w.length>1);
+  if(!words.length)return null;
+  let bestMatch=null,bestScore=0,bestData=null;
+  for(const[key,data]of Object.entries(FOOD_DB)){
+    const keyNorm=key.normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    const keyWords=keyNorm.split(/\s+/);
+    let score=0;
+    for(const w of words){if(keyWords.some(kw=>kw===w||kw.includes(w)||w.includes(kw)))score++;}
+    if(score>bestScore){bestScore=score;bestMatch=key;bestData=data;}
+  }
+  if(bestScore===0)return null;
+  const factor=qtyGrams/100;
+  const k=Math.round(bestData.k*factor);
+  const p=Math.round(bestData.p*factor*10)/10;
+  const c=Math.round(bestData.c*factor*10)/10;
+  const g=Math.round(bestData.g*factor*10)/10;
+  return{match:bestMatch,k,p,c,g,score:bestScore,totalWords:words.length};
+}
+
+/* Food modal logic */
+let foodModalState={};
+function openFoodModal(mealType,mealKey,user){
+  foodModalState={mt:mealType,key:mealKey,user};
+  const day=user.menu[todayIndex()];
+  const planMeal=day?day[mealType]:'';
+  $('#foodTitle').textContent=MEAL_LABELS[mealType]+': '+planMeal;
+  $('#foodSubtitle').textContent='Describe lo que realmente vas a comer para estimar calorías';
+  $('#foodInput').value='';
+  $('#foodQty').value=200;
+  $('#foodEstimate').classList.add('hidden');
+  $('#foodOverlay').classList.remove('hidden');
+  setTimeout(()=>$('#foodInput').focus(),100);
+}
+$('#foodInput').addEventListener('input',function(){
+  const text=this.value.trim();
+  const qty=+$('#foodQty').value||200;
+  if(text.length<2){$('#foodEstimate').classList.add('hidden');return;}
+  const est=estimateFood(text,qty);
+  if(est){
+    $('#foodMatch').textContent='Detectado: '+est.match;
+    $('#foodKcal').textContent=est.k;
+    $('#foodMacros').textContent='P: '+est.p+'g · C: '+est.c+'g · G: '+est.g+'g';
+    $('#foodEstimate').classList.remove('hidden');
+  }else{
+    $('#foodMatch').textContent='No reconocido — se usará la estimación del plan';
+    $('#foodKcal').textContent=getND(foodModalState.mt?foodModalState.user.menu[todayIndex()]?.[foodModalState.mt]:'').k;
+    const nd=getND(foodModalState.user.menu[todayIndex()]?.[foodModalState.mt]||'');
+    $('#foodMacros').textContent='P: '+nd.p+'g · C: '+nd.c+'g · G: '+nd.g+'g';
+    $('#foodEstimate').classList.remove('hidden');
+  }
+});
+$('#foodQty').addEventListener('input',function(){$('#foodInput').dispatchEvent(new Event('input'));});
+$('#foodConfirm').addEventListener('click',function(){
+  const u=foodModalState.user;const mt=foodModalState.mt;const ky=foodModalState.key;
+  const text=$('#foodInput').value.trim();
+  const qty=+$('#foodQty').value||200;
+  if(!u.consumed[ky])u.consumed[ky]={};u.consumed[ky][mt]=true;
+  if(text){
+    const est=estimateFood(text,qty);
+    if(est){
+      if(!u.customFoods)u.customFoods={};if(!u.customFoods[ky])u.customFoods[ky]={};
+      u.customFoods[ky][mt]={text,k:est.k,p:est.p,c:est.c,g:est.g};
+    }
+  }
+  saveUser(u);$('#foodOverlay').classList.add('hidden');
+  const card=document.querySelector('.meal-card[data-type="'+mt+'"]');
+  if(card){card.classList.add('eaten');const btn=card.querySelector('.meal-btn');if(btn){btn.classList.add('done');btn.textContent='✓ Comido';btn.disabled=true;}
+    if(text&&estimateFood(text,qty)){card.querySelector('.meal-nutrition').innerHTML='<span class="meal-kcal">'+estimateFood(text,qty).k+' kcal</span> (real) · P: '+estimateFood(text,qty).p+'g · C: '+estimateFood(text,qty).c+'g · G: '+estimateFood(text,qty).g+'g';}
+  }
+  updateHoySummary(u);showMascotMessage(u);
+  if(u.consumed[ky].desayuno&&u.consumed[ky].comida&&u.consumed[ky].cena)launchConfetti();
+});
+$('#foodCancel').addEventListener('click',()=>{$('#foodOverlay').classList.add('hidden');});
+$('#foodSkip').addEventListener('click',function(){
+  const u=foodModalState.user;const mt=foodModalState.mt;const ky=foodModalState.key;
+  if(!u.consumed[ky])u.consumed[ky]={};u.consumed[ky][mt]=true;saveUser(u);
+  $('#foodOverlay').classList.add('hidden');
+  const card=document.querySelector('.meal-card[data-type="'+mt+'"]');
+  if(card){card.classList.add('eaten');const btn=card.querySelector('.meal-btn');if(btn){btn.classList.add('done');btn.textContent='✓ Comido';btn.disabled=true;}}
+  updateHoySummary(u);showMascotMessage(u);
+  if(u.consumed[ky].desayuno&&u.consumed[ky].comida&&u.consumed[ky].cena)launchConfetti();
+});
 
 /* Animations */
 function animateCounters(root){root.querySelectorAll('.counter').forEach(el=>{const t=parseFloat(el.dataset.target);const dec=+(el.dataset.decimals||0);animateEl(el,t,dec);});}
@@ -702,7 +867,7 @@ function launchConfetti(){
 /* Init */
 (function init(){
   if(!getUsers().length){
-    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Regular el peso',alergias:[],createdAt:new Date().toISOString(),menu:newMenu('Equilibrada',[]),consumed:{},glassed:{},sleep:{}};
+    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Regular el peso',alergias:[],createdAt:new Date().toISOString(),menu:newMenu('Equilibrada',[]),consumed:{},glassed:{},sleep:{},customFoods:{}};
     setUsers([demo]);
   }
   renderChips('regChips',ALERGIAS,[]);

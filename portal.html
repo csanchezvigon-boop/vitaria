@@ -174,13 +174,16 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 .sleep-input span{font-size:.82rem;color:var(--ink-soft);}
 
 /* Mascot */
-.mascot{position:fixed;bottom:20px;right:20px;z-index:80;display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none;}
-.mascot-bubble{background:var(--card);border:1.5px solid var(--line);border-radius:16px 16px 4px 16px;padding:10px 16px;font-size:.82rem;color:var(--ink);max-width:220px;text-align:center;font-weight:500;box-shadow:0 4px 16px -6px rgba(38,48,31,.25);pointer-events:auto;animation:mascotBounce .4s ease;}
-@keyframes mascotBounce{0%{transform:translateY(10px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
-.mascot-emoji{font-size:2.4rem;animation:mascotFloat 3s ease-in-out infinite;}
-@keyframes mascotFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.mascot{position:fixed;bottom:0;right:16px;z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:0;pointer-events:none;}
+.mascot-body{position:relative;pointer-events:auto;cursor:default;}
+.mascot-emoji{font-size:5.5rem;line-height:1;display:block;filter:drop-shadow(0 4px 12px rgba(38,48,31,.3));animation:mascotFloat 3s ease-in-out infinite;transition:transform .2s;}
+.mascot-emoji:hover{transform:scale(1.1);}
+.mascot-speech{position:absolute;bottom:calc(100% - 8px);right:0;background:var(--card);border:2px solid var(--ink);border-radius:18px 18px 6px 18px;padding:12px 18px;font-size:.88rem;color:var(--ink);max-width:240px;text-align:left;font-weight:600;line-height:1.4;box-shadow:0 6px 24px -8px rgba(38,48,31,.35);pointer-events:auto;animation:mascotBounce .4s ease;white-space:normal;}
+.mascot-speech::after{content:'';position:absolute;bottom:-8px;right:28px;width:16px;height:16px;background:var(--card);border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);}
+@keyframes mascotBounce{0%{transform:translateY(14px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
+@keyframes mascotFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 .mascot.hidden{display:none;}
-@media(max-width:780px){.mascot{bottom:12px;right:12px;}.mascot-bubble{max-width:180px;font-size:.78rem;padding:8px 12px;}}
+@media(max-width:780px){.mascot{right:8px;}.mascot-emoji{font-size:4rem;}.mascot-speech{max-width:190px;font-size:.8rem;padding:10px 14px;}}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
@@ -242,8 +245,10 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 </div>
 <div class="confetti-wrap" id="confetti"></div>
 <div class="mascot hidden" id="mascot">
-  <div class="mascot-bubble" id="mascotBubble"></div>
-  <span class="mascot-emoji" id="mascotEmoji">🐾</span>
+  <div class="mascot-body">
+    <div class="mascot-speech" id="mascotBubble"></div>
+    <span class="mascot-emoji" id="mascotEmoji">🐾</span>
+  </div>
 </div>
 
 <!-- Auth -->
@@ -534,7 +539,7 @@ function renderHoy(u){
     renderGlasses(totalGlasses,glassesDrunk,key,u);
     /* Calorie card — always visible */
     $('#dashCalCard').classList.remove('hidden');
-    if(stats.esBajar){$('#dashMacroCard').classList.remove('hidden');}
+    $('#dashMacroCard').classList.remove('hidden');
     $('#dashCalVal').dataset.target=stats.calorias;$('#dashCalTarget').textContent=stats.calorias;
     setTimeout(()=>animateCounters($('#statsGrid')),300);
   }

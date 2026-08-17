@@ -94,6 +94,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .meal-btn.done{background:var(--herb);color:var(--bg);border-color:var(--herb);pointer-events:none;}
 .meal-check{position:absolute;top:16px;right:20px;font-size:1.2rem;opacity:0;transition:opacity .3s;}.meal-card.eaten .meal-check{opacity:1;}
 
+/* Extra food (outside plan) */
+.extra-section{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);display:none;}
+.meal-card.eaten .extra-section{display:block;}
+.extra-toggle{background:none;border:0;color:var(--tomato);font-family:'Karla',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;padding:0;display:flex;align-items:center;gap:6px;transition:color .2s;}
+.extra-toggle:hover{color:var(--herb);}
+.extra-list{margin-top:8px;display:flex;flex-direction:column;gap:6px;}
+.extra-item{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.82rem;}
+.extra-item .extra-text{color:var(--ink);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.extra-item .extra-kcal{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--tomato);flex:none;margin-left:8px;}
+.extra-item .extra-del{background:none;border:0;color:var(--ink-soft);cursor:pointer;font-size:.9rem;padding:0 0 0 6px;line-height:1;transition:color .2s;}
+.extra-item .extra-del:hover{color:var(--tomato);}
+.extra-total{margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft);text-align:right;}
+
 /* Food input modal */
 .food-overlay{position:fixed;inset:0;background:rgba(38,48,31,.55);backdrop-filter:blur(6px);z-index:210;display:flex;align-items:center;justify-content:center;padding:20px;}
 .food-modal{background:var(--card);border-radius:22px;padding:32px 28px;max-width:480px;width:100%;position:relative;}
@@ -514,7 +527,7 @@ $('#registerForm').addEventListener('submit',e=>{
   if(pw.length<6){setMsg('#regMsg','Mínimo 6 caracteres.','err');return;}
   if(pw!==pw2){setMsg('#regMsg','Las contraseñas no coinciden.','err');return;}
   if(getUsers().some(u=>u.email===email)){setMsg('#regMsg','Ya existe una cuenta con ese correo.','err');return;}
-  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,createdAt:new Date().toISOString(),menu:newMenu(tipo,alergias),consumed:{},glassed:{},sleep:{},customFoods:{}};
+  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,createdAt:new Date().toISOString(),menu:newMenu(tipo,alergias),consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{}};
   setUsers([...getUsers(),user]);setSession(email);showOnboarding();
 });
 
@@ -612,6 +625,11 @@ function renderHoy(u){
       <p class="meal-name">${name}</p>
       <p class="meal-nutrition"><span class="meal-kcal">${nd.k} kcal</span> · P: ${nd.p}g · C: ${nd.c}g · G: ${nd.g}g</p>
       <button class="meal-btn${isEaten?' done':''}" ${isEaten?'disabled':''}>${isEaten?'✓ Comido':'Marcar como comido'}</button>
+      <div class="extra-section">
+        <button class="extra-toggle" data-type="${mt}">+ ¿Comiste algo más fuera del plan?</button>
+        <div class="extra-list" id="extraList-${mt}"></div>
+        <div class="extra-total" id="extraTotal-${mt}"></div>
+      </div>
     </div>`;
   });
   $('#todayMeals').innerHTML=html;
@@ -619,6 +637,16 @@ function renderHoy(u){
     btn.addEventListener('click',function(){
       const card=this.closest('.meal-card');const mt=card.dataset.type;const ky=card.dataset.key;
       openFoodModal(mt,ky,u);
+    });
+  });
+  /* Render extra foods for eaten meals */
+  meals.forEach(mt=>{
+    renderExtraList(mt,key,u);
+  });
+  $('#todayMeals').querySelectorAll('.extra-toggle').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      const mt=this.dataset.type;
+      openExtraFoodModal(mt,key,u);
     });
   });
   updateHoySummary(u);
@@ -633,6 +661,11 @@ function updateHoySummary(u){
     if(cf){tk+=cf.k;tp+=cf.p;tc+=cf.c;tg+=cf.g;}
     else{const nd=getND(day[mt]);tk+=nd.k;tp+=nd.p;tc+=nd.c;tg+=nd.g;}
   }});
+  /* Add extra foods (outside plan) */
+  const extras=u.extraFoods&&u.extraFoods[key]||{};
+  ['desayuno','comida','cena'].forEach(mt=>{
+    if(extras[mt]){extras[mt].forEach(x=>{tk+=x.k;tp+=x.p;tc+=x.c;tg+=x.g;});}
+  });
   if(u.stats){
     $('#dailySummary').classList.remove('hidden');
     const pct=Math.min(100,tk/u.stats.calorias*100);
@@ -647,13 +680,85 @@ function updateHoySummary(u){
   }
 }
 
+/* Extra foods (fuera del plan) */
+function renderExtraList(mt,key,u){
+  const list=$('#extraList-'+mt);if(!list)return;
+  const extras=u.extraFoods&&u.extraFoods[key]&&u.extraFoods[key][mt]||[];
+  list.innerHTML='';let totalK=0;
+  extras.forEach((x,i)=>{
+    totalK+=x.k;
+    const d=document.createElement('div');d.className='extra-item';
+    d.innerHTML='<span class="extra-text">'+x.text+'</span><span class="extra-kcal">'+x.k+' kcal</span><button class="extra-del" title="Eliminar">×</button>';
+    d.querySelector('.extra-del').addEventListener('click',function(){
+      u.extraFoods[key][mt].splice(i,1);saveUser(u);renderExtraList(mt,key,u);updateHoySummary(u);
+    });
+    list.appendChild(d);
+  });
+  const tot=$('#extraTotal-'+mt);
+  if(tot)tot.textContent=totalK>0?'+'+totalK+' kcal fuera del plan':'';
+}
+
+function openExtraFoodModal(mt,key,u){
+  foodModalState={mt,key,user,u,extra:true};
+  $('#foodTitle').textContent='¿Qué más has comido?';
+  $('#foodSubtitle').textContent='Algo fuera del plan que quieras registrar';
+  $('#foodInput').value='';
+  $('#foodQty').value=150;
+  $('#foodEstimate').classList.add('hidden');
+  $('#foodOverlay').classList.remove('hidden');
+  setTimeout(()=>$('#foodInput').focus(),100);
+}
+
+/* Override food confirm to handle extra mode */
+(function(){
+const origConfirm=$('#foodConfirm').onclick;
+$('#foodConfirm').onclick=function(){
+  const s=foodModalState;
+  const text=$('#foodInput').value.trim();
+  const qty=+$('#foodQty').value||200;
+  if(s.extra){
+    /* Extra food mode */
+    const est=text?estimateFood(text,qty):null;
+    const u=s.user;const ky=s.key;const mt=s.mt;
+    if(!u.extraFoods)u.extraFoods={};if(!u.extraFoods[ky])u.extraFoods[ky]={};if(!u.extraFoods[ky][mt])u.extraFoods[ky][mt]=[];
+    if(est){
+      u.extraFoods[ky][mt].push({text,k:est.k,p:est.p,c:est.c,g:est.g});
+    }else{
+      const nd=getND(u.menu[todayIndex()]?.[mt]||'');
+      u.extraFoods[ky][mt].push({text:text||'Comida extra',k:nd.k,p:nd.p,c:nd.c,g:nd.g});
+    }
+    saveUser(u);$('#foodOverlay').classList.add('hidden');
+    renderExtraList(mt,ky,u);updateHoySummary(u);showMascotMessage(u);
+  }else{
+    /* Original plan food mode */
+    const u=s.user;const mt=s.mt;const ky=s.key;
+    if(!u.consumed[ky])u.consumed[ky]={};u.consumed[ky][mt]=true;
+    if(text){
+      const est=estimateFood(text,qty);
+      if(est){
+        if(!u.customFoods)u.customFoods={};if(!u.customFoods[ky])u.customFoods[ky]={};
+        u.customFoods[ky][mt]={text,k:est.k,p:est.p,c:est.c,g:est.g};
+      }
+    }
+    saveUser(u);$('#foodOverlay').classList.add('hidden');
+    const card=document.querySelector('.meal-card[data-type="'+mt+'"]');
+    if(card){card.classList.add('eaten');const btn=card.querySelector('.meal-btn');if(btn){btn.classList.add('done');btn.textContent='✓ Comido';btn.disabled=true;}
+      if(text&&estimateFood(text,qty)){card.querySelector('.meal-nutrition').innerHTML='<span class="meal-kcal">'+estimateFood(text,qty).k+' kcal</span> (real) · P: '+estimateFood(text,qty).p+'g · C: '+estimateFood(text,qty).c+'g · G: '+estimateFood(text,qty).g+'g';}
+    }
+    updateHoySummary(u);showMascotMessage(u);
+    renderExtraList(mt,ky,u);
+    if(u.consumed[ky].desayuno&&u.consumed[ky].comida&&u.consumed[ky].cena)launchConfetti();
+  }
+};
+})();
+
 /* SEMANA */
 function renderSemana(u){
   $('#menuTipo').textContent=u.tipo;
   const ti=todayIndex();
   $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td><td>${m.desayuno}</td><td>${m.comida}</td><td>${m.cena}</td></tr>`).join('');
 }
-$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};saveUser(u);renderSemana(u);renderLista(u);});
+$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);renderSemana(u);renderLista(u);});
 
 /* LISTA */
 function renderLista(u){
@@ -674,7 +779,7 @@ function renderPerfil(u){
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
 }
-$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
+$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
 $('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;saveUser(u);setMsg('#perfilMsg','Datos físicos actualizados. Plan recalculado.','ok');});
 $('#pwSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const cur=$('#pwActual').value,n1=$('#pwNueva').value,n2=$('#pwNueva2').value;if(u.pw!==hash(cur)){setMsg('#perfilMsg','Contraseña actual incorrecta.','err');return;}if(n1.length<6){setMsg('#perfilMsg','Mínimo 6 caracteres.','err');return;}if(n1!==n2){setMsg('#perfilMsg','Las contraseñas no coinciden.','err');return;}u.pw=hash(n1);saveUser(u);['pwActual','pwNueva','pwNueva2'].forEach(i=>$('#'+i).value='');setMsg('#perfilMsg','Contraseña actualizada.','ok');});
 $('#delBtn').addEventListener('click',()=>{const u=currentUser();if(!u)return;if(!confirm('¿Eliminar tu cuenta? No se puede deshacer.'))return;setUsers(getUsers().filter(x=>x.email!==u.email));setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
@@ -765,34 +870,17 @@ $('#foodInput').addEventListener('input',function(){
   }
 });
 $('#foodQty').addEventListener('input',function(){$('#foodInput').dispatchEvent(new Event('input'));});
-$('#foodConfirm').addEventListener('click',function(){
-  const u=foodModalState.user;const mt=foodModalState.mt;const ky=foodModalState.key;
-  const text=$('#foodInput').value.trim();
-  const qty=+$('#foodQty').value||200;
-  if(!u.consumed[ky])u.consumed[ky]={};u.consumed[ky][mt]=true;
-  if(text){
-    const est=estimateFood(text,qty);
-    if(est){
-      if(!u.customFoods)u.customFoods={};if(!u.customFoods[ky])u.customFoods[ky]={};
-      u.customFoods[ky][mt]={text,k:est.k,p:est.p,c:est.c,g:est.g};
-    }
-  }
-  saveUser(u);$('#foodOverlay').classList.add('hidden');
-  const card=document.querySelector('.meal-card[data-type="'+mt+'"]');
-  if(card){card.classList.add('eaten');const btn=card.querySelector('.meal-btn');if(btn){btn.classList.add('done');btn.textContent='✓ Comido';btn.disabled=true;}
-    if(text&&estimateFood(text,qty)){card.querySelector('.meal-nutrition').innerHTML='<span class="meal-kcal">'+estimateFood(text,qty).k+' kcal</span> (real) · P: '+estimateFood(text,qty).p+'g · C: '+estimateFood(text,qty).c+'g · G: '+estimateFood(text,qty).g+'g';}
-  }
-  updateHoySummary(u);showMascotMessage(u);
-  if(u.consumed[ky].desayuno&&u.consumed[ky].comida&&u.consumed[ky].cena)launchConfetti();
-});
 $('#foodCancel').addEventListener('click',()=>{$('#foodOverlay').classList.add('hidden');});
 $('#foodSkip').addEventListener('click',function(){
-  const u=foodModalState.user;const mt=foodModalState.mt;const ky=foodModalState.key;
+  const s=foodModalState;
+  if(s.extra){$('#foodOverlay').classList.add('hidden');return;}
+  const u=s.user;const mt=s.mt;const ky=s.key;
   if(!u.consumed[ky])u.consumed[ky]={};u.consumed[ky][mt]=true;saveUser(u);
   $('#foodOverlay').classList.add('hidden');
   const card=document.querySelector('.meal-card[data-type="'+mt+'"]');
   if(card){card.classList.add('eaten');const btn=card.querySelector('.meal-btn');if(btn){btn.classList.add('done');btn.textContent='✓ Comido';btn.disabled=true;}}
   updateHoySummary(u);showMascotMessage(u);
+  renderExtraList(mt,ky,u);
   if(u.consumed[ky].desayuno&&u.consumed[ky].comida&&u.consumed[ky].cena)launchConfetti();
 });
 
@@ -867,7 +955,7 @@ function launchConfetti(){
 /* Init */
 (function init(){
   if(!getUsers().length){
-    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Regular el peso',alergias:[],createdAt:new Date().toISOString(),menu:newMenu('Equilibrada',[]),consumed:{},glassed:{},sleep:{},customFoods:{}};
+    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Regular el peso',alergias:[],createdAt:new Date().toISOString(),menu:newMenu('Equilibrada',[]),consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{}};
     setUsers([demo]);
   }
   renderChips('regChips',ALERGIAS,[]);

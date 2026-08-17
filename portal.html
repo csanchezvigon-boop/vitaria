@@ -89,16 +89,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .meal-name{font-family:'Fraunces',serif;font-weight:650;font-size:1.08rem;margin:0 0 4px;}
 .meal-nutrition{font-size:.85rem;color:var(--ink-soft);margin:0 0 12px;}
 .meal-kcal{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--ink);}
-.meal-btn{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);padding:9px 18px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .25s;}
-.meal-btn:hover{border-color:var(--herb);color:var(--herb);}
+.meal-btn{border:2px solid var(--ink);background:var(--ink);color:var(--bg);padding:12px 24px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .25s;width:100%;text-align:center;}
+.meal-btn:hover{background:var(--herb);border-color:var(--herb);transform:translateY(-2px);}
 .meal-btn.done{background:var(--herb);color:var(--bg);border-color:var(--herb);pointer-events:none;}
 .meal-check{position:absolute;top:16px;right:20px;font-size:1.2rem;opacity:0;transition:opacity .3s;}.meal-card.eaten .meal-check{opacity:1;}
 
 /* Extra food (outside plan) */
 .extra-section{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);display:none;}
 .meal-card.eaten .extra-section{display:block;}
-.extra-toggle{background:none;border:0;color:var(--tomato);font-family:'Karla',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;padding:0;display:flex;align-items:center;gap:6px;transition:color .2s;}
-.extra-toggle:hover{color:var(--herb);}
+.extra-toggle{background:var(--tomato);border:0;color:var(--bg);font-family:'Karla',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;padding:8px 16px;border-radius:999px;display:inline-flex;align-items:center;gap:6px;transition:background .2s,transform .15s;}
+.extra-toggle:hover{background:var(--herb);transform:translateY(-1px);}
 .extra-list{margin-top:8px;display:flex;flex-direction:column;gap:6px;}
 .extra-item{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:.82rem;}
 .extra-item .extra-text{color:var(--ink);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
@@ -211,7 +211,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 /* Mascot */
 .mascot{position:fixed;bottom:0;right:16px;z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:0;pointer-events:none;}
 .mascot-body{position:relative;pointer-events:auto;cursor:default;}
-.mascot-emoji{font-size:7rem;line-height:1;display:block;filter:drop-shadow(0 4px 16px rgba(38,48,31,.35));animation:mascotFloat 3s ease-in-out infinite;transition:transform .2s;}
+.mascot-emoji{font-size:8rem;line-height:1;display:block;filter:drop-shadow(0 6px 20px rgba(38,48,31,.4));animation:mascotFloat 3s ease-in-out infinite;transition:transform .2s;}
 .mascot-emoji:hover{transform:scale(1.15) rotate(-5deg);}
 .mascot-speech{position:absolute;bottom:calc(100% - 4px);right:0;background:var(--card);border:2.5px solid var(--ink);border-radius:18px 18px 6px 18px;padding:14px 20px;font-size:.9rem;color:var(--ink);max-width:260px;text-align:left;font-weight:600;line-height:1.4;box-shadow:0 8px 28px -8px rgba(38,48,31,.4);pointer-events:auto;animation:mascotBounce .4s ease;white-space:normal;}
 .mascot-speech::after{content:'';position:absolute;bottom:-8px;right:30px;width:16px;height:16px;background:var(--card);border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg);}
@@ -307,7 +307,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 <div class="mascot hidden" id="mascot">
   <div class="mascot-body">
     <div class="mascot-speech" id="mascotBubble"></div>
-    <span class="mascot-emoji" id="mascotEmoji">🐨</span>
+    <span class="mascot-emoji" id="mascotEmoji">🐨💪</span>
   </div>
 </div>
 

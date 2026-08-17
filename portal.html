@@ -211,14 +211,14 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 /* Mascot */
 .mascot{position:fixed;bottom:0;right:16px;z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:0;pointer-events:none;}
 .mascot-body{position:relative;pointer-events:auto;cursor:default;}
-.mascot-emoji{font-size:5.5rem;line-height:1;display:block;filter:drop-shadow(0 4px 12px rgba(38,48,31,.3));animation:mascotFloat 3s ease-in-out infinite;transition:transform .2s;}
-.mascot-emoji:hover{transform:scale(1.1);}
-.mascot-speech{position:absolute;bottom:calc(100% - 8px);right:0;background:var(--card);border:2px solid var(--ink);border-radius:18px 18px 6px 18px;padding:12px 18px;font-size:.88rem;color:var(--ink);max-width:240px;text-align:left;font-weight:600;line-height:1.4;box-shadow:0 6px 24px -8px rgba(38,48,31,.35);pointer-events:auto;animation:mascotBounce .4s ease;white-space:normal;}
-.mascot-speech::after{content:'';position:absolute;bottom:-8px;right:28px;width:16px;height:16px;background:var(--card);border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);transform:rotate(45deg);}
+.mascot-emoji{font-size:7rem;line-height:1;display:block;filter:drop-shadow(0 4px 16px rgba(38,48,31,.35));animation:mascotFloat 3s ease-in-out infinite;transition:transform .2s;}
+.mascot-emoji:hover{transform:scale(1.15) rotate(-5deg);}
+.mascot-speech{position:absolute;bottom:calc(100% - 4px);right:0;background:var(--card);border:2.5px solid var(--ink);border-radius:18px 18px 6px 18px;padding:14px 20px;font-size:.9rem;color:var(--ink);max-width:260px;text-align:left;font-weight:600;line-height:1.4;box-shadow:0 8px 28px -8px rgba(38,48,31,.4);pointer-events:auto;animation:mascotBounce .4s ease;white-space:normal;}
+.mascot-speech::after{content:'';position:absolute;bottom:-8px;right:30px;width:16px;height:16px;background:var(--card);border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg);}
 @keyframes mascotBounce{0%{transform:translateY(14px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
-@keyframes mascotFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+@keyframes mascotFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
 .mascot.hidden{display:none;}
-@media(max-width:780px){.mascot{right:8px;}.mascot-emoji{font-size:4rem;}.mascot-speech{max-width:190px;font-size:.8rem;padding:10px 14px;}}
+@media(max-width:780px){.mascot{right:8px;}.mascot-emoji{font-size:5rem;}.mascot-speech{max-width:200px;font-size:.82rem;padding:10px 14px;}}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
@@ -307,7 +307,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 <div class="mascot hidden" id="mascot">
   <div class="mascot-body">
     <div class="mascot-speech" id="mascotBubble"></div>
-    <span class="mascot-emoji" id="mascotEmoji">🐾</span>
+    <span class="mascot-emoji" id="mascotEmoji">🐨</span>
   </div>
 </div>
 
@@ -923,12 +923,12 @@ function renderSleepRating(h){
 
 /* Mascot messages */
 const MASCOT_MSGS={
-  water:['¡Bien! Seguimiento constante 💧','Cada vaso cuenta, sigue así.','Vas por buen camino con el agua.','Hidratado y fuerte.'],
-  food:['¡Comido! Buen trabajo hoy.','Llevas el día bien encarrilado.','Nutriéndote de verdad.','Eso es, un paso más.'],
-  sleep:['Dormir bien es clave para todo.','El descanso marca la diferencia.','Sin sueño no hay energía.'],
-  sleepGood:['¡8 horas! Eso es cuidarte de verdad.','Muy bien dormido, el cuerpo lo agradece.'],
-  eatAll:['¡Día completo! Eres constante.','Completaste el día, ¡buen ritmo!'],
-  start:['¡Hola! Estoy aquí para animarte.','¡Buen día! Vamos a cuidarnos hoy.','¿Listo para el día? Yo también.']
+  water:['¡Vamos koala! Cada vaso te hace más fuerte 💧','Hidrátate como un koala power.','Bebe agua, que yo duermo 22h y estoy fit.'],
+  food:['¡Comido! Yo solo como eucalipto pero tú haz lo tuyo.','Nutriéndote de verdad, ¡buen koala!','Eso es, un paso más hacia la fuerza.'],
+  sleep:['Dormir 22h al día es mi secreto. Tú duerme bien también.','El descanso marca la diferencia. Koala approved.'],
+  sleepGood:['¡8 horas! ¡Eso es mentalidad de koala! 🐨💪','Muy bien dormido, así me gusta.'],
+  eatAll:['¡Día completo! Eres más constante que yo comiendo eucalipto.','Completaste el día, ¡koala mode activated! 🐨'],
+  start:['¡Hola! Soy tu koala motivador. ¡Hoy vas a estar fuerte!','¡Buen día! Yo ya desayuné eucalipto, ¿y tú?','¿Listo para el día? ¡Vamos koala! 🐨💪']
 };
 function pickMsg(arr){return arr[Math.floor(Math.random()*arr.length)];}
 function showMascotMessage(u){

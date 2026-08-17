@@ -3,746 +3,597 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portal Vitaria — Acceso clientes</title>
+<title>Portal Vitaria</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;0,9..144,900;1,9..144,500&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#EDF0E2;
-    --bg-alt:#E2E7D4;
-    --card:#FBF9F2;
-    --ink:#26301F;
-    --ink-soft:#4C5741;
-    --tomato:#D6552C;
-    --yolk:#E8A93B;
-    --herb:#4F6F3F;
-    --berry:#8B3A4A;
-    --line: rgba(38,48,31,0.14);
-  }
-  *{box-sizing:border-box;}
-  body{
-    margin:0;background:var(--bg);color:var(--ink);
-    font-family:'Karla',sans-serif;line-height:1.55;min-height:100vh;
-  }
-  h1,h2,h3{font-family:'Fraunces',serif;font-weight:650;margin:0 0 .4em;letter-spacing:-0.01em;}
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.14em;
-    text-transform:uppercase;color:var(--herb);font-weight:600;
-  }
-  a{color:inherit;}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
-  .hidden{display:none !important;}
+:root{--bg:#EDF0E2;--bg-alt:#E2E7D4;--card:#FBF9F2;--ink:#26301F;--ink-soft:#4C5741;--tomato:#D6552C;--yolk:#E8A93B;--herb:#4F6F3F;--berry:#8B3A4A;--line:rgba(38,48,31,0.14);--water:#4A90D9;--water-light:#7BC4FF;}
+*{box-sizing:border-box;}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Karla',sans-serif;line-height:1.55;min-height:100vh;}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:650;margin:0 0 .4em;letter-spacing:-.01em;}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--herb);font-weight:600;}
+a{color:inherit;}.wrap{max-width:1080px;margin:0 auto;padding:0 28px;}.hidden{display:none!important;}
+nav{position:sticky;top:0;z-index:50;background:rgba(237,240,226,.88);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:16px;padding-bottom:16px;gap:14px;}
+.brand{font-family:'Fraunces',serif;font-weight:900;font-size:1.25rem;display:flex;align-items:center;gap:8px;}
+.brand .dot{width:10px;height:10px;border-radius:50%;background:var(--tomato);display:inline-block;}
+.nav-user{display:flex;align-items:center;gap:12px;font-size:.9rem;}
+.user-chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;}
+.btn{display:inline-block;padding:11px 20px;border-radius:999px;font-weight:700;font-size:.9rem;text-decoration:none;cursor:pointer;border:1.5px solid var(--ink);background:transparent;font-family:'Karla',sans-serif;transition:transform .15s,background .2s,color .2s;}
+.btn-solid{background:var(--ink);color:var(--bg);}.btn-solid:hover{background:var(--herb);border-color:var(--herb);transform:translateY(-2px);}
+.btn-ghost{color:var(--ink);}.btn-ghost:hover{background:var(--ink);color:var(--bg);transform:translateY(-2px);}
+.btn-small{padding:8px 16px;font-size:.8rem;}.btn-danger{border-color:var(--tomato);color:var(--tomato);}.btn-danger:hover{background:var(--tomato);color:var(--bg);}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--tomato);outline-offset:2px;}
 
-  nav{
-    position:sticky;top:0;z-index:50;
-    background:rgba(237,240,226,0.88);backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);
-  }
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding-top:16px;padding-bottom:16px;gap:14px;}
-  .brand{font-family:'Fraunces',serif;font-weight:900;font-size:1.25rem;display:flex;align-items:center;gap:8px;}
-  .brand .dot{width:10px;height:10px;border-radius:50%;background:var(--tomato);display:inline-block;}
-  .nav-user{display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:.9rem;}
-  .user-chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;}
+/* Auth */
+#view-auth{padding:70px 0 90px;}.auth-card{max-width:460px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:40px 36px;}
+.auth-card h1{font-size:1.7rem;margin-top:10px;}.auth-card .eyebrow{color:var(--tomato);}
+.field{margin-bottom:20px;}.field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin:0 0 8px;}
+.field input,.field select{width:100%;padding:12px 16px;border-radius:12px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);font-family:'Karla',sans-serif;font-size:.95rem;}
+.field input:focus,.field select:focus{border-color:var(--herb);outline:none;}
+.field-row{display:flex;gap:16px;}.field-row .field{flex:1;}
+.chips{display:flex;flex-wrap:wrap;gap:8px;}
+.chip{border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:8px 15px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
+.chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.auth-msg{margin:0 0 16px;font-size:.88rem;font-weight:700;min-height:0;}.auth-msg.err{color:var(--tomato);}.auth-msg.ok{color:var(--herb);}
+.auth-switch{margin-top:18px;font-size:.9rem;color:var(--ink-soft);}.auth-switch button{background:none;border:0;color:var(--tomato);font-weight:700;cursor:pointer;text-decoration:underline;font-size:.9rem;font-family:'Karla',sans-serif;}
+.demo-note{margin-top:24px;padding-top:18px;border-top:1px dashed var(--line);font-size:.82rem;color:var(--ink-soft);}.demo-note b{font-family:'IBM Plex Mono',monospace;color:var(--ink);}
 
-  .btn{
-    display:inline-block;padding:11px 20px;border-radius:999px;
-    font-weight:700;font-size:.9rem;text-decoration:none;cursor:pointer;
-    border:1.5px solid var(--ink);background:transparent;font-family:'Karla',sans-serif;
-    transition:transform .15s ease, background .2s ease, color .2s ease;
-  }
-  .btn-solid{background:var(--ink);color:var(--bg);}
-  .btn-solid:hover{background:var(--herb);border-color:var(--herb);transform:translateY(-2px);}
-  .btn-ghost{color:var(--ink);}
-  .btn-ghost:hover{background:var(--ink);color:var(--bg);transform:translateY(-2px);}
-  .btn-small{padding:8px 16px;font-size:.8rem;}
-  .btn-danger{border-color:var(--tomato);color:var(--tomato);}
-  .btn-danger:hover{background:var(--tomato);color:var(--bg);}
-  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--tomato);outline-offset:2px;}
+/* Dashboard */
+#view-dashboard{padding:44px 0 80px;}.dash{display:grid;grid-template-columns:200px 1fr;gap:32px;align-items:start;}
+@media(max-width:780px){.dash{grid-template-columns:1fr;}}
+.dash-nav{display:flex;flex-direction:column;gap:10px;position:sticky;top:90px;}
+@media(max-width:780px){.dash-nav{position:static;flex-direction:row;flex-wrap:wrap;}}
+.dash-tab{text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:14px 18px;cursor:pointer;font-family:'Karla',sans-serif;font-size:.92rem;font-weight:700;color:var(--ink-soft);transition:border-color .2s,background .2s,color .2s;}
+.dash-tab:hover{border-color:var(--ink);color:var(--ink);}.dash-tab.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.dash-main{min-width:0;}.section-head{max-width:640px;margin-bottom:30px;}.section-head h2{font-size:clamp(1.5rem,2.6vw,2rem);}.section-head p{color:var(--ink-soft);font-size:.98rem;margin-top:8px;}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;}
+.dash-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px;}
+.dash-card h3{font-size:1.08rem;margin-bottom:8px;}
+.dash-card .label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;display:block;margin-bottom:10px;}
 
-  /* Auth */
-  #view-auth{padding:70px 0 90px;}
-  .auth-card{max-width:460px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:40px 36px;}
-  .auth-card h1{font-size:1.7rem;margin-top:10px;}
-  .auth-card .eyebrow{color:var(--tomato);}
-  .field{margin-bottom:20px;}
-  .field label{display:block;font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin:0 0 8px;}
-  .field input,.field select{
-    width:100%;padding:12px 16px;border-radius:12px;border:1.5px solid var(--line);
-    background:var(--bg);color:var(--ink);font-family:'Karla',sans-serif;font-size:.95rem;
-  }
-  .field input:focus,.field select:focus{border-color:var(--herb);outline:none;}
-  .field-row{display:flex;gap:16px;}
-  .field-row .field{flex:1;}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;}
-  .chip{
-    border:1.5px solid var(--line);background:transparent;color:var(--ink);
-    padding:8px 15px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;
-    transition:background .2s,color .2s,border-color .2s;
-  }
-  .chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
-  .auth-msg{margin:0 0 16px;font-size:.88rem;font-weight:700;min-height:0;}
-  .auth-msg.err{color:var(--tomato);}
-  .auth-msg.ok{color:var(--herb);}
-  .auth-switch{margin-top:18px;font-size:.9rem;color:var(--ink-soft);}
-  .auth-switch button{background:none;border:0;color:var(--tomato);font-weight:700;cursor:pointer;text-decoration:underline;font-size:.9rem;font-family:'Karla',sans-serif;}
-  .demo-note{margin-top:24px;padding-top:18px;border-top:1px dashed var(--line);font-size:.82rem;color:var(--ink-soft);}
-  .demo-note b{font-family:'IBM Plex Mono',monospace;color:var(--ink);}
+/* Stats grid */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-bottom:30px;}
+.stat-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;text-align:center;position:relative;overflow:hidden;}
+.stat-icon{font-size:1.8rem;display:block;margin-bottom:6px;}
+.stat-label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;display:block;margin-bottom:10px;}
+.stat-value{font-family:'Fraunces',serif;font-weight:900;font-size:1.6rem;letter-spacing:-.02em;display:block;margin-top:8px;}
+.stat-value .unit{font-size:.9rem;font-weight:500;color:var(--ink-soft);}
 
-  /* Dashboard */
-  #view-dashboard{padding:44px 0 80px;}
-  .dash{display:grid;grid-template-columns:230px 1fr;gap:32px;align-items:start;}
-  @media (max-width:780px){.dash{grid-template-columns:1fr;}}
-  .dash-nav{display:flex;flex-direction:column;gap:10px;position:sticky;top:90px;}
-  @media (max-width:780px){.dash-nav{position:static;flex-direction:row;flex-wrap:wrap;}}
-  .dash-tab{
-    text-align:left;background:var(--card);border:1.5px solid var(--line);border-radius:14px;
-    padding:14px 18px;cursor:pointer;font-family:'Karla',sans-serif;font-size:.92rem;font-weight:700;color:var(--ink-soft);
-    transition:border-color .2s, background .2s, color .2s;
-  }
-  .dash-tab:hover{border-color:var(--ink);color:var(--ink);}
-  .dash-tab.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+/* Water glass */
+.water-glass-wrap{display:flex;justify-content:center;margin:8px 0;}
+.water-glass{width:60px;height:95px;border:3px solid var(--ink);border-radius:0 0 12px 12px;position:relative;overflow:hidden;background:rgba(255,255,255,.3);}
+.water-fill{position:absolute;bottom:0;left:0;right:0;height:0;background:linear-gradient(to top,var(--water),var(--water-light));transition:height 1.5s cubic-bezier(.4,0,.2,1);border-radius:0 0 9px 9px;}
+.water-fill::after{content:'';position:absolute;top:-5px;left:-10%;width:120%;height:10px;background:rgba(74,144,217,.7);border-radius:50%;animation:wave 2.5s ease-in-out infinite;}
+@keyframes wave{0%,100%{transform:translateX(-4%) scaleY(.8);}50%{transform:translateX(4%) scaleY(1.2);}}
 
-  .dash-main{min-width:0;}
-  .section-head{max-width:640px;margin-bottom:30px;}
-  .section-head h2{font-size:clamp(1.5rem,2.6vw,2rem);}
-  .section-head p{color:var(--ink-soft);font-size:.98rem;margin-top:8px;}
+/* Calorie ring */
+.cal-ring-wrap{display:flex;justify-content:center;margin:6px 0;}
+.cal-ring{width:100px;height:100px;}.cal-ring circle{transition:stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1);}
 
-  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px;}
-  .dash-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px 24px;}
-  .dash-card h3{font-size:1.08rem;margin-bottom:8px;}
-  .dash-card .label{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;display:block;margin-bottom:10px;}
-  .dash-card ul{list-style:none;margin:0 0 18px;padding:0;display:flex;flex-direction:column;gap:8px;font-size:.9rem;}
-  .dash-card ul li{display:flex;gap:10px;align-items:flex-start;}
-  .dash-card ul li::before{content:"✓";color:var(--herb);font-weight:700;flex:none;}
-  .price-big{font-family:'Fraunces',serif;font-weight:900;font-size:1.9rem;letter-spacing:-0.02em;margin:6px 0 2px;}
-  .tagline{color:var(--ink-soft);font-size:.9rem;margin:0 0 14px;}
-  .plan-badge{display:inline-block;background:var(--tomato);color:var(--bg);font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;padding:4px 12px;border-radius:999px;}
-  .meta-row{display:flex;justify-content:space-between;gap:12px;font-size:.85rem;color:var(--ink-soft);border-top:1px solid var(--line);padding-top:12px;margin-top:14px;}
-  .meta-row b{color:var(--ink);}
+/* Macro bars */
+.macro-bars{margin-top:14px;display:flex;flex-direction:column;gap:10px;text-align:left;}
+.macro-row{display:flex;align-items:center;gap:10px;}
+.macro-name{font-size:.78rem;font-family:'IBM Plex Mono',monospace;font-weight:600;width:68px;color:var(--ink-soft);}
+.macro-track{flex:1;height:10px;background:var(--line);border-radius:99px;overflow:hidden;}
+.macro-fill{height:100%;border-radius:99px;width:0%;transition:width 1s cubic-bezier(.4,0,.2,1);}
+.macro-fill.protein{background:var(--tomato);}.macro-fill.carbs{background:var(--yolk);}.macro-fill.fat{background:var(--berry);}
+.macro-val{font-size:.78rem;font-family:'IBM Plex Mono',monospace;font-weight:600;width:42px;text-align:right;color:var(--ink);}
 
-  .menu-scroll{overflow-x:auto;}
-  .menu-table{width:100%;border-collapse:collapse;font-size:.88rem;background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);}
-  .menu-table th,.menu-table td{padding:13px 12px;text-align:left;border-bottom:1px solid var(--line);}
-  .menu-table th{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;font-size:.66rem;letter-spacing:.07em;color:var(--ink-soft);background:var(--bg-alt);}
-  .menu-table tr:last-child td{border-bottom:none;}
-  .menu-table td b{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--herb);}
+/* Meal cards */
+.meal-cards{display:flex;flex-direction:column;gap:16px;margin-bottom:24px;}
+.meal-card{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:22px 24px;transition:border-color .3s,background .3s;position:relative;overflow:hidden;}
+.meal-card.eaten{border-color:var(--herb);background:#f4f8f0;}
+.meal-card .meal-header{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.meal-type{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--tomato);}
+.meal-icon{font-size:1.1rem;}
+.meal-name{font-family:'Fraunces',serif;font-weight:650;font-size:1.08rem;margin:0 0 4px;}
+.meal-nutrition{font-size:.85rem;color:var(--ink-soft);margin:0 0 12px;}
+.meal-kcal{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--ink);}
+.meal-btn{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);padding:9px 18px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .25s;}
+.meal-btn:hover{border-color:var(--herb);color:var(--herb);}
+.meal-btn.done{background:var(--herb);color:var(--bg);border-color:var(--herb);pointer-events:none;}
+.meal-check{position:absolute;top:16px;right:20px;font-size:1.2rem;opacity:0;transition:opacity .3s;}.meal-card.eaten .meal-check{opacity:1;}
 
-  .shop-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
-  .shop-list li{display:flex;justify-content:space-between;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;font-size:.9rem;}
-  .shop-list li b{font-family:'IBM Plex Mono',monospace;color:var(--tomato);flex:none;}
+/* Daily summary */
+.daily-summary{background:var(--ink);color:var(--bg);border-radius:20px;padding:28px 28px 24px;}
+.daily-summary h3{font-size:1.1rem;margin-bottom:12px;color:var(--bg);}
+.summary-bar{height:14px;background:rgba(237,240,226,.2);border-radius:99px;overflow:hidden;margin:12px 0;}
+.summary-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--herb),var(--yolk));width:0%;transition:width 1.2s cubic-bezier(.4,0,.2,1);}
+.summary-nums{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:10px;}
+.summary-nums b{color:var(--yolk);}
+.summary-macros{display:flex;gap:20px;font-size:.82rem;color:rgba(237,240,226,.75);border-top:1px dashed rgba(237,240,226,.2);padding-top:12px;margin-top:8px;}
+.summary-macros b{color:var(--bg);}
 
-  .inline-actions{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;}
-  .note{font-size:.82rem;color:var(--ink-soft);}
+/* Menu table */
+.menu-scroll{overflow-x:auto;}.menu-table{width:100%;border-collapse:collapse;font-size:.88rem;background:var(--card);border-radius:16px;overflow:hidden;border:1px solid var(--line);}
+.menu-table th,.menu-table td{padding:13px 12px;text-align:left;border-bottom:1px solid var(--line);}
+.menu-table th{font-family:'IBM Plex Mono',monospace;text-transform:uppercase;font-size:.66rem;letter-spacing:.07em;color:var(--ink-soft);background:var(--bg-alt);}
+.menu-table tr:last-child td{border-bottom:none;}
+.menu-table td b{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--herb);}
+.menu-table .today{background:rgba(79,111,63,.06);}
 
-  footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;}
+/* Shop list */
+.shop-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
+.shop-list li{display:flex;justify-content:space-between;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;font-size:.9rem;}
+.shop-list li b{font-family:'IBM Plex Mono',monospace;color:var(--tomato);flex:none;}
+
+.inline-actions{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;}
+.note{font-size:.82rem;color:var(--ink-soft);}
+
+/* Perfil physical data */
+.phys-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:12px;margin-top:12px;}
+.phys-val{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
+.phys-val .pv-num{font-family:'Fraunces',serif;font-weight:900;font-size:1.4rem;}.phys-val .pv-label{font-size:.72rem;color:var(--ink-soft);margin-top:4px;}
+
+/* Onboarding */
+.onb-overlay{position:fixed;inset:0;background:rgba(38,48,31,.55);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
+.onb-card{background:var(--card);border-radius:24px;padding:40px 36px;max-width:480px;width:100%;position:relative;overflow:hidden;}
+.onb-dots{display:flex;gap:8px;justify-content:center;margin-bottom:28px;}
+.onb-dot{width:10px;height:10px;border-radius:50%;background:var(--line);transition:background .3s,transform .3s;}.onb-dot.active{background:var(--tomato);transform:scale(1.2);}
+.onb-step{animation:fadeSlide .4s ease;}
+.onb-step h2{text-align:center;margin-bottom:6px;}
+.onb-step>p{text-align:center;color:var(--ink-soft);font-size:.95rem;margin:0 0 24px;}
+.onb-step .btn{width:100%;text-align:center;margin-top:8px;}
+.onb-result{text-align:center;padding:20px 0;}
+.onb-result .result-big{font-family:'Fraunces',serif;font-weight:900;font-size:2.2rem;color:var(--tomato);margin:10px 0 4px;}
+.onb-result .result-label{font-size:.88rem;color:var(--ink-soft);}
+.activity-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.activity-card{border:1.5px solid var(--line);border-radius:16px;padding:18px 14px;text-align:center;cursor:pointer;background:transparent;font-family:'Karla',sans-serif;transition:all .2s;}
+.activity-card:hover{border-color:var(--ink);}
+.activity-card.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.activity-card .a-icon{font-size:1.6rem;display:block;margin-bottom:6px;}
+.activity-card b{display:block;font-size:.88rem;margin-bottom:4px;}
+.activity-card p{margin:0;font-size:.78rem;opacity:.75;}
+.sex-toggle{display:flex;gap:12px;}
+.sex-btn{flex:1;border:1.5px solid var(--line);border-radius:14px;padding:16px;text-align:center;cursor:pointer;background:transparent;font-family:'Karla',sans-serif;font-size:.9rem;font-weight:700;transition:all .2s;}
+.sex-btn:hover{border-color:var(--ink);}.sex-btn.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+
+/* Confetti */
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:300;overflow:hidden;}
+.confetti-piece{position:absolute;top:-20px;width:8px;height:8px;border-radius:2px;animation:confettiFall 3s ease-in forwards;}
+@keyframes confettiFall{0%{transform:translateY(0) rotate(0);opacity:1;}100%{transform:translateY(110vh) rotate(720deg);opacity:0;}}
+
+@keyframes fadeSlide{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="wrap">
-    <div class="brand"><span class="dot"></span>Vitaria <span style="font-size:.7rem;font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);letter-spacing:.1em;">PORTAL</span></div>
-    <div class="nav-user hidden" id="navUser">
-      <span class="user-chip" id="userChip"></span>
-      <button class="btn btn-small" id="logoutBtn">Salir</button>
-    </div>
+<nav><div class="wrap">
+  <div class="brand"><span class="dot"></span>Vitaria <span style="font-size:.7rem;font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);letter-spacing:.1em;">PORTAL</span></div>
+  <div class="nav-user hidden" id="navUser">
+    <span class="user-chip" id="userChip"></span>
+    <button class="btn btn-small" id="logoutBtn">Salir</button>
   </div>
-</nav>
+</div></nav>
 
-<!-- Autenticación -->
-<div id="view-auth" class="view">
-  <div class="wrap">
-    <div class="auth-card">
-
-      <form id="loginForm">
-        <p class="eyebrow">Acceso clientes</p>
-        <h1>Bienvenido de nuevo</h1>
-        <p class="auth-msg" id="loginMsg"></p>
-        <div class="field">
-          <label for="loginEmail">Correo electrónico</label>
-          <input type="email" id="loginEmail" autocomplete="email" placeholder="tu@email.com">
+<!-- Onboarding -->
+<div class="onb-overlay hidden" id="onboarding">
+  <div class="onb-card">
+    <div class="onb-dots" id="onbDots"></div>
+    <div class="onb-step" data-step="0">
+      <h2>¡Vamos a personalizarte!</h2>
+      <p>Unos datos rápidos para calcular tu agua y calorías diarias ideales.</p>
+      <button class="btn btn-solid" id="onbStart">Empezar</button>
+    </div>
+    <div class="onb-step hidden" data-step="1">
+      <h2>Tu cuerpo</h2>
+      <div class="field-row">
+        <div class="field"><label>Altura (cm)</label><input type="number" id="onbAltura" min="100" max="250" placeholder="170"></div>
+        <div class="field"><label>Peso (kg)</label><input type="number" id="onbPeso" min="30" max="300" step="0.1" placeholder="70"></div>
+      </div>
+      <button class="btn btn-solid" id="onbNext1">Siguiente →</button>
+    </div>
+    <div class="onb-step hidden" data-step="2">
+      <h2>Tu perfil</h2>
+      <div class="field"><label>Edad (años)</label><input type="number" id="onbEdad" min="14" max="100" placeholder="30"></div>
+      <div class="field"><label>Sexo</label>
+        <div class="sex-toggle" id="onbSexo">
+          <button class="sex-btn active" data-val="hombre">👨 Hombre</button>
+          <button class="sex-btn" data-val="mujer">👩 Mujer</button>
         </div>
-        <div class="field">
-          <label for="loginPw">Contraseña</label>
-          <input type="password" id="loginPw" autocomplete="current-password" placeholder="••••••••">
-        </div>
-        <button class="btn btn-solid" type="submit" style="width:100%;text-align:center;">Entrar</button>
-        <p class="auth-switch">¿Aún no tienes cuenta? <button type="button" id="toRegister">Crear cuenta</button></p>
-      </form>
-
-      <form id="registerForm" class="hidden">
-        <p class="eyebrow">Alta de cliente</p>
-        <h1>Crea tu cuenta</h1>
-        <p class="auth-msg" id="regMsg"></p>
-        <div class="field">
-          <label for="regName">Nombre</label>
-          <input type="text" id="regName" autocomplete="name" placeholder="Cómo te llamas">
-        </div>
-        <div class="field">
-          <label for="regEmail">Correo electrónico</label>
-          <input type="email" id="regEmail" autocomplete="email" placeholder="tu@email.com">
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="regPw">Contraseña</label>
-            <input type="password" id="regPw" autocomplete="new-password" placeholder="Mínimo 6 caracteres">
-          </div>
-          <div class="field">
-            <label for="regPw2">Repite</label>
-            <input type="password" id="regPw2" autocomplete="new-password" placeholder="Repite la contraseña">
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="regTipo">Tipo de alimentación</label>
-            <select id="regTipo">
-              <option>Equilibrada</option>
-              <option>Vegetariana</option>
-              <option>Vegana</option>
-              <option>Sin gluten</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="regObjetivo">Objetivo</label>
-            <select id="regObjetivo">
-              <option>Aprender a comer bien</option>
-              <option>Más energía</option>
-              <option>Regular el peso</option>
-            </select>
-          </div>
-        </div>
-        <div class="field">
-          <label>Alergias o restricciones</label>
-          <div class="chips" id="regChips"></div>
-        </div>
-        <div class="field">
-          <label>Plan</label>
-          <div class="chips" id="regPlans">
-            <button type="button" class="chip" data-plan="starter">Starter 6 €/mes</button>
-            <button type="button" class="chip active" data-plan="pro">Pro 20 €/mes</button>
-            <button type="button" class="chip" data-plan="premium">Premium 30 €/mes</button>
-          </div>
-        </div>
-        <button class="btn btn-solid" type="submit" style="width:100%;text-align:center;">Crear mi cuenta</button>
-        <p class="auth-switch">¿Ya tienes cuenta? <button type="button" id="toLogin">Entrar</button></p>
-      </form>
-
-      <p class="demo-note">Cuenta de prueba: <b>test@vitaria.com</b> / <b>vitaria123</b>. Esta demo guarda los datos solo en tu navegador.</p>
+      </div>
+      <button class="btn btn-solid" id="onbNext2">Siguiente →</button>
+    </div>
+    <div class="onb-step hidden" data-step="3">
+      <h2>¿Cómo mueves el día a día?</h2>
+      <div class="activity-cards" id="onbActividad">
+        <button class="activity-card" data-val="sedentario"><span class="a-icon">🪑</span><b>Sedentario</b><p>Oficina, poco movimiento</p></button>
+        <button class="activity-card" data-val="ligero"><span class="a-icon">🚶</span><b>Ligero</b><p>Paseos, ejercicio 1-2x/sem</p></button>
+        <button class="activity-card" data-val="moderado"><span class="a-icon">🏃</span><b>Moderado</b><p>Ejercicio 3-4x/sem</p></button>
+        <button class="activity-card" data-val="intenso"><span class="a-icon">🏋️</span><b>Intenso</b><p>Ejercicio diario / físico</p></button>
+      </div>
+      <button class="btn btn-solid" id="onbNext3" style="margin-top:16px;">Siguiente →</button>
+    </div>
+    <div class="onb-step hidden" data-step="4">
+      <h2>¡Tus resultados!</h2>
+      <div id="onbResults"></div>
+      <button class="btn btn-solid" id="onbFinish">¡Empezar!</button>
     </div>
   </div>
 </div>
+<div class="confetti-wrap" id="confetti"></div>
+
+<!-- Auth -->
+<div id="view-auth" class="view"><div class="wrap"><div class="auth-card">
+  <form id="loginForm">
+    <p class="eyebrow">Acceso clientes</p><h1>Bienvenido de nuevo</h1>
+    <p class="auth-msg" id="loginMsg"></p>
+    <div class="field"><label>Correo</label><input type="email" id="loginEmail" autocomplete="email" placeholder="tu@email.com"></div>
+    <div class="field"><label>Contraseña</label><input type="password" id="loginPw" autocomplete="current-password" placeholder="••••••••"></div>
+    <button class="btn btn-solid" type="submit" style="width:100%;text-align:center;">Entrar</button>
+    <p class="auth-switch">¿Sin cuenta? <button type="button" id="toRegister">Crear cuenta</button></p>
+  </form>
+  <form id="registerForm" class="hidden">
+    <p class="eyebrow">Alta de cliente</p><h1>Crea tu cuenta</h1>
+    <p class="auth-msg" id="regMsg"></p>
+    <div class="field"><label>Nombre</label><input type="text" id="regName" placeholder="Cómo te llamas"></div>
+    <div class="field"><label>Correo</label><input type="email" id="regEmail" placeholder="tu@email.com"></div>
+    <div class="field-row">
+      <div class="field"><label>Contraseña</label><input type="password" id="regPw" placeholder="Mínimo 6 caracteres"></div>
+      <div class="field"><label>Repite</label><input type="password" id="regPw2" placeholder="Repite"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Tipo de alimentación</label><select id="regTipo"><option>Equilibrada</option><option>Vegetariana</option><option>Vegana</option><option>Sin gluten</option></select></div>
+      <div class="field"><label>Objetivo</label><select id="regObjetivo"><option>Regular el peso</option><option>Aprender a comer bien</option><option>Más energía</option></select></div>
+    </div>
+    <div class="field"><label>Alergias</label><div class="chips" id="regChips"></div></div>
+    <div class="field"><label>Plan</label>
+      <div class="chips" id="regPlans">
+        <button type="button" class="chip" data-plan="starter">Starter 6€/mes</button>
+        <button type="button" class="chip active" data-plan="pro">Pro 20€/mes</button>
+        <button type="button" class="chip" data-plan="premium">Premium 30€/mes</button>
+      </div>
+    </div>
+    <button class="btn btn-solid" type="submit" style="width:100%;text-align:center;">Crear mi cuenta</button>
+    <p class="auth-switch">¿Ya tienes cuenta? <button type="button" id="toLogin">Entrar</button></p>
+  </form>
+  <p class="demo-note">Demo: <b>test@vitaria.com</b> / <b>vitaria123</b>. Los datos se guardan en tu navegador.</p>
+</div></div></div>
 
 <!-- Dashboard -->
-<div id="view-dashboard" class="view hidden">
-  <div class="wrap">
-    <div class="dash">
-      <aside class="dash-nav" role="tablist" aria-label="Secciones del portal">
-        <button class="dash-tab active" data-tab="resumen" role="tab">Resumen</button>
-        <button class="dash-tab" data-tab="menu" role="tab">Mi menú semanal</button>
-        <button class="dash-tab" data-tab="lista" role="tab">Lista de la compra</button>
-        <button class="dash-tab" data-tab="perfil" role="tab">Mi perfil</button>
-      </aside>
+<div id="view-dashboard" class="view hidden"><div class="wrap"><div class="dash">
+  <aside class="dash-nav">
+    <button class="dash-tab active" data-tab="hoy">Hoy</button>
+    <button class="dash-tab" data-tab="semana">Mi semana</button>
+    <button class="dash-tab" data-tab="lista">Lista de compra</button>
+    <button class="dash-tab" data-tab="perfil">Perfil</button>
+  </aside>
+  <main class="dash-main">
+    <!-- HOY -->
+    <section id="tab-hoy" class="tab">
+      <div class="section-head"><p class="eyebrow">Hoy</p><h2 id="hoyTitle">Resumen del día</h2><p id="hoyDate"></p></div>
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <span class="stat-icon">💧</span><span class="stat-label">Agua diaria</span>
+          <div class="water-glass-wrap"><div class="water-glass"><div class="water-fill" id="dashWaterFill"></div></div></div>
+          <span class="stat-value"><span class="counter" id="dashWaterVal" data-target="0">0</span><span class="unit"> L</span></span>
+        </div>
+        <div class="stat-card hidden" id="dashCalCard">
+          <span class="stat-icon">🔥</span><span class="stat-label">Calorías objetivo</span>
+          <div class="cal-ring-wrap">
+            <svg class="cal-ring" viewBox="0 0 120 120">
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--line)" stroke-width="10"/>
+              <circle cx="60" cy="60" r="50" fill="none" stroke="var(--tomato)" stroke-width="10" stroke-dasharray="314.16" stroke-dashoffset="314.16" id="dashCalRing"/>
+            </svg>
+          </div>
+          <span class="stat-value"><span class="counter" id="dashCalVal" data-target="0">0</span><span class="unit"> / <span id="dashCalTarget">0</span> kcal</span></span>
+        </div>
+        <div class="stat-card hidden" id="dashMacroCard">
+          <span class="stat-icon">📊</span><span class="stat-label">Macros de hoy</span>
+          <div class="macro-bars">
+            <div class="macro-row"><span class="macro-name">Proteína</span><div class="macro-track"><div class="macro-fill protein" id="dashMP"></div></div><span class="macro-val" id="dashMPV">0g</span></div>
+            <div class="macro-row"><span class="macro-name">Carbos</span><div class="macro-track"><div class="macro-fill carbs" id="dashMC"></div></div><span class="macro-val" id="dashMCV">0g</span></div>
+            <div class="macro-row"><span class="macro-name">Grasas</span><div class="macro-track"><div class="macro-fill fat" id="dashMF"></div></div><span class="macro-val" id="dashMFV">0g</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="meal-cards" id="todayMeals"></div>
+      <div class="daily-summary hidden" id="dailySummary">
+        <h3>Resumen del día</h3>
+        <div class="summary-nums"><span><span class="counter" id="sumKcal">0</span> kcal consumidas</span><span>Objetivo: <b id="sumTarget">0</b> kcal</span></div>
+        <div class="summary-bar"><div class="summary-fill" id="sumFill"></div></div>
+        <div class="summary-macros"><span>P: <b id="sumP">0</b>g</span><span>C: <b id="sumC">0</b>g</span><span>G: <b id="sumG">0</b>g</span></div>
+      </div>
+    </section>
+    <!-- SEMANA -->
+    <section id="tab-semana" class="tab hidden">
+      <div class="section-head"><p class="eyebrow">Mi semana</p><h2>Tu menú semanal</h2><p>Tipo: <b id="menuTipo" style="color:var(--herb);"></b></p></div>
+      <div class="menu-scroll"><table class="menu-table"><thead><tr><th>Día</th><th>Desayuno</th><th>Comida</th><th>Cena</th></tr></thead><tbody id="menuBody"></tbody></table></div>
+      <div class="inline-actions"><button class="btn btn-solid" id="menuRegen">Regenerar mi semana</button></div>
+    </section>
+    <!-- LISTA -->
+    <section id="tab-lista" class="tab hidden">
+      <div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Lo que necesitas esta semana</h2><p>Tipo: <b id="listaTipo" style="color:var(--herb);"></b></p></div>
+      <ul class="shop-list" id="shopList"></ul>
+    </section>
+    <!-- PERFIL -->
+    <section id="tab-perfil" class="tab hidden">
+      <div class="section-head"><p class="eyebrow">Perfil</p><h2>Tus datos</h2></div>
+      <div class="dash-card" style="max-width:560px;">
+        <p class="auth-msg" id="perfilMsg"></p>
+        <div class="field"><label>Nombre</label><input type="text" id="perfName"></div>
+        <div class="field"><label>Correo</label><input type="email" id="perfEmail" disabled style="opacity:.6;"></div>
+        <div class="field-row">
+          <div class="field"><label>Tipo de alimentación</label><select id="perfTipo"><option>Equilibrada</option><option>Vegetariana</option><option>Vegana</option><option>Sin gluten</option></select></div>
+          <div class="field"><label>Objetivo</label><select id="perfObjetivo"><option>Regular el peso</option><option>Aprender a comer bien</option><option>Más energía</option></select></div>
+        </div>
+        <div class="field"><label>Alergias</label><div class="chips" id="perfChips"></div></div>
+        <button class="btn btn-solid" id="perfSave">Guardar</button>
+      </div>
+      <div class="dash-card" style="max-width:560px;margin-top:22px;">
+        <span class="label">Datos físicos</span>
+        <p class="note">Actualiza tus datos para recalcular tu plan.</p>
+        <div class="phys-grid">
+          <div class="field"><label>Altura (cm)</label><input type="number" id="perfAltura" min="100" max="250"></div>
+          <div class="field"><label>Peso (kg)</label><input type="number" id="perfPeso" min="30" max="300" step="0.1"></div>
+          <div class="field"><label>Edad</label><input type="number" id="perfEdad" min="14" max="100"></div>
+          <div class="field"><label>Sexo</label><select id="perfSexo"><option value="hombre">Hombre</option><option value="mujer">Mujer</option></select></div>
+        </div>
+        <div class="field"><label>Actividad</label><select id="perfActividad"><option value="sedentario">Sedentario</option><option value="ligero">Ligero</option><option value="moderado">Moderado</option><option value="intenso">Intenso</option></select></div>
+        <button class="btn btn-ghost" id="perfPhysSave">Actualizar datos físicos</button>
+      </div>
+      <div class="dash-card" style="max-width:560px;margin-top:22px;border-color:var(--tomato);">
+        <span class="label">Plan actual</span>
+        <div class="cards" style="margin-top:10px;"><div id="perfilPlan"></div></div>
+        <div class="chips" style="margin-top:14px;" id="perfilUpgrades"></div>
+      </div>
+      <div class="dash-card" style="max-width:560px;margin-top:22px;border-color:var(--tomato);">
+        <span class="label">Seguridad</span>
+        <div class="field"><label>Contraseña actual</label><input type="password" id="pwActual"></div>
+        <div class="field-row"><div class="field"><label>Nueva</label><input type="password" id="pwNueva"></div><div class="field"><label>Repite</label><input type="password" id="pwNueva2"></div></div>
+        <button class="btn btn-ghost" id="pwSave">Cambiar contraseña</button>
+      </div>
+      <div class="inline-actions"><button class="btn btn-danger btn-small" id="delBtn">Eliminar cuenta</button></div>
+    </section>
+  </main>
+</div></div></div>
 
-      <main class="dash-main">
-
-        <section id="tab-resumen" class="tab">
-          <div class="section-head">
-            <p class="eyebrow">Resumen</p>
-            <h2>Tu plan está activo</h2>
-            <p id="resSaludo"></p>
-          </div>
-          <div class="cards">
-            <div class="dash-card">
-              <span class="label">Tu plan</span>
-              <span class="plan-badge" id="resPlanName"></span>
-              <div class="price-big" id="resPlanPrice"></div>
-              <p class="tagline" id="resPlanTagline"></p>
-              <ul id="resPlanFeatures"></ul>
-              <div class="meta-row">
-                <span>Próxima renovación</span>
-                <b id="resPlanFecha"></b>
-              </div>
-            </div>
-            <div class="dash-card">
-              <span class="label">Tu perfil nutricional</span>
-              <p style="margin:0 0 12px;font-size:.92rem;"><b style="font-family:'IBM Plex Mono',monospace;color:var(--herb);">Alimentación:</b> <span id="resTipo"></span></p>
-              <p style="margin:0 0 12px;font-size:.92rem;"><b style="font-family:'IBM Plex Mono',monospace;color:var(--herb);">Objetivo:</b> <span id="resObjetivo"></span></p>
-              <p style="margin:0;font-size:.92rem;"><b style="font-family:'IBM Plex Mono',monospace;color:var(--herb);">Alergias:</b> <span id="resAlergias"></span></p>
-            </div>
-          </div>
-          <div class="dash-card" style="margin-top:22px;">
-            <span class="label">Cambiar de plan</span>
-            <div class="chips" id="resUpgrades"></div>
-            <p class="note" style="margin-top:12px;">En esta demo los cambios de plan son instantáneos y gratuitos.</p>
-          </div>
-        </section>
-
-        <section id="tab-menu" class="tab hidden">
-          <div class="section-head">
-            <p class="eyebrow">Mi menú semanal</p>
-            <h2>Tu semana, hecha para ti</h2>
-            <p>Tipo de alimentación: <b id="menuTipo" style="color:var(--herb);"></b>. Regenera cuando quieras: el plan se adapta a ti, no al revés.</p>
-          </div>
-          <div class="menu-scroll">
-            <table class="menu-table">
-              <thead><tr><th>Día</th><th>Desayuno</th><th>Comida</th><th>Cena</th></tr></thead>
-              <tbody id="menuBody"></tbody>
-            </table>
-          </div>
-          <div class="inline-actions">
-            <button class="btn btn-solid" id="menuRegen">Regenerar mi semana</button>
-            <button class="btn btn-ghost" data-tab-short="lista">Ver lista de la compra</button>
-          </div>
-        </section>
-
-        <section id="tab-lista" class="tab hidden">
-          <div class="section-head">
-            <p class="eyebrow">Lista de la compra</p>
-            <h2>Lo que necesitas esta semana</h2>
-            <p>Generada a partir de tu menú de <b id="listaTipo" style="color:var(--herb);"></b>. Compra cantidades según tu hogar.</p>
-          </div>
-          <ul class="shop-list" id="shopList"></ul>
-        </section>
-
-        <section id="tab-perfil" class="tab hidden">
-          <div class="section-head">
-            <p class="eyebrow">Mi perfil</p>
-            <h2>Tus datos</h2>
-            <p>Mantén tu perfil al día para que el plan se ajuste mejor.</p>
-          </div>
-          <div class="dash-card" style="max-width:560px;">
-            <p class="auth-msg" id="perfilMsg"></p>
-            <div class="field">
-              <label for="perfName">Nombre</label>
-              <input type="text" id="perfName">
-            </div>
-            <div class="field">
-              <label for="perfEmail">Correo</label>
-              <input type="email" id="perfEmail" disabled style="opacity:.6;">
-            </div>
-            <div class="field-row">
-              <div class="field">
-                <label for="perfTipo">Tipo de alimentación</label>
-                <select id="perfTipo">
-                  <option>Equilibrada</option>
-                  <option>Vegetariana</option>
-                  <option>Vegana</option>
-                  <option>Sin gluten</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="perfObjetivo">Objetivo</label>
-                <select id="perfObjetivo">
-                  <option>Aprender a comer bien</option>
-                  <option>Más energía</option>
-                  <option>Regular el peso</option>
-                </select>
-              </div>
-            </div>
-            <div class="field">
-              <label>Alergias o restricciones</label>
-              <div class="chips" id="perfChips"></div>
-            </div>
-            <button class="btn btn-solid" id="perfSave">Guardar cambios</button>
-          </div>
-          <div class="dash-card" style="max-width:560px;margin-top:22px;border-color:var(--tomato);">
-            <span class="label">Seguridad</span>
-            <div class="field">
-              <label for="pwActual">Contraseña actual</label>
-              <input type="password" id="pwActual" autocomplete="current-password">
-            </div>
-            <div class="field-row">
-              <div class="field">
-                <label for="pwNueva">Nueva contraseña</label>
-                <input type="password" id="pwNueva" autocomplete="new-password">
-              </div>
-              <div class="field">
-                <label for="pwNueva2">Repite</label>
-                <input type="password" id="pwNueva2" autocomplete="new-password">
-              </div>
-            </div>
-            <button class="btn btn-ghost" id="pwSave">Cambiar contraseña</button>
-            <p class="note" style="margin-top:14px;">Para cancelar el plan, escríbenos a <b>hola@vitaria.com</b>.</p>
-          </div>
-          <div class="inline-actions">
-            <button class="btn btn-danger btn-small" id="delBtn">Eliminar mi cuenta</button>
-          </div>
-        </section>
-
-      </main>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <div class="wrap" style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;">
-    <div class="brand"><span class="dot"></span>Vitaria</div>
-    <span>Portal de clientes · demo con datos guardados en tu navegador</span>
-  </div>
-</footer>
+<footer><div class="wrap" style="display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;width:100%;">
+  <div class="brand"><span class="dot"></span>Vitaria</div>
+  <span>Portal de clientes · demo con datos en tu navegador</span>
+</div></footer>
 
 <script>
 (()=>{
-  'use strict';
-  const $ = s=>document.querySelector(s);
+'use strict';
+const $=s=>document.querySelector(s);
+const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Plan de referencia + guía de despensa',features:['Plan estático personalizado','Guía de despensa y principios','Acceso a todos los consejos']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal']},premium:{name:'Premium',price:'30 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas']}};
+const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
+const ALERGIAS=['Lácteos','Frutos secos','Pescado','Ninguna'];
+const ACT_FACTORS={sedentario:1.2,ligero:1.375,moderado:1.55,intenso:1.725};
 
-  const PLANS = {
-    starter: {name:'Starter', price:'6 €/mes', tagline:'Plan de referencia y guía de despensa', features:['Plan estático personalizado','Guía de despensa y principios','Acceso a todos los consejos']},
-    pro:     {name:'Pro', price:'20 €/mes', tagline:'Plan dinámico con ajuste mensual', features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal']},
-    premium: {name:'Premium', price:'30 €/mes', tagline:'Seguimiento continuo con nutricionista', features:['Seguimiento continuo con nutricionista','Feedback sobre tus comidas','Atención prioritaria sin esperas']}
-  };
-  const DIAS = ['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
-  const ALERGIAS = ['Lácteos','Frutos secos','Pescado','Ninguna'];
+const MEALS={Equilibrada:{desayuno:['Avena con fruta y nueces','Tostada integral con aguacate y huevo','Yogur natural con fruta y semillas'],comida:['Lentejas con verduras y arroz integral','Pollo al horno, quinoa y brócoli','Garbanzos salteados con espinaca'],cena:['Pescado a la plancha con ensalada','Crema de calabacín y huevo cocido','Tortilla de espinacas y ensalada']},Vegetariana:{desayuno:['Porridge de avena y plátano','Tostada con queso fresco y tomate','Yogur con granola y frutos rojos'],comida:['Garbanzos salteados con espinaca','Bowl de quinoa, hummus y verduras','Pasta integral con verduras al pesto'],cena:['Crema de calabacín y huevo cocido','Revuelto de tofu con champiñones','Ensalada de lentejas y queso feta']},Vegana:{desayuno:['Batido de avena, plátano y cacao','Avena nocturna con bebida de almendra','Tostada con hummus y tomate'],comida:['Tofu salteado con verduras y quinoa','Curry de garbanzos y arroz integral','Pisto con alubias y pan integral'],cena:['Crema de boniato y garbanzos','Salteado de verduras con fideos de arroz','Ensalada de quinoa, aguacate y maíz']},"Sin gluten":{desayuno:['Pan de trigo sarraceno con aguacate','Yogur con fruta y semillas','Huevos revueltos con tomate'],comida:['Arroz integral con pollo y brócoli','Salmorejo con atún y huevo','Garbanzos con espinaca y comino'],cena:['Tortilla de espinacas y ensalada','Pescado al horno con verduras','Crema de calabaza con semillas']}};
 
-  const MEALS = {
-    Equilibrada: {
-      desayuno:['Avena con fruta y nueces','Tostada integral con aguacate y huevo','Yogur natural con fruta y semillas'],
-      comida:['Lentejas con verduras y arroz integral','Pollo al horno, quinoa y brócoli','Garbanzos salteados con espinaca'],
-      cena:['Pescado a la plancha con ensalada','Crema de calabacín y huevo cocido','Tortilla de espinacas y ensalada']
-    },
-    Vegetariana: {
-      desayuno:['Porridge de avena y plátano','Tostada con queso fresco y tomate','Yogur con granola y frutos rojos'],
-      comida:['Garbanzos salteados con espinaca','Bowl de quinoa, hummus y verduras','Pasta integral con verduras al pesto'],
-      cena:['Crema de calabacín y huevo cocido','Revuelto de tofu con champiñones','Ensalada de lentejas y queso feta']
-    },
-    Vegana: {
-      desayuno:['Batido de avena, plátano y cacao','Avena nocturna con bebida de almendra','Tostada con hummus y tomate'],
-      comida:['Tofu salteado con verduras y quinoa','Curry de garbanzos y arroz integral','Pisto con alubias y pan integral'],
-      cena:['Crema de boniato y garbanzos','Salteado de verduras con fideos de arroz','Ensalada de quinoa, aguacate y maíz']
-    },
-    "Sin gluten": {
-      desayuno:['Pan de trigo sarraceno con aguacate','Yogur con fruta y semillas','Huevos revueltos con tomate'],
-      comida:['Arroz integral con pollo y brócoli','Salmorejo con atún y huevo','Garbanzos con espinaca y comino'],
-      cena:['Tortilla de espinacas y ensalada','Pescado al horno con verduras','Crema de calabaza con semillas']
-    }
-  };
+const ALLERGENS={'Yogur natural con fruta y semillas':['Lácteos','Frutos secos'],'Yogur con granola y frutos rojos':['Lácteos'],'Tostada con queso fresco y tomate':['Lácteos'],'Bowl de quinoa, hummus y verduras':['Frutos secos'],'Ensalada de lentejas y queso feta':['Lácteos'],'Pescado a la plancha con ensalada':['Pescado'],'Salmorejo con atún y huevo':['Pescado'],'Pescado al horno con verduras':['Pescado'],'Pan de trigo sarraceno con aguacate':['Huevo'],'Tortilla de espinacas y ensalada':['Huevo'],'Crema de calabacín y huevo cocido':['Huevo']};
 
-  const ALLERGENS = {
-    'Yogur natural con fruta y semillas':['Lácteos','Frutos secos'],
-    'Yogur con granola y frutos rojos':['Lácteos'],
-    'Tostada con queso fresco y tomate':['Lácteos'],
-    'Bowl de quinoa, hummus y verduras':['Frutos secos'],
-    'Ensalada de lentejas y queso feta':['Lácteos'],
-    'Pescado a la plancha con ensalada':['Pescado'],
-    'Salmorejo con atún y huevo':['Pescado'],
-    'Pescado al horno con verduras':['Pescado'],
-    'Pan de trigo sarraceno con aguacate':['Huevo'],
-    'Tortilla de espinacas y ensalada':['Huevo'],
-    'Crema de calabacín y huevo cocido':['Huevo']
-  };
+const NDATA={'Avena con fruta y nueces':{k:340,p:11,c:48,g:13},'Tostada integral con aguacate y huevo':{k:370,p:16,c:28,g:21},'Yogur natural con fruta y semillas':{k:215,p:10,c:26,g:8},'Lentejas con verduras y arroz integral':{k:420,p:22,c:58,g:8},'Pollo al horno, quinoa y brócoli':{k:410,p:35,c:38,g:12},'Garbanzos salteados con espinaca':{k:350,p:18,c:42,g:10},'Pescado a la plancha con ensalada':{k:320,p:30,c:12,g:16},'Crema de calabacín y huevo cocido':{k:280,p:14,c:24,g:14},'Tortilla de espinacas y ensalada':{k:310,p:18,c:10,g:22},'Porridge de avena y plátano':{k:320,p:9,c:52,g:9},'Tostada con queso fresco y tomate':{k:290,p:14,c:26,g:14},'Yogur con granola y frutos rojos':{k:280,p:9,c:38,g:10},'Bowl de quinoa, hummus y verduras':{k:380,p:16,c:44,g:15},'Pasta integral con verduras al pesto':{k:420,p:15,c:56,g:14},'Revuelto de tofu con champiñones':{k:260,p:18,c:10,g:16},'Ensalada de lentejas y queso feta':{k:360,p:20,c:38,g:14},'Batido de avena, plátano y cacao':{k:290,p:10,c:48,g:7},'Avena nocturna con bebida de almendra':{k:280,p:9,c:40,g:9},'Tostada con hummus y tomate':{k:270,p:10,c:30,g:12},'Tofu salteado con verduras y quinoa':{k:360,p:20,c:36,g:14},'Curry de garbanzos y arroz integral':{k:430,p:16,c:60,g:14},'Pisto con alubias y pan integral':{k:380,p:16,c:48,g:12},'Crema de boniato y garbanzos':{k:340,p:14,c:52,g:8},'Salteado de verduras con fideos de arroz':{k:300,p:10,c:44,g:8},'Ensalada de quinoa, aguacate y maíz':{k:350,p:12,c:42,g:15},'Pan de trigo sarraceno con aguacate':{k:360,p:14,c:28,g:22},'Yogur con fruta y semillas':{k:215,p:10,c:26,g:8},'Huevos revueltos con tomate':{k:240,p:16,c:8,g:17},'Arroz integral con pollo y brócoli':{k:400,p:32,c:42,g:10},'Salmorejo con atún y huevo':{k:380,p:26,c:22,g:20},'Garbanzos con espinaca y comino':{k:330,p:16,c:44,g:8},'Pescado al horno con verduras':{k:290,p:28,c:10,g:15},'Crema de calabaza con semillas':{k:260,p:8,c:38,g:9}};
+const DEFAULT_NDATA={k:350,p:15,c:40,g:12};
+const MEAL_ICONS={desayuno:'🌅',comida:'☀️',cena:'🌙'};
+const MEAL_LABELS={desayuno:'Desayuno',comida:'Comida',cena:'Cena'};
 
-  const INGREDIENTS = {
-    'Avena con fruta y nueces':['Avena','Fruta de temporada','Nueces'],
-    'Tostada integral con aguacate y huevo':['Pan integral','Aguacate','Huevos'],
-    'Yogur natural con fruta y semillas':['Yogur natural','Fruta de temporada','Semillas de chía'],
-    'Lentejas con verduras y arroz integral':['Lentejas','Verduras de temporada','Arroz integral'],
-    'Pollo al horno, quinoa y brócoli':['Pechuga de pollo','Quinoa','Brócoli'],
-    'Garbanzos salteados con espinaca':['Garbanzos','Espinacas','Ajo'],
-    'Pescado a la plancha con ensalada':['Pescado blanco','Lechuga','Tomate','Cebolla'],
-    'Crema de calabacín y huevo cocido':['Calabacín','Huevos','Patata'],
-    'Tortilla de espinacas y ensalada':['Huevos','Espinacas','Lechuga','Tomate'],
-    'Porridge de avena y plátano':['Avena','Plátano','Bebida vegetal'],
-    'Tostada con queso fresco y tomate':['Pan integral','Queso fresco','Tomate'],
-    'Yogur con granola y frutos rojos':['Yogur','Granola','Frutos rojos'],
-    'Bowl de quinoa, hummus y verduras':['Quinoa','Hummus','Zanahoria','Pepino','Aguacate'],
-    'Pasta integral con verduras al pesto':['Pasta integral','Calabacín','Pimiento','Pesto'],
-    'Revuelto de tofu con champiñones':['Tofu','Champiñones','Cebolla'],
-    'Ensalada de lentejas y queso feta':['Lentejas','Queso feta','Tomate','Aceitunas'],
-    'Batido de avena, plátano y cacao':['Avena','Plátano','Cacao puro','Bebida vegetal'],
-    'Avena nocturna con bebida de almendra':['Avena','Bebida de almendra','Fruta de temporada'],
-    'Tostada con hummus y tomate':['Pan integral','Hummus','Tomate'],
-    'Tofu salteado con verduras y quinoa':['Tofu','Verduras de temporada','Quinoa','Salsa de soja'],
-    'Curry de garbanzos y arroz integral':['Garbanzos','Leche de coco','Curry','Arroz integral'],
-    'Pisto con alubias y pan integral':['Calabacín','Pimiento','Tomate','Alubias','Pan integral'],
-    'Crema de boniato y garbanzos':['Boniato','Garbanzos','Puerro'],
-    'Salteado de verduras con fideos de arroz':['Verduras de temporada','Fideos de arroz','Salsa de soja'],
-    'Ensalada de quinoa, aguacate y maíz':['Quinoa','Aguacate','Maíz','Tomate'],
-    'Pan de trigo sarraceno con aguacate':['Pan de trigo sarraceno','Aguacate','Huevos'],
-    'Yogur con fruta y semillas':['Yogur','Fruta de temporada','Semillas'],
-    'Huevos revueltos con tomate':['Huevos','Tomate','Aceite de oliva'],
-    'Arroz integral con pollo y brócoli':['Arroz integral','Pechuga de pollo','Brócoli'],
-    'Salmorejo con atún y huevo':['Tomate','Atún','Huevos','Aceite de oliva'],
-    'Garbanzos con espinaca y comino':['Garbanzos','Espinacas','Comino'],
-    'Pescado al horno con verduras':['Pescado blanco','Verduras de temporada'],
-    'Crema de calabaza con semillas':['Calabaza','Cebolla','Semillas de calabaza']
-  };
+/* Storage */
+function getUsers(){try{return JSON.parse(localStorage.getItem('vitaria_users')||'[]')}catch(e){return[]}}
+function setUsers(u){try{localStorage.setItem('vitaria_users',JSON.stringify(u))}catch(e){}}
+function getSession(){return localStorage.getItem('vitaria_session')}
+function setSession(e){e?localStorage.setItem('vitaria_session',e):localStorage.removeItem('vitaria_session')}
+function hash(pw){let h=5381;for(let i=0;i<pw.length;i++)h=((h*33)^pw.charCodeAt(i))>>>0;return'h'+h.toString(36)}
+function pick(arr,alergias){let pool=arr;const no=alergias.filter(a=>a!=='Ninguna');if(no.length){const f=pool.filter(m=>!(ALLERGENS[m]||[]).some(a=>no.includes(a)));if(f.length)pool=f;}return pool[Math.floor(Math.random()*pool.length)];}
+function newMenu(tipo,alergias){return DIAS.map(dia=>({dia,desayuno:pick(MEALS[tipo].desayuno,alergias),comida:pick(MEALS[tipo].comida,alergias),cena:pick(MEALS[tipo].cena,alergias)}));}
+function currentUser(){const s=getSession();return s?(getUsers().find(u=>u.email===s)||null):null;}
+function saveUser(u){setUsers(getUsers().map(x=>x.email===u.email?u:x));}
+function getND(name){return NDATA[name]||DEFAULT_NDATA;}
+function todayIndex(){const d=new Date().getDay();return d===0?6:d-1;}
+function todayKey(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1).toString().padStart(2,'0')+'-'+d.getDate().toString().padStart(2,'0');}
 
-  /* Almacenamiento local (demo) */
-  function getUsers(){ try{ return JSON.parse(localStorage.getItem('vitaria_users')||'[]'); }catch(e){ return []; } }
-  function setUsers(u){ try{ localStorage.setItem('vitaria_users', JSON.stringify(u)); }catch(e){} }
-  function getSession(){ return localStorage.getItem('vitaria_session'); }
-  function setSession(e){ if(e) localStorage.setItem('vitaria_session', e); else localStorage.removeItem('vitaria_session'); }
+/* Health calc */
+function calcStats(peso,altura,edad,sexo,actividad,objetivo){
+  const bmr=sexo==='mujer'?(10*peso+6.25*altura-5*edad-161):(10*peso+6.25*altura-5*edad+5);
+  const tdee=bmr*(ACT_FACTORS[actividad]||1.2);
+  const agua=+(peso*0.033).toFixed(1);
+  const esBajar=objetivo==='Regular el peso';
+  const calorias=esBajar?Math.round(tdee-500):Math.round(tdee);
+  const minCal=sexo==='mujer'?1200:1500;
+  return{bmr:Math.round(bmr),tdee:Math.round(tdee),agua,calorias:Math.max(calorias,minCal),esBajar};
+}
 
-  function hash(pw){
-    let h = 5381;
-    for(let i=0;i<pw.length;i++) h = ((h*33) ^ pw.charCodeAt(i)) >>> 0;
-    return 'h'+h.toString(36);
+/* Auth */
+$('#toRegister').addEventListener('click',()=>{showAuth('register');setMsg('#regMsg','','');});
+$('#toLogin').addEventListener('click',()=>{showAuth('login');setMsg('#loginMsg','','');});
+function showAuth(f){$('#loginForm').classList.toggle('hidden',f!=='login');$('#registerForm').classList.toggle('hidden',f!=='register');}
+function setMsg(s,t,c){const e=$(s);e.textContent=t;e.className='auth-msg '+(c||'');}
+
+$('#loginForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const email=$('#loginEmail').value.trim().toLowerCase(),pw=$('#loginPw').value;
+  const user=getUsers().find(u=>u.email===email&&u.pw===hash(pw));
+  if(!user){setMsg('#loginMsg','Correo o contraseña incorrectos.','err');return;}
+  setSession(user.email);
+  if(!user.physical){showOnboarding();}else{enterPortal();}
+});
+
+$('#registerForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const name=$('#regName').value.trim(),email=$('#regEmail').value.trim().toLowerCase(),pw=$('#regPw').value,pw2=$('#regPw2').value;
+  const tipo=$('#regTipo').value,objetivo=$('#regObjetivo').value,alergias=selectedChips('regChips');
+  const pc=$('#regPlans .chip.active');const plan=pc?pc.dataset.plan:'pro';
+  if(!name||!email||!pw){setMsg('#regMsg','Completa todos los campos.','err');return;}
+  if(!/^\S+@\S+\.\S+$/.test(email)){setMsg('#regMsg','Correo no válido.','err');return;}
+  if(pw.length<6){setMsg('#regMsg','Mínimo 6 caracteres.','err');return;}
+  if(pw!==pw2){setMsg('#regMsg','Las contraseñas no coinciden.','err');return;}
+  if(getUsers().some(u=>u.email===email)){setMsg('#regMsg','Ya existe una cuenta con ese correo.','err');return;}
+  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,createdAt:new Date().toISOString(),menu:newMenu(tipo,alergias),consumed:{}};
+  setUsers([...getUsers(),user]);setSession(email);showOnboarding();
+});
+
+$('#regPlans').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;$('#regPlans').querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');});
+
+function enterPortal(){
+  const u=currentUser();if(!u){showView('view-auth');showAuth('login');return;}
+  showView('view-dashboard');$('#navUser').classList.remove('hidden');
+  $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;
+  activateTab('hoy');
+}
+
+$('#logoutBtn').addEventListener('click',()=>{setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
+
+/* Chips */
+function renderChips(id,opts,sel){const c=$('#'+id);c.innerHTML='';opts.forEach(o=>{const b=document.createElement('button');b.type='button';b.className='chip'+(sel.includes(o)?' active':'');b.textContent=o;b.addEventListener('click',()=>{if(o==='Ninguna'){if(b.classList.contains('active'))b.classList.remove('active');else{c.querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');}}else{b.classList.toggle('active');const n=Array.from(c.querySelectorAll('.chip')).find(x=>x.textContent==='Ninguna');if(n&&c.querySelectorAll('.chip.active').length>0)n.classList.remove('active');}});c.appendChild(b);});}
+function selectedChips(id){return Array.from($('#'+id).querySelectorAll('.chip.active')).map(b=>b.textContent);}
+
+/* Views & Tabs */
+function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==id));}
+document.querySelectorAll('.dash-tab').forEach(t=>t.addEventListener('click',()=>activateTab(t.dataset.tab)));
+function activateTab(n){document.querySelectorAll('.dash-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===n));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden',t.id!=='tab-'+n));const u=currentUser();if(!u)return;if(n==='hoy')renderHoy(u);if(n==='semana')renderSemana(u);if(n==='lista')renderLista(u);if(n==='perfil')renderPerfil(u);window.scrollTo({top:0,behavior:'smooth'});}
+
+/* Onboarding */
+let onbData={};
+function showOnboarding(){
+  const u=currentUser();if(!u)return;
+  onbData={sexo:'hombre',actividad:null};
+  $('#onboarding').classList.remove('hidden');
+  renderOnbDots(0);showOnbStep(0);
+}
+function hideOnboarding(){$('#onboarding').classList.add('hidden');}
+function renderOnbDots(cur){$('#onbDots').innerHTML=[0,1,2,3,4].map(i=>`<div class="onb-dot${i===cur?' active':''}"></div>`).join('');}
+function showOnbStep(n){renderOnbDots(n);document.querySelectorAll('.onb-step').forEach(s=>s.classList.toggle('hidden',+s.dataset.step!==n));}
+$('#onbStart').addEventListener('click',()=>showOnbStep(1));
+$('#onbNext1').addEventListener('click',()=>{onbData.altura=+$('#onbAltura').value;onbData.peso=+$('#onbPeso').value;if(!onbData.altura||!onbData.peso){alert('Introduce altura y peso.');return;}showOnbStep(2);});
+$('#onbNext2').addEventListener('click',()=>{onbData.edad=+$('#onbEdad').value;if(!onbData.edad){alert('Introduce tu edad.');return;}showOnbStep(3);});
+$('#onbSexo').addEventListener('click',e=>{const b=e.target.closest('.sex-btn');if(!b)return;$('#onbSexo').querySelectorAll('.sex-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');onbData.sexo=b.dataset.val;});
+$('#onbActividad').addEventListener('click',e=>{const b=e.target.closest('.activity-card');if(!b)return;$('#onbActividad').querySelectorAll('.activity-card').forEach(x=>x.classList.remove('active'));b.classList.add('active');onbData.actividad=b.dataset.val;});
+$('#onbNext3').addEventListener('click',()=>{
+  if(!onbData.actividad){alert('Selecciona tu nivel de actividad.');return;}
+  const u=currentUser();if(!u)return;
+  const stats=calcStats(onbData.peso,onbData.altura,onbData.edad,onbData.sexo,onbData.actividad,u.objetivo);
+  u.physical={altura:onbData.altura,peso:onbData.peso,edad:onbData.edad,sexo:onbData.sexo,actividad:onbData.actividad};
+  u.stats=stats;saveUser(u);
+  showOnbStep(4);
+  const res=$('#onbResults');
+  let html=`<div class="onb-result"><div style="font-size:2.4rem;margin-bottom:8px;">💧</div><div class="result-big counter" data-target="${stats.agua}" data-decimals="1">0</div><div class="result-label">litros de agua al día</div></div>`;
+  if(stats.esBajar){html+=`<div class="onb-result"><div style="font-size:2.4rem;margin-bottom:8px;">🔥</div><div class="result-big counter" data-target="${stats.calorias}" data-decimals="0">0</div><div class="result-label">kcal diarias para alcanzar tu objetivo</div><p style="font-size:.82rem;color:var(--ink-soft);margin:6px 0 0;">TDEE: ${stats.tdee} kcal − 500 = ${stats.calorias} kcal</p></div>`;}
+  html+=`<div class="onb-result" style="font-size:.88rem;color:var(--ink-soft);"><p>Metabolismo basal: ${stats.bmr} kcal · Gasto total: ${stats.tdee} kcal</p></div>`;
+  res.innerHTML=html;
+  setTimeout(()=>animateCounters(res),400);
+  setTimeout(()=>launchConfetti(),800);
+});
+$('#onbFinish').addEventListener('click',()=>{hideOnboarding();enterPortal();});
+
+/* HOY */
+function renderHoy(u){
+  const idx=todayIndex();const key=todayKey();
+  const day=u.menu[idx];if(!day){$('#todayMeals').innerHTML='<p>No hay menú para hoy.</p>';return;}
+  $('#hoyTitle').textContent='Resumen del día';
+  const d=new Date();$('#hoyDate').textContent=day.dia+', '+d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+  const stats=u.stats;const isWeight=u.objetivo==='Regular el peso';
+  if(stats){
+    $('#dashWaterVal').dataset.target=stats.agua;$('#dashWaterVal').textContent='0';
+    $('#dashWaterFill').style.height=Math.min(100,(stats.agua/3)*100)+'%';
+    if(isWeight){$('#dashCalCard').classList.remove('hidden');$('#dashMacroCard').classList.remove('hidden');$('#dashCalVal').dataset.target=stats.calorias;$('#dashCalTarget').textContent=stats.calorias;}
+    setTimeout(()=>animateCounters($('#statsGrid')),300);
   }
-
-  function pick(opt, alergias){
-    let pool = opt;
-    const no = alergias.filter(a=>a!=='Ninguna');
-    if(no.length){
-      const filt = pool.filter(m=>!(ALLERGENS[m]||[]).some(a=>no.includes(a)));
-      if(filt.length) pool = filt;
-    }
-    return pool[Math.floor(Math.random()*pool.length)];
-  }
-
-  function newMenu(tipo, alergias){
-    return DIAS.map(dia=>({
-      dia,
-      desayuno: pick(MEALS[tipo].desayuno, alergias),
-      comida:   pick(MEALS[tipo].comida, alergias),
-      cena:     pick(MEALS[tipo].cena, alergias)
-    }));
-  }
-
-  function currentUser(){
-    const s = getSession();
-    return s ? (getUsers().find(u=>u.email===s)||null) : null;
-  }
-  function saveUser(u){ setUsers(getUsers().map(x=>x.email===u.email ? u : x)); }
-  function fmtDate(iso){
-    const d = new Date(iso);
-    return d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
-  }
-
-  /* Navegación */
-  function showView(id){ document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden', v.id!==id)); }
-  function showAuth(form){
-    $('#loginForm').classList.toggle('hidden', form!=='login');
-    $('#registerForm').classList.toggle('hidden', form!=='register');
-  }
-  function setMsg(sel, text, type){
-    const el = $(sel); el.textContent = text; el.className = 'auth-msg '+(type||'');
-  }
-
-  function renderChips(containerId, options, selected){
-    const c = $('#'+containerId); c.innerHTML='';
-    options.forEach(o=>{
-      const b = document.createElement('button');
-      b.type='button'; b.className='chip'+(selected.includes(o)?' active':'');
-      b.textContent = o;
-      b.addEventListener('click', ()=>{
-        if(o==='Ninguna'){
-          if(b.classList.contains('active')){ b.classList.remove('active'); }
-          else{ c.querySelectorAll('.chip').forEach(x=>x.classList.remove('active')); b.classList.add('active'); }
-        } else {
-          b.classList.toggle('active');
-          const ning = Array.from(c.querySelectorAll('.chip')).find(x=>x.textContent==='Ninguna');
-          if(ning && c.querySelectorAll('.chip.active').length>0) ning.classList.remove('active');
-        }
-      });
-      c.appendChild(b);
+  const eaten=u.consumed[key]||{};
+  const meals=['desayuno','comida','cena'];
+  let html='';
+  meals.forEach(mt=>{
+    const name=day[mt];const nd=getND(name);
+    const isEaten=!!eaten[mt];
+    html+=`<div class="meal-card${isEaten?' eaten':''}" data-type="${mt}" data-key="${key}">
+      <span class="meal-check">✅</span>
+      <div class="meal-header"><span class="meal-icon">${MEAL_ICONS[mt]}</span><span class="meal-type">${MEAL_LABELS[mt]}</span></div>
+      <p class="meal-name">${name}</p>
+      <p class="meal-nutrition"><span class="meal-kcal">${nd.k} kcal</span> · P: ${nd.p}g · C: ${nd.c}g · G: ${nd.g}g</p>
+      <button class="meal-btn${isEaten?' done':''}" ${isEaten?'disabled':''}>${isEaten?'✓ Comido':'Marcar como comido'}</button>
+    </div>`;
+  });
+  $('#todayMeals').innerHTML=html;
+  $('#todayMeals').querySelectorAll('.meal-btn:not(.done)').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      const card=this.closest('.meal-card');const mt=card.dataset.type;const ky=card.dataset.key;
+      if(!u.consumed[ky])u.consumed[ky]={};u.consumed[ky][mt]=true;saveUser(u);
+      card.classList.add('eaten');this.classList.add('done');this.textContent='✓ Comido';this.disabled=true;
+      updateHoySummary(u);
+      if(u.consumed[ky].desayuno&&u.consumed[ky].comida&&u.consumed[ky].cena)launchConfetti();
     });
+  });
+  updateHoySummary(u);
+}
+
+function updateHoySummary(u){
+  const key=todayKey();const idx=todayIndex();const day=u.menu[idx];if(!day)return;
+  const eaten=u.consumed[key]||{};const isWeight=u.objetivo==='Regular el peso';
+  let tk=0,tp=0,tc=0,tg=0;
+  ['desayuno','comida','cena'].forEach(mt=>{if(eaten[mt]){const nd=getND(day[mt]);tk+=nd.k;tp+=nd.p;tc+=nd.c;tg+=nd.g;}});
+  if(isWeight&&u.stats){
+    $('#dailySummary').classList.remove('hidden');
+    const pct=Math.min(100,tk/u.stats.calorias*100);
+    animateEl($('#sumKcal'),tk,0);$('#sumTarget').textContent=u.stats.calorias;
+    $('#sumFill').style.width=pct+'%';$('#sumP').textContent=tp;$('#sumC').textContent=tc;$('#sumG').textContent=tg;
+    const ring=$('#dashCalRing');ring.style.strokeDashoffset=314.16*(1-Math.min(1,tk/u.stats.calorias));
+    animateEl($('#dashCalVal'),tk,0);
+    const totalMacro=Math.max(tp+tc+tg,1);
+    $('#dashMP').style.width=(tp/totalMacro*100)+'%';$('#dashMPV').textContent=tp+'g';
+    $('#dashMC').style.width=(tc/totalMacro*100)+'%';$('#dashMCV').textContent=tc+'g';
+    $('#dashMF').style.width=(tg/totalMacro*100)+'%';$('#dashMFV').textContent=tg+'g';
   }
-  function selectedChips(id){
-    return Array.from($('#'+id).querySelectorAll('.chip.active')).map(b=>b.textContent);
+}
+
+/* SEMANA */
+function renderSemana(u){
+  $('#menuTipo').textContent=u.tipo;
+  const ti=todayIndex();
+  $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td><td>${m.desayuno}</td><td>${m.comida}</td><td>${m.cena}</td></tr>`).join('');
+}
+$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.menu=newMenu(u.tipo,u.alergias);u.consumed={};saveUser(u);renderSemana(u);renderLista(u);});
+
+/* LISTA */
+function renderLista(u){
+  $('#listaTipo').textContent=u.tipo;
+  const counts={};u.menu.forEach(m=>{['desayuno','comida','cena'].forEach(k=>{const nd=getND(m[k]);});['desayuno','comida','cena'].forEach(k=>{const name=m[k];const ing=INGREDIENTS[name]||[name];ing.forEach(i=>{counts[i]=(counts[i]||0)+1;});});});
+  const items=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
+  $('#shopList').innerHTML=items.map(([i,c])=>`<li><span>${i}</span><b>×${c}</b></li>`).join('');
+}
+const INGREDIENTS={'Avena con fruta y nueces':['Avena','Fruta','Nueces'],'Tostada integral con aguacate y huevo':['Pan integral','Aguacate','Huevos'],'Yogur natural con fruta y semillas':['Yogur natural','Fruta','Semillas de chía'],'Lentejas con verduras y arroz integral':['Lentejas','Verduras','Arroz integral'],'Pollo al horno, quinoa y brócoli':['Pollo','Quinoa','Brócoli'],'Garbanzos salteados con espinaca':['Garbanzos','Espinacas','Ajo'],'Pescado a la plancha con ensalada':['Pescado','Lechuga','Tomate','Cebolla'],'Crema de calabacín y huevo cocido':['Calabacín','Huevos','Patata'],'Tortilla de espinacas y ensalada':['Huevos','Espinacas','Lechuga','Tomate'],'Porridge de avena y plátano':['Avena','Plátano','Bebida vegetal'],'Tostada con queso fresco y tomate':['Pan integral','Queso fresco','Tomate'],'Yogur con granola y frutos rojos':['Yogur','Granola','Frutos rojos'],'Bowl de quinoa, hummus y verduras':['Quinoa','Hummus','Zanahoria','Pepino','Aguacate'],'Pasta integral con verduras al pesto':['Pasta integral','Calabacín','Pimiento','Pesto'],'Revuelto de tofu con champiñones':['Tofu','Champiñones','Cebolla'],'Ensalada de lentejas y queso feta':['Lentejas','Queso feta','Tomate','Aceitunas'],'Batido de avena, plátano y cacao':['Avena','Plátano','Cacao','Bebida vegetal'],'Avena nocturna con bebida de almendra':['Avena','Bebida de almendra','Fruta'],'Tostada con hummus y tomate':['Pan integral','Hummus','Tomate'],'Tofu salteado con verduras y quinoa':['Tofu','Verduras','Quinoa','Salsa de soja'],'Curry de garbanzos y arroz integral':['Garbanzos','Leche de coco','Curry','Arroz integral'],'Pisto con alubias y pan integral':['Calabacín','Pimiento','Tomate','Alubias'],'Crema de boniato y garbanzos':['Boniato','Garbanzos','Puerro'],'Salteado de verduras con fideos de arroz':['Verduras','Fideos de arroz','Salsa de soja'],'Ensalada de quinoa, aguacate y maíz':['Quinoa','Aguacate','Maíz','Tomate'],'Pan de trigo sarraceno con aguacate':['Pan sarraceno','Aguacate','Huevos'],'Yogur con fruta y semillas':['Yogur','Fruta','Semillas'],'Huevos revueltos con tomate':['Huevos','Tomate','Aceite de oliva'],'Arroz integral con pollo y brócoli':['Arroz integral','Pollo','Brócoli'],'Salmorejo con atún y huevo':['Tomate','Atún','Huevos'],'Garbanzos con espinaca y comino':['Garbanzos','Espinacas','Comino'],'Pescado al horno con verduras':['Pescado','Verduras'],'Crema de calabaza con semillas':['Calabaza','Cebolla','Semillas']};
+
+/* PERFIL */
+function renderPerfil(u){
+  $('#perfName').value=u.name;$('#perfEmail').value=u.email;$('#perfTipo').value=u.tipo;$('#perfObjetivo').value=u.objetivo;
+  renderChips('perfChips',ALERGIAS,u.alergias.length?u.alergias:['Ninguna']);
+  if(u.physical){$('#perfAltura').value=u.physical.altura;$('#perfPeso').value=u.physical.peso;$('#perfEdad').value=u.physical.edad;$('#perfSexo').value=u.physical.sexo;$('#perfActividad').value=u.physical.actividad;}
+  $('#perfilPlan').innerHTML=`<span style="font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;">${PLANS[u.plan].name}</span><br><span style="color:var(--ink-soft);font-size:.9rem;">${PLANS[u.plan].price}</span>`;
+  const ups=$('#perfilUpgrades');ups.innerHTML='';const rank={starter:0,pro:1,premium:2};
+  Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
+  setMsg('#perfilMsg','','');
+}
+$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias);u.consumed={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
+$('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;saveUser(u);setMsg('#perfilMsg','Datos físicos actualizados. Plan recalculado.','ok');});
+$('#pwSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const cur=$('#pwActual').value,n1=$('#pwNueva').value,n2=$('#pwNueva2').value;if(u.pw!==hash(cur)){setMsg('#perfilMsg','Contraseña actual incorrecta.','err');return;}if(n1.length<6){setMsg('#perfilMsg','Mínimo 6 caracteres.','err');return;}if(n1!==n2){setMsg('#perfilMsg','Las contraseñas no coinciden.','err');return;}u.pw=hash(n1);saveUser(u);['pwActual','pwNueva','pwNueva2'].forEach(i=>$('#'+i).value='');setMsg('#perfilMsg','Contraseña actualizada.','ok');});
+$('#delBtn').addEventListener('click',()=>{const u=currentUser();if(!u)return;if(!confirm('¿Eliminar tu cuenta? No se puede deshacer.'))return;setUsers(getUsers().filter(x=>x.email!==u.email));setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
+
+/* Animations */
+function animateCounters(root){root.querySelectorAll('.counter').forEach(el=>{const t=parseFloat(el.dataset.target);const dec=+(el.dataset.decimals||0);animateEl(el,t,dec);});}
+function animateEl(el,target,decimals=0,duration=1500){
+  const start=performance.now();
+  const update=now=>{const p=Math.min((now-start)/duration,1);const ease=1-Math.pow(1-p,3);el.textContent=(ease*target).toFixed(decimals);if(p<1)requestAnimationFrame(update);};
+  requestAnimationFrame(update);
+}
+function launchConfetti(){
+  const c=$('#confetti');c.innerHTML='';const colors=['#D6552C','#E8A93B','#4F6F3F','#8B3A4A','#FBF9F2','#4A90D9'];
+  for(let i=0;i<45;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.animationDelay=Math.random()*1.5+'s';p.style.animationDuration=(2+Math.random()*2)+'s';c.appendChild(p);}
+  setTimeout(()=>c.innerHTML='',5500);
+}
+
+/* Init */
+(function init(){
+  if(!getUsers().length){
+    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Regular el peso',alergias:[],createdAt:new Date().toISOString(),menu:newMenu('Equilibrada',[]),consumed:{}};
+    setUsers([demo]);
   }
-
-  /* Autenticación */
-  $('#toRegister').addEventListener('click', ()=>{ showAuth('register'); setMsg('#regMsg','',''); });
-  $('#toLogin').addEventListener('click', ()=>{ showAuth('login'); setMsg('#loginMsg','',''); });
-
-  $('#loginForm').addEventListener('submit', e=>{
-    e.preventDefault();
-    const email = $('#loginEmail').value.trim().toLowerCase();
-    const pw = $('#loginPw').value;
-    const user = getUsers().find(u=>u.email===email && u.pw===hash(pw));
-    if(!user){ setMsg('#loginMsg','Correo o contraseña incorrectos.','err'); return; }
-    setSession(user.email);
-    enterPortal();
-  });
-
-  $('#registerForm').addEventListener('submit', e=>{
-    e.preventDefault();
-    const name = $('#regName').value.trim();
-    const email = $('#regEmail').value.trim().toLowerCase();
-    const pw = $('#regPw').value;
-    const pw2 = $('#regPw2').value;
-    const tipo = $('#regTipo').value;
-    const objetivo = $('#regObjetivo').value;
-    const alergias = selectedChips('regChips');
-    const planChip = $('#regPlans .chip.active');
-    const plan = planChip ? planChip.dataset.plan : 'pro';
-
-    if(!name || !email || !pw){ setMsg('#regMsg','Completa todos los campos.','err'); return; }
-    if(!/^\S+@\S+\.\S+$/.test(email)){ setMsg('#regMsg','Introduce un correo válido.','err'); return; }
-    if(pw.length<6){ setMsg('#regMsg','La contraseña debe tener al menos 6 caracteres.','err'); return; }
-    if(pw!==pw2){ setMsg('#regMsg','Las contraseñas no coinciden.','err'); return; }
-    if(getUsers().some(u=>u.email===email)){ setMsg('#regMsg','Ya existe una cuenta con ese correo.','err'); return; }
-
-    const user = {
-      id:'u-'+Date.now(), name, email, pw:hash(pw), plan, tipo, objetivo, alergias,
-      createdAt:new Date().toISOString(),
-      menu:newMenu(tipo, alergias)
-    };
-    setUsers([...getUsers(), user]);
-    setSession(email);
-    enterPortal();
-  });
-
-  $('#regPlans').addEventListener('click', e=>{
-    const chip = e.target.closest('.chip');
-    if(!chip) return;
-    $('#regPlans').querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-    chip.classList.add('active');
-  });
-
-  function enterPortal(){
-    const u = currentUser();
-    if(!u){ showView('view-auth'); showAuth('login'); return; }
-    showView('view-dashboard');
-    $('#navUser').classList.remove('hidden');
-    $('#userChip').textContent = u.name+' · '+PLANS[u.plan].name;
-    activateTab('resumen');
-  }
-
-  $('#logoutBtn').addEventListener('click', ()=>{
-    setSession(null);
-    $('#navUser').classList.add('hidden');
-    showView('view-auth'); showAuth('login');
-    ['loginEmail','loginPw','loginMsg'].forEach(id=>{ if(id==='loginMsg') setMsg('#loginMsg','',''); else $('#'+id).value=''; });
-  });
-
-  /* Tabs del dashboard */
-  document.querySelectorAll('.dash-tab').forEach(tab=>{
-    tab.addEventListener('click', ()=> activateTab(tab.dataset.tab));
-  });
-  document.querySelectorAll('[data-tab-short]').forEach(btn=>{
-    btn.addEventListener('click', ()=> activateTab(btn.dataset.tabShort));
-  });
-
-  function activateTab(name){
-    document.querySelectorAll('.dash-tab').forEach(t=>t.classList.toggle('active', t.dataset.tab===name));
-    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden', t.id!=='tab-'+name));
-    const u = currentUser();
-    if(!u) return;
-    if(name==='resumen') renderResumen(u);
-    if(name==='menu') renderMenu(u);
-    if(name==='lista') renderLista(u);
-    if(name==='perfil') renderPerfil(u);
-    window.scrollTo({top:0, behavior:'smooth'});
-  }
-
-  /* Resumen */
-  function renderResumen(u){
-    const p = PLANS[u.plan];
-    $('#resSaludo').textContent = 'Hola '+u.name+', esto es lo que tienes activo ahora mismo.';
-    $('#resPlanName').textContent = p.name;
-    $('#resPlanPrice').textContent = p.price;
-    $('#resPlanTagline').textContent = p.tagline;
-    $('#resPlanFeatures').innerHTML = p.features.map(f=>'<li>'+f+'</li>').join('');
-    const next = new Date(u.createdAt); next.setMonth(next.getMonth()+1);
-    $('#resPlanFecha').textContent = fmtDate(next.toISOString());
-    $('#resTipo').textContent = u.tipo;
-    $('#resObjetivo').textContent = u.objetivo;
-    $('#resAlergias').textContent = u.alergias.length ? u.alergias.join(', ') : 'Ninguna';
-
-    const ups = $('#resUpgrades'); ups.innerHTML='';
-    const rank = {starter:0, pro:1, premium:2};
-    Object.keys(PLANS).forEach(k=>{
-      if(k===u.plan) return;
-      const dir = rank[k] > rank[u.plan] ? 'Subir a ' : 'Bajar a ';
-      const b = document.createElement('button');
-      b.type='button'; b.className='chip'; b.textContent = dir+PLANS[k].name+' ('+PLANS[k].price+')';
-      b.addEventListener('click', ()=>{
-        u.plan = k; saveUser(u); renderResumen(u);
-        $('#userChip').textContent = u.name+' · '+PLANS[u.plan].name;
-      });
-      ups.appendChild(b);
-    });
-  }
-
-  /* Menú */
-  function renderMenu(u){
-    $('#menuTipo').textContent = u.tipo;
-    $('#menuBody').innerHTML = u.menu.map(m=>
-      '<tr><td><b>'+m.dia+'</b></td><td>'+m.desayuno+'</td><td>'+m.comida+'</td><td>'+m.cena+'</td></tr>'
-    ).join('');
-  }
-  $('#menuRegen').addEventListener('click', ()=>{
-    const u = currentUser(); if(!u) return;
-    u.menu = newMenu(u.tipo, u.alergias);
-    saveUser(u);
-    renderMenu(u); renderLista(u);
-  });
-
-  /* Lista de la compra */
-  function renderLista(u){
-    $('#listaTipo').textContent = u.tipo;
-    const counts = {};
-    u.menu.forEach(m=>{
-      ['desayuno','comida','cena'].forEach(k=>{
-        const ing = INGREDIENTS[m[k]] || [m[k]];
-        ing.forEach(i=>{ counts[i] = (counts[i]||0)+1; });
-      });
-    });
-    const items = Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-    $('#shopList').innerHTML = items.map(([i,c])=>'<li><span>'+i+'</span><b>×'+c+'</b></li>').join('');
-  }
-
-  /* Perfil */
-  function renderPerfil(u){
-    $('#perfName').value = u.name;
-    $('#perfEmail').value = u.email;
-    $('#perfTipo').value = u.tipo;
-    $('#perfObjetivo').value = u.objetivo;
-    renderChips('perfChips', ALERGIAS, u.alergias.length ? u.alergias : ['Ninguna']);
-    setMsg('#perfilMsg','','');
-  }
-  $('#perfSave').addEventListener('click', ()=>{
-    const u = currentUser(); if(!u) return;
-    const name = $('#perfName').value.trim();
-    if(!name){ setMsg('#perfilMsg','El nombre no puede quedar vacío.','err'); return; }
-    u.name = name;
-    u.tipo = $('#perfTipo').value;
-    u.objetivo = $('#perfObjetivo').value;
-    u.alergias = selectedChips('perfChips').filter(a=>a!=='Ninguna');
-    u.menu = newMenu(u.tipo, u.alergias);
-    saveUser(u);
-    $('#userChip').textContent = u.name+' · '+PLANS[u.plan].name;
-    setMsg('#perfilMsg','Cambios guardados. Tu menú se ha regenerado con las nuevas preferencias.','ok');
-  });
-
-  $('#pwSave').addEventListener('click', ()=>{
-    const u = currentUser(); if(!u) return;
-    const cur = $('#pwActual').value, n1 = $('#pwNueva').value, n2 = $('#pwNueva2').value;
-    if(u.pw !== hash(cur)){ setMsg('#perfilMsg','La contraseña actual no es correcta.','err'); return; }
-    if(n1.length<6){ setMsg('#perfilMsg','La nueva contraseña debe tener al menos 6 caracteres.','err'); return; }
-    if(n1!==n2){ setMsg('#perfilMsg','Las contraseñas nuevas no coinciden.','err'); return; }
-    u.pw = hash(n1); saveUser(u);
-    ['pwActual','pwNueva','pwNueva2'].forEach(id=>$('#'+id).value='');
-    setMsg('#perfilMsg','Contraseña actualizada.','ok');
-  });
-
-  $('#delBtn').addEventListener('click', ()=>{
-    const u = currentUser(); if(!u) return;
-    if(!confirm('¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) return;
-    setUsers(getUsers().filter(x=>x.email!==u.email));
-    setSession(null);
-    $('#navUser').classList.add('hidden');
-    showView('view-auth'); showAuth('login');
-  });
-
-  /* Inicio */
-  function init(){
-    if(!getUsers().length){
-      const demo = {
-        id:'u-demo', name:'Demo Vitaria', email:'test@vitaria.com', pw:hash('vitaria123'),
-        plan:'pro', tipo:'Equilibrada', objetivo:'Aprender a comer bien', alergias:[],
-        createdAt:new Date().toISOString(),
-        menu:newMenu('Equilibrada',[])
-      };
-      setUsers([demo]);
-    }
-    renderChips('regChips', ALERGIAS, []);
-    const u = currentUser();
-    if(u) enterPortal();
-    else { showView('view-auth'); showAuth('login'); }
-  }
-  init();
+  renderChips('regChips',ALERGIAS,[]);
+  const u=currentUser();
+  if(u){if(!u.physical){showOnboarding();}else{enterPortal();}}else{showView('view-auth');showAuth('login');}
+})();
 })();
 </script>
 </body>

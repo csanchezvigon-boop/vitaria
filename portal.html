@@ -208,17 +208,23 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 .sleep-input input{width:60px;padding:8px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-family:'Karla',sans-serif;font-size:1rem;text-align:center;font-weight:700;}
 .sleep-input span{font-size:.82rem;color:var(--ink-soft);}
 
-/* Mascot */
-.mascot{position:fixed;bottom:0;right:16px;z-index:80;display:flex;flex-direction:column;align-items:flex-end;gap:0;pointer-events:none;}
-.mascot-body{position:relative;pointer-events:auto;cursor:default;}
-.mascot-emoji{font-size:8rem;line-height:1;display:block;filter:drop-shadow(0 6px 20px rgba(38,48,31,.4));animation:mascotFloat 3s ease-in-out infinite;transition:transform .2s;}
-.mascot-emoji:hover{transform:scale(1.15) rotate(-5deg);}
-.mascot-speech{position:absolute;bottom:calc(100% - 4px);right:0;background:var(--card);border:2.5px solid var(--ink);border-radius:18px 18px 6px 18px;padding:14px 20px;font-size:.9rem;color:var(--ink);max-width:260px;text-align:left;font-weight:600;line-height:1.4;box-shadow:0 8px 28px -8px rgba(38,48,31,.4);pointer-events:auto;animation:mascotBounce .4s ease;white-space:normal;}
-.mascot-speech::after{content:'';position:absolute;bottom:-8px;right:30px;width:16px;height:16px;background:var(--card);border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg);}
-@keyframes mascotBounce{0%{transform:translateY(14px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
-@keyframes mascotFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-.mascot.hidden{display:none;}
-@media(max-width:780px){.mascot{right:8px;}.mascot-emoji{font-size:5rem;}.mascot-speech{max-width:200px;font-size:.82rem;padding:10px 14px;}}
+/* Streak widget */
+.streak-widget{position:fixed;bottom:16px;right:16px;z-index:80;background:var(--ink);color:var(--bg);border-radius:20px;padding:18px 22px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 30px -8px rgba(38,48,31,.5);cursor:default;animation:widgetSlide .5s ease;}
+@keyframes widgetSlide{0%{transform:translateY(20px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
+.streak-ring{position:relative;width:64px;height:64px;flex:none;}
+.streak-ring svg{width:100%;height:100%;transform:rotate(-90deg);}
+.streak-ring circle{fill:none;stroke-width:5;}
+.streak-ring .ring-bg{stroke:rgba(237,240,226,.15);}
+.streak-ring .ring-fill{stroke:var(--yolk);stroke-linecap:round;transition:stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1);}
+.streak-ring .ring-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:1.2rem;color:var(--yolk);}
+.streak-info{display:flex;flex-direction:column;gap:2px;}
+.streak-fire{font-size:1.3rem;line-height:1;}
+.streak-days{font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(237,240,226,.6);}
+.streak-msg{font-size:.82rem;font-weight:600;line-height:1.3;max-width:160px;color:var(--bg);}
+.streak-badge{position:absolute;top:-4px;right:-4px;font-size:1rem;background:var(--yolk);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;animation:badgePop .4s ease;}
+@keyframes badgePop{0%{transform:scale(0);}50%{transform:scale(1.3);}100%{transform:scale(1);}}
+@media(max-width:780px){.streak-widget{bottom:10px;right:10px;padding:12px 16px;gap:10px;}.streak-ring{width:50px;height:50px;}.streak-msg{font-size:.78rem;max-width:120px;}}
+.streak-widget.hidden{display:none;}
 
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
@@ -304,10 +310,18 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 </div>
 
 <div class="confetti-wrap" id="confetti"></div>
-<div class="mascot hidden" id="mascot">
-  <div class="mascot-body">
-    <div class="mascot-speech" id="mascotBubble"></div>
-    <span class="mascot-emoji" id="mascotEmoji">🐨💪</span>
+<div class="streak-widget hidden" id="streakWidget">
+  <div class="streak-ring">
+    <svg viewBox="0 0 36 36">
+      <circle class="ring-bg" cx="18" cy="18" r="15.5"/>
+      <circle class="ring-fill" id="streakRingFill" cx="18" cy="18" r="15.5" stroke-dasharray="97.39" stroke-dashoffset="97.39"/>
+    </svg>
+    <div class="ring-center" id="streakCount">0</div>
+  </div>
+  <div class="streak-info">
+    <div class="streak-fire" id="streakFire">🔥</div>
+    <div class="streak-days" id="streakLabel">RACHA</div>
+    <div class="streak-msg" id="streakMsg">Empieza tu racha hoy</div>
   </div>
 </div>
 
@@ -538,7 +552,7 @@ function enterPortal(){
   showView('view-dashboard');$('#navUser').classList.remove('hidden');
   $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;
   activateTab('hoy');
-  setTimeout(()=>showMascotMessage(u),1200);
+  setTimeout(()=>updateStreak(u),1200);
 }
 
 $('#logoutBtn').addEventListener('click',()=>{setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
@@ -611,7 +625,7 @@ function renderHoy(u){
     const v=parseFloat(this.value);
     if(!u.sleep)u.sleep={};
     if(v||v===0){u.sleep[key]=v;}else{delete u.sleep[key];}
-    saveUser(u);renderSleepRating(v);showMascotMessage(u);
+    saveUser(u);renderSleepRating(v);updateStreak(u);
   };
   const eaten=u.consumed[key]||{};
   const meals=['desayuno','comida','cena'];
@@ -728,7 +742,7 @@ $('#foodConfirm').onclick=function(){
       u.extraFoods[ky][mt].push({text:text||'Comida extra',k:nd.k,p:nd.p,c:nd.c,g:nd.g});
     }
     saveUser(u);$('#foodOverlay').classList.add('hidden');
-    renderExtraList(mt,ky,u);updateHoySummary(u);showMascotMessage(u);
+    renderExtraList(mt,ky,u);updateHoySummary(u);updateStreak(u);
   }else{
     /* Original plan food mode */
     const u=s.user;const mt=s.mt;const ky=s.key;
@@ -745,7 +759,7 @@ $('#foodConfirm').onclick=function(){
     if(card){card.classList.add('eaten');const btn=card.querySelector('.meal-btn');if(btn){btn.classList.add('done');btn.textContent='✓ Comido';btn.disabled=true;}
       if(text&&estimateFood(text,qty)){card.querySelector('.meal-nutrition').innerHTML='<span class="meal-kcal">'+estimateFood(text,qty).k+' kcal</span> (real) · P: '+estimateFood(text,qty).p+'g · C: '+estimateFood(text,qty).c+'g · G: '+estimateFood(text,qty).g+'g';}
     }
-    updateHoySummary(u);showMascotMessage(u);
+    updateHoySummary(u);updateStreak(u);
     renderExtraList(mt,ky,u);
     if(u.consumed[ky].desayuno&&u.consumed[ky].comida&&u.consumed[ky].cena)launchConfetti();
   }
@@ -879,7 +893,7 @@ $('#foodSkip').addEventListener('click',function(){
   $('#foodOverlay').classList.add('hidden');
   const card=document.querySelector('.meal-card[data-type="'+mt+'"]');
   if(card){card.classList.add('eaten');const btn=card.querySelector('.meal-btn');if(btn){btn.classList.add('done');btn.textContent='✓ Comido';btn.disabled=true;}}
-  updateHoySummary(u);showMascotMessage(u);
+  updateHoySummary(u);updateStreak(u);
   renderExtraList(mt,ky,u);
   if(u.consumed[ky].desayuno&&u.consumed[ky].comida&&u.consumed[ky].cena)launchConfetti();
 });
@@ -903,7 +917,7 @@ function renderGlasses(total,drunk,key,u){
       if(!u.glassed)u.glassed={};
       const cur=u.glassed[key]||0;
       if(i<cur){u.glassed[key]=i;}else{u.glassed[key]=i+1;}
-      saveUser(u);renderGlasses(total,u.glassed[key]||0,key,u);showMascotMessage(u);
+      saveUser(u);renderGlasses(total,u.glassed[key]||0,key,u);updateStreak(u);
     });
     grid.appendChild(g);
   }
@@ -921,31 +935,60 @@ function renderSleepRating(h){
   el.innerHTML='<span class="sleep-rating '+cls+'">'+label+'</span>';
 }
 
-/* Mascot messages */
-const MASCOT_MSGS={
-  water:['¡Vamos koala! Cada vaso te hace más fuerte 💧','Hidrátate como un koala power.','Bebe agua, que yo duermo 22h y estoy fit.'],
-  food:['¡Comido! Yo solo como eucalipto pero tú haz lo tuyo.','Nutriéndote de verdad, ¡buen koala!','Eso es, un paso más hacia la fuerza.'],
-  sleep:['Dormir 22h al día es mi secreto. Tú duerme bien también.','El descanso marca la diferencia. Koala approved.'],
-  sleepGood:['¡8 horas! ¡Eso es mentalidad de koala! 🐨💪','Muy bien dormido, así me gusta.'],
-  eatAll:['¡Día completo! Eres más constante que yo comiendo eucalipto.','Completaste el día, ¡koala mode activated! 🐨'],
-  start:['¡Hola! Soy tu koala motivador. ¡Hoy vas a estar fuerte!','¡Buen día! Yo ya desayuné eucalipto, ¿y tú?','¿Listo para el día? ¡Vamos koala! 🐨💪']
-};
-function pickMsg(arr){return arr[Math.floor(Math.random()*arr.length)];}
-function showMascotMessage(u){
-  const m=$('#mascot');m.classList.remove('hidden');
-  const key=todayKey();const eaten=u.consumed[key]||{};
-  const glassesDrunk=(u.glassed&&u.glassed[key])||0;
-  let msg;
-  if(eaten.desayuno&&eaten.comida&&eaten.cena){msg=pickMsg(MASCOT_MSGS.eatAll);}
-  else if(glassesDrunk>0&&glassesDrunk%3===0){msg=pickMsg(MASCOT_MSGS.water);}
-  else if(glassesDrunk>0){msg=pickMsg(MASCOT_MSGS.food);}
-  else{msg=pickMsg(MASCOT_MSGS.start);}
-  const sleep=u.sleep&&u.sleep[key];
-  if(sleep&&sleep>=8&&Math.random()>0.5){msg=pickMsg(MASCOT_MSGS.sleepGood);}
-  else if(sleep&&sleep<7&&Math.random()>0.6){msg=pickMsg(MASCOT_MSGS.sleep);}
-  $('#mascotBubble').textContent=msg;
-  $('#mascotBubble').style.animation='none';void $('#mascotBubble').offsetWidth;$('#mascotBubble').style.animation='';
+/* Streak system */
+function todayKey(){return new Date().toISOString().slice(0,10);}
+function dayBeforeKey(d){var dt=new Date(d);dt.setDate(dt.getDate()-1);return dt.toISOString().slice(0,10);}
+function calcStreak(u){
+  var streak=0;
+  var d=todayKey();
+  var consumed=u.consumed||{};
+  var daysLogged=Object.keys(consumed).sort();
+  if(daysLogged.length===0)return 0;
+  if(!consumed[d]){
+    var prev=dayBeforeKey(d);
+    if(!consumed[prev])return 0;
+    d=prev;
+  }
+  while(consumed[d]){
+    var dayMeals=consumed[d];
+    if(dayMeals.desayuno||dayMeals.comida||dayMeals.cena)streak++;
+    d=dayBeforeKey(d);
+  }
+  return streak;
 }
+function updateStreak(u){
+  var w=$('#streakWidget');w.classList.remove('hidden');
+  var streak=calcStreak(u);
+  var daysThisWeek=0;
+  var now=new Date();
+  for(var i=0;i<7;i++){
+    var dt=new Date(now);
+    dt.setDate(dt.getDate()-i);
+    var dk=dt.toISOString().slice(0,10);
+    var c=u.consumed&&u.consumed[dk];
+    if(c&&(c.desayuno||c.comida||c.cena))daysThisWeek++;
+  }
+  var circumference=2*Math.PI*15.5;
+  var offset=circumference-(daysThisWeek/7)*circumference;
+  var ring=$('#streakRingFill');
+  ring.style.strokeDasharray=circumference;
+  ring.style.strokeDashoffset=offset;
+  ring.style.transition='none';
+  void ring.offsetWidth;
+  ring.style.transition='stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1)';
+  ring.style.strokeDashoffset=offset;
+  $('#streakCount').textContent=streak;
+  var fire=$('#streakFire');
+  var msg=$('#streakMsg');
+  if(streak>=28){fire.textContent='🏆';msg.textContent='¡Leyenda! 4+ semanas';}
+  else if(streak>=21){fire.textContent='👑';msg.textContent='¡Rey de la constancia!';}
+  else if(streak>=14){fire.textContent='⚡';msg.textContent='¡14 días! Imparable';}
+  else if(streak>=7){fire.textContent='🔥';msg.textContent='¡7 días seguidos!';}
+  else if(streak>=3){fire.textContent='🔥';msg.textContent='¡Llevas '+streak+' días!';}
+  else if(streak>=1){fire.textContent='✨';msg.textContent='¡'+streak+' día, empieza la racha!';}
+  else{fire.textContent='🌱';msg.textContent='Empieza tu racha hoy';}
+}
+
 function launchConfetti(){
   const c=$('#confetti');c.innerHTML='';const colors=['#D6552C','#E8A93B','#4F6F3F','#8B3A4A','#FBF9F2','#4A90D9'];
   for(let i=0;i<45;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.animationDelay=Math.random()*1.5+'s';p.style.animationDuration=(2+Math.random()*2)+'s';c.appendChild(p);}

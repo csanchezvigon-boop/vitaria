@@ -155,6 +155,33 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 
 @keyframes fadeSlide{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
 footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;}
+
+/* Water glasses */
+.glasses-grid{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0;}
+.glass{width:36px;height:48px;border:2px solid var(--water);border-radius:0 0 8px 8px;position:relative;overflow:hidden;cursor:pointer;transition:border-color .2s,transform .15s;opacity:.5;}
+.glass:hover{transform:scale(1.1);border-color:var(--herb);}
+.glass.filled{opacity:1;border-color:var(--water);background:rgba(74,144,217,.15);}
+.glass.filled::after{content:'';position:absolute;bottom:0;left:0;right:0;height:100%;background:linear-gradient(to top,var(--water),var(--water-light));border-radius:0 0 6px 6px;}
+.glass-count{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--water);text-align:center;margin-top:4px;font-weight:600;}
+
+/* Sleep card */
+.sleep-rating{display:inline-block;padding:4px 12px;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-top:6px;}
+.sleep-rating.excellent{background:#d4edda;color:#155724;}
+.sleep-rating.regular{background:#fff3cd;color:#856404;}
+.sleep-rating.bad{background:#f8d7da;color:#721c24;}
+.sleep-input{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.sleep-input input{width:60px;padding:8px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-family:'Karla',sans-serif;font-size:1rem;text-align:center;font-weight:700;}
+.sleep-input span{font-size:.82rem;color:var(--ink-soft);}
+
+/* Mascot */
+.mascot{position:fixed;bottom:20px;right:20px;z-index:80;display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none;}
+.mascot-bubble{background:var(--card);border:1.5px solid var(--line);border-radius:16px 16px 4px 16px;padding:10px 16px;font-size:.82rem;color:var(--ink);max-width:220px;text-align:center;font-weight:500;box-shadow:0 4px 16px -6px rgba(38,48,31,.25);pointer-events:auto;animation:mascotBounce .4s ease;}
+@keyframes mascotBounce{0%{transform:translateY(10px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
+.mascot-emoji{font-size:2.4rem;animation:mascotFloat 3s ease-in-out infinite;}
+@keyframes mascotFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.mascot.hidden{display:none;}
+@media(max-width:780px){.mascot{bottom:12px;right:12px;}.mascot-bubble{max-width:180px;font-size:.78rem;padding:8px 12px;}}
+
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}}
 </style>
 </head>
@@ -214,6 +241,10 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
   </div>
 </div>
 <div class="confetti-wrap" id="confetti"></div>
+<div class="mascot hidden" id="mascot">
+  <div class="mascot-bubble" id="mascotBubble"></div>
+  <span class="mascot-emoji" id="mascotEmoji">🐾</span>
+</div>
 
 <!-- Auth -->
 <div id="view-auth" class="view"><div class="wrap"><div class="auth-card">
@@ -267,10 +298,10 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
       <div class="stats-grid" id="statsGrid">
         <div class="stat-card">
           <span class="stat-icon">💧</span><span class="stat-label">Agua diaria</span>
-          <div class="water-glass-wrap"><div class="water-glass"><div class="water-fill" id="dashWaterFill"></div></div></div>
-          <span class="stat-value"><span class="counter" id="dashWaterVal" data-target="0">0</span><span class="unit"> L</span></span>
+          <div class="glasses-grid" id="glassesGrid"></div>
+          <div class="glass-count" id="glassCount">0 / 0 vasos</div>
         </div>
-        <div class="stat-card hidden" id="dashCalCard">
+        <div class="stat-card" id="dashCalCard">
           <span class="stat-icon">🔥</span><span class="stat-label">Calorías objetivo</span>
           <div class="cal-ring-wrap">
             <svg class="cal-ring" viewBox="0 0 120 120">
@@ -287,6 +318,14 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
             <div class="macro-row"><span class="macro-name">Carbos</span><div class="macro-track"><div class="macro-fill carbs" id="dashMC"></div></div><span class="macro-val" id="dashMCV">0g</span></div>
             <div class="macro-row"><span class="macro-name">Grasas</span><div class="macro-track"><div class="macro-fill fat" id="dashMF"></div></div><span class="macro-val" id="dashMFV">0g</span></div>
           </div>
+        </div>
+        <div class="stat-card" id="dashSleepCard">
+          <span class="stat-icon">😴</span><span class="stat-label">¿Cuánto dormiste?</span>
+          <div class="sleep-input">
+            <input type="number" id="sleepHours" min="0" max="14" step="0.5" placeholder="8">
+            <span>horas</span>
+          </div>
+          <div id="sleepRating"></div>
         </div>
       </div>
       <div class="meal-cards" id="todayMeals"></div>
@@ -423,7 +462,7 @@ $('#registerForm').addEventListener('submit',e=>{
   if(pw.length<6){setMsg('#regMsg','Mínimo 6 caracteres.','err');return;}
   if(pw!==pw2){setMsg('#regMsg','Las contraseñas no coinciden.','err');return;}
   if(getUsers().some(u=>u.email===email)){setMsg('#regMsg','Ya existe una cuenta con ese correo.','err');return;}
-  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,createdAt:new Date().toISOString(),menu:newMenu(tipo,alergias),consumed:{}};
+  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,createdAt:new Date().toISOString(),menu:newMenu(tipo,alergias),consumed:{},glassed:{},sleep:{}};
   setUsers([...getUsers(),user]);setSession(email);showOnboarding();
 });
 
@@ -434,6 +473,7 @@ function enterPortal(){
   showView('view-dashboard');$('#navUser').classList.remove('hidden');
   $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;
   activateTab('hoy');
+  setTimeout(()=>showMascotMessage(u),1200);
 }
 
 $('#logoutBtn').addEventListener('click',()=>{setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
@@ -486,13 +526,28 @@ function renderHoy(u){
   const day=u.menu[idx];if(!day){$('#todayMeals').innerHTML='<p>No hay menú para hoy.</p>';return;}
   $('#hoyTitle').textContent='Resumen del día';
   const d=new Date();$('#hoyDate').textContent=day.dia+', '+d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
-  const stats=u.stats;const isWeight=u.objetivo==='Regular el peso';
+  const stats=u.stats;
   if(stats){
-    $('#dashWaterVal').dataset.target=stats.agua;$('#dashWaterVal').textContent='0';
-    $('#dashWaterFill').style.height=Math.min(100,(stats.agua/3)*100)+'%';
-    if(isWeight){$('#dashCalCard').classList.remove('hidden');$('#dashMacroCard').classList.remove('hidden');$('#dashCalVal').dataset.target=stats.calorias;$('#dashCalTarget').textContent=stats.calorias;}
+    /* Water glasses */
+    const totalGlasses=Math.round(stats.agua*1000/250);
+    const glassesDrunk=(u.glassed&&u.glassed[key])||0;
+    renderGlasses(totalGlasses,glassesDrunk,key,u);
+    /* Calorie card — always visible */
+    $('#dashCalCard').classList.remove('hidden');
+    if(stats.esBajar){$('#dashMacroCard').classList.remove('hidden');}
+    $('#dashCalVal').dataset.target=stats.calorias;$('#dashCalTarget').textContent=stats.calorias;
     setTimeout(()=>animateCounters($('#statsGrid')),300);
   }
+  /* Sleep */
+  const sleepH=(u.sleep&&u.sleep[key])||'';
+  $('#sleepHours').value=sleepH;
+  renderSleepRating(sleepH);
+  $('#sleepHours').onchange=function(){
+    const v=parseFloat(this.value);
+    if(!u.sleep)u.sleep={};
+    if(v||v===0){u.sleep[key]=v;}else{delete u.sleep[key];}
+    saveUser(u);renderSleepRating(v);showMascotMessage(u);
+  };
   const eaten=u.consumed[key]||{};
   const meals=['desayuno','comida','cena'];
   let html='';
@@ -513,7 +568,7 @@ function renderHoy(u){
       const card=this.closest('.meal-card');const mt=card.dataset.type;const ky=card.dataset.key;
       if(!u.consumed[ky])u.consumed[ky]={};u.consumed[ky][mt]=true;saveUser(u);
       card.classList.add('eaten');this.classList.add('done');this.textContent='✓ Comido';this.disabled=true;
-      updateHoySummary(u);
+      updateHoySummary(u);showMascotMessage(u);
       if(u.consumed[ky].desayuno&&u.consumed[ky].comida&&u.consumed[ky].cena)launchConfetti();
     });
   });
@@ -522,10 +577,10 @@ function renderHoy(u){
 
 function updateHoySummary(u){
   const key=todayKey();const idx=todayIndex();const day=u.menu[idx];if(!day)return;
-  const eaten=u.consumed[key]||{};const isWeight=u.objetivo==='Regular el peso';
+  const eaten=u.consumed[key]||{};
   let tk=0,tp=0,tc=0,tg=0;
   ['desayuno','comida','cena'].forEach(mt=>{if(eaten[mt]){const nd=getND(day[mt]);tk+=nd.k;tp+=nd.p;tc+=nd.c;tg+=nd.g;}});
-  if(isWeight&&u.stats){
+  if(u.stats){
     $('#dailySummary').classList.remove('hidden');
     const pct=Math.min(100,tk/u.stats.calorias*100);
     animateEl($('#sumKcal'),tk,0);$('#sumTarget').textContent=u.stats.calorias;
@@ -545,7 +600,7 @@ function renderSemana(u){
   const ti=todayIndex();
   $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td><td>${m.desayuno}</td><td>${m.comida}</td><td>${m.cena}</td></tr>`).join('');
 }
-$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.menu=newMenu(u.tipo,u.alergias);u.consumed={};saveUser(u);renderSemana(u);renderLista(u);});
+$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};saveUser(u);renderSemana(u);renderLista(u);});
 
 /* LISTA */
 function renderLista(u){
@@ -566,7 +621,7 @@ function renderPerfil(u){
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
 }
-$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias);u.consumed={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
+$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
 $('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;saveUser(u);setMsg('#perfilMsg','Datos físicos actualizados. Plan recalculado.','ok');});
 $('#pwSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const cur=$('#pwActual').value,n1=$('#pwNueva').value,n2=$('#pwNueva2').value;if(u.pw!==hash(cur)){setMsg('#perfilMsg','Contraseña actual incorrecta.','err');return;}if(n1.length<6){setMsg('#perfilMsg','Mínimo 6 caracteres.','err');return;}if(n1!==n2){setMsg('#perfilMsg','Las contraseñas no coinciden.','err');return;}u.pw=hash(n1);saveUser(u);['pwActual','pwNueva','pwNueva2'].forEach(i=>$('#'+i).value='');setMsg('#perfilMsg','Contraseña actualizada.','ok');});
 $('#delBtn').addEventListener('click',()=>{const u=currentUser();if(!u)return;if(!confirm('¿Eliminar tu cuenta? No se puede deshacer.'))return;setUsers(getUsers().filter(x=>x.email!==u.email));setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
@@ -578,6 +633,61 @@ function animateEl(el,target,decimals=0,duration=1500){
   const update=now=>{const p=Math.min((now-start)/duration,1);const ease=1-Math.pow(1-p,3);el.textContent=(ease*target).toFixed(decimals);if(p<1)requestAnimationFrame(update);};
   requestAnimationFrame(update);
 }
+
+/* Water glasses */
+function renderGlasses(total,drunk,key,u){
+  const grid=$('#glassesGrid');grid.innerHTML='';
+  for(let i=0;i<total;i++){
+    const g=document.createElement('div');
+    g.className='glass'+(i<drunk?' filled':'');
+    g.title='Vaso '+(i+1);
+    g.addEventListener('click',function(){
+      if(!u.glassed)u.glassed={};
+      const cur=u.glassed[key]||0;
+      if(i<cur){u.glassed[key]=i;}else{u.glassed[key]=i+1;}
+      saveUser(u);renderGlasses(total,u.glassed[key]||0,key,u);showMascotMessage(u);
+    });
+    grid.appendChild(g);
+  }
+  $('#glassCount').textContent=drunk+' / '+total+' vasos';
+}
+
+/* Sleep rating */
+function renderSleepRating(h){
+  const el=$('#sleepRating');
+  if(h===''||h===undefined||h===null){el.innerHTML='';return;}
+  let cls,label;
+  if(h>=8){cls='excellent';label='Excelente 🌟';}
+  else if(h>=7){cls='regular';label='Regular ⚠️';}
+  else{cls='bad';label='Poco descanso 😓';}
+  el.innerHTML='<span class="sleep-rating '+cls+'">'+label+'</span>';
+}
+
+/* Mascot messages */
+const MASCOT_MSGS={
+  water:['¡Bien! Seguimiento constante 💧','Cada vaso cuenta, sigue así.','Vas por buen camino con el agua.','Hidratado y fuerte.'],
+  food:['¡Comido! Buen trabajo hoy.','Llevas el día bien encarrilado.','Nutriéndote de verdad.','Eso es, un paso más.'],
+  sleep:['Dormir bien es clave para todo.','El descanso marca la diferencia.','Sin sueño no hay energía.'],
+  sleepGood:['¡8 horas! Eso es cuidarte de verdad.','Muy bien dormido, el cuerpo lo agradece.'],
+  eatAll:['¡Día completo! Eres constante.','Completaste el día, ¡buen ritmo!'],
+  start:['¡Hola! Estoy aquí para animarte.','¡Buen día! Vamos a cuidarnos hoy.','¿Listo para el día? Yo también.']
+};
+function pickMsg(arr){return arr[Math.floor(Math.random()*arr.length)];}
+function showMascotMessage(u){
+  const m=$('#mascot');m.classList.remove('hidden');
+  const key=todayKey();const eaten=u.consumed[key]||{};
+  const glassesDrunk=(u.glassed&&u.glassed[key])||0;
+  let msg;
+  if(eaten.desayuno&&eaten.comida&&eaten.cena){msg=pickMsg(MASCOT_MSGS.eatAll);}
+  else if(glassesDrunk>0&&glassesDrunk%3===0){msg=pickMsg(MASCOT_MSGS.water);}
+  else if(glassesDrunk>0){msg=pickMsg(MASCOT_MSGS.food);}
+  else{msg=pickMsg(MASCOT_MSGS.start);}
+  const sleep=u.sleep&&u.sleep[key];
+  if(sleep&&sleep>=8&&Math.random()>0.5){msg=pickMsg(MASCOT_MSGS.sleepGood);}
+  else if(sleep&&sleep<7&&Math.random()>0.6){msg=pickMsg(MASCOT_MSGS.sleep);}
+  $('#mascotBubble').textContent=msg;
+  $('#mascotBubble').style.animation='none';void $('#mascotBubble').offsetWidth;$('#mascotBubble').style.animation='';
+}
 function launchConfetti(){
   const c=$('#confetti');c.innerHTML='';const colors=['#D6552C','#E8A93B','#4F6F3F','#8B3A4A','#FBF9F2','#4A90D9'];
   for(let i=0;i<45;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.background=colors[Math.floor(Math.random()*colors.length)];p.style.animationDelay=Math.random()*1.5+'s';p.style.animationDuration=(2+Math.random()*2)+'s';c.appendChild(p);}
@@ -587,7 +697,7 @@ function launchConfetti(){
 /* Init */
 (function init(){
   if(!getUsers().length){
-    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Regular el peso',alergias:[],createdAt:new Date().toISOString(),menu:newMenu('Equilibrada',[]),consumed:{}};
+    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Regular el peso',alergias:[],createdAt:new Date().toISOString(),menu:newMenu('Equilibrada',[]),consumed:{},glassed:{},sleep:{}};
     setUsers([demo]);
   }
   renderChips('regChips',ALERGIAS,[]);

@@ -483,7 +483,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
     </section>
     <!-- LISTA -->
     <section id="tab-lista" class="tab hidden">
-      <div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Lo que necesitas esta semana</h2><p>Tipo: <b id="listaTipo" style="color:var(--herb);"></b></p></div>
+      <div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Lo que necesitas esta semana</h2><p>Tipo: <b id="listaTipo" style="color:var(--herb);"></b></p><p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px;">A medida que avancen las semanas no necesitarás comprar todo, te van a sobrar cosas, compra solo lo que te falte :)</p></div>
       <ul class="shop-list" id="shopList"></ul>
     </section>
     <!-- PERFIL -->
@@ -1073,7 +1073,17 @@ function renderLista(u){
     });
   });
   const items=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  $('#shopList').innerHTML=items.map(([nm,c])=>{const line=shopUnit(nm,c,grams[nm]||0);return line?`<li><span>${nm}</span><b>${line}</b></li>`:'';}).join('');
+  const SHOP_FORCE={'aguacate':'×3 uds','tomate':'×3 uds','kefir de cabra/oveja':'×4 botella','chocolate negro >85%':'×2 tabletas / ×1 bolsa'};
+  const RM_EXACT=['semillas','pollo o pavo','ternera','pimientos, cebolla y calabacin','yogur de cabra','frutos secos','calabaza, calabacin y zanahoria'];
+  const RM_HAS=['especias','espinaca','fruta variada','verduras para saltear','canonigos'];
+  let html=items.map(([nm,c])=>{
+    const n=norm(nm);
+    if(RM_EXACT.includes(n)||RM_HAS.some(k=>n.includes(k)))return '';
+    const line=SHOP_FORCE[n]||shopUnit(nm,c,grams[nm]||0);
+    return line?`<li><span>${nm}</span><b>${line}</b></li>`:'';
+  }).join('');
+  html+='<li><span>Espinacas</span><b>×2 uds</b></li>';
+  $('#shopList').innerHTML=html;
 }
 const INGREDIENTS={'Avena con fruta y nueces':['Avena','Fruta','Nueces'],'Tostada integral con aguacate y huevo':['Pan integral','Aguacate','Huevos'],'Yogur natural con fruta y semillas':['Yogur natural','Fruta','Semillas de chía'],'Lentejas con verduras y arroz integral':['Lentejas','Verduras','Arroz integral'],'Pollo al horno, quinoa y brócoli':['Pollo','Quinoa','Brócoli'],'Garbanzos salteados con espinaca':['Garbanzos','Espinacas','Ajo'],'Pescado a la plancha con ensalada':['Pescado','Lechuga','Tomate','Cebolla'],'Crema de calabacín y huevo cocido':['Calabacín','Huevos','Patata'],'Tortilla de espinacas y ensalada':['Huevos','Espinacas','Lechuga','Tomate'],'Porridge de avena y plátano':['Avena','Plátano','Bebida vegetal'],'Tostada con queso fresco y tomate':['Pan integral','Queso fresco','Tomate'],'Yogur con granola y frutos rojos':['Yogur','Granola','Frutos rojos'],'Bowl de quinoa, hummus y verduras':['Quinoa','Hummus','Zanahoria','Pepino','Aguacate'],'Pasta integral con verduras al pesto':['Pasta integral','Calabacín','Pimiento','Pesto'],'Revuelto de tofu con champiñones':['Tofu','Champiñones','Cebolla'],'Ensalada de lentejas y queso feta':['Lentejas','Queso feta','Tomate','Aceitunas'],'Batido de avena, plátano y cacao':['Avena','Plátano','Cacao','Bebida vegetal'],'Avena nocturna con bebida de almendra':['Avena','Bebida de almendra','Fruta'],'Tostada con hummus y tomate':['Pan integral','Hummus','Tomate'],'Tofu salteado con verduras y quinoa':['Tofu','Verduras','Quinoa','Salsa de soja'],'Curry de garbanzos y arroz integral':['Garbanzos','Leche de coco','Curry','Arroz integral'],'Pisto con alubias y pan integral':['Calabacín','Pimiento','Tomate','Alubias'],'Crema de boniato y garbanzos':['Boniato','Garbanzos','Puerro'],'Salteado de verduras con fideos de arroz':['Verduras','Fideos de arroz','Salsa de soja'],'Ensalada de quinoa, aguacate y maíz':['Quinoa','Aguacate','Maíz','Tomate'],'Pan de trigo sarraceno con aguacate':['Pan sarraceno','Aguacate','Huevos'],'Yogur con fruta y semillas':['Yogur','Fruta','Semillas'],'Huevos revueltos con tomate':['Huevos','Tomate','Aceite de oliva'],'Arroz integral con pollo y brócoli':['Arroz integral','Pollo','Brócoli'],'Salmorejo con atún y huevo':['Tomate','Atún','Huevos'],'Garbanzos con espinaca y comino':['Garbanzos','Espinacas','Comino'],'Pescado al horno con verduras':['Pescado','Verduras'],'Crema de calabaza con semillas':['Calabaza','Cebolla','Semillas']};
 

@@ -226,6 +226,19 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 @media(max-width:780px){.streak-widget{bottom:10px;right:10px;padding:12px 16px;gap:10px;}.streak-ring{width:50px;height:50px;}.streak-msg{font-size:.78rem;max-width:120px;}}
 .streak-widget.hidden{display:none;}
 
+/* Meal detail modal */
+.meal-cell{cursor:pointer;transition:background .15s;}
+.meal-cell:hover{background:rgba(74,103,65,.07);}
+.mdi-row{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 14px;flex-wrap:wrap;}
+.mdi-qty{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--herb);min-width:70px;flex:none;}
+.mdi-name{flex:1;font-size:.88rem;line-height:1.35;}
+.mdi-name.sub{color:var(--tomato);font-weight:700;}
+.mdi-badge{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);border:1px solid var(--line);border-radius:999px;padding:2px 8px;flex:none;}
+.mdi-opt{font-family:'IBM Plex Mono',monospace;font-size:.58rem;color:#b8860b;flex:none;}
+.mdi-sel{border:1.5px solid var(--line);border-radius:9px;padding:6px 8px;font-family:'Karla',sans-serif;font-size:.78rem;background:var(--card);color:var(--ink);max-width:150px;flex:none;}
+.mdi-sel:focus{border-color:var(--herb);outline:none;}
+.macro-chip{font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;border-radius:999px;padding:4px 12px;background:rgba(74,103,65,.1);color:var(--herb);}
+
 /* Weekly calorie chart */
 .weekly-chart{background:var(--card);border-radius:var(--radius);padding:20px 24px;margin-top:20px;}
 .weekly-chart h3{font-size:1rem;font-weight:800;margin:0 0 4px;}
@@ -329,6 +342,21 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
       <button class="btn btn-ghost" id="foodCancel">Cancelar</button>
     </div>
     <button class="food-skip" id="foodSkip">Usar la comida del plan sin modificar</button>
+  </div>
+</div>
+
+<!-- Meal detail + substitutions modal -->
+<div class="food-overlay hidden" id="mealOverlay">
+  <div class="food-modal" style="max-width:560px;max-height:86vh;overflow-y:auto;">
+    <h2 id="mealDetailTitle"></h2>
+    <p class="food-subtitle" id="mealDetailTag"></p>
+    <div id="mealDetailMacros" style="display:flex;gap:8px;margin:0 0 16px;flex-wrap:wrap;"></div>
+    <div id="mealDetailItems" style="display:flex;flex-direction:column;gap:10px;"></div>
+    <p id="mealDetailPrep" style="font-size:.85rem;color:var(--ink-soft);line-height:1.5;margin:14px 0 0;"></p>
+    <p id="mealDetailNote" style="font-size:.82rem;color:var(--tomato);background:rgba(200,75,49,.08);border-radius:10px;padding:10px 14px;line-height:1.5;margin:10px 0 0;"></p>
+    <div class="food-actions" style="margin-top:18px;">
+      <button class="btn btn-ghost" id="mealDetailClose">Cerrar</button>
+    </div>
   </div>
 </div>
 
@@ -518,8 +546,47 @@ const MEALS={Equilibrada:{desayuno:['Avena con fruta y nueces','Tostada integral
 
 const ALLERGENS={'Yogur natural con fruta y semillas':['Lácteos','Frutos secos'],'Yogur con granola y frutos rojos':['Lácteos'],'Tostada con queso fresco y tomate':['Lácteos'],'Bowl de quinoa, hummus y verduras':['Frutos secos'],'Ensalada de lentejas y queso feta':['Lácteos'],'Pescado a la plancha con ensalada':['Pescado'],'Salmorejo con atún y huevo':['Pescado'],'Pescado al horno con verduras':['Pescado'],'Pan de trigo sarraceno con aguacate':['Huevo'],'Tortilla de espinacas y ensalada':['Huevo'],'Crema de calabacín y huevo cocido':['Huevo']};
 
-const NDATA={'Avena con fruta y nueces':{k:340,p:11,c:48,g:13},'Tostada integral con aguacate y huevo':{k:370,p:16,c:28,g:21},'Yogur natural con fruta y semillas':{k:215,p:10,c:26,g:8},'Lentejas con verduras y arroz integral':{k:420,p:22,c:58,g:8},'Pollo al horno, quinoa y brócoli':{k:410,p:35,c:38,g:12},'Garbanzos salteados con espinaca':{k:350,p:18,c:42,g:10},'Pescado a la plancha con ensalada':{k:320,p:30,c:12,g:16},'Crema de calabacín y huevo cocido':{k:280,p:14,c:24,g:14},'Tortilla de espinacas y ensalada':{k:310,p:18,c:10,g:22},'Porridge de avena y plátano':{k:320,p:9,c:52,g:9},'Tostada con queso fresco y tomate':{k:290,p:14,c:26,g:14},'Yogur con granola y frutos rojos':{k:280,p:9,c:38,g:10},'Bowl de quinoa, hummus y verduras':{k:380,p:16,c:44,g:15},'Pasta integral con verduras al pesto':{k:420,p:15,c:56,g:14},'Revuelto de tofu con champiñones':{k:260,p:18,c:10,g:16},'Ensalada de lentejas y queso feta':{k:360,p:20,c:38,g:14},'Batido de avena, plátano y cacao':{k:290,p:10,c:48,g:7},'Avena nocturna con bebida de almendra':{k:280,p:9,c:40,g:9},'Tostada con hummus y tomate':{k:270,p:10,c:30,g:12},'Tofu salteado con verduras y quinoa':{k:360,p:20,c:36,g:14},'Curry de garbanzos y arroz integral':{k:430,p:16,c:60,g:14},'Pisto con alubias y pan integral':{k:380,p:16,c:48,g:12},'Crema de boniato y garbanzos':{k:340,p:14,c:52,g:8},'Salteado de verduras con fideos de arroz':{k:300,p:10,c:44,g:8},'Ensalada de quinoa, aguacate y maíz':{k:350,p:12,c:42,g:15},'Pan de trigo sarraceno con aguacate':{k:360,p:14,c:28,g:22},'Yogur con fruta y semillas':{k:215,p:10,c:26,g:8},'Huevos revueltos con tomate':{k:240,p:16,c:8,g:17},'Arroz integral con pollo y brócoli':{k:400,p:32,c:42,g:10},'Salmorejo con atún y huevo':{k:380,p:26,c:22,g:20},'Garbanzos con espinaca y comino':{k:330,p:16,c:44,g:8},'Pescado al horno con verduras':{k:290,p:28,c:10,g:15},'Crema de calabaza con semillas':{k:260,p:8,c:38,g:9}};
+const NDATA={'Yogur griego proteico con cacao y frutos rojos':{k:520,p:45,c:30,g:25},'Tostadas de espelta con huevos, pavo y aguacate':{k:620,p:38,c:40,g:32},'Porridge overnight de avena con plátano':{k:550,p:35,c:65,g:18},'Ayuno metabólico / Bulletproof Coffee':{k:250,p:2,c:3,g:26},'Pollo con arroz vaporizado y espinacas':{k:650,p:55,c:70,g:18},'Quinoa con caballa, huevo y verduras salteadas':{k:640,p:42,c:55,g:26},'Ternera especiada con boniato y espárragos':{k:700,p:50,c:65,g:24},'Arroz vaporizado con caballa y huevo cocido':{k:600,p:38,c:60,g:20},'Pollo con arroz vaporizado y aguacate':{k:750,p:55,c:80,g:24},'Ensaladilla rusa casera con caballa':{k:650,p:35,c:55,g:30},'Ternera con aguacate, rúcula y yogur griego':{k:800,p:55,c:25,g:52},'Salmón con boniato asado y espárragos':{k:700,p:45,c:60,g:28},'Pescado blanco con patata cocida y verduras':{k:580,p:45,c:55,g:16},'Poke bowl de salmón, quinoa y feta':{k:720,p:42,c:55,g:34},'Fajitas integrales de pollo o pizza casera':{k:650,p:45,c:60,g:22},'Hamburguesa completa con boniato asado':{k:850,p:50,c:75,g:35},'Pescado con puré vegetal y salsa de yogur':{k:550,p:40,c:35,g:25},'Tostadas de espelta con huevos revueltos y aguacate':{k:560,p:32,c:40,g:28},'Avena con fruta y nueces':{k:340,p:11,c:48,g:13},'Tostada integral con aguacate y huevo':{k:370,p:16,c:28,g:21},'Yogur natural con fruta y semillas':{k:215,p:10,c:26,g:8},'Lentejas con verduras y arroz integral':{k:420,p:22,c:58,g:8},'Pollo al horno, quinoa y brócoli':{k:410,p:35,c:38,g:12},'Garbanzos salteados con espinaca':{k:350,p:18,c:42,g:10},'Pescado a la plancha con ensalada':{k:320,p:30,c:12,g:16},'Crema de calabacín y huevo cocido':{k:280,p:14,c:24,g:14},'Tortilla de espinacas y ensalada':{k:310,p:18,c:10,g:22},'Porridge de avena y plátano':{k:320,p:9,c:52,g:9},'Tostada con queso fresco y tomate':{k:290,p:14,c:26,g:14},'Yogur con granola y frutos rojos':{k:280,p:9,c:38,g:10},'Bowl de quinoa, hummus y verduras':{k:380,p:16,c:44,g:15},'Pasta integral con verduras al pesto':{k:420,p:15,c:56,g:14},'Revuelto de tofu con champiñones':{k:260,p:18,c:10,g:16},'Ensalada de lentejas y queso feta':{k:360,p:20,c:38,g:14},'Batido de avena, plátano y cacao':{k:290,p:10,c:48,g:7},'Avena nocturna con bebida de almendra':{k:280,p:9,c:40,g:9},'Tostada con hummus y tomate':{k:270,p:10,c:30,g:12},'Tofu salteado con verduras y quinoa':{k:360,p:20,c:36,g:14},'Curry de garbanzos y arroz integral':{k:430,p:16,c:60,g:14},'Pisto con alubias y pan integral':{k:380,p:16,c:48,g:12},'Crema de boniato y garbanzos':{k:340,p:14,c:52,g:8},'Salteado de verduras con fideos de arroz':{k:300,p:10,c:44,g:8},'Ensalada de quinoa, aguacate y maíz':{k:350,p:12,c:42,g:15},'Pan de trigo sarraceno con aguacate':{k:360,p:14,c:28,g:22},'Yogur con fruta y semillas':{k:215,p:10,c:26,g:8},'Huevos revueltos con tomate':{k:240,p:16,c:8,g:17},'Arroz integral con pollo y brócoli':{k:400,p:32,c:42,g:10},'Salmorejo con atún y huevo':{k:380,p:26,c:22,g:20},'Garbanzos con espinaca y comino':{k:330,p:16,c:44,g:8},'Pescado al horno con verduras':{k:290,p:28,c:10,g:15},'Crema de calabaza con semillas':{k:260,p:8,c:38,g:9}};
 const DEFAULT_NDATA={k:350,p:15,c:40,g:12};
+/* Detalle de comidas: items=[cantidad, alimento, grupo, opcional?, suplemento?] */
+const SUP='SUP';
+const MEAL_DETAILS={
+'Yogur griego proteico con cacao y frutos rojos':{prep:'Mezcla yogures con proteína y cacao, decora con frutos rojos, chocolate troceado y canela.',items:[['2 uds','Yogur griego natural','PL'],['15 g','Proteína en polvo',null],['1 chda','Cacao puro sin azúcar',null,1],['Al gusto','Frutos rojos','FR',1],['30 g','Crema de almendras / nueces de Brasil / anacardos','GR'],['1 chda','Semillas de lino o chía','GR'],['1 oz','Chocolate negro >85%',null,1],['Al gusto','Canela',null,1],['','Café solo o con bebida de almendras 0%',null,1],['1 vaso','Agua con pizca de sal'],['1 perla','Vitamina D3 + K2',SUP],['2 perlas','Omega 3',SUP]]},
+'Tostadas de espelta con huevos, pavo y aguacate':{items:[['80 g','Pan integral de espelta o centeno (2 rebanadas)','HB'],['60 g','Pavo en lonchas / salmón ahumado / jamón ibérico','PB'],['3 uds','Huevos revueltos','PA'],['½ uds','Aguacate','GR'],['','Tomate rallado o en rodajas','VN'],['1 cda','AOVE','GR'],['','Café solo o con bebida de almendras 0%',null,1],['1 vaso','Agua con pizca de sal'],['1 perla','Vitamina D3 + K2',SUP],['2 perlas','Omega 3',SUP]]},
+'Tostadas de espelta con huevos revueltos y aguacate':{items:[['80 g','Pan integral de espelta o centeno (2 rebanadas)','HB'],['3 uds','Huevos revueltos','PA'],['½ uds','Aguacate','GR'],['','Tomate rallado o en rodajas','VN'],['1 cda','AOVE','GR'],['','Café solo o con bebida de almendras 0%',null,1],['1 vaso','Agua con pizca de sal'],['1 perla','Vitamina D3 + K2',SUP],['2 perlas','Omega 3',SUP]]},
+'Porridge overnight de avena con plátano':{prep:'Prepara la noche anterior (mínimo 6 h en nevera). No calentar: frío digiere mejor y sacia más.',items:[['50 g','Avena remojada','HB'],['150-200 ml','Bebida de almendras 0%'],['20 g','Proteína en polvo'],['1 uds','Plátano machacado','FA'],['1 chda','Miel natural'],['Al gusto','Frutos rojos','FR',1],['1 chdta','Semillas (sésamo, lino, chía)','GR'],['10 uds','Almendras','GR'],['1 chdta','Cacao puro + canela'],['','Café solo o con bebida de almendras 0%',null,1],['1 vaso','Agua con pizca de sal'],['1 perla','Vitamina D3 + K2',SUP],['2 perlas','Omega 3',SUP]],note:'Si entrenas pronto: ½ porción pre-entreno y el resto de postre.'},
+'Ayuno metabólico / Bulletproof Coffee':{prep:'Ayuno completo o Bulletproof: café + bebida de almendras 0% + 1½ cda de aceite de coco. Bátelo para estilo latte.',items:[['','Café / descafeinado espresso'],['150 ml','Bebida de almendras 0%'],['1½ cda','Aceite de coco','GR'],['','Agua con pizca de sal (toda la mañana)']],note:'Mantén la hidratación durante toda la mañana.'},
+'Pollo con arroz vaporizado y espinacas':{prep:'Saltea el pollo con cúrcuma y pimienta negra; añade espinacas al final. Brócoli cocido aparte.',items:[['','15 min antes: chupito de vinagre de sidra de manzana en agua'],['80 g','Arroz vaporizado en seco (~240 g cocido)','HA'],['200 g','Pechuga de pollo especiada (cúrcuma y pimienta)','PB'],['1 chda','Salsa pesto o soja',null,1],['','Espinacas salteadas','VH'],['','Brócoli cocido','VC'],['1 cda','AOVE + limón','GR'],['1 uds','Manzana','FB'],['15-20 uds','Almendras','GR']],note:'Merienda pre-entreno opcional (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda.'},
+'Quinoa con caballa, huevo y verduras salteadas':{items:[['','15 min antes: chupito de vinagre de sidra de manzana en agua'],['90 g','Quinoa en seco (~240 g cocida)','HA'],['1 lata','Caballa / bonito','PA'],['2 uds','Huevos cocidos salteados con AOVE','PA'],['','Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo','VN'],['1 cda','Chucrut',null,1],['','Chorrito final de AOVE','GR'],['1 pieza','Manzana / pera / mandarina / kiwi','FB']],note:'Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal.'},
+'Ternera especiada con boniato y espárragos':{items:[['','15 min antes: chupito de vinagre de sidra de manzana en agua'],['300 g','Boniato airfryer / asado','HA'],['150 g','Calabaza al airfryer','VR'],['200 g','Carne picada de ternera especiada + tomate natural sin azúcar','PB'],['','Espárragos trigueros salteados','VF'],['125 ml','Kéfir de cabra/oveja + frutos rojos + canela','PL']],note:'Merienda pre-entreno opcional (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda.'},
+'Arroz vaporizado con caballa y huevo cocido':{items:[['','15 min antes: chupito de vinagre de sidra de manzana en agua'],['100 g','Arroz vaporizado en seco','HA'],['1 lata','Caballa / sardinas','PA'],['2 uds','Huevos cocidos','PA'],['','Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo','VN'],['1 cda','Chucrut',null,1],['1 cda','AOVE','GR'],['1 pieza','Manzana / pera / mandarina / kiwi','FB']],note:'Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal.'},
+'Pollo con arroz vaporizado y aguacate':{items:[['','15 min antes: chupito de vinagre de sidra de manzana en agua'],['100 g','Arroz vaporizado en seco (~300 g cocido)','HA'],['200 g','Pechuga de pollo especiada (cúrcuma y pimienta)','PB'],['1 chda','Salsa pesto o soja',null,1],['½ uds','Aguacate','GR'],['','Espinacas salteadas','VH'],['1 cda','AOVE + limón','GR'],['1 uds','Manzana','FB'],['15-20 uds','Almendras','GR']],note:'Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal.'},
+'Ensaladilla rusa casera con caballa':{prep:'Aliño: yogur griego con chorrito de AOVE y sal (nada de mayonesa). Postre: resto de yogur + fruta + miel + canela.',items:[['','15 min antes: chupito de vinagre de sidra de manzana en agua'],['350 g','Patata cocida','HA'],['1 lata','Caballa / atún / bonito','PA'],['3 uds','Huevos cocidos','PA'],['1 lata','Guisantes',null,1],['','Zanahoria rallada o cocida','VR'],['','Yogur griego para aliñar + AOVE + sal','PL'],['1 cda','AOVE','GR'],['1 pieza','Fruta (postre)','FB'],['1 cda','Miel (postre)',null,1]]},
+'Ternera con aguacate, rúcula y yogur griego':{items:[['','15 min antes: chupito de vinagre de sidra de manzana en agua'],['250 g','Carne picada / entrecot / chuletas de ternera','PA'],['2 uds','Huevos cocidos o a la plancha','PA',1],['1 uds','Aguacate','GR'],['','Tomate cherry o natural','VN'],['','Rúcula o espinaca fresca','VH'],['1 cda','AOVE','GR'],['1 cda','Semillas de sésamo o lino','GR'],['','Sal, pimienta y pimentón'],['1 uds','Yogur griego + frutos rojos + canela','PL']]},
+'Salmón con boniato asado y espárragos':{items:[['350 g','Patata / 250 g boniato asado o airfryer','HA'],['180-220 g','Salmón fresco con limón y especias','PA'],['1 chda','Pesto',null,1],['','Espárragos trigueros + champiñones salteados','VF'],['','Tomate fresco, sal y especias','VN',1],['1 cda','AOVE','GR'],['','Chorrito de salsa de soja para el salmón',null,1],['1 uds','Yogur de cabra + cacao puro + frutos rojos','PL'],['2 cápsulas','Bisglicinato de Magnesio (separar 20 min de la cena)',SUP]]},
+'Pescado blanco con patata cocida y verduras':{items:[['350 g','Patata cocida / horno / airfryer','HA'],['200-250 g','Pescado blanco (merluza, lubina, dorada)','PB'],['','Espinacas y brócoli de acompañamiento','VH'],['1 cda','AOVE','GR'],['125 ml','Kéfir de cabra/oveja + frutos rojos + canela','PL'],['2 oz','Chocolate negro >85%'],['2 cápsulas','Bisglicinato de Magnesio (+20 min después de cenar)',SUP]]},
+'Poke bowl de salmón, quinoa y feta':{items:[['90 g','Quinoa en seco, lavada previamente','HA'],['150-200 g','Salmón especiado (sal, pimienta, limón)','PA'],['30 g','Queso feta desmenuzado','PL'],['½ uds','Aguacate / 80 g guacamole','GR'],['','Pepino o calabacín + zanahoria rallada + espinacas','VN'],['1 cda','AOVE','GR'],['1 uds','Manzana','FB'],['2 oz','Chocolate negro >85%'],['2 cápsulas','Bisglicinato de Magnesio',SUP]]},
+'Fajitas integrales de pollo o pizza casera':{prep:'FAJITAS: tortillas + pollo en tiras con pimientos, cebolla y calabacín, especias y lima. PIZZA: base de avena molida/sarraceno con huevo, hornear 10-12 min, añadir toppings y hornear 10 min más a 200 °C.',items:[['2 uds','Tortillas integrales / 100 g avena molida','HB'],['150-180 g','Pollo o pavo en tiras (o atún)','PB'],['','½ pimiento rojo + ½ verde, ½ cebolla, ½ calabacín','VN'],['1 cda','AOVE','GR'],['50 g','Mozzarella rallada / queso feta / guacamole','PL',1],['','Especias: cúrcuma, pimentón, comino, orégano'],['','Zumo de lima o limón al final'],['1 pieza','Fruta (postre)','FB'],['125 ml','Kéfir de cabra/oveja + frutos rojos + canela','PL'],['2 cápsulas','Bisglicinato de Magnesio (+20 min después de cenar)',SUP]]},
+'Hamburguesa completa con boniato asado':{prep:'Cebolla pochada en la sartén queda mucho más rica.',items:[['80 g','Pan de masa madre / centeno / espelta','HB'],['¼ uds','Aguacate / 50 g guacamole','GR'],['150-180 g','Carne picada de ternera','PB'],['30 g','Queso feta','PL',1],['','Canónigos + tomate + cebolla pochada','VH'],['250-300 g','Boniato asado','HA'],['1 cdta','AOVE','GR'],['125 ml','Kéfir de cabra/oveja + frutos rojos + canela','PL',1],['2 oz','Chocolate negro >85%'],['1 uds','Manzana',null,1]]},
+'Pescado con puré vegetal y salsa de yogur':{items:[['','Puré caliente de calabaza / calabacín / zanahoria','VR'],['1 cda','AOVE + sal + especias suaves (cúrcuma, jengibre)','GR'],['250 g','Pescado blanco o azul (merluza, salmón)'],['Al gusto','Aceitunas','GR',1],['','Espinacas o rúcula salteadas','VH'],['','Cebolla pochada','VN',1],['½ uds','Yogur griego para salsa + limón + sal + AOVE','PL'],['1 uds','Manzana','FB'],['','Puñado de frutos secos o crema de almendras','GR']]}
+};
+/* Sistema de sustitución 1×1 — solo dentro del mismo grupo */
+const SUBSTITUTION_GROUPS={
+'PA':['Huevos enteros','Entrecot / chuletón / solomillo','Chuletas de cerdo','Salmón','Caballa / sardinas','Bonito / atún / boquerones','Pulpo','Trucha'],
+'PB':['Pechuga de pollo','Pechuga de pavo','Carne picada de ternera','Lomo / solomillo de cerdo','Filete magro de cerdo','Pescado blanco (merluza, lubina, dorada)'],
+'PL':['Yogur griego natural','Yogur de cabra / oveja','Yogur de coco natural','Requesón','Queso fresco de vaca / cabra','Queso feta / burrata / mozzarella','Queso curado (cabra / oveja / parmesano)'],
+'HA':['Arroz vaporizado','Patata','Boniato','Quinoa','Calabaza','Pasta (sarraceno / maíz / lenteja roja)','Ñoquis'],
+'HB':['Pan Wasa','Tostaditas de trigo sarraceno','Pan integral (trigo / espelta / centeno)','Tortitas de arroz','Avena'],
+'GR':['AOVE','Aceite de coco','Coco troceado','Aguacate','Aceitunas','Frutos secos (nueces, almendras, avellanas)','Semillas (chía, lino, sésamo, calabaza)'],
+'FB':['Piña','Papaya','Manzana','Pera','Naranja','Mandarina','Kiwi'],
+'FA':['Mango','Plátano','Dátiles','Uvas'],
+'FR':['Fresas','Arándanos','Frambuesas'],
+'VH':['Lechuga','Canónigos','Espinaca','Rúcula','Mezcla de hojas verdes'],
+'VN':['Tomate','Tomate cherry','Cebolla','Pimiento','Calabacín','Pepino','Champiñones','Setas','Berenjena'],
+'VR':['Calabaza','Zanahoria','Remolacha'],
+'VC':['Brócoli','Coliflor','Coles','Coles de Bruselas'],
+'VF':['Judías verdes','Espárragos trigueros']};
+const GROUP_NAMES={'PA':'Proteína grasa','PB':'Proteína magra','PL':'Proteína láctea','HA':'HC complejos','HB':'HC derivados','GR':'Grasas','FB':'Fruta base','FA':'Fruta azucarada','FR':'Frutos rojos','VH':'Verdura hoja','VN':'Verdura neutra','VR':'Verdura raíz','VC':'Crucífera','VF':'Verdura fibrosa'};
 const MEAL_ICONS={desayuno:'🌅',comida:'☀️',cena:'🌙'};
 const MEAL_LABELS={desayuno:'Desayuno',comida:'Comida',cena:'Cena'};
 
@@ -530,7 +597,18 @@ function getSession(){return localStorage.getItem('vitaria_session')}
 function setSession(e){e?localStorage.setItem('vitaria_session',e):localStorage.removeItem('vitaria_session')}
 function hash(pw){let h=5381;for(let i=0;i<pw.length;i++)h=((h*33)^pw.charCodeAt(i))>>>0;return'h'+h.toString(36)}
 function pick(arr,alergias){let pool=arr;const no=alergias.filter(a=>a!=='Ninguna');if(no.length){const f=pool.filter(m=>!(ALLERGENS[m]||[]).some(a=>no.includes(a)));if(f.length)pool=f;}return pool[Math.floor(Math.random()*pool.length)];}
-function newMenu(tipo,alergias){return DIAS.map(dia=>({dia,desayuno:pick(MEALS[tipo].desayuno,alergias),comida:pick(MEALS[tipo].comida,alergias),cena:pick(MEALS[tipo].cena,alergias)}));}
+/* Menú semanal fijo — dieta de referencia Vitaria (niveles de HC por día) */
+const DAY_TAGS={Lunes:'LOW HC · Recovery',Martes:'LOW-MED HC · Gym',Miércoles:'MED HC',Jueves:'MOD HC',Viernes:'HIGH HC · Pre-match',Sábado:'HIGH HC',Domingo:'MODERATE HC · Recovery'};
+const FIXED_WEEK={
+ Lunes:{desayuno:'Yogur griego proteico con cacao y frutos rojos',comida:'Pollo con arroz vaporizado y espinacas',cena:'Salmón con boniato asado y espárragos'},
+ Martes:{desayuno:'Tostadas de espelta con huevos, pavo y aguacate',comida:'Quinoa con caballa, huevo y verduras salteadas',cena:'Pescado blanco con patata cocida y verduras'},
+ Miércoles:{desayuno:'Yogur griego proteico con cacao y frutos rojos',comida:'Ternera especiada con boniato y espárragos',cena:'Poke bowl de salmón, quinoa y feta'},
+ Jueves:{desayuno:'Tostadas de espelta con huevos, pavo y aguacate',comida:'Arroz vaporizado con caballa y huevo cocido',cena:'Fajitas integrales de pollo o pizza casera'},
+ Viernes:{desayuno:'Porridge overnight de avena con plátano',comida:'Pollo con arroz vaporizado y aguacate',cena:'Hamburguesa completa con boniato asado'},
+ Sábado:{desayuno:'Tostadas de espelta con huevos revueltos y aguacate',comida:'Ensaladilla rusa casera con caballa',cena:'Hamburguesa completa con boniato asado'},
+ Domingo:{desayuno:'Ayuno metabólico / Bulletproof Coffee',comida:'Ternera con aguacate, rúcula y yogur griego',cena:'Pescado con puré vegetal y salsa de yogur'}
+};
+function newMenu(tipo,alergias){return DIAS.map(dia=>({dia,tag:DAY_TAGS[dia]||'',desayuno:FIXED_WEEK[dia].desayuno,comida:FIXED_WEEK[dia].comida,cena:FIXED_WEEK[dia].cena}));}
 function currentUser(){const s=getSession();return s?(getUsers().find(u=>u.email===s)||null):null;}
 function saveUser(u){setUsers(getUsers().map(x=>x.email===u.email?u:x));}
 function getND(name){return NDATA[name]||DEFAULT_NDATA;}
@@ -574,14 +652,15 @@ $('#registerForm').addEventListener('submit',e=>{
   if(pw.length<6){setMsg('#regMsg','Mínimo 6 caracteres.','err');return;}
   if(pw!==pw2){setMsg('#regMsg','Las contraseñas no coinciden.','err');return;}
   if(getUsers().some(u=>u.email===email)){setMsg('#regMsg','Ya existe una cuenta con ese correo.','err');return;}
-  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,createdAt:new Date().toISOString(),menu:newMenu(tipo,alergias),consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{}};
+  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,createdAt:new Date().toISOString(),mv:2,menu:newMenu(tipo,alergias),consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
   setUsers([...getUsers(),user]);setSession(email);showOnboarding();
 });
 
 $('#regPlans').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;$('#regPlans').querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');});
 
 function enterPortal(){
-  const u=currentUser();if(!u){showView('view-auth');showAuth('login');return;}
+  let u=currentUser();if(!u){showView('view-auth');showAuth('login');return;}
+  if(u.mv!==2){u.menu=newMenu(u.tipo,u.alergias);u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
   showView('view-dashboard');$('#navUser').classList.remove('hidden');
   $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;
   activateTab('hoy');
@@ -851,14 +930,67 @@ $('#foodConfirm').onclick=function(){
 function renderSemana(u){
   $('#menuTipo').textContent=u.tipo;
   const ti=todayIndex();
-  $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td><td>${m.desayuno}</td><td>${m.comida}</td><td>${m.cena}</td></tr>`).join('');
+  $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b>${m.tag?`<br><span style="font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.06em;color:var(--tomato);text-transform:uppercase;">${m.tag}</span>`:''}</td><td class="meal-cell" data-day="${i}" data-mt="desayuno">${m.desayuno}</td><td class="meal-cell" data-day="${i}" data-mt="comida">${m.comida}</td><td class="meal-cell" data-day="${i}" data-mt="cena">${m.cena}</td></tr>`).join('');
+  $('#menuBody').querySelectorAll('.meal-cell').forEach(c=>c.addEventListener('click',()=>openMealDetail(+c.dataset.day,c.dataset.mt,u)));
 }
-$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);renderSemana(u);renderLista(u);});
+$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderSemana(u);renderLista(u);});
+
+/* Detalle de comida + sustituciones 1×1 */
+let mealCtx=null;
+function getSubs(u){if(!u.subs)u.subs={};return u.subs;}
+function openMealDetail(dayIdx,mt,u){
+  mealCtx={dayIdx,mt};
+  const m=u.menu[dayIdx];const det=MEAL_DETAILS[m[mt]];
+  $('#mealDetailTitle').textContent=m[mt];
+  $('#mealDetailTag').textContent=(m.dia+' · '+(m.tag||'')+' · '+MEAL_LABELS[mt]).replace(/^ · /,'');
+  const nd=getND(m[mt]);
+  $('#mealDetailMacros').innerHTML=`<span class="macro-chip">🔥 ${nd.k} kcal</span><span class="macro-chip">P ${nd.p}g</span><span class="macro-chip">C ${nd.c}g</span><span class="macro-chip">G ${nd.g}g</span>`;
+  renderMealItems(u);
+  $('#mealDetailPrep').textContent=det&&det.prep?'👨‍🍳 '+det.prep:'';
+  $('#mealDetailNote').textContent=det&&det.note?'💡 '+det.note:'';
+  $('#mealDetailPrep').style.display=det&&det.prep?'block':'none';
+  $('#mealDetailNote').style.display=det&&det.note?'block':'none';
+  $('#mealOverlay').classList.remove('hidden');
+}
+function renderMealItems(u){
+  const {dayIdx,mt}=mealCtx;const m=u.menu[dayIdx];const det=MEAL_DETAILS[m[mt]];
+  const wrap=$('#mealDetailItems');wrap.innerHTML='';
+  if(!det){wrap.innerHTML='<p style="font-size:.85rem;color:var(--ink-soft);">Sin detalle disponible para esta comida.</p>';return;}
+  const subs=getSubs(u);const daySubs=subs[dayIdx]&&subs[dayIdx][mt]||{};
+  det.items.forEach((it,idx)=>{
+    const [qty,name,grp,opt,sup]=it;
+    const subName=daySubs[idx];
+    const row=document.createElement('div');row.className='mdi-row';
+    let nameHtml=subName?`<span class="mdi-name sub">${subName}</span><span style="font-size:.7rem;color:var(--ink-soft);">(antes: ${name})</span>`:`<span class="mdi-name">${name}</span>`;
+    row.innerHTML=`<span class="mdi-qty">${qty||'·'}</span>${nameHtml}${opt?'<span class="mdi-opt">opcional</span>':''}${grp&&!sup?`<span class="mdi-badge">${GROUP_NAMES[grp]||grp}</span>`:''}`;
+    if(grp&&!sup){
+      const sel=document.createElement('select');sel.className='mdi-sel';
+      sel.innerHTML='<option value="">⇄ sustituir…</option>'+SUBSTITUTION_GROUPS[grp].filter(x=>x!==name).map(x=>`<option value="${x}">${x}</option>`).join('');
+      sel.addEventListener('change',()=>{
+        if(!subs[dayIdx])subs[dayIdx]={};if(!subs[dayIdx][mt])subs[dayIdx][mt]={};
+        if(sel.value){subs[dayIdx][mt][idx]=sel.value;}else{delete subs[dayIdx][mt][idx];}
+        saveUser(u);renderMealItems(u);renderLista(u);
+      });
+      row.appendChild(sel);
+    }
+    wrap.appendChild(row);
+  });
+}
+$('#mealDetailClose').addEventListener('click',()=>{$('#mealOverlay').classList.add('hidden');});
+$('#mealOverlay').addEventListener('click',e=>{if(e.target.id==='mealOverlay')$('#mealOverlay').classList.add('hidden');});
 
 /* LISTA */
 function renderLista(u){
   $('#listaTipo').textContent=u.tipo;
-  const counts={};u.menu.forEach(m=>{['desayuno','comida','cena'].forEach(k=>{const nd=getND(m[k]);});['desayuno','comida','cena'].forEach(k=>{const name=m[k];const ing=INGREDIENTS[name]||[name];ing.forEach(i=>{counts[i]=(counts[i]||0)+1;});});});
+  const counts={};const subs=u.subs||{};
+  u.menu.forEach((m,i)=>{
+    ['desayuno','comida','cena'].forEach(k=>{
+      const det=MEAL_DETAILS[m[k]];
+      if(det){det.items.forEach((it,idx)=>{if(it[3]===SUP)return;if(subs[i]&&subs[i][k]&&subs[i][k][idx])return;counts[it[1]]=(counts[it[1]]||0)+1;});
+        Object.keys(subs[i]&&subs[i][k]||{}).forEach(idx=>{const s=subs[i][k][idx];counts[s]=(counts[s]||0)+1;});}
+      else{const name=m[k];const ing=INGREDIENTS[name]||[name];ing.forEach(x=>{counts[x]=(counts[x]||0)+1;});}
+    });
+  });
   const items=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
   $('#shopList').innerHTML=items.map(([i,c])=>`<li><span>${i}</span><b>×${c}</b></li>`).join('');
 }
@@ -874,7 +1006,7 @@ function renderPerfil(u){
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
 }
-$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
+$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
 $('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;saveUser(u);setMsg('#perfilMsg','Datos físicos actualizados. Plan recalculado.','ok');});
 $('#pwSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const cur=$('#pwActual').value,n1=$('#pwNueva').value,n2=$('#pwNueva2').value;if(u.pw!==hash(cur)){setMsg('#perfilMsg','Contraseña actual incorrecta.','err');return;}if(n1.length<6){setMsg('#perfilMsg','Mínimo 6 caracteres.','err');return;}if(n1!==n2){setMsg('#perfilMsg','Las contraseñas no coinciden.','err');return;}u.pw=hash(n1);saveUser(u);['pwActual','pwNueva','pwNueva2'].forEach(i=>$('#'+i).value='');setMsg('#perfilMsg','Contraseña actualizada.','ok');});
 $('#delBtn').addEventListener('click',()=>{const u=currentUser();if(!u)return;if(!confirm('¿Eliminar tu cuenta? No se puede deshacer.'))return;setUsers(getUsers().filter(x=>x.email!==u.email));setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
@@ -1079,7 +1211,7 @@ function launchConfetti(){
 /* Init */
 (function init(){
   if(!getUsers().length){
-    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Regular el peso',alergias:[],createdAt:new Date().toISOString(),menu:newMenu('Equilibrada',[]),consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{}};
+    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Regular el peso',alergias:[],createdAt:new Date().toISOString(),mv:2,menu:newMenu('Equilibrada',[]),consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
     setUsers([demo]);
   }
   renderChips('regChips',ALERGIAS,[]);

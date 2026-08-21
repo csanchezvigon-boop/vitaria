@@ -608,7 +608,44 @@ const FIXED_WEEK={
  Sábado:{desayuno:'Tostadas de espelta con huevos revueltos y aguacate',comida:'Ensaladilla rusa casera con caballa',cena:'Hamburguesa completa con boniato asado'},
  Domingo:{desayuno:'Ayuno metabólico / Bulletproof Coffee',comida:'Ternera con aguacate, rúcula y yogur griego',cena:'Pescado con puré vegetal y salsa de yogur'}
 };
-function newMenu(tipo,alergias){return DIAS.map(dia=>({dia,tag:DAY_TAGS[dia]||'',desayuno:FIXED_WEEK[dia].desayuno,comida:FIXED_WEEK[dia].comida,cena:FIXED_WEEK[dia].cena}));}
+function newMenu(tipo,alergias,wi){const w=WEEKS[wi||0];return DIAS.map(dia=>({dia,tag:DAY_TAGS[dia]||'',desayuno:w[dia].desayuno,comida:w[dia].comida,cena:w[dia].cena}));}
+/* 4 semanas en bucle — variantes creadas con sustituciones 1×1 del mismo grupo */
+const DERIVED={
+'Yogur de cabra proteico con fresas y nueces':['Yogur griego proteico con cacao y frutos rojos',{'Yogur griego natural':'Yogur de cabra / oveja','Frutos rojos':'Fresas','Crema de almendras / nueces de Brasil / anacardos':'Frutos secos (nueces, almendras, avellanas)','Chocolate negro >85%':null,'Cacao puro sin azúcar':null}],
+'Pavo con quinoa y brócoli':['Pollo con arroz vaporizado y espinacas',{'Pechuga de pollo especiada (cúrcuma y pimienta)':'Pechuga de pavo','Arroz vaporizado en seco (~240 g cocido)':'Quinoa en seco (~240 g cocida)'}],
+'Trucha con patata asada y judías verdes':['Salmón con boniato asado y espárragos',{'Salmón fresco con limón y especias':'Trucha','Patata / 250 g boniato asado o airfryer':'Patata asada','Espárragos trigueros + champiñones salteados':'Judías verdes','Yogur de cabra + cacao puro + frutos rojos':null}],
+'Pan Wasa con salmón ahumado y aguacate':['Tostadas de espelta con huevos, pavo y aguacate',{'Pan integral de espelta o centeno (2 rebanadas)':'Pan Wasa','Pavo en lonchas / salmón ahumado / jamón ibérico':'Salmón ahumado'}],
+'Boniato con atún y huevo cocido':['Arroz vaporizado con caballa y huevo cocido',{'Arroz vaporizado en seco':'Boniato asado','Caballa / sardinas':'Bonito / atún / boquerones'}],
+'Lubina con calabaza asada y espinacas':['Pescado blanco con patata cocida y verduras',{'Pescado blanco (merluza, lubina, dorada)':'Lubina','Patata cocida / horno / airfryer':'Calabaza asada','Espinacas y brócoli de acompañamiento':'Espinacas salteadas'}],
+'Solomillo de cerdo con boniato y espárragos':['Ternera especiada con boniato y espárragos',{'Carne picada de ternera especiada + tomate natural sin azúcar':'Solomillo de cerdo'}],
+'Poke bowl de atún, quinoa y mozzarella':['Poke bowl de salmón, quinoa y feta',{'Salmón especiado (sal, pimienta, limón)':'Atún en dados','Queso feta desmenuzado':'Mozzarella'}],
+'Patata con sardinas y verduras salteadas':['Arroz vaporizado con caballa y huevo cocido',{'Arroz vaporizado en seco':'Patata cocida'}],
+'Pavo con arroz vaporizado y aguacate':['Pollo con arroz vaporizado y aguacate',{'Pechuga de pollo especiada (cúrcuma y pimienta)':'Pechuga de pavo'}],
+'Hamburguesa de cerdo con boniato asado':['Hamburguesa completa con boniato asado',{'Carne picada de ternera':'Carne picada de cerdo'}],
+'Requesón con miel, nueces y fresas':['Yogur griego proteico con cacao y frutos rojos',{'Yogur griego natural':'Requesón','Proteína en polvo':null,'Cacao puro sin azúcar':null,'Frutos rojos':'Fresas','Crema de almendras / nueces de Brasil / anacardos':'Frutos secos (nueces, almendras, avellanas)','Chocolate negro >85%':null}],
+'Ternera con patata y espinacas':['Pollo con arroz vaporizado y espinacas',{'Pechuga de pollo especiada (cúrcuma y pimienta)':'Carne picada de ternera','Arroz vaporizado en seco (~240 g cocido)':'Patata cocida'}],
+'Sardinas con boniato y ensalada verde':['Salmón con boniato asado y espárragos',{'Salmón fresco con limón y especias':'Sardinas','Patata / 250 g boniato asado o airfryer':'Boniato asado','Espárragos trigueros + champiñones salteados':'Mezcla de hojas verdes','Yogur de cabra + cacao puro + frutos rojos':null}],
+'Tortitas de arroz con huevo y pavo':['Tostadas de espelta con huevos, pavo y aguacate',{'Pan integral de espelta o centeno (2 rebanadas)':'Tortitas de arroz','Huevos revueltos':'Huevos cocidos'}],
+'Calabaza con caballa y huevo':['Arroz vaporizado con caballa y huevo cocido',{'Arroz vaporizado en seco':'Calabaza asada'}],
+'Filete magro de cerdo con quinoa y verduras':['Quinoa con caballa, huevo y verduras salteadas',{'Caballa / bonito':'Filete magro de cerdo'}],
+'Pollo con ñoquis y espinacas':['Pollo con arroz vaporizado y aguacate',{'Arroz vaporizado en seco (~300 g cocido)':'Ñoquis de patata (250 g)'}],
+'Hamburguesa de pollo con boniato asado':['Hamburguesa completa con boniato asado',{'Carne picada de ternera':'Carne picada de pollo'}],
+'Entrecot con ensalada y yogur griego':['Ternera con aguacate, rúcula y yogur griego',{'Carne picada / entrecot / chuletas de ternera':'Entrecot'}],
+'Yogur de coco con mango y semillas':['Yogur griego proteico con cacao y frutos rojos',{'Yogur griego natural':'Yogur de coco natural','Frutos rojos':'Mango','Chocolate negro >85%':null,'Cacao puro sin azúcar':null}],
+'Pollo con pasta de lenteja roja y brócoli':['Pollo con arroz vaporizado y espinacas',{'Arroz vaporizado en seco (~240 g cocido)':'Pasta de lenteja roja (80 g en seco)'}],
+'Salmón con calabaza y espárragos':['Salmón con boniato asado y espárragos',{'Patata / 250 g boniato asado o airfryer':'Calabaza asada'}],
+'Arroz con bonito y verduras':['Arroz vaporizado con caballa y huevo cocido',{'Caballa / sardinas':'Bonito / atún / boquerones'}],
+'Bowl de trucha, patata y feta':['Poke bowl de salmón, quinoa y feta',{'Salmón especiado (sal, pimienta, limón)':'Trucha','Quinoa en seco, lavada previamente':'Patata cocida en dados'}],
+'Tostadas de centeno con huevos y salmón ahumado':['Tostadas de espelta con huevos, pavo y aguacate',{'Pavo en lonchas / salmón ahumado / jamón ibérico':'Salmón ahumado','Pan integral de espelta o centeno (2 rebanadas)':'Pan integral de centeno (2 rebanadas)'}],
+'Hamburguesa completa con patata asada':['Hamburguesa completa con boniato asado',{'Boniato asado':'Patata asada'}]
+};
+Object.keys(DERIVED).forEach(k=>{const[p,sw]=DERIVED[k];const pd=MEAL_DETAILS[p];if(!pd)return;MEAL_DETAILS[k]={items:pd.items.map(it=>{const nn=sw[it[1]];return nn?[it[0],nn,it[2],it[3],it[4]]:(nn===null?null:it);}).filter(Boolean),prep:pd.prep,note:pd.note};if(!NDATA[k])NDATA[k]=NDATA[p];});
+const WEEKS=[
+{Lunes:{desayuno:'Yogur griego proteico con cacao y frutos rojos',comida:'Pollo con arroz vaporizado y espinacas',cena:'Salmón con boniato asado y espárragos'},Martes:{desayuno:'Tostadas de espelta con huevos, pavo y aguacate',comida:'Quinoa con caballa, huevo y verduras salteadas',cena:'Pescado blanco con patata cocida y verduras'},Miércoles:{desayuno:'Yogur griego proteico con cacao y frutos rojos',comida:'Ternera especiada con boniato y espárragos',cena:'Poke bowl de salmón, quinoa y feta'},Jueves:{desayuno:'Tostadas de espelta con huevos, pavo y aguacate',comida:'Arroz vaporizado con caballa y huevo cocido',cena:'Fajitas integrales de pollo o pizza casera'},Viernes:{desayuno:'Porridge overnight de avena con plátano',comida:'Pollo con arroz vaporizado y aguacate',cena:'Hamburguesa completa con boniato asado'},Sábado:{desayuno:'Tostadas de espelta con huevos revueltos y aguacate',comida:'Ensaladilla rusa casera con caballa',cena:'Hamburguesa completa con boniato asado'},Domingo:{desayuno:'Ayuno metabólico / Bulletproof Coffee',comida:'Ternera con aguacate, rúcula y yogur griego',cena:'Pescado con puré vegetal y salsa de yogur'}},
+{Lunes:{desayuno:'Yogur de cabra proteico con fresas y nueces',comida:'Pavo con quinoa y brócoli',cena:'Trucha con patata asada y judías verdes'},Martes:{desayuno:'Pan Wasa con salmón ahumado y aguacate',comida:'Boniato con atún y huevo cocido',cena:'Lubina con calabaza asada y espinacas'},Miércoles:{desayuno:'Yogur griego proteico con cacao y frutos rojos',comida:'Solomillo de cerdo con boniato y espárragos',cena:'Poke bowl de atún, quinoa y mozzarella'},Jueves:{desayuno:'Tostadas de espelta con huevos, pavo y aguacate',comida:'Patata con sardinas y verduras salteadas',cena:'Fajitas integrales de pollo o pizza casera'},Viernes:{desayuno:'Porridge overnight de avena con plátano',comida:'Pavo con arroz vaporizado y aguacate',cena:'Hamburguesa de cerdo con boniato asado'},Sábado:{desayuno:'Tostadas de espelta con huevos revueltos y aguacate',comida:'Ensaladilla rusa casera con caballa',cena:'Hamburguesa completa con boniato asado'},Domingo:{desayuno:'Ayuno metabólico / Bulletproof Coffee',comida:'Ternera con aguacate, rúcula y yogur griego',cena:'Pescado con puré vegetal y salsa de yogur'}},
+{Lunes:{desayuno:'Requesón con miel, nueces y fresas',comida:'Ternera con patata y espinacas',cena:'Sardinas con boniato y ensalada verde'},Martes:{desayuno:'Tortitas de arroz con huevo y pavo',comida:'Calabaza con caballa y huevo',cena:'Pescado blanco con patata cocida y verduras'},Miércoles:{desayuno:'Yogur griego proteico con cacao y frutos rojos',comida:'Filete magro de cerdo con quinoa y verduras',cena:'Poke bowl de salmón, quinoa y feta'},Jueves:{desayuno:'Tostadas de espelta con huevos, pavo y aguacate',comida:'Quinoa con caballa, huevo y verduras salteadas',cena:'Fajitas integrales de pollo o pizza casera'},Viernes:{desayuno:'Porridge overnight de avena con plátano',comida:'Pollo con ñoquis y espinacas',cena:'Hamburguesa de pollo con boniato asado'},Sábado:{desayuno:'Tostadas de espelta con huevos revueltos y aguacate',comida:'Ensaladilla rusa casera con caballa',cena:'Hamburguesa completa con boniato asado'},Domingo:{desayuno:'Ayuno metabólico / Bulletproof Coffee',comida:'Entrecot con ensalada y yogur griego',cena:'Pescado con puré vegetal y salsa de yogur'}},
+{Lunes:{desayuno:'Yogur de coco con mango y semillas',comida:'Pollo con pasta de lenteja roja y brócoli',cena:'Salmón con calabaza y espárragos'},Martes:{desayuno:'Tostadas de centeno con huevos y salmón ahumado',comida:'Arroz con bonito y verduras',cena:'Pescado blanco con patata cocida y verduras'},Miércoles:{desayuno:'Yogur griego proteico con cacao y frutos rojos',comida:'Ternera especiada con boniato y espárragos',cena:'Bowl de trucha, patata y feta'},Jueves:{desayuno:'Tostadas de centeno con huevos y salmón ahumado',comida:'Arroz vaporizado con caballa y huevo cocido',cena:'Fajitas integrales de pollo o pizza casera'},Viernes:{desayuno:'Porridge overnight de avena con plátano',comida:'Pollo con arroz vaporizado y aguacate',cena:'Hamburguesa completa con patata asada'},Sábado:{desayuno:'Tostadas de espelta con huevos revueltos y aguacate',comida:'Ensaladilla rusa casera con caballa',cena:'Hamburguesa completa con boniato asado'},Domingo:{desayuno:'Ayuno metabólico / Bulletproof Coffee',comida:'Ternera con aguacate, rúcula y yogur griego',cena:'Pescado con puré vegetal y salsa de yogur'}}
+];
 function currentUser(){const s=getSession();return s?(getUsers().find(u=>u.email===s)||null):null;}
 function saveUser(u){setUsers(getUsers().map(x=>x.email===u.email?u:x));}
 function getND(name){return NDATA[name]||DEFAULT_NDATA;}
@@ -660,7 +697,8 @@ $('#regPlans').addEventListener('click',e=>{const c=e.target.closest('.chip');if
 
 function enterPortal(){
   let u=currentUser();if(!u){showView('view-auth');showAuth('login');return;}
-  if(u.mv!==2){u.menu=newMenu(u.tipo,u.alergias);u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
+  if(u.mv!==2){u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0);u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
+  if(u.weekIdx==null){u.weekIdx=0;saveUser(u);}
   showView('view-dashboard');$('#navUser').classList.remove('hidden');
   $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;
   activateTab('hoy');
@@ -930,10 +968,10 @@ $('#foodConfirm').onclick=function(){
 function renderSemana(u){
   $('#menuTipo').textContent=u.tipo;
   const ti=todayIndex();
-  $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b>${m.tag?`<br><span style="font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.06em;color:var(--tomato);text-transform:uppercase;">${m.tag}</span>`:''}</td><td class="meal-cell" data-day="${i}" data-mt="desayuno">${m.desayuno}</td><td class="meal-cell" data-day="${i}" data-mt="comida">${m.comida}</td><td class="meal-cell" data-day="${i}" data-mt="cena">${m.cena}</td></tr>`).join('');
+  $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td><td class="meal-cell" data-day="${i}" data-mt="desayuno">${m.desayuno}</td><td class="meal-cell" data-day="${i}" data-mt="comida">${m.comida}</td><td class="meal-cell" data-day="${i}" data-mt="cena">${m.cena}</td></tr>`).join('');
   $('#menuBody').querySelectorAll('.meal-cell').forEach(c=>c.addEventListener('click',()=>openMealDetail(+c.dataset.day,c.dataset.mt,u)));
 }
-$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderSemana(u);renderLista(u);});
+$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;u.weekIdx=(((u.weekIdx||0)+1)%WEEKS.length);u.menu=newMenu(u.tipo,u.alergias,u.weekIdx);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderSemana(u);renderLista(u);setMsg('#perfilMsg','Semana '+(u.weekIdx+1)+' de '+WEEKS.length+' cargada.','ok');});
 
 /* Detalle de comida + sustituciones 1×1 */
 let mealCtx=null;
@@ -979,20 +1017,63 @@ function renderMealItems(u){
 $('#mealDetailClose').addEventListener('click',()=>{$('#mealOverlay').classList.add('hidden');});
 $('#mealOverlay').addEventListener('click',e=>{if(e.target.id==='mealOverlay')$('#mealOverlay').classList.add('hidden');});
 
-/* LISTA */
+/* LISTA — unidades reales de compra */
+const SHOP_DISPLAY={'15 min antes: chupito de vinagre de sidra de manzana en agua':'Vinagre de sidra de manzana','Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo':'Verduras para saltear','Zumo de lima o limón al final':'Limones','Yogur griego para aliñar + AOVE + sal':'Yogur griego','Yogur griego para salsa + limón + sal + AOVE':'Yogur griego','Puré caliente de calabaza / calabacín / zanahoria':'Calabaza, calabacín y zanahoria','½ pimiento rojo + ½ verde, ½ cebolla, ½ calabacín':'Pimientos, cebolla y calabacín','Canónigos + tomate + cebolla pochada':'Canónigos, tomate y cebolla','Espinacas y brócoli de acompañamiento':'Espinacas y brócoli','Pepino o calabacín + zanahoria rallada + espinacas':'Pepino, calabacín, zanahoria y espinacas','Rúcula o espinaca fresca':'Rúcula o espinacas','Tomate cherry o natural':'Tomate','Manzana / pera / mandarina / kiwi':'Fruta variada','Fruta (postre)':'Fruta variada','Patata / 250 g boniato asado o airfryer':'Patata o boniato','Carne picada / entrecot / chuletas de ternera':'Ternera','Pescado blanco o azul (merluza, salmón)':'Pescado (merluza o salmón)','Pavo en lonchas / salmón ahumado / jamón ibérico':'Fiambre (pavo, salmón o jamón)','Crema de almendras / nueces de Brasil / anacardos':'Crema de frutos secos','Semillas de lino o chía':'Semillas','Semillas (sésamo, lino, chía)':'Semillas','Semillas de sésamo o lino':'Semillas','Puñado de frutos secos o crema de almendras':'Frutos secos','Salsa pesto o soja':'Pesto o salsa de soja','Chorrito de salsa de soja para el salmón':'Salsa de soja','Chorrito final de AOVE':'AOVE','AOVE + limón':'AOVE','AOVE + sal + especias suaves (cúrcuma, jengibre)':'AOVE','Cacao puro + canela':'Cacao puro sin azúcar','Huevos cocidos salteados con AOVE':'Huevos cocidos'};
+const SHOP_SKIP=['agua con pizca'];
+function norm(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+function shopUnit(name,count,grams){
+  const n=norm(name);
+  if(SHOP_SKIP.some(k=>n.includes(k)))return null;
+  if(n.includes('vinagre'))return'×1 botella';
+  if(/\baove\b/.test(n))return'×1 botella';
+  if(n.includes('aceite de coco'))return'×1 bote';
+  if(n.includes('miel'))return'×1 tarro';
+  if(n.includes('cacao'))return'×1 bote';
+  if(n.includes('proteina en polvo'))return'×1 bote';
+  if(n.includes('crema de frutos')||n.includes('crema de almendras'))return'×1 tarro';
+  if(n.includes('kefir'))return'×1 botella';
+  if(n.includes('bebida de almendras'))return'×1 brick';
+  if(n.includes('chucrut')||n.includes('pesto')||n.includes('soja'))return'×1 tarro';
+  if(n.includes('cafe'))return'×1 paquete';
+  if(/canela|pimienta|curcuma|comino|pimenton|oregano|jengibre|especias|sal marina|\bsal\b|alino/.test(n))return'×1 tarro';
+  if(n.includes('chocolate'))return'×'+count+' tableta'+(count>1?'s':'');
+  if(n.includes('huevo')){const d=Math.ceil(count/12);return'×'+d+' docena'+(d>1?'s':'');}
+  if(n.includes('yogur'))return'×'+count+' uds';
+  if(/caballa|sardina|atun|bonito|boqueron|guisantes/.test(n))return'×'+count+' lata'+(count>1?'s':'');
+  if(/pollo|pavo|ternera|cerdo|salmon|trucha|lubina|merluza|entrecot|solomillo|lomo|carne|pescado|pulpo/.test(n))return'×'+count+' bandeja'+(count>1?'s':'');
+  if(/pan |tortilla|wasa|tortita|harina/.test(n))return'×1 paquete';
+  if(/arroz|quinoa|avena|noquis|pasta|fideo/.test(n))return'×1 paquete';
+  if(/frutos secos|almendra|nuez|semilla|avellana|anacardo/.test(n))return'×1 bolsa';
+  if(/feta|mozzarella|requeson|queso/.test(n))return'×'+count+' tarrina'+(count>1?'s':'');
+  if(/patata|boniato|calabaza/.test(n)){if(grams>0){let kg=Math.ceil(grams/500)/2;return'×'+kg+' kg';}return'×'+count+' uds';}
+  if(/canela|pimienta|curcuma|comino|pimenton|oregano|jengibre|especias|sal marina|\bsal\b|alino/.test(n))return'×1 tarro';
+  if(/manzana|pera|mandarina|kiwi|platano|mango|pina|papaya|naranja|fresa|arandano|frambruesa|frutos rojos|datiles|uvas|limon|lima|tomate|cebolla|pimiento|calabacin|pepino|champinon|setas|berenjena|lechuga|canonigos|espinaca|rucula|zanahoria|brocoli|coliflor|coles|judias verdes|esparragos|aguacate|aceitunas|remolacha|verduras/.test(n))return'×'+count+' uds';
+  return'×'+count;
+}
 function renderLista(u){
   $('#listaTipo').textContent=u.tipo;
-  const counts={};const subs=u.subs||{};
+  const counts={};const grams={};const subs=u.subs||{};
   u.menu.forEach((m,i)=>{
     ['desayuno','comida','cena'].forEach(k=>{
       const det=MEAL_DETAILS[m[k]];
-      if(det){det.items.forEach((it,idx)=>{if(it[3]===SUP)return;if(subs[i]&&subs[i][k]&&subs[i][k][idx])return;counts[it[1]]=(counts[it[1]]||0)+1;});
-        Object.keys(subs[i]&&subs[i][k]||{}).forEach(idx=>{const s=subs[i][k][idx];counts[s]=(counts[s]||0)+1;});}
-      else{const name=m[k];const ing=INGREDIENTS[name]||[name];ing.forEach(x=>{counts[x]=(counts[x]||0)+1;});}
+      if(det){
+        det.items.forEach((it,idx)=>{
+          if(it[3]===SUP)return;
+          if(subs[i]&&subs[i][k]&&subs[i][k][idx])return;
+          const nm=SHOP_DISPLAY[it[1]]||it[1];
+          counts[nm]=(counts[nm]||0)+1;
+          const gm=/^(\d+)(?:-(\d+))?\s*g/.exec(it[0]);
+          if(gm)grams[nm]=(grams[nm]||0)+parseInt(gm[2]||gm[1]);
+        });
+        Object.keys(subs[i]&&subs[i][k]||{}).forEach(idx=>{const s=subs[i][k][idx];counts[s]=(counts[s]||0)+1;});
+      }else{
+        const name=m[k];const ing=INGREDIENTS[name]||[name];
+        ing.forEach(x=>{counts[x]=(counts[x]||0)+1;});
+      }
     });
   });
   const items=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  $('#shopList').innerHTML=items.map(([i,c])=>`<li><span>${i}</span><b>×${c}</b></li>`).join('');
+  $('#shopList').innerHTML=items.map(([nm,c])=>{const line=shopUnit(nm,c,grams[nm]||0);return line?`<li><span>${nm}</span><b>${line}</b></li>`:'';}).join('');
 }
 const INGREDIENTS={'Avena con fruta y nueces':['Avena','Fruta','Nueces'],'Tostada integral con aguacate y huevo':['Pan integral','Aguacate','Huevos'],'Yogur natural con fruta y semillas':['Yogur natural','Fruta','Semillas de chía'],'Lentejas con verduras y arroz integral':['Lentejas','Verduras','Arroz integral'],'Pollo al horno, quinoa y brócoli':['Pollo','Quinoa','Brócoli'],'Garbanzos salteados con espinaca':['Garbanzos','Espinacas','Ajo'],'Pescado a la plancha con ensalada':['Pescado','Lechuga','Tomate','Cebolla'],'Crema de calabacín y huevo cocido':['Calabacín','Huevos','Patata'],'Tortilla de espinacas y ensalada':['Huevos','Espinacas','Lechuga','Tomate'],'Porridge de avena y plátano':['Avena','Plátano','Bebida vegetal'],'Tostada con queso fresco y tomate':['Pan integral','Queso fresco','Tomate'],'Yogur con granola y frutos rojos':['Yogur','Granola','Frutos rojos'],'Bowl de quinoa, hummus y verduras':['Quinoa','Hummus','Zanahoria','Pepino','Aguacate'],'Pasta integral con verduras al pesto':['Pasta integral','Calabacín','Pimiento','Pesto'],'Revuelto de tofu con champiñones':['Tofu','Champiñones','Cebolla'],'Ensalada de lentejas y queso feta':['Lentejas','Queso feta','Tomate','Aceitunas'],'Batido de avena, plátano y cacao':['Avena','Plátano','Cacao','Bebida vegetal'],'Avena nocturna con bebida de almendra':['Avena','Bebida de almendra','Fruta'],'Tostada con hummus y tomate':['Pan integral','Hummus','Tomate'],'Tofu salteado con verduras y quinoa':['Tofu','Verduras','Quinoa','Salsa de soja'],'Curry de garbanzos y arroz integral':['Garbanzos','Leche de coco','Curry','Arroz integral'],'Pisto con alubias y pan integral':['Calabacín','Pimiento','Tomate','Alubias'],'Crema de boniato y garbanzos':['Boniato','Garbanzos','Puerro'],'Salteado de verduras con fideos de arroz':['Verduras','Fideos de arroz','Salsa de soja'],'Ensalada de quinoa, aguacate y maíz':['Quinoa','Aguacate','Maíz','Tomate'],'Pan de trigo sarraceno con aguacate':['Pan sarraceno','Aguacate','Huevos'],'Yogur con fruta y semillas':['Yogur','Fruta','Semillas'],'Huevos revueltos con tomate':['Huevos','Tomate','Aceite de oliva'],'Arroz integral con pollo y brócoli':['Arroz integral','Pollo','Brócoli'],'Salmorejo con atún y huevo':['Tomate','Atún','Huevos'],'Garbanzos con espinaca y comino':['Garbanzos','Espinacas','Comino'],'Pescado al horno con verduras':['Pescado','Verduras'],'Crema de calabaza con semillas':['Calabaza','Cebolla','Semillas']};
 
@@ -1006,7 +1087,7 @@ function renderPerfil(u){
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
 }
-$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
+$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0);u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
 $('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;saveUser(u);setMsg('#perfilMsg','Datos físicos actualizados. Plan recalculado.','ok');});
 $('#pwSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const cur=$('#pwActual').value,n1=$('#pwNueva').value,n2=$('#pwNueva2').value;if(u.pw!==hash(cur)){setMsg('#perfilMsg','Contraseña actual incorrecta.','err');return;}if(n1.length<6){setMsg('#perfilMsg','Mínimo 6 caracteres.','err');return;}if(n1!==n2){setMsg('#perfilMsg','Las contraseñas no coinciden.','err');return;}u.pw=hash(n1);saveUser(u);['pwActual','pwNueva','pwNueva2'].forEach(i=>$('#'+i).value='');setMsg('#perfilMsg','Contraseña actualizada.','ok');});
 $('#delBtn').addEventListener('click',()=>{const u=currentUser();if(!u)return;if(!confirm('¿Eliminar tu cuenta? No se puede deshacer.'))return;setUsers(getUsers().filter(x=>x.email!==u.email));setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});

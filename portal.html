@@ -151,6 +151,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .shop-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
 .shop-list li{display:flex;justify-content:space-between;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px 16px;font-size:.9rem;}
 .shop-list li b{font-family:'IBM Plex Mono',monospace;color:var(--tomato);flex:none;}
+.shop-cats{display:flex;flex-direction:column;gap:26px;margin-top:8px;}
+.shop-cat h3{font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--herb);margin:0 0 10px;padding-bottom:6px;border-bottom:2px solid var(--line);}
+.shop-cat ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px;}
+.shop-cat li{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.88rem;display:flex;align-items:center;gap:9px;line-height:1.35;}
+.shop-cat li::before{content:'○';color:var(--tomato);font-size:.9rem;flex:none;}
+.shop-cat li small{color:var(--ink-soft);font-size:.76rem;}
 
 .inline-actions{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;}
 .note{font-size:.82rem;color:var(--ink-soft);}
@@ -483,8 +489,82 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
     </section>
     <!-- LISTA -->
     <section id="tab-lista" class="tab hidden">
-      <div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Lo que necesitas esta semana</h2><p>Tipo: <b id="listaTipo" style="color:var(--herb);"></b></p><p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px;">A medida que avancen las semanas no necesitarás comprar todo, te van a sobrar cosas, compra solo lo que te falte :)</p></div>
-      <ul class="shop-list" id="shopList"></ul>
+      <div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Lo que necesitas esta semana</h2><p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px;">A medida que avancen las semanas no necesitarás comprar todo, te van a sobrar cosas, compra solo lo que te falte :)</p></div>
+      <div class="shop-cats">
+        <div class="shop-cat"><h3>Proteínas animales</h3><ul>
+          <li>Pechuga de pollo</li>
+          <li>Carne picada de ternera</li>
+          <li>Salmón fresco</li>
+          <li>Pescado blanco (merluza, lubina, dorada)</li>
+          <li>Caballa en lata</li>
+          <li>Bonito / atún al natural <small>(opcional, si no usas la caballa o sardinas)</small></li>
+          <li>Sardinas en lata</li>
+          <li>Jamón serrano / ibérico · Pavo en lonchas · Salmón ahumado <small>(puedes rotarlos)</small></li>
+          <li>Huevos</li>
+        </ul></div>
+        <div class="shop-cat"><h3>Lácteos y fermentados</h3><ul>
+          <li>Yogur griego natural</li>
+          <li>Yogur de cabra</li>
+          <li>Kéfir de cabra / oveja</li>
+          <li>Queso feta</li>
+          <li>Mozzarella rallada</li>
+        </ul></div>
+        <div class="shop-cat"><h3>Hidratos de carbono</h3><ul>
+          <li>Avena en copos</li>
+          <li>Pan integral de espelta / centeno / masa madre</li>
+          <li>Arroz vaporizado</li>
+          <li>Quinoa</li>
+          <li>Patata</li>
+          <li>Boniato</li>
+          <li>Tortillas integrales <small>(fajitas)</small></li>
+          <li>Harina de trigo sarraceno / avena molida</li>
+        </ul></div>
+        <div class="shop-cat"><h3>Grasas saludables</h3><ul>
+          <li>Aceite de oliva virgen extra</li>
+          <li>Aguacate</li>
+          <li>Guacamole</li>
+          <li>Almendras / nueces / avellanas</li>
+          <li>Semillas de lino / sésamo</li>
+        </ul></div>
+        <div class="shop-cat"><h3>Verduras y hortalizas</h3><ul>
+          <li>Espinacas</li>
+          <li>Brócoli</li>
+          <li>Calabacín / Pepino</li>
+          <li>Zanahoria</li>
+          <li>Pimiento</li>
+          <li>Espárragos trigueros</li>
+          <li>Tomate / cherry</li>
+          <li>Cebolla</li>
+          <li>Ajo</li>
+          <li>Calabaza</li>
+        </ul></div>
+        <div class="shop-cat"><h3>Otros / Extras</h3><ul>
+          <li>Cacao puro en polvo sin azúcar</li>
+          <li>Chocolate negro &gt;85%</li>
+          <li>Miel</li>
+          <li>Salsa de soja <small>(opcional)</small></li>
+          <li>Salsa pesto <small>(opcional)</small></li>
+          <li>Salsa de tomate natural sin azúcar</li>
+          <li>Vinagre de sidra de manzana</li>
+          <li>Chucrut</li>
+          <li>Bebida de almendras 0%</li>
+          <li>Especias <small>(cúrcuma, pimienta negra, pimentón, comino, orégano, canela)</small></li>
+          <li>Sal marina / sal fina</li>
+        </ul></div>
+        <div class="shop-cat"><h3>Frutas rotativas</h3><ul>
+          <li>Plátano</li>
+          <li>Manzana</li>
+          <li>Pera</li>
+          <li>Mandarina</li>
+          <li>Kiwi</li>
+          <li>Piña</li>
+          <li>Melón</li>
+          <li>Papaya</li>
+          <li>Mango</li>
+          <li>Uvas</li>
+          <li>Frutos rojos <small>(fresas, arándanos, frambuesas)</small></li>
+        </ul></div>
+      </div>
     </section>
     <!-- PERFIL -->
     <section id="tab-perfil" class="tab hidden">
@@ -1051,39 +1131,7 @@ function shopUnit(name,count,grams){
   return'×'+count;
 }
 function renderLista(u){
-  $('#listaTipo').textContent=u.tipo;
-  const counts={};const grams={};const subs=u.subs||{};
-  u.menu.forEach((m,i)=>{
-    ['desayuno','comida','cena'].forEach(k=>{
-      const det=MEAL_DETAILS[m[k]];
-      if(det){
-        det.items.forEach((it,idx)=>{
-          if(it[2]===SUP||it[3]===SUP)return;
-          if(subs[i]&&subs[i][k]&&subs[i][k][idx])return;
-          const nm=SHOP_DISPLAY[it[1]]||it[1];
-          counts[nm]=(counts[nm]||0)+1;
-          const gm=/^(\d+)(?:-(\d+))?\s*g/.exec(it[0]);
-          if(gm)grams[nm]=(grams[nm]||0)+parseInt(gm[2]||gm[1]);
-        });
-        Object.keys(subs[i]&&subs[i][k]||{}).forEach(idx=>{const s=subs[i][k][idx];counts[s]=(counts[s]||0)+1;});
-      }else{
-        const name=m[k];const ing=INGREDIENTS[name]||[name];
-        ing.forEach(x=>{counts[x]=(counts[x]||0)+1;});
-      }
-    });
-  });
-  const items=Object.entries(counts).sort((a,b)=>b[1]-a[1]);
-  const SHOP_FORCE={'aguacate':'×3 uds','tomate':'×3 uds','kefir de cabra/oveja':'×4 botella','chocolate negro >85%':'×2 tabletas / ×1 bolsa'};
-  const RM_EXACT=['semillas','pollo o pavo','ternera','pimientos, cebolla y calabacin','yogur de cabra','frutos secos','calabaza, calabacin y zanahoria'];
-  const RM_HAS=['especias','espinaca','fruta variada','verduras para saltear','canonigos'];
-  let html=items.map(([nm,c])=>{
-    const n=norm(nm);
-    if(RM_EXACT.includes(n)||RM_HAS.some(k=>n.includes(k)))return '';
-    const line=SHOP_FORCE[n]||shopUnit(nm,c,grams[nm]||0);
-    return line?`<li><span>${nm}</span><b>${line}</b></li>`:'';
-  }).join('');
-  html+='<li><span>Espinacas</span><b>×2 uds</b></li>';
-  $('#shopList').innerHTML=html;
+  /* Lista estática por categorías — no se genera dinámicamente */
 }
 const INGREDIENTS={'Avena con fruta y nueces':['Avena','Fruta','Nueces'],'Tostada integral con aguacate y huevo':['Pan integral','Aguacate','Huevos'],'Yogur natural con fruta y semillas':['Yogur natural','Fruta','Semillas de chía'],'Lentejas con verduras y arroz integral':['Lentejas','Verduras','Arroz integral'],'Pollo al horno, quinoa y brócoli':['Pollo','Quinoa','Brócoli'],'Garbanzos salteados con espinaca':['Garbanzos','Espinacas','Ajo'],'Pescado a la plancha con ensalada':['Pescado','Lechuga','Tomate','Cebolla'],'Crema de calabacín y huevo cocido':['Calabacín','Huevos','Patata'],'Tortilla de espinacas y ensalada':['Huevos','Espinacas','Lechuga','Tomate'],'Porridge de avena y plátano':['Avena','Plátano','Bebida vegetal'],'Tostada con queso fresco y tomate':['Pan integral','Queso fresco','Tomate'],'Yogur con granola y frutos rojos':['Yogur','Granola','Frutos rojos'],'Bowl de quinoa, hummus y verduras':['Quinoa','Hummus','Zanahoria','Pepino','Aguacate'],'Pasta integral con verduras al pesto':['Pasta integral','Calabacín','Pimiento','Pesto'],'Revuelto de tofu con champiñones':['Tofu','Champiñones','Cebolla'],'Ensalada de lentejas y queso feta':['Lentejas','Queso feta','Tomate','Aceitunas'],'Batido de avena, plátano y cacao':['Avena','Plátano','Cacao','Bebida vegetal'],'Avena nocturna con bebida de almendra':['Avena','Bebida de almendra','Fruta'],'Tostada con hummus y tomate':['Pan integral','Hummus','Tomate'],'Tofu salteado con verduras y quinoa':['Tofu','Verduras','Quinoa','Salsa de soja'],'Curry de garbanzos y arroz integral':['Garbanzos','Leche de coco','Curry','Arroz integral'],'Pisto con alubias y pan integral':['Calabacín','Pimiento','Tomate','Alubias'],'Crema de boniato y garbanzos':['Boniato','Garbanzos','Puerro'],'Salteado de verduras con fideos de arroz':['Verduras','Fideos de arroz','Salsa de soja'],'Ensalada de quinoa, aguacate y maíz':['Quinoa','Aguacate','Maíz','Tomate'],'Pan de trigo sarraceno con aguacate':['Pan sarraceno','Aguacate','Huevos'],'Yogur con fruta y semillas':['Yogur','Fruta','Semillas'],'Huevos revueltos con tomate':['Huevos','Tomate','Aceite de oliva'],'Arroz integral con pollo y brócoli':['Arroz integral','Pollo','Brócoli'],'Salmorejo con atún y huevo':['Tomate','Atún','Huevos'],'Garbanzos con espinaca y comino':['Garbanzos','Espinacas','Comino'],'Pescado al horno con verduras':['Pescado','Verduras'],'Crema de calabaza con semillas':['Calabaza','Cebolla','Semillas']};
 

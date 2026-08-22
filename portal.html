@@ -87,6 +87,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .rt-meta i{display:block;font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:var(--herb);margin-bottom:2px;}
 .rec-tool p{margin:.4rem 0;color:var(--ink-soft);font-size:.88rem;line-height:1.5;}
 .rt-tip{background:rgba(79,111,63,.09);border-radius:10px;padding:9px 13px!important;color:var(--ink)!important;font-weight:600;}
+.rt-link{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;color:var(--herb);background:rgba(79,111,63,.1);border-radius:999px;padding:7px 15px;text-decoration:none;margin-bottom:12px;transition:background .15s;}
+.rt-link:hover{background:rgba(79,111,63,.2);}
+.rec-tool .ay-list{flex-direction:column;align-items:flex-start;}
+.rec-tool .ay-list li{border-radius:10px;padding:8px 14px;}
 .chip{border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:8px 15px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
 .chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
 .auth-msg{margin:0 0 16px;font-size:.88rem;font-weight:700;min-height:0;}.auth-msg.err{color:var(--tomato);}.auth-msg.ok{color:var(--herb);}
@@ -473,6 +477,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
     <button class="dash-tab plan-gated" data-tab="evaluacion">Evaluación semanal</button>
     <button class="dash-tab plan-gated" data-tab="ayuno">El Ayuno</button>
     <button class="dash-tab plan-gated" data-tab="recuperacion">Recuperación</button>
+    <button class="dash-tab plan-gated" data-tab="suplementacion">Suplementación</button>
     <button class="dash-tab plan-gated" data-tab="lista">Lista de compra</button>
     <button class="dash-tab" data-tab="perfil">Perfil</button>
   </aside>
@@ -657,6 +662,45 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
         <blockquote class="ay-quote">No es perfección. Es constancia.</blockquote>
       </div>
     </section>
+    <!-- SUPLEMENTACION (Pro y Premium) -->
+    <section id="tab-suplementacion" class="tab hidden">
+      <div class="section-head"><p class="eyebrow">Protocolo avanzado · Planes Pro y Premium</p><h2>Suplementación</h2><p style="font-size:.95rem;color:var(--ink-soft);margin-top:6px;max-width:640px;">Las piezas que faltan cuando la comida y el entreno ya están bien hechos.</p></div>
+      <div class="ay-card">
+        <h3>💊 Antes de empezar</h3>
+        <p>Un suplemento no sustituye nada. <b>Completa lo que el plan y el entrenamiento ya están construyendo.</b> Aquí tienes las 5 piezas clave de esta fase, y cómo sacarles el máximo partido.</p>
+      </div>
+      <div class="rec-grid">
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">💪</span><div><b>Creatina monohidrato</b><small>El básico que nunca falla</small></div></div>
+          <a class="rt-link" href="https://scientifficnutrition.com/tienda/white-line/creatine-100-creapure/" target="_blank" rel="noopener">🔗 Creatine 100 · Creapure</a>
+          <ul class="ay-list yes"><li>5 g, en cualquier momento del día</li><li>Evita bebidas muy calientes (se desnaturaliza)</li></ul>
+        </div>
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">🥛</span><div><b>Proteína whey isolate</b><small>Tu aliada contra la pérdida de masa muscular</small></div></div>
+          <a class="rt-link" href="https://www.zumub.com/ES/aislados-de-suero/100-whey-isolate-flav-1kg" target="_blank" rel="noopener">🔗 100% Whey Isolate</a>
+          <ul class="ay-list yes"><li>El plus de proteína que necesitas en esta fase de pérdida de grasa, sin tocar tu masa muscular</li></ul>
+        </div>
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">🐟</span><div><b>Omega-3 (EPA + DHA)</b><small>Antiinflamatorio de fondo</small></div></div>
+          <a class="rt-link" href="https://www.zumub.com/ES/salud-y-bienestar/grasas-esenciales/omega-3x-30-capsulas#10097" target="_blank" rel="noopener">🔗 Omega 3x · 30 cápsulas</a>
+          <ul class="ay-list yes"><li>2 perlas después de una comida abundante en grasa (normalmente desayuno)</li><li>La grasa es la llave: sin ella no se absorbe bien</li></ul>
+        </div>
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">🌙</span><div><b>Magnesio bisglicinato</b><small>Tu cierre de día</small></div></div>
+          <a class="rt-link" href="https://scientifficnutrition.com/tienda/green-line/magnesium-bisglicinate/" target="_blank" rel="noopener">🔗 Magnesium Bisglicinate</a>
+          <ul class="ay-list yes"><li>2 cápsulas antes de dormir</li><li>Sepáralo de la cena mínimo 20 minutos</li></ul>
+        </div>
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">☀️</span><div><b>Vitamina D3 + K2</b><small>El dúo que trabaja en equipo con el Omega 3</small></div></div>
+          <a class="rt-link" href="https://scientifficnutrition.com/tienda/green-line/vit-d3-k2/" target="_blank" rel="noopener">🔗 Vit D3 + K2</a>
+          <ul class="ay-list yes"><li>1 perla después del desayuno, junto con el Omega 3</li></ul>
+        </div>
+      </div>
+      <div class="ay-card safe">
+        <h3>⚡ Regla simple</h3>
+        <blockquote class="ay-quote">Cada suplemento tiene su momento. Respeta el orden y el timing, y el efecto se multiplica.</blockquote>
+      </div>
+    </section>
     <!-- LISTA -->
     <section id="tab-lista" class="tab hidden">
       <div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Lo que necesitas esta semana</h2><p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px;">Selecciona solo los alimentos que necesites para esta semana; no es necesario comprar la lista completa, y si prefieres sustituir algún producto por otro equivalente de la misma familia, siéntete con total libertad</p></div>
@@ -713,7 +757,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 (()=>{
 'use strict';
 const $=s=>document.querySelector(s);
-const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Tu dieta, sin extras',features:['Dieta personalizada','Menú semanal completo con recetas y cantidades','Sustituciones y filtrado por alergias']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal','Protocolo de ayuno 16:8','Protocolo de recuperación']},premium:{name:'Premium',price:'30 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas','Protocolo de ayuno 16:8','Protocolo de recuperación']}};
+const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Tu dieta, sin extras',features:['Dieta personalizada','Menú semanal completo con recetas y cantidades','Sustituciones y filtrado por alergias']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal','Protocolos avanzados: ayuno, recuperación y suplementación']},premium:{name:'Premium',price:'30 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas','Protocolos avanzados: ayuno, recuperación y suplementación']}};
 const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const ALERGIAS=['Lácteos','Frutos secos','Pescado','Otra…','Ninguna'];
 const ALLERGEN_RX=[['Lácteos',/yogur|queso|feta|mozzarella|kéfir|kefir|requesón|requeson|leche|mantequilla|cuajada/i],['Pescado',/salm[oó]n|merluza|caballa|at[uú]n|bonito|sardina|trucha|lubina|dorada|pescado|bacalao|ahumado|poke/i],['Frutos secos',/nueces|almendra|avellana|anacardo|pistacho|cacahuete/i]];

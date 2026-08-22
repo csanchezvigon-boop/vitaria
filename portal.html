@@ -344,6 +344,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 <nav><div class="wrap">
   <div class="brand"><span class="dot"></span>Vitaria <span style="font-size:.7rem;font-family:'IBM Plex Mono',monospace;color:var(--ink-soft);letter-spacing:.1em;">PORTAL</span></div>
   <div class="nav-user hidden" id="navUser">
+    <button class="btn btn-small" id="perfilNavBtn">Perfil</button>
     <span class="user-chip" id="userChip"></span>
     <button class="btn btn-small" id="logoutBtn">Salir</button>
   </div>
@@ -483,7 +484,6 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
     <button class="dash-tab plan-gated" data-tab="ayuno">El Ayuno</button>
     <button class="dash-tab plan-gated" data-tab="recuperacion">Recuperación</button>
     <button class="dash-tab plan-gated" data-tab="suplementacion">Suplementación</button>
-    <button class="dash-tab" data-tab="perfil">Perfil</button>
   </aside>
   <main class="dash-main">
     <!-- HOY -->
@@ -1012,6 +1012,7 @@ function applyPlanGating(u){
   if(!full&&active&&active.classList.contains('plan-gated'))activateTab('hoy');
 }
 
+$('#perfilNavBtn').addEventListener('click',()=>{activateTab('perfil');});
 $('#logoutBtn').addEventListener('click',()=>{setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
 
 /* Chips */

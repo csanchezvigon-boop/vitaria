@@ -434,6 +434,41 @@
     *{transition:none !important;}
     *{animation:none !important;}
   }
+
+  /* NUEVO LANDING */
+  .trust-row{display:flex;flex-wrap:wrap;gap:18px;margin-top:18px;font-size:.9rem;font-weight:700;color:var(--ink-soft);}
+  .cta-center{text-align:center;margin-top:30px;}
+  .btn-big{font-size:1.05rem;padding:16px 34px;}
+  .stats-bar{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin:26px 0 8px;}
+  .stat-box{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:20px 34px;text-align:center;}
+  .stat-box b{display:block;font-family:'Fraunces',serif;font-weight:900;font-size:1.7rem;color:var(--tomato);}
+  .stat-box span{font-size:.82rem;color:var(--ink-soft);}
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  @media(max-width:900px){.why-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:520px){.why-grid{grid-template-columns:1fr;}}
+  .wcard{background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:24px 22px;text-align:center;}
+  .wcard .wi{font-size:2rem;display:block;margin-bottom:10px;}
+  .wcard h3{font-size:1.05rem;}
+  .wcard p{color:var(--ink-soft);font-size:.9rem;margin:0;}
+  .includes-row{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;font-weight:700;font-size:.92rem;color:var(--ink);}
+  .final-cta{background:var(--ink);color:#F4F6EC;border-radius:24px;padding:56px 40px;text-align:center;}
+  .final-cta h2{color:#F4F6EC;}
+  .final-cta p{color:rgba(244,246,236,.75);max-width:520px;margin:0 auto 26px;}
+  /* Mockup app en el hero */
+  .mockup{background:var(--card);border:1.5px solid var(--line);border-radius:20px;box-shadow:0 24px 60px -30px rgba(38,48,31,.45);overflow:hidden;max-width:400px;margin:0 auto;font-size:.85rem;}
+  .mock-top{display:flex;align-items:center;gap:6px;padding:12px 16px;border-bottom:1px solid var(--line);background:var(--bg-alt);}
+  .mock-top i{width:9px;height:9px;border-radius:50%;background:var(--line);display:inline-block;}
+  .mock-top b{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-left:8px;}
+  .mock-body{padding:16px 18px;display:flex;flex-direction:column;gap:9px;}
+  .mock-day{font-family:'Fraunces',serif;font-weight:900;font-size:1.05rem;}
+  .mock-meal{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 12px;}
+  .mock-meal b{font-family:'IBM Plex Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.07em;color:var(--herb);flex:none;width:62px;}
+  .mock-meal span{flex:1;line-height:1.3;}
+  .mock-meal em{font-style:normal;color:var(--herb);font-weight:700;}
+  .mock-row{display:flex;justify-content:space-between;align-items:center;font-size:.78rem;color:var(--ink-soft);padding:0 2px;}
+  .drops{letter-spacing:2px;font-size:.72rem;}
+  .mock-note{font-size:.72rem;color:var(--herb);font-weight:700;background:rgba(79,111,63,.09);border-radius:8px;padding:8px 10px;}
+  @media(max-width:780px){.hero .wrap{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -447,9 +482,8 @@
       <span></span><span></span><span></span>
     </button>
     <ul id="navMenu">
-      <li><a href="#como-funciona">Cómo funciona</a></li>
-      <li><a href="#filosofia">Filosofía</a></li>
-      <li><a href="#plato">El plato</a></li>
+      <li><a href="#metodo">Cómo funciona</a></li>
+      <li><a href="#porque">Por qué Vitaria</a></li>
       <li><a href="#planes">Planes</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="portal.html">Portal</a></li>
@@ -460,49 +494,84 @@
 <header class="hero">
   <div class="wrap">
     <div>
-      <p class="eyebrow">Nutrición real, sin dietas</p>
-      <h1>Comer bien es un <em class="type-word">idioma</em>, no una dieta</h1>
-      <p class="lede">Vitaria es tu plan de alimentación personalizado: un generador que arma tu semana según lo que de verdad comes, sin contar calorías ni prohibir alimentos.</p>
-      <ul class="hero-facts">
-        <li><b>Qué es</b><span>Un plan de comidas hecho a tu medida, no una dieta genérica.</span></li>
-        <li><b>Para quién</b><span>Para quien quiere aprender a comer bien y sostenerlo en el tiempo.</span></li>
-        <li><b>Qué resuelve</b><span>Pasar del "debería comer mejor" a una semana concreta y lista.</span></li>
-      </ul>
+      <p class="eyebrow">Nutrición personalizada</p>
+      <h1>Transforma tu alimentación. Transforma tu cuerpo.</h1>
+      <p class="lede">Un método de nutrición personalizado para ayudarte a perder grasa, mejorar tus hábitos y conseguir resultados que puedas mantener.</p>
       <div class="cta-row">
-        <a href="#captura" class="btn btn-solid">Empezar gratis</a>
-        <a href="#como-funciona" class="btn btn-ghost">Ver cómo funciona</a>
+        <a href="portal.html" class="btn btn-solid">Quiero empezar</a>
+        <a href="#metodo" class="btn btn-ghost">Ver cómo funciona</a>
       </div>
+      <p class="trust-row"><span>✓ Plan personalizado</span><span>✓ Seguimiento</span><span>✓ Sin dietas extremas</span></p>
     </div>
     <div>
-      <div class="plate-hero">
-        <div class="plate-ring" aria-hidden="true"></div>
-        <p class="plate-caption">verduras · proteína · integrales</p>
+      <div class="mockup" aria-hidden="true">
+        <div class="mock-top"><i></i><i></i><i></i><b>Vitaria · Tu semana</b></div>
+        <div class="mock-body">
+          <div class="mock-day">Lunes</div>
+          <div class="mock-meal"><b>Desayuno</b><span>Yogur proteico con avena y plátano</span><em>✓</em></div>
+          <div class="mock-meal"><b>Comida</b><span>Pechuga de pollo con arroz, brócoli y AOVE</span><em>✓</em></div>
+          <div class="mock-meal"><b>Cena</b><span>Tortilla de huevos con ensalada y patata</span></div>
+          <div class="mock-row"><span>Hidratación</span><span class="drops">💧💧💧💧💧💧💧○○○</span></div>
+          <div class="mock-note">✓ Lista de la compra generada · ✓ Evaluación semanal disponible</div>
+        </div>
       </div>
     </div>
   </div>
 </header>
 
-<section id="como-funciona" class="alt">
+<section id="resultados">
+  <div class="wrap">
+    <div class="section-head" style="text-align:center;margin-left:auto;margin-right:auto;">
+      <p class="eyebrow">Resultados</p>
+      <h2>Personas reales. Resultados reales.</h2>
+    </div>
+    <div class="stats-bar">
+      <div class="stat-box"><b>−7,4 kg</b><span>12 semanas</span></div>
+      <div class="stat-box"><b>−8 cm</b><span>cintura · 10 semanas</span></div>
+      <div class="stat-box"><b>+ energía</b><span>4 semanas</span></div>
+    </div>
+    <div class="testimonials">
+      <div class="quote">
+        <p>"En 8 semanas he conseguido algo que llevaba años intentando."</p>
+        <span class="who">María, 34 · Sevilla</span>
+      </div>
+      <div class="quote">
+        <p>"Por primera vez siento que tengo una alimentación que puedo mantener."</p>
+        <span class="who">Javier, 41 · Valencia</span>
+      </div>
+      <div class="quote">
+        <p>"He perdido grasa sin dejar de disfrutar de la comida."</p>
+        <span class="who">Lucía, 27 · Bilbao</span>
+      </div>
+    </div>
+    <div class="cta-center"><a href="portal.html" class="btn btn-solid">Quiero conseguir resultados</a></div>
+  </div>
+</section>
+
+<section id="metodo" class="alt">
   <div class="wrap">
     <div class="section-head">
-      <p class="eyebrow">Cómo funciona</p>
-      <h2>De tu nevera a un plan en tres pasos</h2>
-      <p>No es una receta estática: es un generador que trabaja contigo y se adapta cada mes.</p>
+      <p class="eyebrow">El método</p>
+      <h2>Tres pasos. Sin complicaciones.</h2>
     </div>
     <div class="steps">
       <div class="step">
-        <h3>Haz el cuestionario</h3>
-        <p>Cuéntanos qué sueles comer, tus alergias, tu tiempo en la cocina y tu objetivo. Cinco minutos bastan.</p>
+        <span class="mark">01</span>
+        <h3>Conocemos tu situación</h3>
+        <p>Objetivos, hábitos, preferencias y rutina. Cinco minutos bastan.</p>
       </div>
       <div class="step">
-        <h3>Recibe tu plan semanal</h3>
-        <p>Generamos un menú y una lista de la compra con lo que de verdad compras, no con ingredientes imposibles.</p>
+        <span class="mark">02</span>
+        <h3>Diseñamos tu estrategia</h3>
+        <p>Creamos una planificación adaptada a ti: menú semanal, cantidades y lista de la compra.</p>
       </div>
       <div class="step">
-        <h3>Ajustamos cada mes</h3>
-        <p>Revisas cómo te ha ido y el plan se adapta: más variedad, más práctica o un objetivo nuevo.</p>
+        <span class="mark">03</span>
+        <h3>Te acompañamos</h3>
+        <p>Analizamos tu evolución cada semana y hacemos los ajustes contigo.</p>
       </div>
     </div>
+    <div class="cta-center"><a href="portal.html" class="btn btn-solid">Quiero mi plan →</a></div>
   </div>
 </section>
 
@@ -527,8 +596,6 @@
           <label>Tipo de alimentación</label>
           <div class="field-row" data-group="tipo">
             <button class="opt active" data-value="Equilibrada">Equilibrada</button>
-            <button class="opt" data-value="Vegetariana">Vegetariana</button>
-            <button class="opt" data-value="Vegana">Vegana</button>
             <button class="opt" data-value="Sin gluten">Sin gluten</button>
           </div>
         </div>
@@ -553,160 +620,17 @@
   </div>
 </section>
 
-<section id="filosofia">
+<section id="porque">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Filosofía</p>
-      <h2>Tres ideas antes de cualquier receta</h2>
-      <p>Todo lo demás en esta página se apoya en estos tres principios.</p>
+    <div class="section-head" style="text-align:center;margin-left:auto;margin-right:auto;">
+      <p class="eyebrow">¿Por qué Vitaria?</p>
+      <h2>No creemos en las dietas imposibles.<br>Creemos en un sistema que puedas mantener.</h2>
     </div>
-    <div class="principles">
-      <div class="principle">
-        <span class="mark">1</span>
-        <h3>Variedad antes que restricción</h3>
-        <p>Ningún alimento aislado te enferma ni te salva. El patrón general de la semana pesa mucho más que una comida puntual.</p>
-      </div>
-      <div class="principle">
-        <span class="mark">2</span>
-        <h3>Come cosas que reconozcas</h3>
-        <p>Cuanto más se parece un alimento a como salió de la tierra o del animal, menos etiquetas necesita para explicarse.</p>
-      </div>
-      <div class="principle">
-        <span class="mark">3</span>
-        <h3>El contexto también nutre</h3>
-        <p>Comer despacio, acompañado y sin pantallas cambia cómo digieres y cuánto disfrutas, aunque no aparezca en ninguna tabla nutricional.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="plato" class="alt">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">El plato de referencia</p>
-      <h2>Compón tu plato por proporciones, no por reglas</h2>
-      <p>Toca cada sección para entender qué va ahí y por qué.</p>
-    </div>
-    <div class="plate-interactive">
-      <div class="plate-big">
-        <div class="ring" id="plateRing"></div>
-      </div>
-      <div>
-        <div class="legend">
-          <button class="legend-btn active" data-seg="verduras" data-color="var(--herb)">
-            <span class="swatch" style="background:var(--herb)"></span>
-            <b>Verduras y frutas</b><span class="pct">50%</span>
-          </button>
-          <button class="legend-btn" data-seg="proteina" data-color="var(--tomato)">
-            <span class="swatch" style="background:var(--tomato)"></span>
-            <b>Proteína</b><span class="pct">25%</span>
-          </button>
-          <button class="legend-btn" data-seg="integrales" data-color="var(--yolk)">
-            <span class="swatch" style="background:var(--yolk)"></span>
-            <b>Cereales integrales</b><span class="pct">25%</span>
-          </button>
-        </div>
-        <p class="plate-desc" id="plateDesc" style="margin-top:16px;">La mitad del plato: cuanta más variedad de color, más variedad de nutrientes. Cuentan frescas, congeladas o en conserva sin azúcar añadido.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="despensa">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">La despensa</p>
-      <h2>Cinco grupos, no cien reglas</h2>
-      <p>Piensa en categorías amplias en lugar de listas de alimentos prohibidos.</p>
-    </div>
-    <div class="despensa">
-      <div class="food-card" style="--accent:var(--herb)">
-        <span class="tag">Base</span>
-        <h3>Verduras y frutas</h3>
-        <p>Al menos la mitad del plato en las comidas principales. Prioriza las de temporada: saben mejor y cuestan menos.</p>
-      </div>
-      <div class="food-card" style="--accent:var(--tomato)">
-        <span class="tag">Estructura</span>
-        <h3>Proteínas</h3>
-        <p>Legumbres, huevos, pescado, aves, carnes magras o tofu. Reparte las fuentes a lo largo de la semana.</p>
-      </div>
-      <div class="food-card" style="--accent:var(--yolk)">
-        <span class="tag">Energía</span>
-        <h3>Cereales integrales</h3>
-        <p>Avena, arroz integral, pan de masa madre, quinoa. Dan energía sostenida en lugar de picos y bajones.</p>
-      </div>
-      <div class="food-card" style="--accent:var(--berry)">
-        <span class="tag">Equilibrio</span>
-        <h3>Grasas saludables</h3>
-        <p>Aceite de oliva, frutos secos, aguacate, semillas. No son el enemigo: son las que ayudan a absorber otros nutrientes.</p>
-      </div>
-      <div class="food-card" style="--accent:var(--herb)">
-        <span class="tag">Opcional</span>
-        <h3>Lácteos y fermentados</h3>
-        <p>Yogur natural, kéfir, quesos con moderación. Útiles pero no imprescindibles si no te sientan bien.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="consejos" class="alt">
-  <div class="wrap">
-    <div class="tips-board">
-      <div class="section-head">
-        <p class="eyebrow">Consejos rápidos</p>
-        <h2>Ocho hábitos que valen más que un suplemento</h2>
-      </div>
-      <ul class="tip-list">
-        <li><span class="n">01</span> Empieza el plato sirviendo primero la verdura, luego lo demás.</li>
-        <li><span class="n">02</span> Ten siempre fruta lavada y a la vista: se come lo que se ve.</li>
-        <li><span class="n">03</span> Cocina en cantidad los días que puedas; el "yo del futuro" lo agradece.</li>
-        <li><span class="n">04</span> Bebe agua como primera opción; deja el resto para ocasiones puntuales.</li>
-        <li><span class="n">05</span> Lee las etiquetas de los ultraprocesados fijándote en los tres primeros ingredientes.</li>
-        <li><span class="n">06</span> No hace falta cenar poco: cena equilibrado, no vacío.</li>
-        <li><span class="n">07</span> Un antojo ocasional no borra una semana de buenos hábitos.</li>
-        <li><span class="n">08</span> Duerme bien: el apetito también se regula durmiendo, no solo comiendo.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="menu">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Ejemplo</p>
-      <h2>Un menú de tres días, no una receta cerrada</h2>
-      <p>Úsalo como plantilla y sustituye libremente dentro de cada grupo de la despensa.</p>
-    </div>
-    <div class="menu-scroll">
-      <table class="menu-table">
-        <thead>
-          <tr><th>Día</th><th>Desayuno</th><th>Comida</th><th>Cena</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Lunes</td>
-            <td>Avena con fruta y nueces</td>
-            <td>Lentejas con verduras y arroz integral</td>
-            <td>Tortilla de espinacas y ensalada</td>
-          </tr>
-          <tr>
-            <td>Martes</td>
-            <td>Yogur natural con fruta y semillas</td>
-            <td>Pollo al horno, quinoa y brócoli</td>
-            <td>Crema de calabacín y huevo cocido</td>
-          </tr>
-          <tr>
-            <td>Miércoles</td>
-            <td>Tostada integral con aguacate y huevo</td>
-            <td>Garbanzos salteados con pimiento y espinaca</td>
-            <td>Pescado a la plancha con ensalada templada</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="menu-hook">
-      <p>Esto es solo una muestra de tres días. El generador te da una semana completa adaptada a tu despensa, tus alergias y tus horarios.</p>
-      <a href="#demo" class="btn btn-solid">Generar mi semana</a>
+    <div class="why-grid">
+      <div class="wcard"><span class="wi">🥗</span><h3>Personalización</h3><p>Nada de planes genéricos.</p></div>
+      <div class="wcard"><span class="wi">📊</span><h3>Seguimiento</h3><p>Tu evolución marca las siguientes decisiones.</p></div>
+      <div class="wcard"><span class="wi">🔄</span><h3>Adaptación</h3><p>Tu plan cambia contigo.</p></div>
+      <div class="wcard"><span class="wi">🧠</span><h3>Educación</h3><p>El objetivo es que aprendas a alimentarte por ti mismo.</p></div>
     </div>
   </div>
 </section>
@@ -715,8 +639,8 @@
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Planes</p>
-      <h2>Un precio para cada momento</h2>
-      <p>Sin cuotas sorpresa ni pagar por lo que no usas. Todos los planes incluyen la misma educación nutricional.</p>
+      <h2>¿Qué incluye?</h2>
+      <p class="includes-row"><span>✓ Plan nutricional personalizado</span><span>✓ Seguimiento semanal</span><span>✓ Ajustes según evolución</span><span>✓ Lista de la compra</span><span>✓ Educación nutricional</span><span>✓ Soporte durante el proceso</span></p>
     </div>
     <div class="billing-toggle" id="billingToggle">
       <span class="bt-label on" data-billing="mensual">Mensual</span>
@@ -729,13 +653,13 @@
       <div class="plan">
         <h3 class="name">Starter</h3>
         <div class="price"><span class="amount" data-mensual="6 €" data-anual="5 €">6 €</span><span class="per">/mes</span></div>
-        <p class="desc">Tu plan de referencia y la despensa bien entendida. Ideal para quien empieza a componer sus platos.</p>
+        <p class="desc">Tu dieta, sin extras. Ideal para empezar.</p>
         <ul>
-          <li>Plan estático personalizado</li>
-          <li>Guía de despensa y principios</li>
-          <li>Acceso a todos los consejos</li>
+          <li>Dieta personalizada</li>
+          <li>Menú semanal completo con recetas y cantidades</li>
+          <li>Sustituciones y filtrado por alergias</li>
         </ul>
-        <a href="#captura" class="btn btn-ghost">Empezar</a>
+        <a href="portal.html" class="btn btn-ghost">Empezar</a>
       </div>
       <div class="plan featured">
         <span class="badge">Recomendado</span>
@@ -747,7 +671,7 @@
           <li>Chat limitado para resolver dudas</li>
           <li>Lista de la compra semanal</li>
         </ul>
-        <a href="#captura" class="btn btn-solid">Empezar</a>
+        <a href="portal.html" class="btn btn-solid">Empezar</a>
       </div>
       <div class="plan">
         <h3 class="name">Premium</h3>
@@ -758,33 +682,10 @@
           <li>Feedback sobre tus comidas</li>
           <li>Atención prioritaria sin esperas</li>
         </ul>
-        <a href="#captura" class="btn btn-ghost">Empezar</a>
+        <a href="portal.html" class="btn btn-ghost">Empezar</a>
       </div>
     </div>
-  </div>
-</section>
-
-<section id="testimonios">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow">Testimonios</p>
-      <h2>Personas que dejaron de hacer dietas</h2>
-      <p>Gente que pasó de "debería comer mejor" a tenerlo resuelto.</p>
-    </div>
-    <div class="testimonials">
-      <div class="quote">
-        <p>"No he contado una sola caloría y por primera vez tengo una semana entera decidida por mí."</p>
-        <span class="who">María, 34 · Sevilla</span>
-      </div>
-      <div class="quote">
-        <p>"Lo mejor es que el plan se adapta a mi nevera, no al revés. Terminé la semana sin tirar comida."</p>
-        <span class="who">Javier, 41 · Valencia</span>
-      </div>
-      <div class="quote">
-        <p>"Dejé de sentirme culpable por comer. Ahora sé componer el plato y sé por qué."</p>
-        <span class="who">Lucía, 27 · Bilbao</span>
-      </div>
-    </div>
+    <div class="cta-center"><a href="portal.html" class="btn btn-solid">Quiero conseguir mis objetivos</a></div>
   </div>
 </section>
 
@@ -821,17 +722,11 @@
 
 <section id="captura">
   <div class="wrap">
-    <div class="capture">
-      <div class="section-head">
-        <p class="eyebrow">Empieza hoy</p>
-        <h2>Prueba tu primera semana gratis</h2>
-        <p>Déjanos tu email y recibe un plan de muestra para tu semana, sin tarjeta y sin compromiso.</p>
-      </div>
-      <form class="capture-form" id="captureForm" novalidate>
-        <input type="email" name="email" placeholder="tu@email.com" required aria-label="Tu email">
-        <button type="submit" class="btn">Quiero mi plan</button>
-      </form>
-      <p class="ok" id="captureOk">✓ Te lo hemos enviado. Revisa tu bandeja (y el spam, por si acaso).</p>
+    <div class="final-cta">
+      <p class="eyebrow">Empieza hoy</p>
+      <h2>Tu primera semana puede empezar hoy mismo</h2>
+      <p>Crea tu cuenta, responde el cuestionario y recibe tu menú personalizado en minutos.</p>
+      <a href="portal.html" class="btn btn-solid btn-big">Empezar ahora</a>
     </div>
   </div>
 </section>
@@ -844,29 +739,6 @@
 <button class="totop" id="toTop" aria-label="Volver arriba">↑</button>
 
 <script>
-  const descriptions = {
-    verduras: "La mitad del plato: cuanta más variedad de color, más variedad de nutrientes. Cuentan frescas, congeladas o en conserva sin azúcar añadido.",
-    proteina: "Un cuarto del plato. Alterna entre legumbres, pescado, huevo, aves y carnes magras; no hace falta comer carne cada día para cubrir esta parte.",
-    integrales: "El último cuarto. Elige la versión integral cuando puedas: aporta más fibra y sacia durante más tiempo que la refinada."
-  };
-  const colors = {
-    verduras: {seg1:'var(--herb)', seg2:'var(--tomato)', seg3:'var(--yolk)'},
-    proteina: {seg1:'var(--tomato)', seg2:'var(--herb)', seg3:'var(--yolk)'},
-    integrales: {seg1:'var(--yolk)', seg2:'var(--herb)', seg3:'var(--tomato)'}
-  };
-  const ring = document.getElementById('plateRing');
-  const desc = document.getElementById('plateDesc');
-  document.querySelectorAll('.legend-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      document.querySelectorAll('.legend-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      const seg = btn.dataset.seg;
-      desc.textContent = descriptions[seg];
-      ring.style.filter = 'saturate(1.15)';
-      setTimeout(()=> ring.style.filter='saturate(1)', 200);
-    });
-  });
-
   // Demo del generador
   document.querySelectorAll('.opt').forEach(btn=>{
     btn.addEventListener('click', ()=>{
@@ -880,16 +752,6 @@
       desayuno:["Avena con fruta y nueces","Tostada integral con aguacate y huevo","Yogur natural con fruta y semillas"],
       comida:["Lentejas con verduras y arroz integral","Pollo al horno, quinoa y brócoli","Garbanzos salteados con espinaca"],
       cena:["Pescado a la plancha con ensalada","Crema de calabacín y huevo cocido","Tortilla de espinacas y ensalada"]
-    },
-    Vegetariana: {
-      desayuno:["Porridge de avena y plátano","Tostada con queso fresco y tomate","Yogur con granola y frutos rojos"],
-      comida:["Garbanzos salteados con espinaca","Bowl de quinoa, hummus y verduras","Pasta integral con verduras al pesto"],
-      cena:["Crema de calabacín y huevo cocido","Revuelto de tofu con champiñones","Ensalada de lentejas y queso feta"]
-    },
-    Vegana: {
-      desayuno:["Batido de avena, plátano y cacao","Avena nocturna con bebida de almendra","Tostada con hummus y tomate"],
-      comida:["Tofu salteado con verduras y quinoa","Curry de garbanzos y arroz integral","Pisto con alubias y pan integral"],
-      cena:["Crema de boniato y garbanzos","Salteado de verduras con fideos de arroz","Ensalada de quinoa, aguacate y maíz"]
     },
     "Sin gluten": {
       desayuno:["Pan de trigo sarraceno con aguacate","Yogur con fruta y semillas","Huevos revueltos con tomate"],
@@ -917,18 +779,10 @@
     out.scrollIntoView({behavior:'smooth', block:'nearest'});
   });
 
-  // Captura de email
-  document.getElementById('captureForm').addEventListener('submit', (e)=>{
-    e.preventDefault();
-    document.getElementById('captureForm').style.display = 'none';
-    document.getElementById('captureOk').style.display = 'block';
-  });
-
   // Scroll: progreso, nav, scrollspy, parallax y volver arriba
   const progress = document.getElementById('progress');
   const navEl = document.querySelector('nav');
   const toTop = document.getElementById('toTop');
-  const plateHero = document.querySelector('.plate-hero');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const onScroll = ()=>{
     const h = document.documentElement;
@@ -936,10 +790,7 @@
     progress.style.width = (pct*100)+'%';
     navEl.classList.toggle('scrolled', h.scrollTop > 10);
     toTop.classList.toggle('visible', h.scrollTop > 600);
-    if(plateHero && !reduceMotion.matches){
-      plateHero.style.transform = `translateY(${h.scrollTop*-0.06}px)`;
-    }
-    let current = 'como-funciona';
+    let current = 'metodo';
     document.querySelectorAll('section[id]').forEach(sec=>{
       if(sec.getBoundingClientRect().top <= 130) current = sec.id;
     });
@@ -966,21 +817,6 @@
       navToggle.setAttribute('aria-expanded','false');
     });
   });
-
-  // Palabra rotatoria en el hero
-  const words = ['idioma','hábito','modo de vida'];
-  const typeWord = document.querySelector('.type-word');
-  if(typeWord && !reduceMotion.matches){
-    let wi = 0;
-    setInterval(()=>{
-      typeWord.style.opacity = 0;
-      setTimeout(()=>{
-        wi = (wi+1)%words.length;
-        typeWord.textContent = words[wi];
-        typeWord.style.opacity = 1;
-      }, 260);
-    }, 2800);
-  }
 
   // Toggle de facturación mensual / anual
   const billingSwitch = document.getElementById('billingSwitch');
@@ -1018,7 +854,7 @@
       }
     });
   }, {threshold:.15});
-  document.querySelectorAll('.principle, .food-card, .step, .quote, .plan').forEach(el=>{
+  document.querySelectorAll('.step, .quote, .plan, .wcard, .stat-box').forEach(el=>{
     el.style.opacity = 0;
     el.style.transform = 'translateY(14px)';
     el.style.transition = 'opacity .5s ease, transform .5s ease';

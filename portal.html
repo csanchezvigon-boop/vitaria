@@ -33,6 +33,47 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .field-row{display:flex;gap:16px;}.field-row .field{flex:1;}
 .chips{display:flex;flex-wrap:wrap;gap:8px;}
 .otra-input{margin-top:10px;}
+/* EL AYUNO */
+.ay-card{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:20px 24px;margin-bottom:14px;}
+.ay-card h3{margin:0 0 8px;font-size:1.02rem;font-weight:700;color:var(--ink);}
+.ay-card p{margin:.35rem 0;color:var(--ink-soft);font-size:.92rem;line-height:1.5;}
+.ay-quote{margin:14px 0 2px;padding:12px 18px;border-left:3px solid var(--herb);background:rgba(79,111,63,.08);border-radius:0 10px 10px 0;font-family:'Fraunces',serif;font-style:italic;font-size:1.02rem;color:var(--ink);}
+.ay-benefits{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:14px;}
+.ay-ben{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:16px;text-align:center;}
+.ay-ben .bi{font-size:1.6rem;display:block;margin-bottom:6px;}
+.ay-ben b{font-size:.88rem;color:var(--ink);}
+.ay-ben p{font-size:.78rem;color:var(--ink-soft);margin:4px 0 0;line-height:1.35;}
+.ay-check{list-style:none;margin:8px 0;padding:0;display:grid;gap:8px;}
+.ay-check li{background:rgba(79,111,63,.09);border-radius:10px;padding:10px 14px 10px 38px;position:relative;font-size:.9rem;color:var(--ink);}
+.ay-check li::before{content:'✓';position:absolute;left:14px;top:9px;color:var(--herb);font-weight:700;}
+.ay-note{font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.04em;color:var(--herb);margin-top:12px!important;}
+.ay-168{font-size:1rem!important;color:var(--ink)!important;}
+.ay-168 b{color:var(--tomato);}
+.ay-timeline{display:flex;width:100%;height:46px;border-radius:12px;overflow:hidden;margin:12px 0 2px;border:1.5px solid var(--line);}
+.ay-fast,.ay-window{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#F4F6EC;white-space:nowrap;overflow:hidden;}
+.ay-fast{background:var(--ink);}
+.ay-window{background:var(--herb);}
+.ay-prog{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:10px 0;}
+.ay-step{flex:1;min-width:140px;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
+.ay-step b{font-family:'IBM Plex Mono',monospace;font-size:.85rem;color:var(--ink);}
+.ay-step p{font-size:.76rem;margin:4px 0 0!important;}
+.ay-opt{border-color:var(--tomato);}
+.ay-arrow{font-size:1.2rem;color:var(--tomato);font-weight:700;}
+.ay-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:780px){.ay-cols{grid-template-columns:1fr;}}
+.ay-card.ok{border-color:rgba(79,111,63,.45);}
+.ay-card.ko{border-color:rgba(214,85,44,.4);}
+.ay-list{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px;}
+.ay-list li{border-radius:999px;padding:7px 15px;font-size:.84rem;font-weight:600;}
+.ay-list.yes li{background:rgba(79,111,63,.12);color:var(--herb);}
+.ay-list.no li{background:rgba(214,85,44,.1);color:var(--tomato);}
+.ay-break{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0;}
+.ay-brk{flex:1;min-width:130px;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:13px;text-align:center;}
+.ay-brk b{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:var(--tomato);color:#F4F6EC;font-size:.75rem;margin-bottom:6px;}
+.ay-brk span{display:block;font-size:.86rem;font-weight:700;color:var(--ink);}
+.ay-warn{color:var(--tomato)!important;font-weight:700;}
+.ay-pauses{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
+.ay-pauses span{background:rgba(232,169,59,.16);color:#8A6D1A;border-radius:999px;padding:7px 15px;font-size:.84rem;font-weight:600;}
 .chip{border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:8px 15px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
 .chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
 .auth-msg{margin:0 0 16px;font-size:.88rem;font-weight:700;min-height:0;}.auth-msg.err{color:var(--tomato);}.auth-msg.ok{color:var(--herb);}
@@ -394,7 +435,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
       <div class="field"><label>Repite</label><input type="password" id="regPw2" placeholder="Repite"></div>
     </div>
     <div class="field-row">
-      <div class="field"><label>Tipo de alimentación</label><select id="regTipo"><option>Equilibrada</option><option>Vegetariana</option><option>Vegana</option><option>Sin gluten</option></select></div>
+      <div class="field"><label>Tipo de alimentación</label><select id="regTipo"><option>Equilibrada</option><option>Sin gluten</option></select></div>
       <div class="field"><label>Objetivo</label><select id="regObjetivo"><option>Reset &amp; Build</option><option>Regular el peso</option></select></div>
     </div>
     <div class="field"><label>Alergias</label><div class="chips" id="regChips"></div><input type="text" id="regChipsOtra" class="hidden otra-input" placeholder="Escribe tu alergia…" maxlength="40"></div>
@@ -416,8 +457,9 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
   <aside class="dash-nav">
     <button class="dash-tab active" data-tab="hoy">Hoy</button>
     <button class="dash-tab" data-tab="semana">Mi semana</button>
-    <button class="dash-tab" data-tab="evaluacion">Evaluación semanal</button>
-    <button class="dash-tab" data-tab="lista">Lista de compra</button>
+    <button class="dash-tab plan-gated" data-tab="evaluacion">Evaluación semanal</button>
+    <button class="dash-tab plan-gated" data-tab="ayuno">El Ayuno</button>
+    <button class="dash-tab plan-gated" data-tab="lista">Lista de compra</button>
     <button class="dash-tab" data-tab="perfil">Perfil</button>
   </aside>
   <main class="dash-main">
@@ -456,6 +498,90 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
       </form>
       <div class="eval-history" id="evalHistory"></div>
     </section>
+    <!-- EL AYUNO (Pro y Premium) -->
+    <section id="tab-ayuno" class="tab hidden">
+      <div class="section-head"><p class="eyebrow">Protocolo avanzado · Planes Pro y Premium</p><h2>El Ayuno</h2><p style="font-size:.95rem;color:var(--ink-soft);margin-top:6px;max-width:640px;">Convierte tu hambre regulada en ventaja metabólica real.</p></div>
+      <div class="ay-card">
+        <h3>🎯 ¿Qué es?</h3>
+        <p>No es restricción. Es una herramienta de autorregulación metabólica: mejora la sensibilidad a la insulina, activa la autofagia, potencia tu claridad mental y enseña a tu cuerpo a usar la grasa como combustible.</p>
+        <blockquote class="ay-quote">"Ya regulaste tu hambre. Ahora la convertimos en ventaja metabólica real."</blockquote>
+      </div>
+      <div class="ay-benefits">
+        <div class="ay-ben"><span class="bi">⚡</span><b>Sensibilidad insulínica</b><p>Tu cuerpo aprovecha mejor cada comida</p></div>
+        <div class="ay-ben"><span class="bi">🔄</span><b>Autofagia activa</b><p>Limpieza y regeneración celular</p></div>
+        <div class="ay-ben"><span class="bi">🔥</span><b>Flexibilidad metabólica</b><p>Quemas grasa de forma eficiente</p></div>
+        <div class="ay-ben"><span class="bi">🧠</span><b>Claridad mental</b><p>Foco real durante el ayuno</p></div>
+        <div class="ay-ben"><span class="bi">💪</span><b>Composición corporal</b><p>Evolución progresiva y sostenible</p></div>
+      </div>
+      <div class="ay-card">
+        <h3>✅ ¿Estás listo?</h3>
+        <p>Solo si cumples esto:</p>
+        <ul class="ay-check">
+          <li>3-4 semanas de base sólida (12 h de ayuno nocturno, sin hambre urgente)</li>
+          <li>El sistema de comidas (máx. 4 al día) ya es rutina, no esfuerzo</li>
+        </ul>
+        <p class="ay-note">Si no, primero se consolida la base. Sin prisa: la solidez es lo que da resultados.</p>
+      </div>
+      <div class="ay-card">
+        <h3>⏰ El protocolo: 16:8</h3>
+        <p class="ay-168"><b>16 horas</b> de ayuno · <b>8 horas</b> de ventana</p>
+        <div class="ay-timeline">
+          <div class="ay-fast" style="width:66.7%;">Ayuno 20:00 → 12:00</div>
+          <div class="ay-window" style="width:33.3%;">Comidas 12:00 → 20:00</div>
+        </div>
+        <p class="ay-note">Se adapta a tu vida: entrenos, días de descanso, días de partido. Nunca al revés.</p>
+      </div>
+      <div class="ay-card">
+        <h3>📈 Progresión gradual</h3>
+        <div class="ay-prog">
+          <div class="ay-step"><b>16:8 estable</b><p>Tu punto de partida</p></div>
+          <span class="ay-arrow">→</span>
+          <div class="ay-step"><b>18:6</b><p>Solo en días de descanso</p></div>
+          <span class="ay-arrow">→</span>
+          <div class="ay-step ay-opt"><b>24 h opcionales</b><p>Perfiles avanzados · máx. 1×/mes</p></div>
+        </div>
+        <p class="ay-note">Siempre paso a paso, nunca forzado.</p>
+      </div>
+      <div class="ay-cols">
+        <div class="ay-card ok">
+          <h3>💊 No rompe el ayuno</h3>
+          <ul class="ay-list yes">
+            <li>Agua</li>
+            <li>Sal</li>
+            <li>Café o té solos</li>
+            <li>Creatina</li>
+            <li>Citrulina malato</li>
+          </ul>
+        </div>
+        <div class="ay-card ko">
+          <h3>🚫 Rompe el ayuno</h3>
+          <p>Suplementos con grasas o aceites — tómalos con la primera comida:</p>
+          <ul class="ay-list no">
+            <li>Omega 3</li>
+            <li>Vitamina D + K2</li>
+            <li>Colágeno</li>
+            <li>Probióticos</li>
+          </ul>
+        </div>
+      </div>
+      <div class="ay-card">
+        <h3>🍽️ Cómo romper bien</h3>
+        <div class="ay-break">
+          <div class="ay-brk"><b>1</b><span>Proteína + grasa</span></div>
+          <span class="ay-arrow">→</span>
+          <div class="ay-brk"><b>2</b><span>Vegetales</span></div>
+          <span class="ay-arrow">→</span>
+          <div class="ay-brk"><b>3</b><span>Carbohidratos al final</span></div>
+        </div>
+        <p class="ay-warn">Nunca con fruta, zumos o batidos azucarados.</p>
+      </div>
+      <div class="ay-card safe">
+        <h3>🛡️ Seguridad ante todo</h3>
+        <p>El ayuno se pausa sin culpa si hay:</p>
+        <div class="ay-pauses"><span>Fatiga persistente</span><span>Estrés crónico</span><span>Infección</span><span>Mareos</span><span>Hambre descontrolada</span></div>
+        <p class="ay-note">Es parte del sistema, no un fracaso.</p>
+      </div>
+    </section>
     <!-- LISTA -->
     <section id="tab-lista" class="tab hidden">
       <div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Lo que necesitas esta semana</h2><p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px;">Selecciona solo los alimentos que necesites para esta semana; no es necesario comprar la lista completa, y si prefieres sustituir algún producto por otro equivalente de la misma familia, siéntete con total libertad</p></div>
@@ -469,7 +595,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
         <div class="field"><label>Nombre</label><input type="text" id="perfName"></div>
         <div class="field"><label>Correo</label><input type="email" id="perfEmail" disabled style="opacity:.6;"></div>
         <div class="field-row">
-          <div class="field"><label>Tipo de alimentación</label><select id="perfTipo"><option>Equilibrada</option><option>Vegetariana</option><option>Vegana</option><option>Sin gluten</option></select></div>
+          <div class="field"><label>Tipo de alimentación</label><select id="perfTipo"><option>Equilibrada</option><option>Sin gluten</option></select></div>
           <div class="field"><label>Objetivo</label><select id="perfObjetivo"><option>Reset &amp; Build</option><option>Regular el peso</option></select></div>
         </div>
         <div class="field"><label>Alergias</label><div class="chips" id="perfChips"></div><input type="text" id="perfChipsOtra" class="hidden otra-input" placeholder="Escribe tu alergia…" maxlength="40"></div>
@@ -512,7 +638,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 (()=>{
 'use strict';
 const $=s=>document.querySelector(s);
-const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Plan de referencia + guía de despensa',features:['Plan estático personalizado','Guía de despensa y principios','Acceso a todos los consejos']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal']},premium:{name:'Premium',price:'30 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas']}};
+const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Tu dieta, sin extras',features:['Dieta personalizada','Menú semanal completo con recetas y cantidades','Sustituciones y filtrado por alergias']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal','Protocolo de ayuno 16:8']},premium:{name:'Premium',price:'30 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas','Protocolo de ayuno 16:8']}};
 const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const ALERGIAS=['Lácteos','Frutos secos','Pescado','Otra…','Ninguna'];
 const ALLERGEN_RX=[['Lácteos',/yogur|queso|feta|mozzarella|kéfir|kefir|requesón|requeson|leche|mantequilla|cuajada/i],['Pescado',/salm[oó]n|merluza|caballa|at[uú]n|bonito|sardina|trucha|lubina|dorada|pescado|bacalao|ahumado|poke/i],['Frutos secos',/nueces|almendra|avellana|anacardo|pistacho|cacahuete/i]];
@@ -754,6 +880,13 @@ function enterPortal(){
   showView('view-dashboard');$('#navUser').classList.remove('hidden');
   $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;
   activateTab('hoy');
+  applyPlanGating(u);
+}
+function applyPlanGating(u){
+  const full=u.plan!=='starter';
+  document.querySelectorAll('.dash-tab.plan-gated').forEach(t=>t.classList.toggle('hidden',!full));
+  const active=document.querySelector('.dash-tab.active');
+  if(!full&&active&&active.classList.contains('plan-gated'))activateTab('hoy');
 }
 
 $('#logoutBtn').addEventListener('click',()=>{setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
@@ -1082,7 +1215,7 @@ function renderPerfil(u){
   if(u.physical){$('#perfAltura').value=u.physical.altura;$('#perfPeso').value=u.physical.peso;$('#perfEdad').value=u.physical.edad;$('#perfSexo').value=u.physical.sexo;$('#perfActividad').value=u.physical.actividad;}
   $('#perfilPlan').innerHTML=`<span style="font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;">${PLANS[u.plan].name}</span><br><span style="color:var(--ink-soft);font-size:.9rem;">${PLANS[u.plan].price}</span>`;
   const ups=$('#perfilUpgrades');ups.innerHTML='';const rank={starter:0,pro:1,premium:2};
-  Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
+  Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);applyPlanGating(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
 }
 $('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}const oldObj=u.objetivo;u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');if(oldObj!==u.objetivo)u.weekIdx=0;u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo);u.menuObj=u.objetivo;u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderLista(u);renderSemana(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});

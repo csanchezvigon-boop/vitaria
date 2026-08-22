@@ -297,7 +297,11 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 @media(max-width:780px){.eval-q{padding:14px 16px;}}
 
 /* Meal detail modal */
-.meal-cell{cursor:pointer;transition:background .15s;}
+.meal-cell{cursor:pointer;transition:background .15s;position:relative;}
+.meal-cell .meal-name{display:block;padding-right:22px;}
+.swap-btn{position:absolute;top:7px;right:7px;background:transparent;border:none;cursor:pointer;font-size:.8rem;line-height:1;opacity:.4;padding:3px;border-radius:6px;transition:opacity .15s,transform .2s;}
+.swap-btn:hover{opacity:1;transform:rotate(90deg) scale(1.15);}
+#menuMsg{font-size:.8rem;font-weight:700;color:var(--herb);margin-top:8px;min-height:1.1em;}
 .meal-cell:hover{background:rgba(74,103,65,.07);}
 .mdi-row{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:10px 14px;flex-wrap:wrap;}
 .mdi-qty{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:600;color:var(--herb);min-width:70px;flex:none;}
@@ -473,12 +477,12 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 <div id="view-dashboard" class="view hidden"><div class="wrap"><div class="dash">
   <aside class="dash-nav">
     <button class="dash-tab active" data-tab="hoy">Hoy</button>
-    <button class="dash-tab" data-tab="semana">Mi semana</button>
+    <button class="dash-tab" data-tab="semana">Tu plan semanal</button>
+    <button class="dash-tab plan-gated" data-tab="lista">Lista de compra</button>
     <button class="dash-tab plan-gated" data-tab="evaluacion">Evaluación semanal</button>
     <button class="dash-tab plan-gated" data-tab="ayuno">El Ayuno</button>
     <button class="dash-tab plan-gated" data-tab="recuperacion">Recuperación</button>
     <button class="dash-tab plan-gated" data-tab="suplementacion">Suplementación</button>
-    <button class="dash-tab plan-gated" data-tab="lista">Lista de compra</button>
     <button class="dash-tab" data-tab="perfil">Perfil</button>
   </aside>
   <main class="dash-main">
@@ -503,9 +507,9 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
       <div class="meal-cards" id="todayMeals"></div>
     </section>
     <section id="tab-semana" class="tab hidden">
-      <div class="section-head"><p class="eyebrow">Mi semana</p><h2>Tu menú semanal</h2><p>Tipo: <b id="menuTipo" style="color:var(--herb);"></b></p></div>
+      <div class="section-head"><p class="eyebrow">Tu plan semanal</p><h2>Tu menú semanal</h2><p>Tipo: <b id="menuTipo" style="color:var(--herb);"></b></p><p style="font-size:.85rem;color:var(--ink-soft);">Pulsa el 🔄 de cualquier plato para cambiarlo si no te gusta.</p></div>
       <div class="menu-scroll"><table class="menu-table"><thead><tr><th>Día</th><th>Desayuno</th><th>Comida</th><th>Cena</th></tr></thead><tbody id="menuBody"></tbody></table></div>
-      <div class="inline-actions"><button class="btn btn-solid" id="menuRegen">Regenerar mi semana</button></div>
+      <p id="menuMsg"></p>
     </section>
     <!-- EVALUACION SEMANAL -->
     <section id="tab-evaluacion" class="tab hidden">
@@ -1217,13 +1221,16 @@ $('#foodConfirm').onclick=function(){
 })();
 
 /* SEMANA */
+function dishPool(u,mt){const src=(u.objetivo==='Regular el peso')?WEIGHT_WEEKS:WEEKS;const al=(u.alergias||[]);const pool=[];src.forEach(wk=>DIAS.forEach(d=>{const c=wk[d][mt];if(!pool.includes(c)&&!dishHasAllergen(c,al))pool.push(c);}));return pool;}
+function swapDish(dayIdx,mt,u){const m=u.menu[dayIdx];const pool=dishPool(u,mt);if(pool.length<2){setMenuMsg('No hay alternativas para este plato.',true);return;}const i=pool.indexOf(m[mt]);m[mt]=pool[(i+1)%pool.length];saveUser(u);renderSemana(u);renderLista(u);setMenuMsg(m.dia+' · '+MEAL_LABELS[mt]+': ahora '+m[mt]);}
+function setMenuMsg(t,err){const el=$('#menuMsg');if(el){el.textContent=t;el.style.color=err?'var(--tomato)':'var(--herb)';}}
 function renderSemana(u){
   $('#menuTipo').textContent=u.tipo;
   const ti=todayIndex();
-  $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td><td class="meal-cell" data-day="${i}" data-mt="desayuno">${m.desayuno}</td><td class="meal-cell" data-day="${i}" data-mt="comida">${m.comida}</td><td class="meal-cell" data-day="${i}" data-mt="cena">${m.cena}</td></tr>`).join('');
-  $('#menuBody').querySelectorAll('.meal-cell').forEach(c=>c.addEventListener('click',()=>openMealDetail(+c.dataset.day,c.dataset.mt,u)));
+  $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td>${['desayuno','comida','cena'].map(mt=>`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span><button class="swap-btn" type="button" data-day="${i}" data-mt="${mt}" title="Cambiar plato">🔄</button></td>`).join('')}</tr>`).join('');
+  $('#menuBody').querySelectorAll('.meal-cell').forEach(c=>c.addEventListener('click',e=>{if(e.target.closest('.swap-btn'))return;openMealDetail(+c.dataset.day,c.dataset.mt,u);}));
+  $('#menuBody').querySelectorAll('.swap-btn').forEach(b=>b.addEventListener('click',()=>{const cu=currentUser();if(!cu)return;swapDish(+b.dataset.day,b.dataset.mt,cu);}));
 }
-$('#menuRegen').addEventListener('click',()=>{const u=currentUser();if(!u)return;const src=(u.objetivo==='Regular el peso')?WEIGHT_WEEKS:WEEKS;u.weekIdx=(((u.weekIdx||0)+1)%src.length);u.menu=newMenu(u.tipo,u.alergias,u.weekIdx,u.objetivo);u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderSemana(u);renderLista(u);setMsg('#perfilMsg','Semana '+(u.weekIdx+1)+' de '+src.length+' cargada.','ok');});
 
 /* Detalle de comida + sustituciones 1×1 */
 let mealCtx=null;

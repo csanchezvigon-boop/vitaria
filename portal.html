@@ -74,6 +74,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .ay-warn{color:var(--tomato)!important;font-weight:700;}
 .ay-pauses{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;}
 .ay-pauses span{background:rgba(232,169,59,.16);color:#8A6D1A;border-radius:999px;padding:7px 15px;font-size:.84rem;font-weight:600;}
+/* RECUPERACION */
+.rec-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:820px){.rec-grid{grid-template-columns:1fr;}}
+.rec-tool{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;display:flex;flex-direction:column;}
+.rt-head{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.rt-icon{font-size:1.5rem;flex:none;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;}
+.rt-head b{display:block;font-size:.98rem;color:var(--ink);}
+.rt-head small{font-size:.78rem;color:var(--ink-soft);}
+.rt-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.rt-meta span{flex:1;min-width:120px;background:var(--bg);border:1.2px solid var(--line);border-radius:9px;padding:7px 11px;font-size:.76rem;font-weight:700;color:var(--ink);}
+.rt-meta i{display:block;font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.07em;color:var(--herb);margin-bottom:2px;}
+.rec-tool p{margin:.4rem 0;color:var(--ink-soft);font-size:.88rem;line-height:1.5;}
+.rt-tip{background:rgba(79,111,63,.09);border-radius:10px;padding:9px 13px!important;color:var(--ink)!important;font-weight:600;}
 .chip{border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:8px 15px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
 .chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
 .auth-msg{margin:0 0 16px;font-size:.88rem;font-weight:700;min-height:0;}.auth-msg.err{color:var(--tomato);}.auth-msg.ok{color:var(--herb);}
@@ -459,6 +472,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
     <button class="dash-tab" data-tab="semana">Mi semana</button>
     <button class="dash-tab plan-gated" data-tab="evaluacion">Evaluación semanal</button>
     <button class="dash-tab plan-gated" data-tab="ayuno">El Ayuno</button>
+    <button class="dash-tab plan-gated" data-tab="recuperacion">Recuperación</button>
     <button class="dash-tab plan-gated" data-tab="lista">Lista de compra</button>
     <button class="dash-tab" data-tab="perfil">Perfil</button>
   </aside>
@@ -582,6 +596,67 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
         <p class="ay-note">Es parte del sistema, no un fracaso.</p>
       </div>
     </section>
+    <!-- PROTOCOLO DE RECUPERACION (Pro y Premium) -->
+    <section id="tab-recuperacion" class="tab hidden">
+      <div class="section-head"><p class="eyebrow">Protocolo avanzado · Planes Pro y Premium</p><h2>Protocolo de Recuperación</h2><p style="font-size:.95rem;color:var(--ink-soft);margin-top:6px;max-width:640px;">Tu cuerpo no mejora cuando entrenas. Mejora cuando descansas.</p></div>
+      <div class="ay-card">
+        <h3>🧬 La verdad que nadie te cuenta</h3>
+        <p>El entrenamiento es solo el estímulo. La recuperación es donde ocurre la magia: ahí se repara el tejido, se consolida la fuerza y tu sistema nervioso vuelve a estar listo para exigir al máximo.</p>
+        <blockquote class="ay-quote">No es opcional. No es un lujo. Es la otra mitad del entrenamiento.</blockquote>
+        <p class="ay-note">Esta es tu guía para exprimir cada herramienta que tienes a tu alcance.</p>
+      </div>
+      <div class="rec-grid">
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">🔥</span><div><b>Sauna</b><small>El calor que repara</small></div></div>
+          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Post-entreno, 2-3×/semana</span><span><i>⌛ Duración</i>15-20 minutos</span></div>
+          <p>Entra después de entrenar. Hidrátate bien antes y después (agua con sal) y ya está, no hace falta más. Relaja el sistema nervioso, reduce la inflamación, mejora la circulación y potencia tu sueño.</p>
+          <p class="rt-tip">💡 Si tienes sauna + piscina fría: alterna 15 min calor + 2-3 min frío. Contraste térmico, brutal para la recuperación.</p>
+        </div>
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">🌍</span><div><b>Grounding</b><small>Reconecta con el suelo</small></div></div>
+          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Por la mañana, a diario si puedes</span><span><i>⌛ Duración</i>10-15 min descalzo</span></div>
+          <p>Camina o quédate de pie sobre hierba, arena o tierra. Playa, jardín, césped. Sin zapatillas, sin calcetines, piel directa al suelo.</p>
+          <p>Suena raro, pero la evidencia es sólida: reduce inflamación, mejora el sueño y equilibra el sistema nervioso.</p>
+        </div>
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">☀️</span><div><b>Exposición solar</b><small>Pon en hora tu reloj interno</small></div></div>
+          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Primera hora, antes de las 10:00</span><span><i>⌛ Duración</i>10-15 min de luz directa (ojos y piel, sin gafas de sol)</span></div>
+          <p>Sal fuera nada más levantarte. Un paseo, el desayuno en la terraza, lo que sea: la clave es que te dé la luz natural.</p>
+          <p>Regula tu ritmo circadiano, dispara la melatonina nocturna y activa la vitamina D.</p>
+        </div>
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">❄️</span><div><b>Baños fríos / Contraste térmico</b><small>El botón de reset</small></div></div>
+          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Post-entreno intenso (partidos, sesiones duras)</span><span><i>🔁 Protocolo</i>3-5 min frío + calor · 2-3 ciclos</span></div>
+          <p>Sin bañera fría, tira de ducha: los últimos 2-3 minutos, agua fría. No hace falta a diario, 2-3 veces por semana tras el esfuerzo fuerte es suficiente.</p>
+        </div>
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">🔴</span><div><b>Luz roja</b><small>Recuperación de precisión, directa a la rodilla</small></div></div>
+          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Pre-sueño</span><span><i>⌛ Duración</i>10-15 min a 15-20 cm de la zona</span></div>
+          <p>Combínalo con estiramientos suaves. Acelera la regeneración del tejido, reduce la inflamación local y estimula el colágeno. Diseñado para tu rodilla.</p>
+        </div>
+        <div class="rec-tool">
+          <div class="rt-head"><span class="rt-icon">🤸</span><div><b>Estiramientos y movilidad</b><small>Los 10 minutos que no puedes saltarte</small></div></div>
+          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Post-entreno, todos los días</span><span><i>⌛ Duración</i>10 min mínimo</span></div>
+          <p>Estático en cuádriceps, isquios, gemelos, psoas y cadera. Movilidad suave de rodilla, tobillo y cadera. No hace falta complicarse: 10 minutos bien hechos marcan la diferencia.</p>
+        </div>
+      </div>
+      <div class="ay-card">
+        <h3>😴 Rutina de sueño — donde se construye todo lo demás</h3>
+        <p class="ay-168">Objetivo: <b>8-9 horas</b> de sueño real.</p>
+        <ul class="ay-check">
+          <li>Cena mínimo 2 h antes de dormir</li>
+          <li>Pantallas fuera 30-60 min antes (o filtro de luz azul)</li>
+          <li>Habitación oscura y fresca</li>
+          <li>Magnesio bisglicinato antes de dormir</li>
+          <li>5 min de respiración o meditación</li>
+        </ul>
+      </div>
+      <div class="ay-card safe">
+        <h3>⚡ La regla de oro</h3>
+        <p>No tienes que hacerlo todo cada día. Incorpora las herramientas de forma progresiva.</p>
+        <blockquote class="ay-quote">No es perfección. Es constancia.</blockquote>
+      </div>
+    </section>
     <!-- LISTA -->
     <section id="tab-lista" class="tab hidden">
       <div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Lo que necesitas esta semana</h2><p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px;">Selecciona solo los alimentos que necesites para esta semana; no es necesario comprar la lista completa, y si prefieres sustituir algún producto por otro equivalente de la misma familia, siéntete con total libertad</p></div>
@@ -638,7 +713,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 (()=>{
 'use strict';
 const $=s=>document.querySelector(s);
-const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Tu dieta, sin extras',features:['Dieta personalizada','Menú semanal completo con recetas y cantidades','Sustituciones y filtrado por alergias']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal','Protocolo de ayuno 16:8']},premium:{name:'Premium',price:'30 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas','Protocolo de ayuno 16:8']}};
+const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Tu dieta, sin extras',features:['Dieta personalizada','Menú semanal completo con recetas y cantidades','Sustituciones y filtrado por alergias']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal','Protocolo de ayuno 16:8','Protocolo de recuperación']},premium:{name:'Premium',price:'30 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas','Protocolo de ayuno 16:8','Protocolo de recuperación']}};
 const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const ALERGIAS=['Lácteos','Frutos secos','Pescado','Otra…','Ninguna'];
 const ALLERGEN_RX=[['Lácteos',/yogur|queso|feta|mozzarella|kéfir|kefir|requesón|requeson|leche|mantequilla|cuajada/i],['Pescado',/salm[oó]n|merluza|caballa|at[uú]n|bonito|sardina|trucha|lubina|dorada|pescado|bacalao|ahumado|poke/i],['Frutos secos',/nueces|almendra|avellana|anacardo|pistacho|cacahuete/i]];

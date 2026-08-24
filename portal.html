@@ -94,6 +94,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .bien-btn{background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:9px 20px;font-family:'Karla',sans-serif;font-size:.88rem;font-weight:700;color:var(--ink-soft);cursor:pointer;transition:background .15s,border-color .15s,color .15s;}
 .bien-btn:hover{border-color:var(--ink);color:var(--ink);}
 .bien-btn.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.bien-btn.locked{opacity:.45;text-decoration:line-through;cursor:not-allowed;position:relative;}
+.bien-btn.locked::after{content:'🔒 Premium';position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);font-size:.62rem;font-family:'IBM Plex Mono',monospace;color:var(--tomato);letter-spacing:.04em;white-space:nowrap;opacity:1;}
 .rec-tool .ay-list{flex-direction:column;align-items:flex-start;}
 .rec-tool .ay-list li{border-radius:10px;padding:8px 14px;}
 .chip{border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:8px 15px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
@@ -463,7 +465,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
     </div>
     <div class="field-row">
       <div class="field"><label>Tipo de alimentación</label><select id="regTipo"><option>Equilibrada</option><option>Sin gluten</option></select></div>
-      <div class="field"><label>Objetivo</label><select id="regObjetivo"><option>Reset &amp; Build</option><option>Regular el peso</option></select></div>
+      <div class="field"><label>Objetivo</label><select id="regObjetivo"><option>Reset &amp; Build</option><option>Regular el peso</option><option>Ganar masa muscular</option></select></div>
     </div>
     <div class="field"><label>Alergias</label><div class="chips" id="regChips"></div><input type="text" id="regChipsOtra" class="hidden otra-input" placeholder="Escribe tu alergia…" maxlength="40"></div>
     <div class="field"><label>Plan</label>
@@ -510,7 +512,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
       <div class="meal-cards" id="todayMeals"></div>
     </section>
     <section id="tab-semana" class="tab hidden">
-      <div class="section-head"><p class="eyebrow">Tu plan semanal</p><h2>Tu menú semanal</h2><p>Tipo: <b id="menuTipo" style="color:var(--herb);"></b></p><p style="font-size:.85rem;color:var(--ink-soft);">Pulsa el 🔄 de cualquier plato para cambiarlo si no te gusta.</p></div>
+      <div class="section-head"><p class="eyebrow">Tu plan semanal</p><h2>Tu menú semanal</h2><p>Objetivo: <b id="menuTipo" style="color:var(--herb);"></b></p><p style="font-size:.85rem;color:var(--ink-soft);">Pulsa el 🔄 de cualquier plato para cambiarlo si no te gusta.</p></div>
       <div class="menu-scroll"><table class="menu-table"><thead><tr><th>Día</th><th>Desayuno</th><th>Comida</th><th>Cena</th></tr></thead><tbody id="menuBody"></tbody></table></div>
       <p id="menuMsg"></p>
     </section>
@@ -721,8 +723,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
         <div class="field"><label>Nombre</label><input type="text" id="perfName"></div>
         <div class="field"><label>Correo</label><input type="email" id="perfEmail" disabled style="opacity:.6;"></div>
         <div class="field-row">
-          <div class="field"><label>Tipo de alimentación</label><select id="perfTipo"><option>Equilibrada</option><option>Sin gluten</option></select></div>
-          <div class="field"><label>Objetivo</label><select id="perfObjetivo"><option>Reset &amp; Build</option><option>Regular el peso</option></select></div>
+          <div class="field"><label>Objetivo</label><select id="perfObjetivo"><option>Reset &amp; Build</option><option>Regular el peso</option><option>Ganar masa muscular</option></select></div>
         </div>
         <div class="field"><label>Alergias</label><div class="chips" id="perfChips"></div><input type="text" id="perfChipsOtra" class="hidden otra-input" placeholder="Escribe tu alergia…" maxlength="40"></div>
         <button class="btn btn-solid" id="perfSave">Guardar</button>
@@ -961,9 +962,10 @@ function calcStats(peso,altura,edad,sexo,actividad,objetivo){
   const tdee=bmr*(ACT_FACTORS[actividad]||1.2);
   const agua=+(peso*0.033).toFixed(1);
   const esBajar=objetivo==='Regular el peso';
-  const calorias=esBajar?Math.round(tdee-500):Math.round(tdee);
+  const esGanar=objetivo==='Ganar masa muscular';
+  const calorias=esBajar?Math.round(tdee-500):esGanar?Math.round(tdee+350):Math.round(tdee);
   const minCal=sexo==='mujer'?1200:1500;
-  return{bmr:Math.round(bmr),tdee:Math.round(tdee),agua,calorias:Math.max(calorias,minCal),esBajar};
+  return{bmr:Math.round(bmr),tdee:Math.round(tdee),agua,calorias:Math.max(calorias,minCal),esBajar,esGanar};
 }
 
 /* Auth */
@@ -1059,8 +1061,9 @@ function selectedChips(id){
 /* Views & Tabs */
 function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==id));}
 document.querySelectorAll('.dash-tab').forEach(t=>t.addEventListener('click',()=>activateTab(t.dataset.tab)));
-function activateTab(n){document.querySelectorAll('.dash-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===n));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden',t.id!=='tab-'+n));const u=currentUser();if(!u)return;if(n==='hoy')renderHoy(u);if(n==='semana')renderSemana(u);if(n==='evaluacion')renderEvaluacion(u);if(n==='lista')renderLista(u);if(n==='perfil')renderPerfil(u);window.scrollTo({top:0,behavior:'smooth'});}
-document.querySelectorAll('.bien-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.bien-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.bien-content').forEach(c=>c.classList.toggle('hidden',c.id!=='bien-'+b.dataset.bien));}));
+function activateTab(n){document.querySelectorAll('.dash-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===n));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden',t.id!=='tab-'+n));const u=currentUser();if(!u)return;if(n==='hoy')renderHoy(u);if(n==='semana')renderSemana(u);if(n==='evaluacion')renderEvaluacion(u);if(n==='lista')renderLista(u);if(n==='perfil')renderPerfil(u);if(n==='bienestar')applyBienGating(u);window.scrollTo({top:0,behavior:'smooth'});}
+function applyBienGating(u){const locked=u.plan==='pro';document.querySelectorAll('.bien-btn').forEach(b=>{const k=b.dataset.bien;const needLock=locked&&(k==='ayuno'||k==='recuperacion');b.classList.toggle('locked',needLock);if(needLock){b.onclick=()=>{setMsg('#perfilMsg','🔒 Upgrade a Premium para acceder a Ayuno y Recuperación. Plan Premium 30€/mes.','err');};}else{b.onclick=null;}});}
+document.querySelectorAll('.bien-btn').forEach(b=>b.addEventListener('click',()=>{if(b.classList.contains('locked'))return;document.querySelectorAll('.bien-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.bien-content').forEach(c=>c.classList.toggle('hidden',c.id!=='bien-'+b.dataset.bien));}));
 
 /* Onboarding */
 let onbData={};
@@ -1088,6 +1091,7 @@ $('#onbNext3').addEventListener('click',()=>{
   const res=$('#onbResults');
   let html=`<div class="onb-result"><div style="font-size:2.4rem;margin-bottom:8px;">💧</div><div class="result-big counter" data-target="${stats.agua}" data-decimals="1">0</div><div class="result-label">litros de agua al día</div></div>`;
   if(stats.esBajar){html+=`<div class="onb-result"><div style="font-size:2.4rem;margin-bottom:8px;">🔥</div><div class="result-big counter" data-target="${stats.calorias}" data-decimals="0">0</div><div class="result-label">kcal diarias para alcanzar tu objetivo</div><p style="font-size:.82rem;color:var(--ink-soft);margin:6px 0 0;">TDEE: ${stats.tdee} kcal − 500 = ${stats.calorias} kcal</p></div>`;}
+  else if(stats.esGanar){html+=`<div class="onb-result"><div style="font-size:2.4rem;margin-bottom:8px;">💪</div><div class="result-big counter" data-target="${stats.calorias}" data-decimals="0">0</div><div class="result-label">kcal diarias para ganar masa muscular</div><p style="font-size:.82rem;color:var(--ink-soft);margin:6px 0 0;">TDEE: ${stats.tdee} kcal + 350 = ${stats.calorias} kcal</p></div>`;}
   html+=`<div class="onb-result" style="font-size:.88rem;color:var(--ink-soft);"><p>Metabolismo basal: ${stats.bmr} kcal · Gasto total: ${stats.tdee} kcal</p></div>`;
   res.innerHTML=html;
   setTimeout(()=>animateCounters(res),400);
@@ -1230,7 +1234,7 @@ function dishPool(u,mt){const src=(u.objetivo==='Regular el peso')?WEIGHT_WEEKS:
 function swapDish(dayIdx,mt,u){const m=u.menu[dayIdx];const pool=dishPool(u,mt);if(pool.length<2){setMenuMsg('No hay alternativas para este plato.',true);return;}const i=pool.indexOf(m[mt]);m[mt]=pool[(i+1)%pool.length];saveUser(u);renderSemana(u);renderLista(u);setMenuMsg(m.dia+' · '+MEAL_LABELS[mt]+': ahora '+m[mt]);}
 function setMenuMsg(t,err){const el=$('#menuMsg');if(el){el.textContent=t;el.style.color=err?'var(--tomato)':'var(--herb)';}}
 function renderSemana(u){
-  $('#menuTipo').textContent=u.tipo;
+  $('#menuTipo').textContent=u.objetivo;
   const ti=todayIndex();
   $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td>${['desayuno','comida','cena'].map(mt=>`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span><button class="swap-btn" type="button" data-day="${i}" data-mt="${mt}" title="Cambiar plato">🔄</button></td>`).join('')}</tr>`).join('');
   $('#menuBody').querySelectorAll('.meal-cell').forEach(c=>c.addEventListener('click',e=>{if(e.target.closest('.swap-btn'))return;openMealDetail(+c.dataset.day,c.dataset.mt,u);}));
@@ -1341,7 +1345,7 @@ const INGREDIENTS={'Avena con fruta y nueces':['Avena','Fruta','Nueces'],'Tostad
 
 /* PERFIL */
 function renderPerfil(u){
-  $('#perfName').value=u.name;$('#perfEmail').value=u.email;$('#perfTipo').value=u.tipo;$('#perfObjetivo').value=u.objetivo;
+  $('#perfName').value=u.name;$('#perfEmail').value=u.email;$('#perfObjetivo').value=u.objetivo;
   renderChips('perfChips',ALERGIAS,u.alergias.length?u.alergias:['Ninguna']);
   if(u.physical){$('#perfAltura').value=u.physical.altura;$('#perfPeso').value=u.physical.peso;$('#perfEdad').value=u.physical.edad;$('#perfSexo').value=u.physical.sexo;$('#perfActividad').value=u.physical.actividad;}
   $('#perfilPlan').innerHTML=`<span style="font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;">${PLANS[u.plan].name}</span><br><span style="color:var(--ink-soft);font-size:.9rem;">${PLANS[u.plan].price}</span>`;
@@ -1349,7 +1353,7 @@ function renderPerfil(u){
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);applyPlanGating(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
 }
-$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}const oldObj=u.objetivo;u.name=name;u.tipo=$('#perfTipo').value;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');if(oldObj!==u.objetivo)u.weekIdx=0;u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo);u.menuObj=u.objetivo;u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderLista(u);renderSemana(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
+$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}const oldObj=u.objetivo;u.name=name;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');if(oldObj!==u.objetivo)u.weekIdx=0;u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo);u.menuObj=u.objetivo;u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderLista(u);renderSemana(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
 $('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;saveUser(u);setMsg('#perfilMsg','Datos físicos actualizados. Plan recalculado.','ok');});
 $('#pwSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const cur=$('#pwActual').value,n1=$('#pwNueva').value,n2=$('#pwNueva2').value;if(u.pw!==hash(cur)){setMsg('#perfilMsg','Contraseña actual incorrecta.','err');return;}if(n1.length<6){setMsg('#perfilMsg','Mínimo 6 caracteres.','err');return;}if(n1!==n2){setMsg('#perfilMsg','Las contraseñas no coinciden.','err');return;}u.pw=hash(n1);saveUser(u);['pwActual','pwNueva','pwNueva2'].forEach(i=>$('#'+i).value='');setMsg('#perfilMsg','Contraseña actualizada.','ok');});
 $('#delBtn').addEventListener('click',()=>{const u=currentUser();if(!u)return;if(!confirm('¿Eliminar tu cuenta? No se puede deshacer.'))return;setUsers(getUsers().filter(x=>x.email!==u.email));setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});

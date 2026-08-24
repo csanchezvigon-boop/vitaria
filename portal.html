@@ -89,6 +89,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .rt-tip{background:rgba(79,111,63,.09);border-radius:10px;padding:9px 13px!important;color:var(--ink)!important;font-weight:600;}
 .rt-link{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;color:var(--herb);background:rgba(79,111,63,.1);border-radius:999px;padding:7px 15px;text-decoration:none;margin-bottom:12px;transition:background .15s;}
 .rt-link:hover{background:rgba(79,111,63,.2);}
+/* BIENESTAR subnav */
+.bien-nav{display:flex;gap:8px;margin-bottom:18px;}
+.bien-btn{background:var(--card);border:1.5px solid var(--line);border-radius:999px;padding:9px 20px;font-family:'Karla',sans-serif;font-size:.88rem;font-weight:700;color:var(--ink-soft);cursor:pointer;transition:background .15s,border-color .15s,color .15s;}
+.bien-btn:hover{border-color:var(--ink);color:var(--ink);}
+.bien-btn.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
 .rec-tool .ay-list{flex-direction:column;align-items:flex-start;}
 .rec-tool .ay-list li{border-radius:10px;padding:8px 14px;}
 .chip{border:1.5px solid var(--line);background:transparent;color:var(--ink);padding:8px 15px;border-radius:999px;font-family:'Karla',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:background .2s,color .2s,border-color .2s;}
@@ -481,9 +486,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
     <button class="dash-tab" data-tab="semana">Tu plan semanal</button>
     <button class="dash-tab plan-gated" data-tab="lista">Lista de compra</button>
     <button class="dash-tab plan-gated" data-tab="evaluacion">Evaluación semanal</button>
-    <button class="dash-tab plan-gated" data-tab="ayuno">El Ayuno</button>
-    <button class="dash-tab plan-gated" data-tab="recuperacion">Recuperación</button>
-    <button class="dash-tab plan-gated" data-tab="suplementacion">Suplementación</button>
+    <button class="dash-tab plan-gated" data-tab="bienestar">Bienestar</button>
   </aside>
   <main class="dash-main">
     <!-- HOY -->
@@ -522,190 +525,190 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
       <div class="eval-history" id="evalHistory"></div>
     </section>
     <!-- EL AYUNO (Pro y Premium) -->
-    <section id="tab-ayuno" class="tab hidden">
-      <div class="section-head"><p class="eyebrow">Protocolo avanzado · Planes Pro y Premium</p><h2>El Ayuno</h2><p style="font-size:.95rem;color:var(--ink-soft);margin-top:6px;max-width:640px;">Convierte tu hambre regulada en ventaja metabólica real.</p></div>
-      <div class="ay-card">
-        <h3>🎯 ¿Qué es?</h3>
-        <p>No es restricción. Es una herramienta de autorregulación metabólica: mejora la sensibilidad a la insulina, activa la autofagia, potencia tu claridad mental y enseña a tu cuerpo a usar la grasa como combustible.</p>
-        <blockquote class="ay-quote">"Ya regulaste tu hambre. Ahora la convertimos en ventaja metabólica real."</blockquote>
+        <!-- BIENESTAR (Pro y Premium) — Ayuno · Recuperación · Suplementación -->
+    <section id="tab-bienestar" class="tab hidden">
+      <div class="section-head"><p class="eyebrow">Protocolo avanzado · Planes Pro y Premium</p><h2>Bienestar</h2><p style="font-size:.95rem;color:var(--ink-soft);margin-top:6px;max-width:640px;">Elige el apartado que quieras consultar.</p></div>
+      <div class="bien-nav" id="bienNav">
+        <button class="bien-btn active" data-bien="ayuno">Ayuno</button>
+        <button class="bien-btn" data-bien="recuperacion">Recuperación</button>
+        <button class="bien-btn" data-bien="suplementacion">Suplementación</button>
       </div>
-      <div class="ay-benefits">
-        <div class="ay-ben"><span class="bi">⚡</span><b>Sensibilidad insulínica</b><p>Tu cuerpo aprovecha mejor cada comida</p></div>
-        <div class="ay-ben"><span class="bi">🔄</span><b>Autofagia activa</b><p>Limpieza y regeneración celular</p></div>
-        <div class="ay-ben"><span class="bi">🔥</span><b>Flexibilidad metabólica</b><p>Quemas grasa de forma eficiente</p></div>
-        <div class="ay-ben"><span class="bi">🧠</span><b>Claridad mental</b><p>Foco real durante el ayuno</p></div>
-        <div class="ay-ben"><span class="bi">💪</span><b>Composición corporal</b><p>Evolución progresiva y sostenible</p></div>
-      </div>
-      <div class="ay-card">
-        <h3>✅ ¿Estás listo?</h3>
-        <p>Solo si cumples esto:</p>
-        <ul class="ay-check">
-          <li>3-4 semanas de base sólida (12 h de ayuno nocturno, sin hambre urgente)</li>
-          <li>El sistema de comidas (máx. 4 al día) ya es rutina, no esfuerzo</li>
-        </ul>
-        <p class="ay-note">Si no, primero se consolida la base. Sin prisa: la solidez es lo que da resultados.</p>
-      </div>
-      <div class="ay-card">
-        <h3>⏰ El protocolo: 16:8</h3>
-        <p class="ay-168"><b>16 horas</b> de ayuno · <b>8 horas</b> de ventana</p>
-        <div class="ay-timeline">
-          <div class="ay-fast" style="width:66.7%;">Ayuno 20:00 → 12:00</div>
-          <div class="ay-window" style="width:33.3%;">Comidas 12:00 → 20:00</div>
+      <!-- AYUNO -->
+      <div class="bien-content" id="bien-ayuno">
+        <div class="ay-card">
+          <h3>🎯 ¿Qué es?</h3>
+          <p>No es restricción. Es una herramienta de autorregulación metabólica: mejora la sensibilidad a la insulina, activa la autofagia, potencia tu claridad mental y enseña a tu cuerpo a usar la grasa como combustible.</p>
+          <blockquote class="ay-quote">Tras un periodo de adaptación, podemos introducir el ayuno como una herramienta de optimización metabólica.</blockquote>
         </div>
-        <p class="ay-note">Se adapta a tu vida: entrenos, días de descanso, días de partido. Nunca al revés.</p>
-      </div>
-      <div class="ay-card">
-        <h3>📈 Progresión gradual</h3>
-        <div class="ay-prog">
-          <div class="ay-step"><b>16:8 estable</b><p>Tu punto de partida</p></div>
-          <span class="ay-arrow">→</span>
-          <div class="ay-step"><b>18:6</b><p>Solo en días de descanso</p></div>
-          <span class="ay-arrow">→</span>
-          <div class="ay-step ay-opt"><b>24 h opcionales</b><p>Perfiles avanzados · máx. 1×/mes</p></div>
+        <div class="ay-benefits">
+          <div class="ay-ben"><span class="bi">⚡</span><b>Sensibilidad insulínica</b><p>Tu cuerpo aprovecha mejor cada comida</p></div>
+          <div class="ay-ben"><span class="bi">🔄</span><b>Autofagia activa</b><p>Limpieza y regeneración celular</p></div>
+          <div class="ay-ben"><span class="bi">🔥</span><b>Flexibilidad metabólica</b><p>Quemas grasa de forma eficiente</p></div>
+          <div class="ay-ben"><span class="bi">🧠</span><b>Claridad mental</b><p>Foco real durante el ayuno</p></div>
+          <div class="ay-ben"><span class="bi">💪</span><b>Composición corporal</b><p>Evolución progresiva y sostenible</p></div>
         </div>
-        <p class="ay-note">Siempre paso a paso, nunca forzado.</p>
+        <div class="ay-card">
+          <h3>✅ ¿Estás listo?</h3>
+          <p>Solo si cumples esto:</p>
+          <ul class="ay-check">
+            <li>3-4 semanas de base sólida (12 h de ayuno nocturno, sin hambre urgente)</li>
+            <li>El sistema de comidas (máx. 4 al día) ya es rutina, no esfuerzo</li>
+          </ul>
+          <p class="ay-note">Si no, primero se consolida la base. Sin prisa: la solidez es lo que da resultados.</p>
+        </div>
+        <div class="ay-card">
+          <h3>⏰ El protocolo: 16:8</h3>
+          <p class="ay-168"><b>16 horas</b> de ayuno · <b>8 horas</b> de ventana</p>
+          <div class="ay-timeline">
+            <div class="ay-fast" style="width:66.7%;">Ayuno 20:00 → 12:00</div>
+            <div class="ay-window" style="width:33.3%;">Comidas 12:00 → 20:00</div>
+          </div>
+          <p class="ay-note">Se adapta a tu vida: entrenos, días de descanso, días de partido. Nunca al revés.</p>
+        </div>
+        <div class="ay-card">
+          <h3>📈 Progresión gradual</h3>
+          <div class="ay-prog">
+            <div class="ay-step"><b>16:8 estable</b><p>Tu punto de partida</p></div>
+            <span class="ay-arrow">→</span>
+            <div class="ay-step"><b>18:6</b><p>Solo en días de descanso</p></div>
+            <span class="ay-arrow">→</span>
+            <div class="ay-step ay-opt"><b>24 h opcionales</b><p>Perfiles avanzados · máx. 1×/mes</p></div>
+          </div>
+          <p class="ay-note">Siempre paso a paso, nunca forzado.</p>
+        </div>
+        <div class="ay-cols">
+          <div class="ay-card ok">
+            <h3>💊 No rompe el ayuno</h3>
+            <ul class="ay-list yes">
+              <li>Agua</li><li>Sal</li><li>Café o té solos</li><li>Creatina</li><li>Citrulina malato</li>
+            </ul>
+          </div>
+          <div class="ay-card ko">
+            <h3>🚫 Rompe el ayuno</h3>
+            <p>Suplementos con grasas o aceites — tómalos con la primera comida:</p>
+            <ul class="ay-list no">
+              <li>Omega 3</li><li>Vitamina D + K2</li><li>Colágeno</li><li>Probióticos</li>
+            </ul>
+          </div>
+        </div>
+        <div class="ay-card">
+          <h3>🍽️ Cómo romper bien</h3>
+          <div class="ay-break">
+            <div class="ay-brk"><b>1</b><span>Proteína + grasa</span></div>
+            <span class="ay-arrow">→</span>
+            <div class="ay-brk"><b>2</b><span>Vegetales</span></div>
+            <span class="ay-arrow">→</span>
+            <div class="ay-brk"><b>3</b><span>Carbohidratos al final</span></div>
+          </div>
+          <p class="ay-warn">Nunca con fruta, zumos o batidos azucarados.</p>
+        </div>
+        <div class="ay-card safe">
+          <h3>🛡️ Seguridad ante todo</h3>
+          <p>El ayuno se pausa sin culpa si hay:</p>
+          <div class="ay-pauses"><span>Fatiga persistente</span><span>Estrés crónico</span><span>Infección</span><span>Mareos</span><span>Hambre descontrolada</span></div>
+          <p class="ay-note">Es parte del sistema, no un fracaso.</p>
+        </div>
       </div>
-      <div class="ay-cols">
-        <div class="ay-card ok">
-          <h3>💊 No rompe el ayuno</h3>
-          <ul class="ay-list yes">
-            <li>Agua</li>
-            <li>Sal</li>
-            <li>Café o té solos</li>
-            <li>Creatina</li>
-            <li>Citrulina malato</li>
+      <!-- RECUPERACIÓN -->
+      <div class="bien-content hidden" id="bien-recuperacion">
+        <div class="ay-card">
+          <h3>🧬 La verdad que nadie te cuenta</h3>
+          <p>El entrenamiento es solo el estímulo. La recuperación es donde ocurre la magia: ahí se repara el tejido, se consolida la fuerza y tu sistema nervioso vuelve a estar listo para exigir al máximo.</p>
+          <blockquote class="ay-quote">No es opcional. No es un lujo. Es la otra mitad del entrenamiento.</blockquote>
+          <p class="ay-note">Esta es tu guía para exprimir cada herramienta que tienes a tu alcance.</p>
+        </div>
+        <div class="rec-grid">
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">🔥</span><div><b>Sauna</b><small>El calor que repara</small></div></div>
+            <div class="rt-meta"><span><i>⏱️ Cuándo</i>Post-entreno, 2-3×/semana</span><span><i>⌛ Duración</i>15-20 minutos</span></div>
+            <p>Entra después de entrenar. Hidrátate bien antes y después (agua con sal) y ya está, no hace falta más. Relaja el sistema nervioso, reduce la inflamación, mejora la circulación y potencia tu sueño.</p>
+            <p class="rt-tip">💡 Si tienes sauna + piscina fría: alterna 15 min calor + 2-3 min frío. Contraste térmico, brutal para la recuperación.</p>
+          </div>
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">🌍</span><div><b>Grounding</b><small>Reconecta con el suelo</small></div></div>
+            <div class="rt-meta"><span><i>⏱️ Cuándo</i>Por la mañana, a diario si puedes</span><span><i>⌛ Duración</i>10-15 min descalzo</span></div>
+            <p>Camina o quédate de pie sobre hierba, arena o tierra. Playa, jardín, césped. Sin zapatillas, sin calcetines, piel directa al suelo.</p>
+            <p>Suena raro, pero la evidencia es sólida: reduce inflamación, mejora el sueño y equilibra el sistema nervioso.</p>
+          </div>
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">☀️</span><div><b>Exposición solar</b><small>Pon en hora tu reloj interno</small></div></div>
+            <div class="rt-meta"><span><i>⏱️ Cuándo</i>Primera hora, antes de las 10:00</span><span><i>⌛ Duración</i>10-15 min de luz directa (ojos y piel, sin gafas de sol)</span></div>
+            <p>Sal fuera nada más levantarte. Un paseo, el desayuno en la terraza, lo que sea: la clave es que te dé la luz natural.</p>
+            <p>Regula tu ritmo circadiano, dispara la melatonina nocturna y activa la vitamina D.</p>
+          </div>
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">❄️</span><div><b>Baños fríos / Contraste térmico</b><small>El botón de reset</small></div></div>
+            <div class="rt-meta"><span><i>⏱️ Cuándo</i>Post-entreno intenso (partidos, sesiones duras)</span><span><i>🔁 Protocolo</i>3-5 min frío + calor · 2-3 ciclos</span></div>
+            <p>Sin bañera fría, tira de ducha: los últimos 2-3 minutos, agua fría. No hace falta a diario, 2-3 veces por semana tras el esfuerzo fuerte es suficiente.</p>
+          </div>
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">🔴</span><div><b>Luz roja</b><small>Recuperación de precisión, para tu descanso</small></div></div>
+            <div class="rt-meta"><span><i>⏱️ Cuándo</i>3 horas antes de dormir, cuando la luz natural empieza a irse</span><span><i>⌛ Duración</i>10-15 min a 15-20 cm de la zona</span></div>
+            <p>La luz roja e infrarroja no es solo estética, es una señal directa para tu sistema nervioso: le dice al cuerpo que es hora de bajar revoluciones. Usarla en ese momento del día, justo cuando el sol se despide, ayuda a tu cuerpo a hacer la transición hacia el descanso de forma natural, reduce la inflamación de bajo grado que arrastras del día y favorece un estado de relajación que prepara el terreno para un sueño más rápido y más profundo horas después.</p>
+          </div>
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">🤸</span><div><b>Estiramientos y movilidad</b><small>Los 10 minutos que no puedes saltarte</small></div></div>
+            <div class="rt-meta"><span><i>⏱️ Cuándo</i>Post-entreno, todos los días</span><span><i>⌛ Duración</i>10 min mínimo</span></div>
+            <p>Estático en cuádriceps, isquios, gemelos, psoas y cadera. Movilidad suave de rodilla, tobillo y cadera. No hace falta complicarse: 10 minutos bien hechos marcan la diferencia.</p>
+          </div>
+        </div>
+        <div class="ay-card">
+          <h3>😴 Rutina de sueño — donde se construye todo lo demás</h3>
+          <p class="ay-168">Objetivo: <b>8-9 horas</b> de sueño real.</p>
+          <ul class="ay-check">
+            <li>Cena mínimo 2 h antes de dormir</li>
+            <li>Pantallas fuera 30-60 min antes (o filtro de luz azul)</li>
+            <li>Habitación oscura y fresca</li>
+            <li>Magnesio bisglicinato antes de dormir</li>
+            <li>5 min de respiración o meditación</li>
           </ul>
         </div>
-        <div class="ay-card ko">
-          <h3>🚫 Rompe el ayuno</h3>
-          <p>Suplementos con grasas o aceites — tómalos con la primera comida:</p>
-          <ul class="ay-list no">
-            <li>Omega 3</li>
-            <li>Vitamina D + K2</li>
-            <li>Colágeno</li>
-            <li>Probióticos</li>
-          </ul>
+        <div class="ay-card safe">
+          <h3>⚡ La regla de oro</h3>
+          <p>No tienes que hacerlo todo cada día. Incorpora las herramientas de forma progresiva.</p>
+          <blockquote class="ay-quote">No es perfección. Es constancia.</blockquote>
         </div>
       </div>
-      <div class="ay-card">
-        <h3>🍽️ Cómo romper bien</h3>
-        <div class="ay-break">
-          <div class="ay-brk"><b>1</b><span>Proteína + grasa</span></div>
-          <span class="ay-arrow">→</span>
-          <div class="ay-brk"><b>2</b><span>Vegetales</span></div>
-          <span class="ay-arrow">→</span>
-          <div class="ay-brk"><b>3</b><span>Carbohidratos al final</span></div>
+      <!-- SUPLEMENTACIÓN -->
+      <div class="bien-content hidden" id="bien-suplementacion">
+        <div class="ay-card">
+          <h3>💊 Antes de empezar</h3>
+          <p>Un suplemento no sustituye nada. <b>Completa lo que el plan y el entrenamiento ya están construyendo.</b> Aquí tienes las 5 piezas clave de esta fase, y cómo sacarles el máximo partido.</p>
         </div>
-        <p class="ay-warn">Nunca con fruta, zumos o batidos azucarados.</p>
-      </div>
-      <div class="ay-card safe">
-        <h3>🛡️ Seguridad ante todo</h3>
-        <p>El ayuno se pausa sin culpa si hay:</p>
-        <div class="ay-pauses"><span>Fatiga persistente</span><span>Estrés crónico</span><span>Infección</span><span>Mareos</span><span>Hambre descontrolada</span></div>
-        <p class="ay-note">Es parte del sistema, no un fracaso.</p>
-      </div>
-    </section>
-    <!-- PROTOCOLO DE RECUPERACION (Pro y Premium) -->
-    <section id="tab-recuperacion" class="tab hidden">
-      <div class="section-head"><p class="eyebrow">Protocolo avanzado · Planes Pro y Premium</p><h2>Protocolo de Recuperación</h2><p style="font-size:.95rem;color:var(--ink-soft);margin-top:6px;max-width:640px;">Tu cuerpo no mejora cuando entrenas. Mejora cuando descansas.</p></div>
-      <div class="ay-card">
-        <h3>🧬 La verdad que nadie te cuenta</h3>
-        <p>El entrenamiento es solo el estímulo. La recuperación es donde ocurre la magia: ahí se repara el tejido, se consolida la fuerza y tu sistema nervioso vuelve a estar listo para exigir al máximo.</p>
-        <blockquote class="ay-quote">No es opcional. No es un lujo. Es la otra mitad del entrenamiento.</blockquote>
-        <p class="ay-note">Esta es tu guía para exprimir cada herramienta que tienes a tu alcance.</p>
-      </div>
-      <div class="rec-grid">
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">🔥</span><div><b>Sauna</b><small>El calor que repara</small></div></div>
-          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Post-entreno, 2-3×/semana</span><span><i>⌛ Duración</i>15-20 minutos</span></div>
-          <p>Entra después de entrenar. Hidrátate bien antes y después (agua con sal) y ya está, no hace falta más. Relaja el sistema nervioso, reduce la inflamación, mejora la circulación y potencia tu sueño.</p>
-          <p class="rt-tip">💡 Si tienes sauna + piscina fría: alterna 15 min calor + 2-3 min frío. Contraste térmico, brutal para la recuperación.</p>
+        <div class="rec-grid">
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">💪</span><div><b>Creatina monohidrato</b><small>El básico que nunca falla</small></div></div>
+            <a class="rt-link" href="https://scientifficnutrition.com/tienda/white-line/creatine-100-creapure/" target="_blank" rel="noopener">🔗 Creatine 100 · Creapure</a>
+            <ul class="ay-list yes"><li>5 g, en cualquier momento del día</li><li>Evita bebidas muy calientes (se desnaturaliza)</li></ul>
+          </div>
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">🥛</span><div><b>Proteína whey isolate</b><small>Tu aliada contra la pérdida de masa muscular</small></div></div>
+            <a class="rt-link" href="https://www.zumub.com/ES/aislados-de-suero/100-whey-isolate-flav-1kg" target="_blank" rel="noopener">🔗 100% Whey Isolate</a>
+            <ul class="ay-list yes"><li>El plus de proteína que necesitas para la pérdida de grasa, sin tocar tu masa muscular</li></ul>
+          </div>
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">🐟</span><div><b>Omega-3 (EPA + DHA)</b><small>Antiinflamatorio de fondo</small></div></div>
+            <a class="rt-link" href="https://www.zumub.com/ES/salud-y-bienestar/grasas-esenciales/omega-3x-30-capsulas#10097" target="_blank" rel="noopener">🔗 Omega 3x · 30 cápsulas</a>
+            <ul class="ay-list yes"><li>2 perlas después de una comida abundante en grasa (normalmente desayuno)</li><li>La grasa es la llave: sin ella no se absorbe bien</li></ul>
+          </div>
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">🌙</span><div><b>Magnesio bisglicinato</b><small>Tu cierre de día</small></div></div>
+            <a class="rt-link" href="https://scientifficnutrition.com/tienda/green-line/magnesium-bisglicinate/" target="_blank" rel="noopener">🔗 Magnesium Bisglicinate</a>
+            <ul class="ay-list yes"><li>2 cápsulas antes de dormir</li><li>Sepáralo de la cena mínimo 20 minutos</li></ul>
+          </div>
+          <div class="rec-tool">
+            <div class="rt-head"><span class="rt-icon">☀️</span><div><b>Vitamina D3 + K2</b><small>El dúo que trabaja en equipo con el Omega 3</small></div></div>
+            <a class="rt-link" href="https://scientifficnutrition.com/tienda/green-line/vit-d3-k2/" target="_blank" rel="noopener">🔗 Vit D3 + K2</a>
+            <ul class="ay-list yes"><li>1 perla después del desayuno, junto con el Omega 3</li></ul>
+          </div>
         </div>
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">🌍</span><div><b>Grounding</b><small>Reconecta con el suelo</small></div></div>
-          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Por la mañana, a diario si puedes</span><span><i>⌛ Duración</i>10-15 min descalzo</span></div>
-          <p>Camina o quédate de pie sobre hierba, arena o tierra. Playa, jardín, césped. Sin zapatillas, sin calcetines, piel directa al suelo.</p>
-          <p>Suena raro, pero la evidencia es sólida: reduce inflamación, mejora el sueño y equilibra el sistema nervioso.</p>
+        <div class="ay-card safe">
+          <h3>⚡ Regla simple</h3>
+          <blockquote class="ay-quote">Cada suplemento tiene su momento. Respeta el orden y el timing, y el efecto se multiplica.</blockquote>
         </div>
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">☀️</span><div><b>Exposición solar</b><small>Pon en hora tu reloj interno</small></div></div>
-          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Primera hora, antes de las 10:00</span><span><i>⌛ Duración</i>10-15 min de luz directa (ojos y piel, sin gafas de sol)</span></div>
-          <p>Sal fuera nada más levantarte. Un paseo, el desayuno en la terraza, lo que sea: la clave es que te dé la luz natural.</p>
-          <p>Regula tu ritmo circadiano, dispara la melatonina nocturna y activa la vitamina D.</p>
-        </div>
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">❄️</span><div><b>Baños fríos / Contraste térmico</b><small>El botón de reset</small></div></div>
-          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Post-entreno intenso (partidos, sesiones duras)</span><span><i>🔁 Protocolo</i>3-5 min frío + calor · 2-3 ciclos</span></div>
-          <p>Sin bañera fría, tira de ducha: los últimos 2-3 minutos, agua fría. No hace falta a diario, 2-3 veces por semana tras el esfuerzo fuerte es suficiente.</p>
-        </div>
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">🔴</span><div><b>Luz roja</b><small>Recuperación de precisión, directa a la rodilla</small></div></div>
-          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Pre-sueño</span><span><i>⌛ Duración</i>10-15 min a 15-20 cm de la zona</span></div>
-          <p>Combínalo con estiramientos suaves. Acelera la regeneración del tejido, reduce la inflamación local y estimula el colágeno. Diseñado para tu rodilla.</p>
-        </div>
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">🤸</span><div><b>Estiramientos y movilidad</b><small>Los 10 minutos que no puedes saltarte</small></div></div>
-          <div class="rt-meta"><span><i>⏱️ Cuándo</i>Post-entreno, todos los días</span><span><i>⌛ Duración</i>10 min mínimo</span></div>
-          <p>Estático en cuádriceps, isquios, gemelos, psoas y cadera. Movilidad suave de rodilla, tobillo y cadera. No hace falta complicarse: 10 minutos bien hechos marcan la diferencia.</p>
-        </div>
-      </div>
-      <div class="ay-card">
-        <h3>😴 Rutina de sueño — donde se construye todo lo demás</h3>
-        <p class="ay-168">Objetivo: <b>8-9 horas</b> de sueño real.</p>
-        <ul class="ay-check">
-          <li>Cena mínimo 2 h antes de dormir</li>
-          <li>Pantallas fuera 30-60 min antes (o filtro de luz azul)</li>
-          <li>Habitación oscura y fresca</li>
-          <li>Magnesio bisglicinato antes de dormir</li>
-          <li>5 min de respiración o meditación</li>
-        </ul>
-      </div>
-      <div class="ay-card safe">
-        <h3>⚡ La regla de oro</h3>
-        <p>No tienes que hacerlo todo cada día. Incorpora las herramientas de forma progresiva.</p>
-        <blockquote class="ay-quote">No es perfección. Es constancia.</blockquote>
       </div>
     </section>
-    <!-- SUPLEMENTACION (Pro y Premium) -->
-    <section id="tab-suplementacion" class="tab hidden">
-      <div class="section-head"><p class="eyebrow">Protocolo avanzado · Planes Pro y Premium</p><h2>Suplementación</h2><p style="font-size:.95rem;color:var(--ink-soft);margin-top:6px;max-width:640px;">Las piezas que faltan cuando la comida y el entreno ya están bien hechos.</p></div>
-      <div class="ay-card">
-        <h3>💊 Antes de empezar</h3>
-        <p>Un suplemento no sustituye nada. <b>Completa lo que el plan y el entrenamiento ya están construyendo.</b> Aquí tienes las 5 piezas clave de esta fase, y cómo sacarles el máximo partido.</p>
-      </div>
-      <div class="rec-grid">
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">💪</span><div><b>Creatina monohidrato</b><small>El básico que nunca falla</small></div></div>
-          <a class="rt-link" href="https://scientifficnutrition.com/tienda/white-line/creatine-100-creapure/" target="_blank" rel="noopener">🔗 Creatine 100 · Creapure</a>
-          <ul class="ay-list yes"><li>5 g, en cualquier momento del día</li><li>Evita bebidas muy calientes (se desnaturaliza)</li></ul>
-        </div>
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">🥛</span><div><b>Proteína whey isolate</b><small>Tu aliada contra la pérdida de masa muscular</small></div></div>
-          <a class="rt-link" href="https://www.zumub.com/ES/aislados-de-suero/100-whey-isolate-flav-1kg" target="_blank" rel="noopener">🔗 100% Whey Isolate</a>
-          <ul class="ay-list yes"><li>El plus de proteína que necesitas en esta fase de pérdida de grasa, sin tocar tu masa muscular</li></ul>
-        </div>
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">🐟</span><div><b>Omega-3 (EPA + DHA)</b><small>Antiinflamatorio de fondo</small></div></div>
-          <a class="rt-link" href="https://www.zumub.com/ES/salud-y-bienestar/grasas-esenciales/omega-3x-30-capsulas#10097" target="_blank" rel="noopener">🔗 Omega 3x · 30 cápsulas</a>
-          <ul class="ay-list yes"><li>2 perlas después de una comida abundante en grasa (normalmente desayuno)</li><li>La grasa es la llave: sin ella no se absorbe bien</li></ul>
-        </div>
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">🌙</span><div><b>Magnesio bisglicinato</b><small>Tu cierre de día</small></div></div>
-          <a class="rt-link" href="https://scientifficnutrition.com/tienda/green-line/magnesium-bisglicinate/" target="_blank" rel="noopener">🔗 Magnesium Bisglicinate</a>
-          <ul class="ay-list yes"><li>2 cápsulas antes de dormir</li><li>Sepáralo de la cena mínimo 20 minutos</li></ul>
-        </div>
-        <div class="rec-tool">
-          <div class="rt-head"><span class="rt-icon">☀️</span><div><b>Vitamina D3 + K2</b><small>El dúo que trabaja en equipo con el Omega 3</small></div></div>
-          <a class="rt-link" href="https://scientifficnutrition.com/tienda/green-line/vit-d3-k2/" target="_blank" rel="noopener">🔗 Vit D3 + K2</a>
-          <ul class="ay-list yes"><li>1 perla después del desayuno, junto con el Omega 3</li></ul>
-        </div>
-      </div>
-      <div class="ay-card safe">
-        <h3>⚡ Regla simple</h3>
-        <blockquote class="ay-quote">Cada suplemento tiene su momento. Respeta el orden y el timing, y el efecto se multiplica.</blockquote>
-      </div>
-    </section>
-    <!-- LISTA -->
+<!-- LISTA -->
     <section id="tab-lista" class="tab hidden">
       <div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Lo que necesitas esta semana</h2><p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px;">Selecciona solo los alimentos que necesites para esta semana; no es necesario comprar la lista completa, y si prefieres sustituir algún producto por otro equivalente de la misma familia, siéntete con total libertad</p></div>
       <div class="shop-cats" id="shopList"></div>
@@ -1057,6 +1060,7 @@ function selectedChips(id){
 function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==id));}
 document.querySelectorAll('.dash-tab').forEach(t=>t.addEventListener('click',()=>activateTab(t.dataset.tab)));
 function activateTab(n){document.querySelectorAll('.dash-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===n));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden',t.id!=='tab-'+n));const u=currentUser();if(!u)return;if(n==='hoy')renderHoy(u);if(n==='semana')renderSemana(u);if(n==='evaluacion')renderEvaluacion(u);if(n==='lista')renderLista(u);if(n==='perfil')renderPerfil(u);window.scrollTo({top:0,behavior:'smooth'});}
+document.querySelectorAll('.bien-btn').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.bien-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.bien-content').forEach(c=>c.classList.toggle('hidden',c.id!=='bien-'+b.dataset.bien));}));
 
 /* Onboarding */
 let onbData={};

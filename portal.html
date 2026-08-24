@@ -305,6 +305,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 
 /* Meal detail modal */
 .meal-cell{cursor:pointer;transition:background .15s;position:relative;}
+.meal-empty{color:var(--line);text-align:center;font-size:.8rem;}
 .meal-cell .meal-name{display:block;padding-right:22px;}
 .swap-btn{position:absolute;top:7px;right:7px;background:transparent;border:none;cursor:pointer;font-size:.8rem;line-height:1;opacity:.4;padding:3px;border-radius:6px;transition:opacity .15s,transform .2s;}
 .swap-btn:hover{opacity:1;transform:rotate(90deg) scale(1.15);}
@@ -472,7 +473,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
       <div class="chips" id="regPlans">
         <button type="button" class="chip" data-plan="starter">Starter 6€/mes</button>
         <button type="button" class="chip active" data-plan="pro">Pro 20€/mes</button>
-        <button type="button" class="chip" data-plan="premium">Premium 30€/mes</button>
+        <button type="button" class="chip" data-plan="premium">Premium 40€/mes</button>
       </div>
     </div>
     <button class="btn btn-solid" type="submit" style="width:100%;text-align:center;">Crear mi cuenta</button>
@@ -486,7 +487,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
   <aside class="dash-nav">
     <button class="dash-tab active" data-tab="hoy">Hoy</button>
     <button class="dash-tab" data-tab="semana">Tu plan semanal</button>
-    <button class="dash-tab plan-gated" data-tab="lista">Lista de compra</button>
+    <button class="dash-tab" data-tab="lista">Lista de compra</button>
     <button class="dash-tab plan-gated" data-tab="evaluacion">Evaluación semanal</button>
     <button class="dash-tab plan-gated" data-tab="bienestar">Bienestar</button>
   </aside>
@@ -513,7 +514,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
     </section>
     <section id="tab-semana" class="tab hidden">
       <div class="section-head"><p class="eyebrow">Tu plan semanal</p><h2>Tu menú semanal</h2><p>Objetivo: <b id="menuTipo" style="color:var(--herb);"></b></p><p style="font-size:.85rem;color:var(--ink-soft);">Pulsa el 🔄 de cualquier plato para cambiarlo si no te gusta.</p></div>
-      <div class="menu-scroll"><table class="menu-table"><thead><tr><th>Día</th><th>Desayuno</th><th>Comida</th><th>Cena</th></tr></thead><tbody id="menuBody"></tbody></table></div>
+      <div class="menu-scroll"><table class="menu-table"><thead><tr><th>Día</th><th>Desayuno</th><th>Media mañana</th><th>Comida</th><th>Merienda</th><th>Cena</th></tr></thead><tbody id="menuBody"></tbody></table></div>
       <p id="menuMsg"></p>
     </section>
     <!-- EVALUACION SEMANAL -->
@@ -765,7 +766,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 (()=>{
 'use strict';
 const $=s=>document.querySelector(s);
-const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Tu dieta, sin extras',features:['Dieta personalizada','Menú semanal completo con recetas y cantidades','Sustituciones y filtrado por alergias']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal','Protocolos avanzados: ayuno, recuperación y suplementación']},premium:{name:'Premium',price:'30 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas','Protocolos avanzados: ayuno, recuperación y suplementación']}};
+const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Tu dieta, sin extras',features:['Dieta personalizada','Menú semanal completo con recetas y cantidades','Sustituciones y filtrado por alergias','Lista de la compra semanal']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal','Protocolos avanzados: ayuno, recuperación y suplementación']},premium:{name:'Premium',price:'40 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas','Protocolos avanzados: ayuno, recuperación y suplementación']}};
 const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const ALERGIAS=['Lácteos','Frutos secos','Pescado','Otra…','Ninguna'];
 const ALLERGEN_RX=[['Lácteos',/yogur|queso|feta|mozzarella|kéfir|kefir|requesón|requeson|leche|mantequilla|cuajada/i],['Pescado',/salm[oó]n|merluza|caballa|at[uú]n|bonito|sardina|trucha|lubina|dorada|pescado|bacalao|ahumado|poke/i],['Frutos secos',/nueces|almendra|avellana|anacardo|pistacho|cacahuete/i]];
@@ -780,6 +781,154 @@ const NDATA={'Yogur griego proteico con cacao y frutos rojos':{k:520,p:45,c:30,g
 const DEFAULT_NDATA={k:350,p:15,c:40,g:12};
 /* Detalle de comidas: items=[cantidad, alimento, grupo, opcional?, suplemento?] */
 const SUP='SUP';
+const M_MEAL_DETAILS={
+'Avena con leche, plátano y crema de cacahuete':{items:[['80 g','Avena en copos','HB'],['300 ml','Leche entera','PL'],['1 uds','Plátano','FA'],['20 g','Crema de cacahuete','GR'],['2 uds','Huevos','PA']],note:'Tostada de pan integral con pavo como second breakfast.'},
+'Tostada de pan integral con pavo':{items:[['100 g','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Arroz con pechuga de pollo y verduras':{items:[['120 g','Arroz (peso en crudo)','HA'],['180 g','Pechuga de pollo','PB'],['','Verduras variadas','VC'],['10 g','AOVE','GR'],['1 uds','Yogur natural','PL']],note:''},
+'Tostadas con jamón cocido y plátano':{items:[['80 g','Pan integral','HB'],['100 g','Jamón cocido','PB'],['1 uds','Plátano','FA']],note:''},
+'Pasta con carne picada magra y tomate':{items:[['120 g','Pasta','HA'],['150 g','Carne picada magra','PB'],['','Tomate triturado','VN'],['10 g','AOVE','GR'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Tostadas con huevos, plátano y leche':{items:[['100 g','Pan integral','HB'],['3 uds','Huevos','PA'],['1 uds','Plátano','FA'],['250 ml','Leche entera','PL']],note:''},
+'Yogur griego con avena y frutos rojos':{items:[['250 g','Yogur griego','PL'],['50 g','Avena en copos','HB'],['','Frutos rojos','FR'],['15 g','Nueces','GR']],note:''},
+'Patata con ternera y ensalada':{items:[['400 g','Patata','HA'],['180 g','Ternera','PB'],['','Ensalada mixta','VN'],['10 g','AOVE','GR'],['Pan integral','Pan','HB']],note:''},
+'Avena con leche y plátano':{items:[['80 g','Avena en copos','HB'],['300 ml','Leche entera','PL'],['1 uds','Plátano','FA']],note:''},
+'Arroz con salmón y verduras':{items:[['120 g','Arroz (peso en crudo)','HA'],['180 g','Salmón','PB'],['','Verduras variadas','VC'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Tostadas con crema de cacahuete y plátano':{items:[['2 tostadas','Pan integral','HB'],['30 g','Crema de cacahuete','GR'],['1 uds','Plátano','FA'],['250 ml','Leche entera','PL']],note:''},
+'Patata con merluza y ensalada':{items:[['400 g','Patata','HA'],['200 g','Merluza','PB'],['','Ensalada mixta','VN'],['10 g','AOVE','GR'],['Pan integral','Pan','HB']],note:''},
+'Tostadas con huevos, naranja y leche':{items:[['100 g','Pan integral','HB'],['3 uds','Huevos','PA'],['1 uds','Naranja','FB'],['250 ml','Leche entera','PL']],note:''},
+'Yogur griego con avena y frutos secos':{items:[['250 g','Yogur griego','PL'],['50 g','Avena en copos','HB'],['15 g','Nueces','GR'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Pasta con pavo y verduras':{items:[['120 g','Pasta','HA'],['180 g','Pechuga de pavo','PB'],['','Verduras variadas','VC'],['10 g','AOVE','GR'],['1 uds','Queso fresco batido','PL']],note:''},
+'Tostadas con queso fresco batido y manzana':{items:[['2 tostadas','Pan integral','HB'],['80 g','Queso fresco batido','PL'],['1 uds','Manzana','FB']],note:''},
+'Arroz con ternera y verduras':{items:[['120 g','Arroz (peso en crudo)','HA'],['180 g','Ternera','PB'],['','Verduras variadas','VC'],['10 g','AOVE','GR']],note:''},
+'Tostadas con huevos, aguacate y fruta':{items:[['100 g','Pan integral','HB'],['3 uds','Huevos','PA'],['½ uds','Aguacate','GR'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Patata con ternera y verduras':{items:[['400 g','Patata','HA'],['180 g','Ternera','PB'],['','Verduras variadas','VC']],note:''},
+'Sándwich de pavo con plátano':{items:[['100 g','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 uds','Plátano','FA']],note:''},
+'Arroz con salmón y verduras':{items:[['120 g','Arroz (peso en crudo)','HA'],['180 g','Salmón','PB'],['','Verduras variadas','VC'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Tortitas de avena con huevos y plátano':{items:[['80 g','Avena en copos','HB'],['2 uds','Huevos','PA'],['1 uds','Plátano','FA'],['300 ml','Leche entera','PL']],note:''},
+'Yogur con fruta y frutos secos':{items:[['250 g','Yogur natural','PL'],['1 pieza','Fruta de temporada','FB'],['15 g','Nueces','GR']],note:''},
+'Arroz con carne y verduras':{items:[['120 g','Arroz (peso en crudo)','HA'],['180 g','Carne magra','PB'],['','Verduras variadas','VC']],note:''},
+'Bocadillo de pavo con fruta':{items:[['100 g','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Patata con pescado y ensalada':{items:[['400 g','Patata','HA'],['180 g','Pescado blanco','PB'],['','Ensalada mixta','VN']],note:''},
+'Avena con leche, frutos rojos y huevos':{items:[['80 g','Avena en copos','HB'],['300 ml','Leche entera','PL'],['','Frutos rojos','FR'],['2 uds','Huevos','PA']],note:''},
+'Pasta con salmón y verduras':{items:[['120 g','Pasta','HA'],['180 g','Salmón','PB'],['','Verduras variadas','VC'],['10 g','AOVE','GR']],note:''},
+'Arroz con pollo y verduras':{items:[['120 g','Arroz (peso en crudo)','HA'],['180 g','Pechuga de pollo','PB'],['','Verduras variadas','VC']],note:''},
+'Yogur con avena y frutos secos':{items:[['250 g','Yogur natural','PL'],['50 g','Avena en copos','HB'],['15 g','Frutos secos mixtos','GR'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Pasta con atún y tomate':{items:[['120 g','Pasta','HA'],['180 g','Atún','PB'],['','Tomate triturado','VN'],['10 g','AOVE','GR']],note:''},
+'Tostada de pan integral con jamón':{items:[['100 g','Pan integral','HB'],['80 g','Jamón cocido','PB'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Patata con pollo y ensalada':{items:[['400 g','Patata','HA'],['180 g','Pechuga de pollo','PB'],['','Ensalada mixta','VN'],['10 g','AOVE','GR']],note:''},
+'Tostadas con crema de cacahuete y fruta':{items:[['2 tostadas','Pan integral','HB'],['30 g','Crema de cacahuete','GR'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Avena con leche y frutos secos':{items:[['80 g','Avena en copos','HB'],['300 ml','Leche entera','PL'],['15 g','Frutos secos mixtos','GR']],note:''},
+'Pasta con carne picada magra y verduras':{items:[['120 g','Pasta','HA'],['150 g','Carne picada magra','PB'],['','Verduras variadas','VC'],['10 g','AOVE','GR']],note:''},
+'Yogur griego con fruta y nueces':{items:[['250 g','Yogur griego','PL'],['1 pieza','Fruta de temporada','FB'],['15 g','Nueces','GR']],note:''},
+'Tostadas de pavo con plátano':{items:[['2 tostadas','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 uds','Plátano','FA']],note:''},
+'Patata con salmón y verduras':{items:[['400 g','Patata','HA'],['180 g','Salmón','PB'],['','Verduras variadas','VC']],note:''},
+'Tostadas de pavo con fruta':{items:[['2 tostadas','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Tostadas con queso fresco batido y naranja':{items:[['2 tostadas','Pan integral','HB'],['80 g','Queso fresco batido','PL'],['1 uds','Naranja','FB']],note:''},
+'Bocadillo de pavo con plátano':{items:[['100 g','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 uds','Plátano','FA']],note:''},
+'Patata con pescado y ensalada':{items:[['400 g','Patata','HA'],['180 g','Pescado blanco','PB'],['','Ensalada mixta','VN']],note:''},
+'Tortitas de avena con huevos y fruta':{items:[['80 g','Avena en copos','HB'],['2 uds','Huevos','PA'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Arroz con merluza y verduras':{items:[['120 g','Arroz (peso en crudo)','HA'],['200 g','Merluza','PB'],['','Verduras variadas','VC']],note:''},
+'Patata con pollo y verduras':{items:[['400 g','Patata','HA'],['180 g','Pechuga de pollo','PB'],['','Verduras variadas','VC']],note:''},
+'Tostadas de pavo con fruta':{items:[['2 tostadas','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Arroz con atún y verduras':{items:[['120 g','Arroz (peso en crudo)','HA'],['180 g','Atún','PB'],['','Verduras variadas','VC']],note:''},
+'Pasta con ternera y verduras':{items:[['120 g','Pasta','HA'],['180 g','Ternera','PB'],['','Verduras variadas','VC'],['10 g','AOVE','GR']],note:''},
+'Tostadas con jamón cocido y fruta':{items:[['2 tostadas','Pan integral','HB'],['100 g','Jamón cocido','PB'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Bocadillo de pavo con fruta':{items:[['100 g','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Tortitas de avena con huevos y plátano':{items:[['80 g','Avena en copos','HB'],['2 uds','Huevos','PA'],['1 uds','Plátano','FA']],note:''},
+'Yogur griego con avena y nueces':{items:[['250 g','Yogur griego','PL'],['50 g','Avena en copos','HB'],['15 g','Nueces','GR']],note:''},
+'Pasta con carne y verduras':{items:[['120 g','Pasta','HA'],['180 g','Carne magra','PB'],['','Verduras variadas','VC']],note:''},
+'Tostadas de pavo con fruta':{items:[['2 tostadas','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Pasta con merluza y verduras':{items:[['120 g','Pasta','HA'],['200 g','Merluza','PB'],['','Verduras variadas','VC']],note:''},
+'Arroz con pescado y verduras':{items:[['120 g','Arroz (peso en crudo)','HA'],['180 g','Pescado blanco','PB'],['','Verduras variadas','VC']],note:''},
+'Patata con carne y verduras':{items:[['400 g','Patata','HA'],['180 g','Carne magra','PB'],['','Verduras variadas','VC']],note:''},
+'Arroz con ternera y ensalada':{items:[['120 g','Arroz (peso en crudo)','HA'],['180 g','Ternera','PB'],['','Ensalada mixta','VN'],['10 g','AOVE','GR']],note:''},
+'Pasta con pollo y verduras':{items:[['120 g','Pasta','HA'],['180 g','Pechuga de pollo','PB'],['','Verduras variadas','VC'],['10 g','AOVE','GR']],note:''},
+'Yogur griego con avena y frutos rojos':{items:[['250 g','Yogur griego','PL'],['50 g','Avena en copos','HB'],['','Frutos rojos','FR']],note:''},
+'Tostada de pan integral con pavo':{items:[['100 g','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 pieza','Fruta de temporada','FB']],note:''},
+'Patata con salmón y ensalada':{items:[['400 g','Patata','HA'],['180 g','Salmón','PB'],['','Ensalada mixta','VN']],note:''},
+'Arroz con pavo y verduras':{items:[['120 g','Arroz (peso en crudo)','HA'],['180 g','Pechuga de pavo','PB'],['','Verduras variadas','VC']],note:''},
+'Yogur griego con avena y frutos secos':{items:[['250 g','Yogur griego','PL'],['50 g','Avena en copos','HB'],['15 g','Frutos secos mixtos','GR']],note:''},
+'Patata con ternera y ensalada':{items:[['400 g','Patata','HA'],['180 g','Ternera','PB'],['','Ensalada mixta','VN'],['10 g','AOVE','GR']],note:''},
+'Bocadillo de pavo con plátano':{items:[['100 g','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 uds','Plátano','FA']],note:''},
+'Yogur griego con avena y frutos rojos':{items:[['250 g','Yogur griego','PL'],['50 g','Avena en copos','HB'],['','Frutos rojos','FR']],note:''},
+'Tostadas de pavo con plátano':{items:[['2 tostadas','Pan integral','HB'],['80 g','Pavo en lonchas','PB'],['1 uds','Plátano','FA']],note:''},
+'Pasta con salmón y verduras':{items:[['120 g','Pasta','HA'],['180 g','Salmón','PB'],['','Verduras variadas','VC']],note:''},
+'Yogur griego con fruta y nueces':{items:[['250 g','Yogur griego','PL'],['1 pieza','Fruta de temporada','FB'],['15 g','Nueces','GR']],note:''},
+'Patata con merluza y ensalada':{items:[['400 g','Patata','HA'],['200 g','Merluza','PB'],['','Ensalada mixta','VN']],note:''}
+};
+const M_NDATA={
+'Avena con leche, plátano y crema de cacahuete':{k:840,p:38,c:95,g:35},
+'Tostada de pan integral con pavo':{k:400,p:25,c:50,g:8},
+'Arroz con pechuga de pollo y verduras':{k:700,p:45,c:80,g:15},
+'Tostadas con jamón cocido y plátano':{k:450,p:22,c:55,g:10},
+'Pasta con carne picada magra y tomate':{k:650,p:40,c:70,g:18},
+'Tostadas con huevos, plátano y leche':{k:750,p:35,c:80,g:28},
+'Yogur griego con avena y frutos rojos':{k:420,p:28,c:42,g:16},
+'Patata con ternera y ensalada':{k:720,p:42,c:65,g:22},
+'Avena con leche y plátano':{k:500,p:18,c:68,g:12},
+'Arroz con salmón y verduras':{k:680,p:42,c:60,g:24},
+'Tostadas con crema de cacahuete y plátano':{k:600,p:22,c:60,g:25},
+'Patata con merluza y ensalada':{k:620,p:38,c:60,g:16},
+'Tostadas con huevos, naranja y leche':{k:720,p:32,c:78,g:28},
+'Yogur griego con avena y frutos secos':{k:450,p:25,c:42,g:20},
+'Pasta con pavo y verduras':{k:680,p:42,c:72,g:16},
+'Tostadas con queso fresco batido y manzana':{k:350,p:18,c:42,g:12},
+'Arroz con ternera y verduras':{k:740,p:44,c:68,g:22},
+'Tostadas con huevos, aguacate y fruta':{k:700,p:30,c:55,g:38},
+'Patata con ternera y verduras':{k:680,p:40,c:62,g:20},
+'Sándwich de pavo con plátano':{k:480,p:28,c:55,g:10},
+'Arroz con salmón y verduras':{k:680,p:42,c:60,g:24},
+'Tortitas de avena con huevos y plátano':{k:780,p:36,c:90,g:28},
+'Yogur con fruta y frutos secos':{k:320,p:15,c:32,g:15},
+'Arroz con carne y verduras':{k:720,p:42,c:68,g:20},
+'Bocadillo de pavo con fruta':{k:420,p:26,c:52,g:8},
+'Patata con pescado y ensalada':{k:600,p:36,c:60,g:14},
+'Avena con leche, frutos rojos y huevos':{k:800,p:36,c:92,g:30},
+'Pasta con salmón y verduras':{k:700,p:42,c:68,g:22},
+'Arroz con pollo y verduras':{k:680,p:44,c:72,g:14},
+'Yogur con avena y frutos secos':{k:380,p:18,c:38,g:16},
+'Pasta con atún y tomate':{k:660,p:42,c:70,g:18},
+'Tostada de pan integral con jamón':{k:380,p:22,c:48,g:8},
+'Patata con pollo y ensalada':{k:680,p:42,c:62,g:16},
+'Tostadas con crema de cacahuete y fruta':{k:520,p:18,c:52,g:24},
+'Avena con leche y frutos secos':{k:480,p:18,c:52,g:20},
+'Pasta con carne picada magra y verduras':{k:680,p:40,c:68,g:20},
+'Yogur griego con fruta y nueces':{k:340,p:22,c:28,g:16},
+'Tostadas de pavo con plátano':{k:450,p:26,c:52,g:10},
+'Patata con salmón y verduras':{k:700,p:42,c:62,g:24},
+'Tostadas de pavo con fruta':{k:400,p:24,c:48,g:8},
+'Tostadas con queso fresco batido y naranja':{k:340,p:18,c:40,g:12},
+'Bocadillo de pavo con plátano':{k:480,p:26,c:56,g:10},
+'Patata con pescado y ensalada':{k:600,p:36,c:60,g:14},
+'Tortitas de avena con huevos y fruta':{k:720,p:34,c:85,g:26},
+'Arroz con merluza y verduras':{k:580,p:38,c:60,g:12},
+'Patata con pollo y verduras':{k:680,p:42,c:62,g:16},
+'Tostadas de pavo con fruta':{k:400,p:24,c:48,g:8},
+'Arroz con atún y verduras':{k:660,p:40,c:64,g:18},
+'Pasta con ternera y verduras':{k:720,p:42,c:68,g:22},
+'Tostadas con jamón cocido y fruta':{k:420,p:20,c:50,g:10},
+'Bocadillo de pavo con fruta':{k:420,p:26,c:52,g:8},
+'Tortitas de avena con huevos y plátano':{k:780,p:36,c:90,g:28},
+'Yogur griego con avena y nueces':{k:440,p:24,c:40,g:20},
+'Pasta con carne y verduras':{k:700,p:40,c:68,g:22},
+'Tostadas de pavo con fruta':{k:400,p:24,c:48,g:8},
+'Pasta con merluza y verduras':{k:600,p:38,c:64,g:14},
+'Arroz con pescado y verduras':{k:620,p:38,c:62,g:14},
+'Patata con carne y verduras':{k:700,p:40,c:64,g:22},
+'Arroz con ternera y ensalada':{k:720,p:42,c:66,g:22},
+'Pasta con pollo y verduras':{k:680,p:44,c:72,g:14},
+'Yogur griego con avena y frutos rojos':{k:380,p:26,c:38,g:14},
+'Tostada de pan integral con pavo':{k:400,p:25,c:50,g:8},
+'Patata con salmón y ensalada':{k:680,p:40,c:60,g:24},
+'Arroz con pavo y verduras':{k:660,p:40,c:68,g:14},
+'Yogur griego con avena y frutos secos':{k:450,p:25,c:42,g:20},
+'Patata con ternera y ensalada':{k:720,p:42,c:65,g:22},
+'Bocadillo de pavo con plátano':{k:480,p:26,c:56,g:10},
+'Yogur griego con avena y frutos rojos':{k:380,p:26,c:38,g:14},
+'Tostadas de pavo con plátano':{k:450,p:26,c:52,g:10},
+'Pasta con salmón y verduras':{k:700,p:42,c:68,g:22},
+'Yogur griego con fruta y nueces':{k:340,p:22,c:28,g:16},
+'Patata con merluza y ensalada':{k:620,p:38,c:60,g:16}
+};
 const MEAL_DETAILS={
 'Yogur griego proteico con cacao y frutos rojos':{prep:'Mezcla yogures con proteína y cacao, decora con frutos rojos, chocolate troceado y canela.',items:[['2 uds','Yogur griego natural','PL'],['15 g','Proteína en polvo',null],['1 chda','Cacao puro sin azúcar',null,1],['Al gusto','Frutos rojos','FR',1],['30 g','Crema de almendras / nueces de Brasil / anacardos','GR'],['1 chda','Semillas de lino o chía','GR'],['1 oz','Chocolate negro >85%',null,1],['Al gusto','Canela',null,1],['','Café solo o con bebida de almendras 0%',null,1],['1 vaso','Agua con pizca de sal'],['1 perla','Vitamina D3 + K2',SUP],['2 perlas','Omega 3',SUP]]},
 'Tostadas de espelta con huevos, pavo y aguacate':{items:[['80 g','Pan integral de espelta o centeno (2 rebanadas)','HB'],['60 g','Pavo en lonchas / salmón ahumado / jamón ibérico','PB'],['3 uds','Huevos revueltos','PA'],['½ uds','Aguacate','GR'],['','Tomate rallado o en rodajas','VN'],['1 cda','AOVE','GR'],['','Café solo o con bebida de almendras 0%',null,1],['1 vaso','Agua con pizca de sal'],['1 perla','Vitamina D3 + K2',SUP],['2 perlas','Omega 3',SUP]]},
@@ -800,7 +949,8 @@ const MEAL_DETAILS={
 'Hamburguesa completa con boniato asado':{prep:'Cebolla pochada en la sartén queda mucho más rica.',items:[['80 g','Pan de masa madre / centeno / espelta','HB'],['¼ uds','Aguacate / 50 g guacamole','GR'],['150-180 g','Carne picada de ternera','PB'],['30 g','Queso feta','PL',1],['','Canónigos + tomate + cebolla pochada','VH'],['250-300 g','Boniato asado','HA'],['1 cdta','AOVE','GR'],['125 ml','Kéfir de cabra/oveja + frutos rojos + canela','PL',1],['2 oz','Chocolate negro >85%'],['1 uds','Manzana',null,1]]},
 'Pescado con puré vegetal y salsa de yogur':{items:[['','Puré caliente de calabaza / calabacín / zanahoria','VR'],['1 cda','AOVE + sal + especias suaves (cúrcuma, jengibre)','GR'],['250 g','Pescado blanco o azul (merluza, salmón)'],['Al gusto','Aceitunas','GR',1],['','Espinacas o rúcula salteadas','VH'],['','Cebolla pochada','VN',1],['½ uds','Yogur griego para salsa + limón + sal + AOVE','PL'],['1 uds','Manzana','FB'],['','Puñado de frutos secos o crema de almendras','GR']]}
 };
-/* Sistema de sustitución 1×1 — solo dentro del mismo grupo */
+
+Object.assign(MEAL_DETAILS,M_MEAL_DETAILS);Object.assign(NDATA,M_NDATA);/* Sistema de sustitución 1×1 — solo dentro del mismo grupo */
 const SUBSTITUTION_GROUPS={
 'PA':['Huevos enteros','Entrecot / chuletón / solomillo','Chuletas de cerdo','Salmón','Caballa / sardinas','Bonito / atún / boquerones','Pulpo','Trucha'],
 'PB':['Pechuga de pollo','Pechuga de pavo','Carne picada de ternera','Lomo / solomillo de cerdo','Filete magro de cerdo','Pescado blanco (merluza, lubina, dorada)'],
@@ -839,21 +989,23 @@ const FIXED_WEEK={
  Domingo:{desayuno:'Ayuno metabólico / Bulletproof Coffee',comida:'Ternera con aguacate, rúcula y yogur griego',cena:'Pescado con puré vegetal y salsa de yogur'}
 };
 function newMenu(tipo,alergias,wi,objetivo){
-  const src=(objetivo==='Regular el peso')?WEIGHT_WEEKS:WEEKS;
+  const src=objetivo==='Regular el peso'?WEIGHT_WEEKS:objetivo==='Ganar masa muscular'?MASS_WEEKS:WEEKS;
   const w=src[(wi||0)%src.length];
   alergias=(alergias||[]).filter(a=>a!=='Ninguna');
+  const slots5=['desayuno','media_mañana','comida','merienda','cena'];
   return DIAS.map((dia,i)=>{
     const slots={};
-    ['desayuno','comida','cena'].forEach((k,si)=>{
-      let n=w[dia][k];
+    slots5.forEach((k,si)=>{
+      let n=w[dia]&&w[dia][k];
+      if(!n)return;
       if(dishHasAllergen(n,alergias)){
         const pool=[];
-        src.forEach(wk=>DIAS.forEach(d=>{const cand=wk[d][k];if(!pool.includes(cand)&&!dishHasAllergen(cand,alergias))pool.push(cand);}));
+        src.forEach(wk=>DIAS.forEach(d=>{const cand=wk[d]&&wk[d][k];if(cand&&!pool.includes(cand)&&!dishHasAllergen(cand,alergias))pool.push(cand);}));
         if(pool.length)n=pool[(i*2+si)%pool.length];
       }
       slots[k]=n;
     });
-    return{dia,tag:DAY_TAGS[dia]||'',desayuno:slots.desayuno,comida:slots.comida,cena:slots.cena};
+    return{dia,tag:DAY_TAGS[dia]||'',desayuno:slots.desayuno||'',media_mañana:slots.media_mañana||'',comida:slots.comida||'',merienda:slots.merienda||'',cena:slots.cena||''};
   });
 }
 /* 4 semanas en bucle — variantes creadas con sustituciones 1×1 del mismo grupo */
@@ -899,6 +1051,12 @@ const WEIGHT_WEEKS=[
 {Lunes:{desayuno:'Avena con yogur, plátano y canela',comida:'Pechuga de pollo con arroz, brócoli y AOVE',cena:'Merluza con patata y ensalada'},Martes:{desayuno:'Huevos revueltos con tostadas integrales y kiwi',comida:'Ternera magra con patata y ensalada',cena:'Pavo con ensalada y patata'},Miércoles:{desayuno:'Yogur con avena y frutos rojos',comida:'Salmón con patata y brócoli',cena:'Tortilla de huevos con ensalada y patata cocida'},Jueves:{desayuno:'Tostadas integrales con pavo, tomate y fruta',comida:'Pasta integral con pollo y verduras',cena:'Tortilla de verduras con ensalada'},Viernes:{desayuno:'Yogur proteico con avena y plátano',comida:'Pavo con arroz y verduras',cena:'Salmón con verduras y patata'},Sábado:{desayuno:'Huevos con tostadas integrales y fruta',comida:'Ternera magra con patata y ensalada',cena:'Pollo con verduras y arroz'},Domingo:{desayuno:'Yogur con avena y fruta',comida:'Lentejas con verduras y pollo',cena:'Tortilla de huevos con ensalada y patata cocida'}},
 {Lunes:{desayuno:'Yogur proteico con avena y plátano',comida:'Pollo con arroz y verduras',cena:'Merluza con patata y ensalada'},Martes:{desayuno:'Huevos revueltos con tostadas integrales y naranja',comida:'Ternera magra con patata y brócoli',cena:'Pavo con arroz y verduras'},Miércoles:{desayuno:'Yogur con avena, kiwi y canela',comida:'Salmón con arroz y verduras',cena:'Tortilla de verduras con ensalada'},Jueves:{desayuno:'Tostadas integrales con pavo, tomate y fruta',comida:'Pollo con patata y ensalada',cena:'Merluza con verduras y patata'},Viernes:{desayuno:'Yogur proteico con avena y plátano',comida:'Pasta integral con ternera y verduras',cena:'Pollo con ensalada y arroz'},Sábado:{desayuno:'Huevos con tostadas integrales y fruta',comida:'Pavo con arroz y verduras',cena:'Salmón con ensalada y patata'},Domingo:{desayuno:'Yogur con avena y frutos rojos',comida:'Pollo al horno con patata y verduras',cena:'Tortilla de verduras con ensalada'}},
 {Lunes:{desayuno:'Yogur proteico con avena y plátano',comida:'Pechuga de pollo con arroz, brócoli y AOVE',cena:'Merluza con patata y ensalada'},Martes:{desayuno:'Huevos revueltos con tostadas integrales y kiwi',comida:'Ternera magra con patata y ensalada',cena:'Pavo con ensalada y patata'},Miércoles:{desayuno:'Yogur con avena y frutos rojos',comida:'Salmón con patata y verduras',cena:'Tortilla de verduras con ensalada'},Jueves:{desayuno:'Tostadas integrales con pavo, tomate y fruta',comida:'Pasta integral con pollo y verduras',cena:'Merluza con patata y ensalada'},Viernes:{desayuno:'Yogur proteico con avena y plátano',comida:'Pavo con arroz y verduras',cena:'Salmón con verduras y patata'},Sábado:{desayuno:'Huevos con tostadas integrales y fruta',comida:'Ternera magra con patata y ensalada',cena:'Pollo con verduras y arroz'},Domingo:{desayuno:'Yogur con avena y fruta',comida:'Pollo al horno con patata y ensalada',cena:'Tortilla de verduras con ensalada'}}
+];
+const MASS_WEEKS=[
+{Lunes:{desayuno:'Avena con leche, plátano y crema de cacahuete',media_mañana:'Tostada de pan integral con pavo',comida:'Arroz con pechuga de pollo y verduras',merienda:'Tostadas con jamón cocido y plátano',cena:'Pasta con carne picada magra y tomate'},Martes:{desayuno:'Tostadas con huevos, plátano y leche',media_mañana:'Yogur griego con avena y frutos rojos',comida:'Patata con ternera y ensalada',merienda:'Avena con leche y plátano',cena:'Arroz con salmón y verduras'},Miércoles:{desayuno:'Avena con leche, plátano y crema de cacahuete',media_mañana:'Tostada de pan integral con pavo',comida:'Pasta con pollo y verduras',merienda:'Tostadas con crema de cacahuete y plátano',cena:'Patata con merluza y ensalada'},Jueves:{desayuno:'Tostada con huevos, naranja y leche',media_mañana:'Yogur griego con avena y frutos secos',comida:'Pasta con pavo y verduras',merienda:'Tostadas con queso fresco batido y manzana',cena:'Arroz con ternera y verduras'},Viernes:{desayuno:'Avena con leche, plátano y huevos',media_mañana:'Bocadillo de pavo con fruta',comida:'Arroz con pollo y verduras',merienda:'Yogur con avena y frutos secos',cena:'Pasta con atún y tomate'},Sábado:{desayuno:'Tostadas con huevos, aguacate y fruta',media_mañana:'Yogur griego con avena y frutos secos',comida:'Patata con ternera y verduras',merienda:'Sándwich de pavo con plátano',cena:'Arroz con salmón y verduras'},Domingo:{desayuno:'Tortitas de avena con huevos y plátano',media_mañana:'Yogur con fruta y frutos secos',comida:'Arroz con carne y verduras',merienda:'Bocadillo de pavo con fruta',cena:'Patata con pescado y ensalada'}},
+{Lunes:{desayuno:'Tostadas con huevos, plátano y crema de cacahuete',media_mañana:'Yogur griego con avena y frutos rojos',comida:'Pasta con pechuga de pollo y verduras',merienda:'Bocadillo de pavo con fruta',cena:'Arroz con carne picada magra y verduras'},Martes:{desayuno:'Avena con leche, frutos rojos y huevos',media_mañana:'Tostada de pan integral con pavo',comida:'Patata con salmón y ensalada',merienda:'Tostadas con crema de cacahuete y plátano',cena:'Pasta con ternera y tomate'},Miércoles:{desayuno:'Tostadas con huevos, naranja y leche',media_mañana:'Yogur griego con avena y frutos secos',comida:'Arroz con merluza y verduras',merienda:'Avena con leche y plátano',cena:'Patata con pollo y ensalada'},Jueves:{desayuno:'Avena con leche, plátano y crema de cacahuete',media_mañana:'Tostada de pan integral con pavo',comida:'Pasta con pavo y verduras',merienda:'Tostadas con jamón cocido y fruta',cena:'Arroz con ternera y verduras'},Viernes:{desayuno:'Tostadas con huevos, aguacate y fruta',media_mañana:'Yogur griego con avena y frutos rojos',comida:'Patata con pollo y verduras',merienda:'Bocadillo de pavo con plátano',cena:'Pasta con atún y verduras'},Sábado:{desayuno:'Avena con leche, plátano y huevos',media_mañana:'Tostada de pan integral con jamón',comida:'Arroz con ternera y ensalada',merienda:'Yogur con avena y frutos secos',cena:'Patata con salmón y verduras'},Domingo:{desayuno:'Tortitas de avena con huevos y fruta',media_mañana:'Yogur griego con avena y nueces',comida:'Pasta con carne y verduras',merienda:'Tostadas de pavo con fruta',cena:'Arroz con merluza y ensalada'}},
+{Lunes:{desayuno:'Avena con leche, plátano y crema de cacahuete',media_mañana:'Tostada de pan integral con pavo',comida:'Arroz con pechuga de pollo y verduras',merienda:'Yogur griego con avena y frutos secos',cena:'Patata con merluza y ensalada'},Martes:{desayuno:'Tostadas con huevos, plátano y leche',media_mañana:'Yogur griego con avena y frutos rojos',comida:'Pasta con ternera y verduras',merienda:'Tostadas con crema de cacahuete y plátano',cena:'Arroz con salmón y verduras'},Miércoles:{desayuno:'Tostadas con huevos, naranja y crema de cacahuete',media_mañana:'Bocadillo de pavo con fruta',comida:'Patata con pollo y ensalada',merienda:'Avena con leche y frutos secos',cena:'Pasta con carne picada magra y tomate'},Jueves:{desayuno:'Avena con leche, plátano y huevos',media_mañana:'Tostada de pan integral con pavo',comida:'Arroz con pavo y verduras',merienda:'Yogur griego con fruta y nueces',cena:'Patata con ternera y ensalada'},Viernes:{desayuno:'Tostadas con huevos, aguacate y fruta',media_mañana:'Yogur griego con avena y frutos rojos',comida:'Pasta con pollo y verduras',merienda:'Tostadas de pavo con plátano',cena:'Arroz con atún y verduras'},Sábado:{desayuno:'Avena con leche, plátano y crema de cacahuete',media_mañana:'Tostada de pan integral con jamón',comida:'Patata con salmón y verduras',merienda:'Bocadillo de pavo con fruta',cena:'Pasta con ternera y ensalada'},Domingo:{desayuno:'Tortitas de avena con huevos y plátano',media_mañana:'Yogur con fruta y frutos secos',comida:'Arroz con carne y verduras',merienda:'Yogur griego con avena y frutos secos',cena:'Patata con pescado y ensalada'}},
+{Lunes:{desayuno:'Tostadas con huevos, plátano y crema de cacahuete',media_mañana:'Yogur griego con avena y frutos rojos',comida:'Pasta con pechuga de pollo y verduras',merienda:'Bocadillo de pavo con plátano',cena:'Arroz con carne picada magra y verduras'},Martes:{desayuno:'Avena con leche, frutos rojos y huevos',media_mañana:'Tostada de pan integral con pavo',comida:'Patata con ternera y ensalada',merienda:'Tostadas con crema de cacahuete y fruta',cena:'Arroz con salmón y verduras'},Miércoles:{desayuno:'Avena con leche, plátano y crema de cacahuete',media_mañana:'Tostada de pan integral con jamón',comida:'Pasta con pollo y verduras',merienda:'Yogur griego con avena y frutos secos',cena:'Patata con merluza y ensalada'},Jueves:{desayuno:'Tostadas con huevos, naranja y leche',media_mañana:'Bocadillo de pavo con fruta',comida:'Arroz con pavo y verduras',merienda:'Tostadas con queso fresco batido y manzana',cena:'Pasta con ternera y verduras'},Viernes:{desayuno:'Avena con leche, plátano y huevos',media_mañana:'Yogur griego con avena y frutos rojos',comida:'Patata con pollo y verduras',merienda:'Tostadas de pavo con plátano',cena:'Arroz con atún y verduras'},Sábado:{desayuno:'Tostadas con huevos, aguacate y fruta',media_mañana:'Tostada de pan integral con pavo',comida:'Pasta con salmón y verduras',merienda:'Yogur con avena y frutos secos',cena:'Patata con ternera y ensalada'},Domingo:{desayuno:'Tortitas de avena con huevos y fruta',media_mañana:'Yogur griego con avena y nueces',comida:'Arroz con carne y verduras',merienda:'Bocadillo de pavo con fruta',cena:'Patata con pescado y ensalada'}}
 ];
 const W_MEAL_DETAILS={
 'Yogur proteico con avena y plátano':{items:[['150 g','Yogur natural alto en proteína','PL'],['40 g','Avena en copos','HB'],['1 uds','Plátano','FA'],['','Canela',null,1]],note:'Media mañana: manzana + 15 g de almendras.'},
@@ -1062,7 +1220,7 @@ function selectedChips(id){
 function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==id));}
 document.querySelectorAll('.dash-tab').forEach(t=>t.addEventListener('click',()=>activateTab(t.dataset.tab)));
 function activateTab(n){document.querySelectorAll('.dash-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===n));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden',t.id!=='tab-'+n));const u=currentUser();if(!u)return;if(n==='hoy')renderHoy(u);if(n==='semana')renderSemana(u);if(n==='evaluacion')renderEvaluacion(u);if(n==='lista')renderLista(u);if(n==='perfil')renderPerfil(u);if(n==='bienestar')applyBienGating(u);window.scrollTo({top:0,behavior:'smooth'});}
-function applyBienGating(u){const locked=u.plan==='pro';document.querySelectorAll('.bien-btn').forEach(b=>{const k=b.dataset.bien;const needLock=locked&&(k==='ayuno'||k==='recuperacion');b.classList.toggle('locked',needLock);if(needLock){b.onclick=()=>{setMsg('#perfilMsg','🔒 Upgrade a Premium para acceder a Ayuno y Recuperación. Plan Premium 30€/mes.','err');};}else{b.onclick=null;}});}
+function applyBienGating(u){const locked=u.plan==='pro';document.querySelectorAll('.bien-btn').forEach(b=>{const k=b.dataset.bien;const needLock=locked&&(k==='ayuno'||k==='recuperacion');b.classList.toggle('locked',needLock);if(needLock){b.onclick=()=>{setMsg('#perfilMsg','🔒 Upgrade a Premium para acceder a Ayuno y Recuperación. Plan Premium 40€/mes.','err');};}else{b.onclick=null;}});}
 document.querySelectorAll('.bien-btn').forEach(b=>b.addEventListener('click',()=>{if(b.classList.contains('locked'))return;document.querySelectorAll('.bien-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.bien-content').forEach(c=>c.classList.toggle('hidden',c.id!=='bien-'+b.dataset.bien));}));
 
 /* Onboarding */
@@ -1230,13 +1388,20 @@ $('#foodConfirm').onclick=function(){
 })();
 
 /* SEMANA */
-function dishPool(u,mt){const src=(u.objetivo==='Regular el peso')?WEIGHT_WEEKS:WEEKS;const al=(u.alergias||[]);const pool=[];src.forEach(wk=>DIAS.forEach(d=>{const c=wk[d][mt];if(!pool.includes(c)&&!dishHasAllergen(c,al))pool.push(c);}));return pool;}
+function dishPool(u,mt){const src=u.objetivo==='Regular el peso'?WEIGHT_WEEKS:u.objetivo==='Ganar masa muscular'?MASS_WEEKS:WEEKS;const al=(u.alergias||[]);const pool=[];src.forEach(wk=>DIAS.forEach(d=>{const c=wk[d]&&wk[d][mt];if(c&&!pool.includes(c)&&!dishHasAllergen(c,al))pool.push(c);}));return pool;}
 function swapDish(dayIdx,mt,u){const m=u.menu[dayIdx];const pool=dishPool(u,mt);if(pool.length<2){setMenuMsg('No hay alternativas para este plato.',true);return;}const i=pool.indexOf(m[mt]);m[mt]=pool[(i+1)%pool.length];saveUser(u);renderSemana(u);renderLista(u);setMenuMsg(m.dia+' · '+MEAL_LABELS[mt]+': ahora '+m[mt]);}
 function setMenuMsg(t,err){const el=$('#menuMsg');if(el){el.textContent=t;el.style.color=err?'var(--tomato)':'var(--herb)';}}
 function renderSemana(u){
   $('#menuTipo').textContent=u.objetivo;
   const ti=todayIndex();
-  $('#menuBody').innerHTML=u.menu.map((m,i)=>`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td>${['desayuno','comida','cena'].map(mt=>`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span><button class="swap-btn" type="button" data-day="${i}" data-mt="${mt}" title="Cambiar plato">🔄</button></td>`).join('')}</tr>`).join('');
+  const mts=['desayuno','media_mañana','comida','merienda','cena'];
+  $('#menuBody').innerHTML=u.menu.map((m,i)=>{
+    const cells=mts.map(mt=>{
+      if(!m[mt])return'<td class="meal-empty">—</td>';
+      return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span><button class="swap-btn" type="button" data-day="${i}" data-mt="${mt}" title="Cambiar plato">🔄</button></td>`;
+    }).join('');
+    return`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td>${cells}</tr>`;
+  }).join('');
   $('#menuBody').querySelectorAll('.meal-cell').forEach(c=>c.addEventListener('click',e=>{if(e.target.closest('.swap-btn'))return;openMealDetail(+c.dataset.day,c.dataset.mt,u);}));
   $('#menuBody').querySelectorAll('.swap-btn').forEach(b=>b.addEventListener('click',()=>{const cu=currentUser();if(!cu)return;swapDish(+b.dataset.day,b.dataset.mt,cu);}));
 }

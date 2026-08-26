@@ -633,10 +633,13 @@ function renderSemana(u){
     const cells=mts.map(mt=>{
       if(!m[mt])return'<td class="meal-empty">—</td>';
       let extra='';
-      if(mt==='comida'){
-        const det=getAllDetails(m[mt]);
-        const mp=det&&det.note?extractMeriendaPre(det.note):'';
-        if(mp)extra=`<span class="meal-merienda-pre">${mp}</span>`;
+      if(mt==='merienda'){
+        const comidas=['desayuno','comida','cena'];
+        for(const cm of comidas){
+          const det=getAllDetails(m[cm]);
+          const mp=det&&det.note?extractMeriendaPre(det.note):'';
+          if(mp){extra=`<span class="meal-merienda-pre">${mp}</span>`;break;}
+        }
       }
       return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span>${extra}<span class="meal-receta">🍽️ Ver receta</span></td>`;
     }).join('');

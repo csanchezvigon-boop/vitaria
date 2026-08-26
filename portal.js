@@ -631,7 +631,6 @@ function renderSemana(u){
   const mts=['desayuno','comida','merienda','cena'];
   $('#menuBody').innerHTML=u.menu.map((m,i)=>{
     const cells=mts.map(mt=>{
-      let extra='';
       if(mt==='merienda'&&u.objetivo==='Reset & Build'){
         const preMap={
           'Lunes':'Pre-entreno (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda.',
@@ -641,13 +640,10 @@ function renderSemana(u){
           'Viernes':'Pre-entreno: 1 yogur griego + 1 plátano + 1 cda de miel + agua con pizca de sal.'
         };
         const pre=preMap[m.dia];
-        if(pre){
-          const dish=m[mt]||'';
-          return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${dish}</span><span class="meal-merienda-pre">${pre}</span><span class="meal-receta">🍽️ Ver receta</span></td>`;
-        }
+        if(pre)return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${pre}</span></td>`;
       }
       if(!m[mt])return'<td class="meal-empty">—</td>';
-      return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span>${extra}<span class="meal-receta">🍽️ Ver receta</span></td>`;
+      return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span><span class="meal-receta">🍽️ Ver receta</span></td>`;
     }).join('');
     return`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td>${cells}</tr>`;
   }).join('');

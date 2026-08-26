@@ -657,10 +657,14 @@ function getSubs(u){if(!u.subs)u.subs={};return u.subs;}
 function openMealDetail(dayIdx,mt,u){
   mealCtx={dayIdx,mt};
   const m=u.menu[dayIdx];const det=getAllDetails(m[mt]);
+  const isReset=u.objetivo==='Reset & Build';
   $('#mealDetailTitle').textContent=m[mt];
   $('#mealDetailTag').textContent=(m.dia+' · '+(m.tag||'')+' · '+MEAL_LABELS[mt]).replace(/^ · /,'');
-  const nd=getND(m[mt]);
-  $('#mealDetailMacros').innerHTML=`<span class="macro-chip">🔥 ${nd.k} kcal</span><span class="macro-chip">P ${nd.p}g</span><span class="macro-chip">C ${nd.c}g</span><span class="macro-chip">G ${nd.g}g</span>`;
+  if(!isReset){
+    const nd=getND(m[mt]);
+    $('#mealDetailMacros').innerHTML=`<span class="macro-chip">🔥 ${nd.k} kcal</span><span class="macro-chip">P ${nd.p}g</span><span class="macro-chip">C ${nd.c}g</span><span class="macro-chip">G ${nd.g}g</span>`;
+    $('#mealDetailMacros').style.display='flex';
+  }else{$('#mealDetailMacros').style.display='none';}
   renderMealItems(u);
   const clean=det&&det.note?cleanNote(det.note):'';
   $('#mealDetailPrep').textContent=det&&det.prep?'👨‍🍳 '+det.prep:'';
@@ -671,6 +675,7 @@ function openMealDetail(dayIdx,mt,u){
 }
 function renderMealItems(u){
   const {dayIdx,mt}=mealCtx;const m=u.menu[dayIdx];const det=getAllDetails(m[mt]);
+  const isReset=u.objetivo==='Reset & Build';
   const wrap=$('#mealDetailItems');wrap.innerHTML='';
   if(!det){wrap.innerHTML='<p style="font-size:.85rem;color:var(--ink-soft);">Sin detalle disponible para esta comida.</p>';return;}
   const subs=getSubs(u);const daySubs=subs[dayIdx]&&subs[dayIdx][mt]||{};
@@ -679,8 +684,8 @@ function renderMealItems(u){
     const subName=daySubs[idx];
     const row=document.createElement('div');row.className='mdi-row';
     let nameHtml=subName?`<span class="mdi-name sub">${subName}</span><span style="font-size:.7rem;color:var(--ink-soft);">(antes: ${name})</span>`:`<span class="mdi-name">${name}</span>`;
-    row.innerHTML=`<span class="mdi-qty">${qty||'·'}</span>${nameHtml}${opt?'<span class="mdi-opt">opcional</span>':''}${grp&&grp!==SUP?`<span class="mdi-badge">${GROUP_NAMES[grp]||grp}</span>`:''}`;
-    if(grp&&grp!==SUP){
+    row.innerHTML=`<span class="mdi-qty">${qty||'·'}</span>${nameHtml}${opt?'<span class="mdi-opt">opcional</span>':''}${!isReset&&grp&&grp!==SUP?`<span class="mdi-badge">${GROUP_NAMES[grp]||grp}</span>`:''}`;
+    if(!isReset&&grp&&grp!==SUP){
       const sel=document.createElement('select');sel.className='mdi-sel';
       sel.innerHTML='<option value="">⇄ sustituir…</option>'+SUBSTITUTION_GROUPS[grp].filter(x=>x!==name).map(x=>`<option value="${x}">${x}</option>`).join('');
       sel.addEventListener('change',()=>{

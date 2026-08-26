@@ -623,26 +623,18 @@ $('#foodConfirm').onclick=function(){
 })();
 
 /* SEMANA */
-function dishPool(u,mt){const src=u.objetivo==='Regular el peso'?WEIGHT_WEEKS:u.objetivo==='Ganar masa muscular'?MASS_WEEKS:WEEKS;const al=(u.alergias||[]);const pool=[];src.forEach(wk=>DIAS.forEach(d=>{const c=wk[d]&&wk[d][mt];if(c&&!pool.includes(c)&&!dishHasAllergen(c,al))pool.push(c);}));return pool;}
-function swapDish(dayIdx,mt,u){const m=u.menu[dayIdx];const pool=dishPool(u,mt);if(pool.length<2){setMenuMsg('No hay alternativas para este plato.',true);return;}const i=pool.indexOf(m[mt]);m[mt]=pool[(i+1)%pool.length];saveUser(u);renderSemana(u);renderLista(u);setMenuMsg(m.dia+' · '+MEAL_LABELS[mt]+': ahora '+m[mt]);}
-function setMenuMsg(t,err){const el=$('#menuMsg');if(el){el.textContent=t;el.style.color=err?'var(--tomato)':'var(--herb)';}}
 function renderSemana(u){
   $('#menuTipo').textContent=u.objetivo;
   const ti=todayIndex();
-  const allMts=['desayuno','media_mañana','comida','merienda','cena'];
-  const isMass=u.objetivo==='Ganar masa muscular';
-  const mts=isMass?allMts:['desayuno','comida','cena'];
+  const mts=['desayuno','comida','merienda','cena'];
   $('#menuBody').innerHTML=u.menu.map((m,i)=>{
-    const cells=allMts.map(mt=>{
-      const show=mts.includes(mt);
+    const cells=mts.map(mt=>{
       if(!m[mt])return'<td class="meal-empty">—</td>';
-      if(!show)return`<td class="meal-cell no-swap" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span></td>`;
-      return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span><button class="swap-btn" type="button" data-day="${i}" data-mt="${mt}" title="Cambiar plato">🔄</button></td>`;
+      return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span></td>`;
     }).join('');
     return`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td>${cells}</tr>`;
   }).join('');
-  $('#menuBody').querySelectorAll('.meal-cell').forEach(c=>c.addEventListener('click',e=>{if(e.target.closest('.swap-btn'))return;openMealDetail(+c.dataset.day,c.dataset.mt,u);}));
-  $('#menuBody').querySelectorAll('.swap-btn').forEach(b=>b.addEventListener('click',()=>{const cu=currentUser();if(!cu)return;swapDish(+b.dataset.day,b.dataset.mt,cu);}));
+  $('#menuBody').querySelectorAll('.meal-cell').forEach(c=>c.addEventListener('click',()=>openMealDetail(+c.dataset.day,c.dataset.mt,u)));
 }
 
 /* Detalle de comida + sustituciones 1×1 */

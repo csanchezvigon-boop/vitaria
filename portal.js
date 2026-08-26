@@ -634,12 +634,15 @@ function renderSemana(u){
       if(!m[mt])return'<td class="meal-empty">—</td>';
       let extra='';
       if(mt==='merienda'){
-        const comidas=['desayuno','comida','cena'];
-        for(const cm of comidas){
-          const det=getAllDetails(m[cm]);
-          const mp=det&&det.note?extractMeriendaPre(det.note):'';
-          if(mp){extra=`<span class="meal-merienda-pre">${mp}</span>`;break;}
-        }
+        const preMap={
+          'Lunes':'Pre-entreno (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda.',
+          'Martes':'Pre-entreno: 1 yogur griego + 1 plátano + 1 cda de miel + agua con pizca de sal.',
+          'Miércoles':'Pre-entreno (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda.',
+          'Jueves':'Pre-entreno: 1 yogur griego + 1 plátano + 1 cda de miel + agua con pizca de sal.',
+          'Viernes':'Pre-entreno: 1 yogur griego + 1 plátano + 1 cda de miel + agua con pizca de sal.'
+        };
+        const pre=preMap[m.dia];
+        if(pre)extra=`<span class="meal-merienda-pre">${pre}</span>`;
       }
       return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span>${extra}<span class="meal-receta">🍽️ Ver receta</span></td>`;
     }).join('');

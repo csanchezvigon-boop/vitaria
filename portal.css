@@ -296,6 +296,7 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 
 /* Meal detail modal */
 .meal-cell{cursor:pointer;transition:background .15s;position:relative;}
+.meal-cell.no-swap{cursor:default;}
 .meal-empty{color:var(--line);text-align:center;font-size:.8rem;}
 .meal-cell .meal-name{display:block;padding-right:22px;}
 .swap-btn{position:absolute;top:7px;right:7px;background:transparent;border:none;cursor:pointer;font-size:.8rem;line-height:1;opacity:.4;padding:3px;border-radius:6px;transition:opacity .15s,transform .2s;}

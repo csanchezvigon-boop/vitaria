@@ -629,10 +629,14 @@ function setMenuMsg(t,err){const el=$('#menuMsg');if(el){el.textContent=t;el.sty
 function renderSemana(u){
   $('#menuTipo').textContent=u.objetivo;
   const ti=todayIndex();
-  const mts=['desayuno','media_mañana','comida','merienda','cena'];
+  const allMts=['desayuno','media_mañana','comida','merienda','cena'];
+  const isMass=u.objetivo==='Ganar masa muscular';
+  const mts=isMass?allMts:['desayuno','comida','cena'];
   $('#menuBody').innerHTML=u.menu.map((m,i)=>{
-    const cells=mts.map(mt=>{
+    const cells=allMts.map(mt=>{
+      const show=mts.includes(mt);
       if(!m[mt])return'<td class="meal-empty">—</td>';
+      if(!show)return`<td class="meal-cell no-swap" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span></td>`;
       return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span><button class="swap-btn" type="button" data-day="${i}" data-mt="${mt}" title="Cambiar plato">🔄</button></td>`;
     }).join('');
     return`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td>${cells}</tr>`;

@@ -213,7 +213,7 @@ function setSession(e){e?localStorage.setItem('vitaria_session',e):localStorage.
 function hash(pw){let h=5381;for(let i=0;i<pw.length;i++)h=((h*33)^pw.charCodeAt(i))>>>0;return'h'+h.toString(36)}
 function pick(arr,alergias){let pool=arr;const no=alergias.filter(a=>a!=='Ninguna');if(no.length){const f=pool.filter(m=>!(ALLERGENS[m]||[]).some(a=>no.includes(a)));if(f.length)pool=f;}return pool[Math.floor(Math.random()*pool.length)];}
 /* Menú semanal fijo — dieta de referencia Vitaria (niveles de HC por día) */
-const DAY_TAGS={Lunes:'LOW HC · Recovery',Martes:'LOW-MED HC · Gym',Miércoles:'MED HC',Jueves:'MOD HC',Viernes:'HIGH HC · Pre-match',Sábado:'HIGH HC',Domingo:'MODERATE HC · Recovery'};
+const DAY_TAGS={};
 const FIXED_WEEK={
  Lunes:{desayuno:'Yogur griego proteico con cacao y frutos rojos',comida:'Pollo con arroz vaporizado y espinacas',cena:'Salmón con boniato asado y espárragos'},
  Martes:{desayuno:'Tostadas de espelta con huevos, pavo y aguacate',comida:'Quinoa con caballa, huevo y verduras salteadas',cena:'Pescado blanco con patata cocida y verduras'},
@@ -240,7 +240,7 @@ function newMenu(tipo,alergias,wi,objetivo){
       }
       slots[k]=n;
     });
-    return{dia,tag:DAY_TAGS[dia]||'',desayuno:slots.desayuno||'',media_mañana:slots.media_mañana||'',comida:slots.comida||'',merienda:slots.merienda||'',cena:slots.cena||''};
+    return{dia,tag:'',desayuno:slots.desayuno||'',media_mañana:slots.media_mañana||'',comida:slots.comida||'',merienda:slots.merienda||'',cena:slots.cena||''};
   });
 }
 /* 4 semanas en bucle — variantes creadas con sustituciones 1×1 del mismo grupo */
@@ -659,7 +659,7 @@ function openMealDetail(dayIdx,mt,u){
   const m=u.menu[dayIdx];const det=getAllDetails(m[mt]);
   const isReset=u.objetivo==='Reset & Build';
   $('#mealDetailTitle').textContent=m[mt];
-  $('#mealDetailTag').textContent=(m.dia+' · '+(m.tag||'')+' · '+MEAL_LABELS[mt]).replace(/^ · /,'');
+  $('#mealDetailTag').textContent=(m.dia+' · '+MEAL_LABELS[mt]).replace(/^ · /,'');
   if(!isReset){
     const nd=getND(m[mt]);
     $('#mealDetailMacros').innerHTML=`<span class="macro-chip">🔥 ${nd.k} kcal</span><span class="macro-chip">P ${nd.p}g</span><span class="macro-chip">C ${nd.c}g</span><span class="macro-chip">G ${nd.g}g</span>`;

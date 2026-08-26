@@ -633,7 +633,7 @@ function renderSemana(u){
     const cells=mts.map(mt=>{
       if(!m[mt])return'<td class="meal-empty">—</td>';
       let extra='';
-      if(mt==='merienda'){
+      if(mt==='merienda'&&u.objetivo==='Reset & Build'){
         const preMap={
           'Lunes':'Pre-entreno (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda.',
           'Martes':'Pre-entreno: 1 yogur griego + 1 plátano + 1 cda de miel + agua con pizca de sal.',

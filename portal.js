@@ -623,6 +623,8 @@ $('#foodConfirm').onclick=function(){
 })();
 
 /* SEMANA */
+function extractMeriendaPre(note){if(!note)return'';const m=note.match(/Merienda pre-entreno[^:]*:\s*([^.]+\.?)/i);return m?m[1].trim():'';}
+function cleanNote(note){if(!note)return'';return note.replace(/Merienda pre-entreno[^:]*:[^.]+\.?\s*/i,'').trim();}
 function renderSemana(u){
   $('#menuTipo').textContent=u.objetivo;
   const ti=todayIndex();
@@ -630,32 +632,40 @@ function renderSemana(u){
   $('#menuBody').innerHTML=u.menu.map((m,i)=>{
     const cells=mts.map(mt=>{
       if(!m[mt])return'<td class="meal-empty">—</td>';
-      return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span></td>`;
+      let extra='';
+      if(mt==='comida'){
+        const det=getAllDetails(m[mt]);
+        const mp=det&&det.note?extractMeriendaPre(det.note):'';
+        if(mp)extra=`<span class="meal-merienda-pre">${mp}</span>`;
+      }
+      return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span>${extra}<span class="meal-receta">🍽️ Ver receta</span></td>`;
     }).join('');
     return`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td>${cells}</tr>`;
   }).join('');
   $('#menuBody').querySelectorAll('.meal-cell').forEach(c=>c.addEventListener('click',()=>openMealDetail(+c.dataset.day,c.dataset.mt,u)));
 }
+function getAllDetails(name){return MEAL_DETAILS[name]||W_MEAL_DETAILS[name]||M_MEAL_DETAILS[name]||null;}
 
 /* Detalle de comida + sustituciones 1×1 */
 let mealCtx=null;
 function getSubs(u){if(!u.subs)u.subs={};return u.subs;}
 function openMealDetail(dayIdx,mt,u){
   mealCtx={dayIdx,mt};
-  const m=u.menu[dayIdx];const det=MEAL_DETAILS[m[mt]];
+  const m=u.menu[dayIdx];const det=getAllDetails(m[mt]);
   $('#mealDetailTitle').textContent=m[mt];
   $('#mealDetailTag').textContent=(m.dia+' · '+(m.tag||'')+' · '+MEAL_LABELS[mt]).replace(/^ · /,'');
   const nd=getND(m[mt]);
   $('#mealDetailMacros').innerHTML=`<span class="macro-chip">🔥 ${nd.k} kcal</span><span class="macro-chip">P ${nd.p}g</span><span class="macro-chip">C ${nd.c}g</span><span class="macro-chip">G ${nd.g}g</span>`;
   renderMealItems(u);
+  const clean=det&&det.note?cleanNote(det.note):'';
   $('#mealDetailPrep').textContent=det&&det.prep?'👨‍🍳 '+det.prep:'';
-  $('#mealDetailNote').textContent=det&&det.note?'💡 '+det.note:'';
+  $('#mealDetailNote').textContent=clean?'💡 '+clean:'';
   $('#mealDetailPrep').style.display=det&&det.prep?'block':'none';
-  $('#mealDetailNote').style.display=det&&det.note?'block':'none';
+  $('#mealDetailNote').style.display=clean?'block':'none';
   $('#mealOverlay').classList.remove('hidden');
 }
 function renderMealItems(u){
-  const {dayIdx,mt}=mealCtx;const m=u.menu[dayIdx];const det=MEAL_DETAILS[m[mt]];
+  const {dayIdx,mt}=mealCtx;const m=u.menu[dayIdx];const det=getAllDetails(m[mt]);
   const wrap=$('#mealDetailItems');wrap.innerHTML='';
   if(!det){wrap.innerHTML='<p style="font-size:.85rem;color:var(--ink-soft);">Sin detalle disponible para esta comida.</p>';return;}
   const subs=getSubs(u);const daySubs=subs[dayIdx]&&subs[dayIdx][mt]||{};

@@ -1163,7 +1163,14 @@ function genDietaYMostrar(u){
     noComer:u.noComer||'',
     actividad:u.physical.actividad||'moderado'
   };
-  const dieta=genDietaMediterranea(datos);
+  const dietaType=u.dieta||'mediterraneo';
+  let dieta;
+  if(dietaType==='paleo'){
+    dieta=genDietaPaleo(datos);
+  }else{
+    dieta=genDietaMediterranea(datos);
+  }
+  dieta.dietaType=dietaType;
   u.dietaData=dieta;
   saveUser(u);
   mostrarDieta(dieta);
@@ -1171,8 +1178,11 @@ function genDietaYMostrar(u){
 function mostrarDieta(d){
   activateTab('dieta');
   const objLabel={perdida:'Pérdida de grasa',mantenimiento:'Mantenimiento',ganancia:'Ganancia de masa muscular'}[d.objetivo]||d.objetivo;
+  const dietaType=d.dietaType||'mediterraneo';
+  const dietLabels={mediterraneo:'Mediterránea',paleo:'Paleo'};
+  const dietLabel=dietLabels[dietaType]||'Mediterránea';
   const entrenos=new Set(d.plan.filter(p=>p.entrenando).map((_,i)=>i));
-  let html=`<div class="section-head"><p class="eyebrow">Dieta Mediterránea</p><h2>Tu dieta mediterránea personalizada</h2></div>
+  let html=`<div class="section-head"><p class="eyebrow">Dieta ${dietLabel}</p><h2>Tu dieta ${dietLabel.toLowerCase()} personalizada</h2></div>
   <div class="dash-card" style="max-width:700px;">
     <div class="phys-grid" style="grid-template-columns:1fr 1fr 1fr;">
       <div><span style="font-size:.75rem;color:var(--ink-soft);">Calorías medias</span><br><b>${d.calAvg} kcal/día</b></div>
@@ -1224,8 +1234,11 @@ function verReceta(dia,tipo){
 function verListaCompra(){
   const d=JSON.parse($('#dietaData')?.value||'{}');
   if(!d.plan)return;
-  const lista=genListaCompra(d.plan);
-  let html=`<div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Tu lista semanal</h2></div>`;
+  const dietaType=d.dietaType||'mediterraneo';
+  const lista=dietaType==='paleo'?genListaCompraPaleo(d.plan):genListaCompra(d.plan);
+  const dietLabels={mediterraneo:'Mediterránea',paleo:'Paleo'};
+  const dietLabel=dietLabels[dietaType]||'Mediterránea';
+  let html=`<div class="section-head"><p class="eyebrow">Lista de la compra · Dieta ${dietLabel}</p><h2>Tu lista semanal</h2></div>`;
   Object.keys(lista).forEach(cat=>{
     html+=`<div class="dash-card" style="max-width:700px;margin-top:12px;"><b>${cat}</b><ul style="margin:6px 0;">`;
     Object.keys(lista[cat]).forEach(al=>{

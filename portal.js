@@ -223,14 +223,103 @@ const FIXED_WEEK={
  Sábado:{desayuno:'Tostadas de espelta con huevos revueltos y aguacate',comida:'Ensaladilla rusa casera con caballa',cena:'Hamburguesa completa con boniato asado'},
  Domingo:{desayuno:'Ayuno metabólico / Bulletproof Coffee',comida:'Ternera con aguacate, rúcula y yogur griego',cena:'Pescado con puré vegetal y salsa de yogur'}
 };
-function newMenu(tipo,alergias,wi,objetivo){
-  const src=objetivo==='Regular el peso'?WEIGHT_WEEKS:objetivo==='Ganar masa muscular'?MASS_WEEKS:WEEKS;
+/* ===== Menús por tipo de dieta ===== */
+const DIET_KETO={
+  regular:{
+    Lunes:{desayuno:'Huevos revueltos con espinaca y aguacate',comida:'Pechuga de pollo a la plancha con brócoli y aceite de oliva',snack:'Nueces mixtas (30 g)',cena:'Salmón al horno con espárragos'},
+    Martes:{desayuno:'Tortilla de 3 huevos con champiñones',comida:'Ternera con ensalada verde y aguacate',snack:'Queso fresco con aceitunas',cena:'Merluza con calabacín salteado'},
+    Miércoles:{desayuno:'Huevos pochados sobre aguacate',comida:'Pollo al horno con coles de bruselas',snack:'Palitos de apio con mantequilla de almendra',cena:'Atún a la plancha con espárragos'},
+    Jueves:{desayuno:'Revuelto de huevos con tocino',comida:'Salmón con ensalada de kale y nueces',snack:'Guacamole con palitos de pepino',cena:'Ternera con puré de coliflor'},
+    Viernes:{desayuno:'Huevos Benedict con espinaca',comida:'Pavo con verduras salteadas en aceite de coco',snack:'Aceitunas y queso',cena:'Lubina con calabacín y pimiento'},
+    Sábado:{desayuno:'Omelette de queso y champiñones',comida:'Cerdo con brócoli y salsa de soja',snack:'Mantequilla de almendra (2 cdas)',cena:'Pollo con ensalada de aguacate'},
+    Domingo:{desayuno:'Huevos revueltos con salmón ahumado',comida:'Ternera con espárragos y mantequilla',snack:'Nueces de Brasil (10 uds)',cena:'Merluza con espinacas salteadas'}
+  },
+  ganar:{
+    Lunes:{desayuno:'Huevos revueltos (4 uds) con espinaca y aguacate',comida:'Pechuga de pollo (200 g) con brócoli y aceite de oliva',snack:'Nueces mixtas (50 g) + queso',cena:'Salmón (200 g) al horno con espárragos'},
+    Martes:{desayuno:'Tortilla de 4 huevos con champiñones',comida:'Ternera (200 g) con ensalada verde y aguacate',snack:'Queso fresco (100 g) con aceitunas',cena:'Merluza (200 g) con calabacín salteado'},
+    Miércoles:{desayuno:'Huevos pochados (3 uds) sobre aguacate',comida:'Pollo (200 g) al horno con coles de bruselas',snack:'Palitos de apio con mantequilla de almendra (3 cdas)',cena:'Atún (200 g) a la plancha con espárragos'},
+    Jueves:{desayuno:'Revuelto de huevos (4 uds) con tocino',comida:'Salmón (200 g) con ensalada de kale y nueces',snack:'Guacamole (½ aguacate) con palitos de pepino',cena:'Ternera (200 g) con puré de coliflor'},
+    Viernes:{desayuno:'Huevos Benedict (4 uds) con espinaca',comida:'Pavo (200 g) con verduras salteadas en aceite de coco',snack:'Aceitunas (15 uds) y queso (80 g)',cena:'Lubina (200 g) con calabacín y pimiento'},
+    Sábado:{desayuno:'Omelette de queso (4 huevos) y champiñones',comida:'Cerdo (200 g) con brócoli y salsa de soja',snack:'Mantequilla de almendra (4 cdas)',cena:'Pollo (200 g) con ensalada de aguacate'},
+    Domingo:{desayuno:'Huevos revueltos (4 uds) con salmón ahumado',comida:'Ternera (200 g) con espárragos y mantequilla',snack:'Nueces de Brasil (15 uds)',cena:'Merluza (200 g) con espinacas salteadas'}
+  }
+};
+const DIET_VEGANO={
+  regular:{
+    Lunes:{desayuno:'Avena con leche de almendra y frutos rojos',comida:'Bowl de quinoa con garbanzos y verduras asadas',snack:'Fruta de temporada',cena:'Tofu salteado con verduras y salsa de soja'},
+    Martes:{desayuno:'Batido verde de espinaca, plátano y leche de coco',comida:'Lentejas guisadas con verduras y arroz',snack:'Hummus con palitos de zanahoria',cena:'Tempeh a la plancha con ensalada y aguacate'},
+    Miércoles:{desayuno:'Tostadas integrales con aguacate y semillas',comida:'Curry de garbanzos con espinaca y arroz',snack:'Nueces y fruta seca',cena:'Bowl de arroz con tofu teriyaki y verduras'},
+    Jueves:{desayuno:'Pudín de chía con leche de coco y mango',comida:'Ensalada de lentejas con pimiento y cebolla',snack:'Edamame con sal',cena:'Pasta integral con salsa de tomate y alubias'},
+    Viernes:{desayuno:'Smoothie bowl de açaí con granola vegana',comida:'Tacos de frijoles negros con guacamole',snack:'Barrita de frutos secos',cena:'Estofado de verduras con tempeh'},
+    Sábado:{desayuno:'Pancakes de avena con sirope de arce',comida:'Bowl de arroz con tofu revuelto y verduras',snack:'Fruta con crema de cacahuete',cena:'Berberecho de garbanzos con espinaca'},
+    Domingo:{desayuno:'Huevos de tofu con especias y aguacate',comida:'Paella de verduras y marisco vegetal',snack:'Hummus y pan pita',cena:'Lasaña de berenjenas con bechamel de anacardos'}
+  },
+  ganar:{
+    Lunes:{desayuno:'Avena (80 g) con leche de almendra y frutos rojos',comida:'Bowl de quinoa (100 g en seco) con garbanzos (150 g) y verduras asadas',snack:'Fruta + crema de cacahuete (2 cdas)',cena:'Tofu (200 g) salteado con verduras y salsa de soja'},
+    Martes:{desayuno:'Batido verde de espinaca, plátano y leche de coco + avena',comida:'Lentejas (100 g en seco) guisadas con verduras y arroz',snack:'Hummus (100 g) con palitos de zanahoria',cena:'Tempeh (200 g) a la plancha con ensalada y aguacate'},
+    Miércoles:{desayuno:'Tostadas integrales (3 uds) con aguacate y semillas',comida:'Curry de garbanzos (150 g) con espinaca y arroz (80 g en seco)',snack:'Nueces (40 g) y fruta seca',cena:'Bowl de arroz (80 g en seco) con tofu teriyaki (200 g) y verduras'},
+    Jueves:{desayuno:'Pudín de chía (40 g) con leche de coco y mango',comida:'Ensalada de lentejas (100 g en seco) con pimiento y cebolla',snack:'Edamame (150 g) con sal',cena:'Pasta integral (80 g en seco) con salsa de tomate y alubias (150 g)'},
+    Viernes:{desayuno:'Smoothie bowl de açaí con granola vegana (50 g)',comida:'Tacos de frijoles negros (150 g) con guacamole',snack:'Barrita de frutos secos + fruta',cena:'Estofado de verduras con tempeh (200 g)'},
+    Sábado:{desayuno:'Pancakes de avena (80 g) con sirope de arce',comida:'Bowl de arroz (80 g en seco) con tofu revuelto (200 g) y verduras',snack:'Fruta con crema de cacahuete (2 cdas)',cena:'Berberecho de garbanzos (150 g) con espinaca'},
+    Domingo:{desayuno:'Huevos de tofu (200 g) con especias y aguacate',comida:'Paella de verduras y marisco vegetal (80 g arroz en seco)',snack:'Hummus (100 g) y pan pita',cena:'Lasaña de berenjenas con bechamel de anacardos'}
+  }
+};
+const DIET_MEDITERRANEO={
+  regular:{
+    Lunes:{desayuno:'Tostadas integrales con tomate y aceite de oliva',comida:'Salmón a la plancha con quinoa y verduras',snack:'Fruta de temporada',cena:'Merluza al horno con patata y cebolla'},
+    Martes:{desayuno:'Huevos revueltos con espinaca y queso feta',comida:'Ensalada griega con pollo a la plancha',snack:'Aceitunas y frutos secos',cena:'Pasta integral con salsa de tomate y albahaca'},
+    Miércoles:{desayuno:'Yogur griego con miel y nueces',comida:'Paella de marisco y verduras',snack:'Hummus con pan pita',cena:'Lubina al horno con limón y hierbas'},
+    Jueves:{desayuno:'Tostadas con aguacate y huevo pochado',comida:'Guiso de garbanzos con espinaca y chorizo',snack:'Tomates cherry con mozzarella',cena:'Pollo al horno con aceitunas y limón'},
+    Viernes:{desayuno:'Smoothie de frutos rojos y yogur',comida:'Ensalada de atún con huevo cocido y verduras',snack:'Queso fresco con miel',cena:'Calamares a la plancha con ensalada'},
+    Sábado:{desayuno:'Tortilla española con ensalada',comida:'Arroz con verduras y marisco',snack:'Fruta seca y almendras',cena:'Sardinas a la plancha con pimientos'},
+    Domingo:{desayuno:'Huevos Benedict con espinaca',comida:'Cordero al horno con verduras mediterráneas',snack:'Yogur griego con fruta',cena:'Bacalao al pil-pil con patatas'}
+  },
+  ganar:{
+    Lunes:{desayuno:'Tostadas integrales (3 uds) con tomate y aceite de oliva',comida:'Salmón (200 g) a la plancha con quinoa (80 g en seco) y verduras',snack:'Fruta + frutos secos (40 g)',cena:'Merluza (200 g) al horno con patata (200 g) y cebolla'},
+    Martes:{desayuno:'Huevos revueltos (3 uds) con espinaca y queso feta',comida:'Ensalada griega con pollo (200 g) a la plancha',snack:'Aceitunas (15 uds) y frutos secos (30 g)',cena:'Pasta integral (80 g en seco) con salsa de tomate y albahaca'},
+    Miércoles:{desayuno:'Yogur griego (200 g) con miel y nueces (30 g)',comida:'Paella de marisco y verduras (100 g arroz en seco)',snack:'Hummus (100 g) con pan pita',cena:'Lubina (200 g) al horno con limón y hierbas'},
+    Jueves:{desayuno:'Tostadas (3 uds) con aguacate y huevo pochado',comida:'Guiso de garbanzos (150 g) con espinaca y chorizo',snack:'Tomates cherry (150 g) con mozzarella (100 g)',cena:'Pollo (200 g) al horno con aceitunas y limón'},
+    Viernes:{desayuno:'Smoothie de frutos rojos y yogur + avena (40 g)',comida:'Ensalada de atún (150 g) con huevo cocido y verduras',snack:'Queso fresco (100 g) con miel',cena:'Calamares (200 g) a la plancha con ensalada'},
+    Sábado:{desayuno:'Tortilla española (4 huevos) con ensalada',comida:'Arroz (80 g en seco) con verduras y marisco',snack:'Fruta seca (40 g) y almendras (30 g)',cena:'Sardinas (200 g) a la plancha con pimientos'},
+    Domingo:{desayuno:'Huevos Benedict (4 uds) con espinaca',comida:'Cordero (200 g) al horno con verduras mediterráneas',snack:'Yogur griego (200 g) con fruta',cena:'Bacalao (200 g) al pil-pil con patatas'}
+  }
+};
+const DIET_VEGETARIANO={
+  regular:{
+    Lunes:{desayuno:'Tostadas integrales con huevo revuelto y aguacate',comida:'Pasta integral con verduras y queso parmesano',snack:'Fruta de temporada',cena:'Tortilla de espinacas y champiñones con ensalada'},
+    Martes:{desayuno:'Yogur griego con granola y frutos rojos',comida:'Ensalada de quinoa con verduras asadas y feta',snack:'Nueces y fruta seca',cena:'Risotto de champiñones y parmesano'},
+    Miércoles:{desayuno:'Huevos pochados sobre tostada con tomate',comida:'Curry de verduras con arroz basmati',snack:'Hummus con pan pita',cena:'Lasaña de verduras con bechamel'},
+    Jueves:{desayuno:'Smoothie de plátano, avena y leche de almendra',comida:'Ensalada de garbanzos con espinaca y queso de cabra',snack:'Queso fresco con miel',cena:'Pizza integral con verduras y mozzarella'},
+    Viernes:{desayuno:'Pancakes de avena con miel y fruta',comida:'Bowl de arroz con tofu, aguacate y verduras',snack:'Edamame con sal',cena:'Crema de calabaza con semillas y pan integral'},
+    Sábado:{desayuno:'Tortitas de huevo con espinacas y champiñones',comida:'Burrito de frijoles, arroz, queso y guacamole',snack:'Fruta con crema de cacahuete',cena:'Fajitas de verduras con tortillas integrales'},
+    Domingo:{desayuno:'Huevos Benedict vegetarianos con espinaca',comida:'Risotto de espárragos y parmesano',snack:'Yogur griego con fruta',cena:'Tarta de verduras con masa filo'}
+  },
+  ganar:{
+    Lunes:{desayuno:'Tostadas integrales (3 uds) con huevo revuelto (3 uds) y aguacate',comida:'Pasta integral (80 g en seco) con verduras y queso parmesano (40 g)',snack:'Fruta + frutos secos (40 g)',cena:'Tortilla de espinacas (4 huevos) y champiñones con ensalada'},
+    Martes:{desayuno:'Yogur griego (200 g) con granola (50 g) y frutos rojos',comida:'Ensalada de quinoa (80 g en seco) con verduras asadas y feta (60 g)',snack:'Nueces (40 g) y fruta seca',cena:'Risotto de champiñones (80 g arroz) y parmesano (40 g)'},
+    Miércoles:{desayuno:'Huevos pochados (3 uds) sobre tostada con tomate',comida:'Curry de verduras con arroz basmati (80 g en seco)',snack:'Hummus (100 g) con pan pita',cena:'Lasaña de verduras (4 láminas) con bechamel'},
+    Jueves:{desayuno:'Smoothie de plátano, avena (60 g) y leche de almendra',comida:'Ensalada de garbanzos (150 g) con espinaca y queso de cabra (60 g)',snack:'Queso fresco (100 g) con miel',cena:'Pizza integral (2 porciones) con verduras y mozzarella'},
+    Viernes:{desayuno:'Pancakes de avena (80 g) con miel y fruta',comida:'Bowl de arroz (80 g en seco) con tofu (150 g), aguacate y verduras',snack:'Edamame (150 g) con sal',cena:'Crema de calabaza (300 ml) con semillas y pan integral'},
+    Sábado:{desayuno:'Tortitas de huevo (4 uds) con espinacas y champiñones',comida:'Burrito de frijoles (150 g), arroz (80 g), queso y guacamole',snack:'Fruta con crema de cacahuete (2 cdas)',cena:'Fajitas de verduras (4 tortillas) con tortillas integrales'},
+    Domingo:{desayuno:'Huevos Benedict vegetarianos (4 uds) con espinaca',comida:'Risotto de espárragos (80 g arroz) y parmesano (40 g)',snack:'Yogur griego (200 g) con fruta',cena:'Tarta de verduras con masa filo (2 porciones)'}
+  }
+};
+const DIET_PLANS={cetogenico:DIET_KETO,vegano:DIET_VEGANO,mediterraneo:DIET_MEDITERRANEO,vegetariano:DIET_VEGETARIANO};
+function newMenu(tipo,alergias,wi,objetivo,dieta){
+  dieta=dieta||'todos';
+  const isPaleo=dieta==='paleo';
+  let src;
+  if(dieta!=='todos'&&DIET_PLANS[dieta]){
+    const objKey=objetivo==='Regular el peso'?'regular':objetivo==='Ganar masa muscular'?'ganar':'regular';
+    if(DIET_PLANS[dieta][objKey])src=DIET_PLANS[dieta][objKey];
+  }
+  if(!src)src=objetivo==='Regular el peso'?WEIGHT_WEEKS:objetivo==='Ganar masa muscular'?MASS_WEEKS:WEEKS;
   const w=src[(wi||0)%src.length];
   alergias=(alergias||[]).filter(a=>a!=='Ninguna');
-  const isPaleo=objetivo==='Regular el peso'||objetivo==='Ganar masa muscular';
-  const slots4=['desayuno','comida','cena','snack'];
+  const hasSnack=dieta!=='todos';
+  const slots4=['desayuno','comida','snack','cena'];
   const slots5=['desayuno','media_mañana','comida','merienda','cena'];
-  const mts=isPaleo?slots4:slots5;
+  const mts=hasSnack?slots4:slots5;
   return DIAS.map((dia,i)=>{
     const slots={};
     mts.forEach((k,si)=>{
@@ -297,6 +386,7 @@ const MASS_WEEKS=[
 {Lunes:{desayuno:'Tortilla de claras (4 uds) con espinaca, cebolla, champiñón y pimiento + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de pollo con estragón y Dijon (2 raciones) + Batido de piña y frambuesa',cena:'Bistec simple (1 ración) + Ensalada de frutas clásica con frutos secos',snack:'Ensalada picante de plátano macho (1½ ración)'},Martes:{desayuno:'Huevos revueltos (2 uds) + Batido de açaí (3 tazas)',comida:'Ensalada de atún con sésamo (1½ ración) + Batido de canela, plátano y nectarina',cena:'Pollo con gravy de chipotle (1½ ración) + Ensalada de pimientos y tomate con aguacate',snack:'Manzana con mantequilla de almendra (1 manzana + 2 cda)'},Miércoles:{desayuno:'Revuelto de espinaca y champiñón (2 raciones) + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada batida de frambuesa (2 raciones) + Batido de plátano, coco y verduras verdes',cena:'Sopa picante de pollo (1½ ración) + Ensalada de kale y pepino con aguacate',snack:'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras'},Jueves:{desayuno:'Zumo verde de jengibre (1 ración) + Batata al microondas (1 batata)',comida:'Ensalada de atún y aguacate (1½ ración) + Batido de piña y frambuesa',cena:'Salteado de bacalao (1½ ración) + Ensalada de piña y aguacate',snack:'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras'},Viernes:{desayuno:'Huevos revueltos (3 uds) + Batido de sandía y açaí (3 tazas)',comida:'Ensalada de atún y aguacate (1½ ración) + Zumo verde variado (1 ración)',cena:'Pollo con gravy de chipotle (1½ ración) + Ensalada de pimientos y tomate con aguacate',snack:'Manzana con mantequilla de almendra (1 manzana + 2 cda)'},Sábado:{desayuno:'Tortilla de claras (4 uds) con espinaca, cebolla, champiñón y pimiento + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de pollo con estragón y Dijon (2 raciones) + Batido de piña y frambuesa',cena:'Bistec simple (1 ración) + Ensalada de frutas clásica con frutos secos',snack:'Ensalada picante de plátano macho (1½ ración)'},Domingo:{desayuno:'Huevos revueltos (2 uds) + Batido de açaí (3 tazas)',comida:'Ensalada de atún con sésamo (1½ ración) + Batido de canela, plátano y nectarina',cena:'Sopa picante de pollo (1½ ración) + Ensalada de kale y pepino con aguacate',snack:'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras'}},
 {Lunes:{desayuno:'Revuelto de espinaca y champiñón (2 raciones) + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de atún y aguacate (1½ ración) + Zumo verde variado (1 ración)',cena:'Pollo con gravy de chipotle (1½ ración) + Ensalada de pimientos y tomate con aguacate',snack:'Manzana con mantequilla de almendra (1 manzana + 2 cda)'},Martes:{desayuno:'Zumo verde de jengibre (1 ración) + Batata al microondas (1 batata)',comida:'Ensalada de pollo con estragón y Dijon (2 raciones) + Batido de piña y frambuesa',cena:'Salteado de bacalao (1½ ración) + Ensalada de piña y aguacate',snack:'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras'},Miércoles:{desayuno:'Huevos revueltos (3 uds) + Batido de sandía y açaí (3 tazas)',comida:'Ensalada batida de frambuesa (2 raciones) + Batido de plátano, coco y verduras verdes',cena:'Sopa picante de pollo (1½ ración) + Ensalada de kale y pepino con aguacate',snack:'Ensalada picante de plátano macho (1½ ración)'},Jueves:{desayuno:'Tortilla de claras (4 uds) con espinaca, cebolla, champiñón y pimiento + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de atún con sésamo (1½ ración) + Batido de canela, plátano y nectarina',cena:'Bistec simple (1 ración) + Ensalada de frutas clásica con frutos secos',snack:'Manzana con mantequilla de almendra (1 manzana + 2 cda)'},Viernes:{desayuno:'Huevos revueltos (2 uds) + Batido de açaí (3 tazas)',comida:'Ensalada de atún y aguacate (1½ ración) + Batido de piña y frambuesa',cena:'Pollo con gravy de chipotle (1½ ración) + Ensalada de pimientos y tomate con aguacate',snack:'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras'},Sábado:{desayuno:'Revuelto de espinaca y champiñón (2 raciones) + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de pollo con estragón y Dijon (2 raciones) + Batido de piña y frambuesa',cena:'Sopa picante de pollo (1½ ración) + Ensalada de kale y pepino con aguacate',snack:'Manzana con mantequilla de almendra (1 manzana + 2 cda)'},Domingo:{desayuno:'Tortilla de claras (4 uds) con espinaca, cebolla, champiñón y pimiento + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de atún con sésamo (1½ ración) + Batido de canela, plátano y nectarina',cena:'Salteado de bacalao (1½ ración) + Ensalada de piña y aguacate',snack:'Ensalada picante de plátano macho (1½ ración)'}}
 ];
+DIET_PLANS.paleo={regular:WEIGHT_WEEKS[0],ganar:MASS_WEEKS[0]};
 const W_MEAL_DETAILS={
 'Yogur proteico con avena y plátano':{items:[['150 g','Yogur natural alto en proteína','PL'],['40 g','Avena en copos','HB'],['1 uds','Plátano','FA'],['','Canela',null,1]],note:'Media mañana: manzana + 15 g de almendras.'},
 'Huevos revueltos con tostadas integrales y naranja':{items:[['2 uds','Huevos revueltos','PA'],['2 uds','Tostadas de pan integral','HB'],['1 uds','Naranja','FB']],note:'Media mañana: yogur alto en proteína.'},
@@ -390,7 +480,7 @@ $('#registerForm').addEventListener('submit',e=>{
   if(pw.length<6){setMsg('#regMsg','Mínimo 6 caracteres.','err');return;}
   if(pw!==pw2){setMsg('#regMsg','Las contraseñas no coinciden.','err');return;}
   if(getUsers().some(u=>u.email===email)){setMsg('#regMsg','Ya existe una cuenta con ese correo.','err');return;}
-  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,createdAt:new Date().toISOString(),mv:2,menu:newMenu(tipo,alergias,0,objetivo),menuObj:objetivo,consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
+  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,dieta:'todos',createdAt:new Date().toISOString(),mv:2,menu:newMenu(tipo,alergias,0,objetivo,'todos'),menuObj:objetivo,consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
   setUsers([...getUsers(),user]);setSession(email);showOnboarding();
 });
 
@@ -399,8 +489,8 @@ $('#regPlans').addEventListener('click',e=>{const c=e.target.closest('.chip');if
 function enterPortal(){
   let u=currentUser();if(!u){showView('view-auth');showAuth('login');return;}
   if(u.objetivo!=='Regular el peso'&&u.objetivo!=='Reset & Build')u.objetivo='Reset & Build';
-  if(u.mv!==2){u.menu=newMenu(u.tipo,u.alergias||[],u.weekIdx||0,u.objetivo);u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
-  if(!u.menuObj||u.menuObj!==u.objetivo){u.weekIdx=0;u.menu=newMenu(u.tipo,u.alergias||[],0,u.objetivo);u.menuObj=u.objetivo;u.subs={};u.consumed={};u.glassed={};saveUser(u);}
+  if(u.mv!==2){u.menu=newMenu(u.tipo,u.alergias||[],u.weekIdx||0,u.objetivo,u.dieta||'todos');u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
+  if(!u.menuObj||u.menuObj!==u.objetivo){u.weekIdx=0;u.menu=newMenu(u.tipo,u.alergias||[],0,u.objetivo,u.dieta||'todos');u.menuObj=u.objetivo;u.subs={};u.consumed={};u.glassed={};saveUser(u);}
   if(u.weekIdx==null){u.weekIdx=0;saveUser(u);}
   showView('view-dashboard');$('#navUser').classList.remove('hidden');
   $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;
@@ -632,9 +722,9 @@ function cleanNote(note){if(!note)return'';return note.replace(/Merienda pre-ent
 function renderSemana(u){
   $('#menuTipo').textContent=u.objetivo;
   const ti=todayIndex();
-  const isPaleo=u.objetivo==='Regular el peso'||u.objetivo==='Ganar masa muscular';
-  const mts=isPaleo?['desayuno','comida','snack','cena']:['desayuno','comida','merienda','cena'];
-  const headers=isPaleo?['Desayuno','Comida','Snack','Cena']:['Desayuno','Comida','Merienda','Cena'];
+  const hasSnack=u.dieta&&u.dieta!=='todos';
+  const mts=hasSnack?['desayuno','comida','snack','cena']:['desayuno','comida','merienda','cena'];
+  const headers=hasSnack?['Desayuno','Comida','Snack','Cena']:['Desayuno','Comida','Merienda','Cena'];
   $('#menuHead').innerHTML='<tr><th>Día</th>'+headers.map(h=>'<th>'+h+'</th>').join('')+'</tr>';
   $('#menuBody').innerHTML=u.menu.map((m,i)=>{
     const cells=mts.map(mt=>{
@@ -770,7 +860,7 @@ const INGREDIENTS={'Avena con fruta y nueces':['Avena','Fruta','Nueces'],'Tostad
 
 /* PERFIL */
 function renderPerfil(u){
-  $('#perfName').value=u.name;$('#perfEmail').value=u.email;$('#perfObjetivo').value=u.objetivo;
+  $('#perfName').value=u.name;$('#perfEmail').value=u.email;$('#perfObjetivo').value=u.objetivo;$('#perfDieta').value=u.dieta||'todos';
   renderChips('perfChips',ALERGIAS,u.alergias.length?u.alergias:['Ninguna']);
   if(u.physical){$('#perfAltura').value=u.physical.altura;$('#perfPeso').value=u.physical.peso;$('#perfEdad').value=u.physical.edad;$('#perfSexo').value=u.physical.sexo;$('#perfActividad').value=u.physical.actividad;}
   $('#perfilPlan').innerHTML=`<span style="font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;">${PLANS[u.plan].name}</span><br><span style="color:var(--ink-soft);font-size:.9rem;">${PLANS[u.plan].price}</span>`;
@@ -778,7 +868,7 @@ function renderPerfil(u){
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);applyPlanGating(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
 }
-$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}const oldObj=u.objetivo;u.name=name;u.objetivo=$('#perfObjetivo').value;u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');if(oldObj!==u.objetivo)u.weekIdx=0;u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo);u.menuObj=u.objetivo;u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderLista(u);renderSemana(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
+$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}const oldObj=u.objetivo;u.name=name;u.objetivo=$('#perfObjetivo').value;u.dieta=$('#perfDieta').value||'todos';u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');if(oldObj!==u.objetivo)u.weekIdx=0;u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo,u.dieta);u.menuObj=u.objetivo;u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderLista(u);renderSemana(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
 $('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;saveUser(u);setMsg('#perfilMsg','Datos físicos actualizados. Plan recalculado.','ok');});
 $('#pwSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const cur=$('#pwActual').value,n1=$('#pwNueva').value,n2=$('#pwNueva2').value;if(u.pw!==hash(cur)){setMsg('#perfilMsg','Contraseña actual incorrecta.','err');return;}if(n1.length<6){setMsg('#perfilMsg','Mínimo 6 caracteres.','err');return;}if(n1!==n2){setMsg('#perfilMsg','Las contraseñas no coinciden.','err');return;}u.pw=hash(n1);saveUser(u);['pwActual','pwNueva','pwNueva2'].forEach(i=>$('#'+i).value='');setMsg('#perfilMsg','Contraseña actualizada.','ok');});
 $('#delBtn').addEventListener('click',()=>{const u=currentUser();if(!u)return;if(!confirm('¿Eliminar tu cuenta? No se puede deshacer.'))return;setUsers(getUsers().filter(x=>x.email!==u.email));setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
@@ -1041,7 +1131,7 @@ function launchConfetti(){
 /* Init */
 (function init(){
   if(!getUsers().length){
-    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Reset & Build',alergias:[],createdAt:new Date().toISOString(),mv:2,menu:newMenu('Equilibrada',[],0,'Reset & Build'),menuObj:'Reset & Build',consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
+    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Reset & Build',dieta:'todos',alergias:[],createdAt:new Date().toISOString(),mv:2,menu:newMenu('Equilibrada',[],0,'Reset & Build','todos'),menuObj:'Reset & Build',consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
     setUsers([demo]);
   }
   renderChips('regChips',ALERGIAS,[]);

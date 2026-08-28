@@ -402,6 +402,25 @@
         <div class="field"><label>Actividad</label><select id="perfActividad"><option value="sedentario">Sedentario</option><option value="ligero">Ligero</option><option value="moderado">Moderado</option><option value="intenso">Intenso</option></select></div>
         <button class="btn btn-ghost" id="perfPhysSave">Actualizar datos físicos</button>
       </div>
+      <div class="dash-card" style="max-width:560px;margin-top:22px;">
+        <span class="label">Entrenamiento y preferencias</span>
+        <p class="note">Para generar tu dieta mediterránea personalizada.</p>
+        <div class="phys-grid">
+          <div class="field"><label>Tipo de entrenamiento</label><select id="perfEntreno"><option value="gimnasio">Gimnasio</option><option value="futbol">Fútbol</option><option value="running">Running</option><option value="ciclismo">Ciclismo</option><option value="otro">Otro</option></select></div>
+          <div class="field"><label>Días por semana</label><input type="number" id="perfDiasEntreno" min="1" max="7" value="3"></div>
+          <div class="field"><label>Duración (min)</label><input type="number" id="perfDuracionEntreno" min="15" max="180" value="60"></div>
+        </div>
+        <div class="phys-grid">
+          <div class="field"><label>Comidas al día</label><select id="perfNumComidas"><option value="3">3 comidas</option><option value="4" selected>4 comidas</option><option value="5">5 comidas</option><option value="6">6 comidas</option></select></div>
+          <div class="field"><label>Alimentos que no consumes</label><input type="text" id="perfNoComer" placeholder="Ej: brócoli, gambas…"></div>
+        </div>
+        <button class="btn btn-ghost" id="perfTrainSave">Guardar preferencias</button>
+      </div>
+      <div class="dash-card" style="max-width:560px;margin-top:22px;">
+        <span class="label">Generar dieta mediterránea</span>
+        <p class="note">Genera una dieta personalizada completa con recetas y lista de la compra.</p>
+        <button class="btn btn-solid" id="btnGenDieta" style="margin-top:8px;">Generar mi dieta mediterránea</button>
+      </div>
       <div class="dash-card" style="max-width:560px;margin-top:22px;border-color:var(--tomato);">
         <span class="label">Plan actual</span>
         <div class="cards" style="margin-top:10px;"><div id="perfilPlan"></div></div>
@@ -415,6 +434,17 @@
       </div>
       <div class="inline-actions"><button class="btn btn-danger btn-small" id="delBtn">Eliminar cuenta</button></div>
     </section>
+    <section id="tab-dieta" class="tab hidden">
+      <div id="dietaContent"></div>
+    </section>
+    <div id="recipeOverlay" class="overlay hidden"><div class="modal" id="recipeModal">
+      <button class="modal-close" onclick="$('#recipeOverlay').classList.add('hidden')">&times;</button>
+      <h3 id="recipeTitle"></h3>
+      <p id="recipeTime" style="font-size:.85rem;color:var(--ink-soft);margin-bottom:12px;"></p>
+      <div id="recipeIngredients"></div>
+      <div id="recipeSteps" style="margin-top:14px;"></div>
+    </div></div>
+    <input type="hidden" id="dietaData">
   </main>
 </div></div></div>
 
@@ -423,6 +453,7 @@
   <span>Portal de clientes · demo con datos en tu navegador</span>
 </div></footer>
 
+<script src="mediterraneo.js"></script>
 <script src="portal.js"></script>
 </body>
 </html>

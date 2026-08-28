@@ -863,6 +863,7 @@ function renderPerfil(u){
   $('#perfName').value=u.name;$('#perfEmail').value=u.email;$('#perfObjetivo').value=u.objetivo;$('#perfDieta').value=u.dieta||'todos';
   renderChips('perfChips',ALERGIAS,u.alergias.length?u.alergias:['Ninguna']);
   if(u.physical){$('#perfAltura').value=u.physical.altura;$('#perfPeso').value=u.physical.peso;$('#perfEdad').value=u.physical.edad;$('#perfSexo').value=u.physical.sexo;$('#perfActividad').value=u.physical.actividad;}
+  renderTrainPrefs(u);
   $('#perfilPlan').innerHTML=`<span style="font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;">${PLANS[u.plan].name}</span><br><span style="color:var(--ink-soft);font-size:.9rem;">${PLANS[u.plan].price}</span>`;
   const ups=$('#perfilUpgrades');ups.innerHTML='';const rank={starter:0,pro:1,premium:2};
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);applyPlanGating(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
@@ -1128,6 +1129,114 @@ function launchConfetti(){
   setTimeout(()=>c.innerHTML='',5500);
 }
 
+/* DIETA MEDITERRÁNEA PERSONALIZADA */
+function saveTrainPrefs(u){
+  u.entreno={tipo:$('#perfEntreno').value,dias:+$('#perfDiasEntreno').value,duracion:+$('#perfDuracionEntreno').value};
+  u.numComidas=+$('#perfNumComidas').value;
+  u.noComer=$('#perfNoComer').value;
+  saveUser(u);
+}
+function renderTrainPrefs(u){
+  if(!u.entreno)u.entreno={tipo:'gimnasio',dias:3,duracion:60};
+  $('#perfEntreno').value=u.entreno.tipo;
+  $('#perfDiasEntreno').value=u.entreno.dias;
+  $('#perfDuracionEntreno').value=u.entreno.duracion;
+  $('#perfNumComidas').value=u.numComidas||4;
+  $('#perfNoComer').value=u.noComer||'';
+}
+$('#perfTrainSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;saveTrainPrefs(u);setMsg('#perfilMsg','Preferencias guardadas.','ok');});
+function genDietaYMostrar(u){
+  if(!u.physical||!u.physical.altura){setMsg('#perfilMsg','Primero actualiza tus datos físicos (altura, peso, edad, sexo, actividad).','err');return;}
+  saveTrainPrefs(u);
+  const objetivoMap={'Reset & Build':'ganancia','Regular el peso':'perdida','Ganar masa muscular':'ganancia'};
+  const datos={
+    edad:u.physical.edad,
+    sexo:u.physical.sexo,
+    peso:u.physical.peso,
+    altura:u.physical.altura,
+    objetivo:objetivoMap[u.objetivo]||'mantenimiento',
+    tipoEntreno:u.entreno?u.entreno.tipo:'gimnasio',
+    diasEntreno:u.entreno?u.entreno.dias:3,
+    duracionEntreno:u.entreno?u.entreno.duracion:60,
+    numComidas:u.numComidas||4,
+    alergias:u.alergias||[],
+    noComer:u.noComer||'',
+    actividad:u.physical.actividad||'moderado'
+  };
+  const dieta=genDietaMediterranea(datos);
+  u.dietaData=dieta;
+  saveUser(u);
+  mostrarDieta(dieta);
+}
+function mostrarDieta(d){
+  activateTab('dieta');
+  const objLabel={perdida:'Pérdida de grasa',mantenimiento:'Mantenimiento',ganancia:'Ganancia de masa muscular'}[d.objetivo]||d.objetivo;
+  const entrenos=new Set(d.plan.filter(p=>p.entrenando).map((_,i)=>i));
+  let html=`<div class="section-head"><p class="eyebrow">Dieta Mediterránea</p><h2>Tu dieta mediterránea personalizada</h2></div>
+  <div class="dash-card" style="max-width:700px;">
+    <div class="phys-grid" style="grid-template-columns:1fr 1fr 1fr;">
+      <div><span style="font-size:.75rem;color:var(--ink-soft);">Calorías medias</span><br><b>${d.calAvg} kcal/día</b></div>
+      <div><span style="font-size:.75rem;color:var(--ink-soft);">Rango diario</span><br><b>${d.range.min}–${d.range.max} kcal</b></div>
+      <div><span style="font-size:.75rem;color:var(--ink-soft);">Proteína</span><br><b>${d.promedio.p} g/día</b></div>
+      <div><span style="font-size:.75rem;color:var(--ink-soft);">Carbohidratos</span><br><b>${d.promedio.c} g/día</b></div>
+      <div><span style="font-size:.75rem;color:var(--ink-soft);">Grasas</span><br><b>${d.promedio.g} g/día</b></div>
+      <div><span style="font-size:.75rem;color:var(--ink-soft);">Objetivo</span><br><b>${objLabel}</b></div>
+      <div><span style="font-size:.75rem;color:var(--ink-soft);">Entrenamiento</span><br><b>${d.tipoEntreno} · ${d.usuario.diasEntreno} días/sem</b></div>
+      <div><span style="font-size:.75rem;color:var(--ink-soft);">Comidas/día</span><br><b>${d.numComidas}</b></div>
+    </div>
+    <p style="font-size:.82rem;color:var(--ink-soft);margin-top:14px;">Tu dieta está adaptada a tus características, objetivo y nivel de actividad. Las calorías y los carbohidratos varían ligeramente entre días para adaptarse a tu entrenamiento y descanso.</p>
+  </div>`;
+  d.plan.forEach((dia,di)=>{
+    const marker=dia.entrenando?'<span style="color:var(--herb);font-size:.75rem;">💪 Entreno</span>':'<span style="font-size:.75rem;color:var(--ink-soft);">Descanso</span>';
+    html+=`<div class="dash-card" style="max-width:700px;margin-top:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <b>${dia.dia}</b> ${marker}
+        <span style="font-size:.8rem;"><b>${dia.calReal} kcal</b> · P ${dia.pReal}g · C ${dia.cReal}g · G ${dia.gReal}g</span>
+      </div>`;
+    dia.comidas.forEach(c=>{
+      html+=`<div style="margin-bottom:8px;">
+        <div style="font-size:.8rem;font-weight:600;color:var(--herb);">${c.tipo} <button class="btn-link" style="font-size:.75rem;" onclick="verReceta('${dia.dia}','${c.tipo}')">🍽️ Ver receta</button></div>
+        <div style="font-size:.85rem;">${c.n}</div>
+        <div style="font-size:.75rem;color:var(--ink-soft);">${c.ing.map(x=>x.a+': '+x.q+' g').join(' · ')}</div>
+      </div>`;
+    });
+    html+=`</div>`;
+  });
+  html+=`<div class="dash-card" style="max-width:700px;margin-top:16px;"><button class="btn btn-solid" onclick="verListaCompra()">🛒 Ver lista de la compra</button></div>`;
+  $('#dietaContent').innerHTML=html;
+  $('#dietaData').value=JSON.stringify(d);
+}
+function verReceta(dia,tipo){
+  const d=JSON.parse($('#dietaData')?.value||'{}');
+  const diaObj=d.plan?.find(p=>p.dia===dia);
+  if(!diaObj)return;
+  const comida=diaObj.comidas.find(c=>c.tipo===tipo);
+  if(!comida)return;
+  $('#recipeTitle').textContent=comida.n;
+  $('#recipeTime').textContent='~'+(comida.t||10)+' min de preparación';
+  let ingHtml='<b>Ingredientes:</b><ul style="margin:6px 0;">';
+  comida.ing.forEach(i=>{ingHtml+=`<li style="font-size:.85rem;">${i.a}: ${i.q} g <span style="color:var(--ink-soft);">(${i.c} kcal · P ${i.p}g · C ${i.c}g · G ${i.g}g)</span></li>`;});
+  ingHtml+='</ul>';
+  $('#recipeIngredients').innerHTML=ingHtml;
+  $('#recipeSteps').innerHTML='<b>Preparación:</b><p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px;">Prepara todos los ingredientes. Cocina según las indicaciones de cada alimento. Sirve y disfruta.</p>';
+  $('#recipeOverlay').classList.remove('hidden');
+}
+function verListaCompra(){
+  const d=JSON.parse($('#dietaData')?.value||'{}');
+  if(!d.plan)return;
+  const lista=genListaCompra(d.plan);
+  let html=`<div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Tu lista semanal</h2></div>`;
+  Object.keys(lista).forEach(cat=>{
+    html+=`<div class="dash-card" style="max-width:700px;margin-top:12px;"><b>${cat}</b><ul style="margin:6px 0;">`;
+    Object.keys(lista[cat]).forEach(al=>{
+      const item=lista[cat][al];
+      html+=`<li style="font-size:.85rem;">${al}: <b>${Math.round(item.total)} g</b></li>`;
+    });
+    html+=`</ul></div>`;
+  });
+  $('#dietaContent').innerHTML=html;
+}
+$('#btnGenDieta').addEventListener('click',()=>{const u=currentUser();if(u)genDietaYMostrar(u);});
 /* Init */
 (function init(){
   if(!getUsers().length){

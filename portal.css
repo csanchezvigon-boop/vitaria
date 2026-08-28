@@ -223,6 +223,29 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .phys-val{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;}
 .phys-val .pv-num{font-family:'Fraunces',serif;font-weight:900;font-size:1.4rem;}.phys-val .pv-label{font-size:.72rem;color:var(--ink-soft);margin-top:4px;}
 
+/* Profile section — reorganizado */
+.section-head--sub{margin-top:36px;margin-bottom:18px;}
+.section-head--sub h2{font-size:1.3rem;}
+.section-head--sub p{font-size:.92rem;margin-top:4px;}
+.profile-card{max-width:640px;}
+.profile-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.profile-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+.profile-actions{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);}
+.profile-card--cta{background:var(--ink);border-color:var(--ink);max-width:640px;}
+.profile-cta-inner{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.profile-cta-text h3{font-size:1.2rem;color:var(--bg);margin:0 0 6px;}
+.profile-cta-text p{color:rgba(237,240,226,.72);font-size:.92rem;margin:0;max-width:420px;line-height:1.5;}
+.profile-card--cta .btn-lg{background:var(--tomato);color:#fff;border-color:var(--tomato);white-space:nowrap;flex-shrink:0;}
+.profile-card--cta .btn-lg:hover{background:#fff;color:var(--ink);border-color:#fff;transform:translateY(-2px);}
+.btn-lg{padding:14px 28px;font-size:1rem;}
+@media(max-width:780px){
+  .profile-grid-2,.profile-grid-3{grid-template-columns:1fr;}
+  .profile-cta-inner{flex-direction:column;align-items:stretch;text-align:center;}
+  .profile-cta-text p{max-width:none;}
+  .profile-card--cta .btn-lg{text-align:center;}
+  .profile-card{max-width:none;}
+}
+
 /* Onboarding */
 .onb-overlay{position:fixed;inset:0;background:rgba(38,48,31,.55);backdrop-filter:blur(6px);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;}
 .onb-card{background:var(--card);border-radius:24px;padding:40px 36px;max-width:480px;width:100%;position:relative;overflow:hidden;}

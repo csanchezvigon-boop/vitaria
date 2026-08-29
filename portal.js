@@ -548,7 +548,7 @@ function selectedChips(id){
 /* Views & Tabs */
 function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==id));}
 document.querySelectorAll('.dash-tab').forEach(t=>t.addEventListener('click',()=>activateTab(t.dataset.tab)));
-function activateTab(n){document.querySelectorAll('.dash-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===n));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden',t.id!=='tab-'+n));const u=currentUser();if(!u)return;if(n==='hoy')renderHoy(u);if(n==='semana')renderSemana(u);if(n==='evaluacion')renderEvaluacion(u);if(n==='lista')renderLista(u);if(n==='perfil')renderPerfil(u);if(n==='bienestar')applyBienGating(u);window.scrollTo({top:0,behavior:'smooth'});}
+function activateTab(n){document.querySelectorAll('.dash-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===n));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden',t.id!=='tab-'+n));const u=currentUser();if(!u)return;if(n==='hoy')renderHoy(u);if(n==='semana')renderSemana(u);if(n==='evaluacion')renderEvaluacion(u);if(n==='lista')renderLista(u);if(n==='perfil')renderPerfil(u);if(n==='bienestar')applyBienGating(u);if(n==='dieta')autoGenDieta(u);window.scrollTo({top:0,behavior:'smooth'});}
 function applyBienGating(u){const locked=u.plan==='pro';document.querySelectorAll('.bien-btn').forEach(b=>{const k=b.dataset.bien;const needLock=locked&&(k==='ayuno'||k==='recuperacion');b.classList.toggle('locked',needLock);if(needLock){b.onclick=()=>{setMsg('#perfilMsg','🔒 Upgrade a Premium para acceder a Ayuno y Recuperación. Plan Premium 40€/mes.','err');};}else{b.onclick=null;}});}
 document.querySelectorAll('.bien-btn').forEach(b=>b.addEventListener('click',()=>{if(b.classList.contains('locked'))return;document.querySelectorAll('.bien-btn').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.bien-content').forEach(c=>c.classList.toggle('hidden',c.id!=='bien-'+b.dataset.bien));}));
 
@@ -1145,9 +1145,8 @@ function renderTrainPrefs(u){
   $('#perfNoComer').value=u.noComer||'';
 }
 $('#perfTrainSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;saveTrainPrefs(u);setMsg('#perfilMsg','Preferencias guardadas.','ok');});
-function genDietaYMostrar(u){
-  if(!u.physical||!u.physical.altura){setMsg('#perfilMsg','Primero actualiza tus datos físicos (altura, peso, edad, sexo, actividad).','err');return;}
-  saveTrainPrefs(u);
+function autoGenDieta(u){
+  if(!u.physical||!u.physical.altura){$('#dietaContent').innerHTML='<div class="section-head"><p class="eyebrow">Dieta</p><h2>Configura tu perfil</h2><p>Introduce tus datos físicos y de entrenamiento en la pestaña Perfil para generar tu dieta personalizada.</p></div>';return;}
   const objetivoMap={'Reset & Build':'ganancia','Regular el peso':'perdida','Ganar masa muscular':'ganancia'};
   const datos={
     edad:u.physical.edad,
@@ -1249,7 +1248,6 @@ function verListaCompra(){
   });
   $('#dietaContent').innerHTML=html;
 }
-$('#btnGenDieta').addEventListener('click',()=>{const u=currentUser();if(u)genDietaYMostrar(u);});
 /* Init */
 (function init(){
   if(!getUsers().length){

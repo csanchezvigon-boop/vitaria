@@ -1,11 +1,39 @@
 (()=>{
 'use strict';
+console.log('[APP VERSION] portal.js FIX-ALLERGENS');
 const $=s=>document.querySelector(s);
 const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Tu dieta, sin extras',features:['Dieta personalizada','Menú semanal completo con recetas y cantidades','Sustituciones y filtrado por alergias','Lista de la compra semanal']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal','Protocolos avanzados: ayuno, recuperación y suplementación']},premium:{name:'Premium',price:'40 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas','Protocolos avanzados: ayuno, recuperación y suplementación']}};
 const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const ALERGIAS=['Lácteos','Frutos secos','Pescado','Otra…','Ninguna'];
-const ALLERGEN_RX=[['Lácteos',/yogur|queso|feta|mozzarella|kéfir|kefir|requesón|requeson|leche|mantequilla|cuajada/i],['Pescado',/salm[oó]n|merluza|caballa|at[uú]n|bonito|sardina|trucha|lubina|dorada|pescado|bacalao|ahumado|poke/i],['Frutos secos',/nueces|almendra|avellana|anacardo|pistacho|cacahuete/i]];
-function dishHasAllergen(name,alergias){return ALLERGEN_RX.some(a=>alergias.includes(a[0])&&a[1].test(name));}
+const ALLERGEN_RX=[
+  ['Lácteos',/yogur|queso|feta|mozzarella|kéfir|kefir|requesón|requeson|leche|mantequilla|cuajada|natas|crema de leche|suero|whey|ricotta|mascarpone|helado|bechamel|salsa blanca/i],
+  ['Pescado',/salm[oó]n|merluza|caballa|at[uú]n|bonito|sardina|trucha|lubina|dorada|pescado|bacalao|ahumado|poke|calamares|rape|anchoa|boquerón|jurel|corvina/i],
+  ['Frutos secos',/nueces|almendra|avellana|anacardo|pistacho|cacahuete|piñón|piñones|tahini|sésamo|sesamo|crema de almendra|crema de cacahuete|mantequilla de almendra/i],
+  ['Marisco',/gambas?|langostino|camarón|camarones|mejillones?|almejas?|pulpo|cangrejo|centollo|vieira|ostras?|berberecho|navaja|marisco/i],
+  ['Huevo',/huevo|tortilla|omelette|revuelto|claras? de huevo|yema/i],
+  ['Soja',/soja|soya|tofu|tempeh|edamame|seit[aá]n|salsa de soja|teriyaki|leche de soja|bebida de soja|yogur de soja|miso|harina de soja|prote[ií]na de soja|texturizado/i],
+  ['Gluten',/trigo|harina|pan integral|pan blanco|pan de centeno|pasta integral|pasta de espelta|espaguetis|cuscús|bulgur|cebada|centeada|espelta|galleta|bizcocho|tarta|pizza|granola|avena|copos de avena/i]
+];
+function dishHasAllergen(name,alergias){
+  if(!alergias||alergias.length===0)return false;
+  const filtered=alergias.filter(a=>a&&a!=='Ninguna'&&a!=='Otra…');
+  if(filtered.length===0)return false;
+  if(checkAllergen(name,filtered))return true;
+  for(const [cat,rx] of ALLERGEN_RX){
+    if(filtered.includes(cat)&&rx.test(name))return true;
+  }
+  const det=MEAL_DETAILS[name]||W_MEAL_DETAILS[name]||M_MEAL_DETAILS[name]||null;
+  if(det&&det.items){
+    for(const item of det.items){
+      const itemName=typeof item==='string'?item:item[1]||item[0]||'';
+      if(checkAllergen(itemName,filtered))return true;
+      for(const [cat,rx] of ALLERGEN_RX){
+        if(filtered.includes(cat)&&rx.test(itemName))return true;
+      }
+    }
+  }
+  return false;
+}
 const ACT_FACTORS={sedentario:1.2,ligero:1.375,moderado:1.55,intenso:1.725};
 
 const MEALS={Equilibrada:{desayuno:['Avena con fruta y nueces','Tostada integral con aguacate y huevo','Yogur natural con fruta y semillas'],comida:['Lentejas con verduras y arroz integral','Pollo al horno, quinoa y brócoli','Garbanzos salteados con espinaca'],cena:['Pescado a la plancha con ensalada','Crema de calabacín y huevo cocido','Tortilla de espinacas y ensalada']},Vegetariana:{desayuno:['Porridge de avena y plátano','Tostada con queso fresco y tomate','Yogur con granola y frutos rojos'],comida:['Garbanzos salteados con espinaca','Bowl de quinoa, hummus y verduras','Pasta integral con verduras al pesto'],cena:['Crema de calabacín y huevo cocido','Revuelto de tofu con champiñones','Ensalada de lentejas y queso feta']},Vegana:{desayuno:['Batido de avena, plátano y cacao','Avena nocturna con bebida de almendra','Tostada con hummus y tomate'],comida:['Tofu salteado con verduras y quinoa','Curry de garbanzos y arroz integral','Pisto con alubias y pan integral'],cena:['Crema de boniato y garbanzos','Salteado de verduras con fideos de arroz','Ensalada de quinoa, aguacate y maíz']},"Sin gluten":{desayuno:['Pan de trigo sarraceno con aguacate','Yogur con fruta y semillas','Huevos revueltos con tomate'],comida:['Arroz integral con pollo y brócoli','Salmorejo con atún y huevo','Garbanzos con espinaca y comino'],cena:['Tortilla de espinacas y ensalada','Pescado al horno con verduras','Crema de calabaza con semillas']}};
@@ -202,8 +230,8 @@ const SUBSTITUTION_GROUPS={
 'VC':['Brócoli','Coliflor','Coles','Coles de Bruselas'],
 'VF':['Judías verdes','Espárragos trigueros']};
 const GROUP_NAMES={'PA':'Proteína grasa','PB':'Proteína magra','PL':'Proteína láctea','HA':'HC complejos','HB':'HC derivados','GR':'Grasas','FB':'Fruta base','FA':'Fruta azucarada','FR':'Frutos rojos','VH':'Verdura hoja','VN':'Verdura neutra','VR':'Verdura raíz','VC':'Crucífera','VF':'Verdura fibrosa'};
-const MEAL_ICONS={desayuno:'🌅',comida:'☀️',cena:'🌙'};
-const MEAL_LABELS={desayuno:'Desayuno',comida:'Comida',cena:'Cena'};
+const MEAL_ICONS={desayuno:'🌅',comida:'☀️',cena:'🌙',media_mañana:'🍎',merienda:'🥤',snack:'🥜',post_entreno:'💪'};
+const MEAL_LABELS={desayuno:'Desayuno',comida:'Comida',cena:'Cena',media_mañana:'Media mañana',merienda:'Merienda',snack:'Snack',post_entreno:'Post-entreno'};
 
 /* Storage */
 function getUsers(){try{return JSON.parse(localStorage.getItem('vitaria_users')||'[]')}catch(e){return[]}}
@@ -264,26 +292,19 @@ const DIET_VEGANO={
     Domingo:{desayuno:'Huevos de tofu (200 g) con especias y aguacate',comida:'Paella de verduras y marisco vegetal (80 g arroz en seco)',snack:'Hummus (100 g) y pan pita',cena:'Lasaña de berenjenas con bechamel de anacardos'}
   }
 };
-const DIET_MEDITERRANEO={
-  regular:{
-    Lunes:{desayuno:'Tostadas integrales con tomate y aceite de oliva',comida:'Salmón a la plancha con quinoa y verduras',snack:'Fruta de temporada',cena:'Merluza al horno con patata y cebolla'},
-    Martes:{desayuno:'Huevos revueltos con espinaca y queso feta',comida:'Ensalada griega con pollo a la plancha',snack:'Aceitunas y frutos secos',cena:'Pasta integral con salsa de tomate y albahaca'},
-    Miércoles:{desayuno:'Yogur griego con miel y nueces',comida:'Paella de marisco y verduras',snack:'Hummus con pan pita',cena:'Lubina al horno con limón y hierbas'},
-    Jueves:{desayuno:'Tostadas con aguacate y huevo pochado',comida:'Guiso de garbanzos con espinaca y chorizo',snack:'Tomates cherry con mozzarella',cena:'Pollo al horno con aceitunas y limón'},
-    Viernes:{desayuno:'Smoothie de frutos rojos y yogur',comida:'Ensalada de atún con huevo cocido y verduras',snack:'Queso fresco con miel',cena:'Calamares a la plancha con ensalada'},
-    Sábado:{desayuno:'Tortilla española con ensalada',comida:'Arroz con verduras y marisco',snack:'Fruta seca y almendras',cena:'Sardinas a la plancha con pimientos'},
-    Domingo:{desayuno:'Huevos Benedict con espinaca',comida:'Cordero al horno con verduras mediterráneas',snack:'Yogur griego con fruta',cena:'Bacalao al pil-pil con patatas'}
-  },
-  ganar:{
-    Lunes:{desayuno:'Tostadas integrales (3 uds) con tomate y aceite de oliva',comida:'Salmón (200 g) a la plancha con quinoa (80 g en seco) y verduras',snack:'Fruta + frutos secos (40 g)',cena:'Merluza (200 g) al horno con patata (200 g) y cebolla'},
-    Martes:{desayuno:'Huevos revueltos (3 uds) con espinaca y queso feta',comida:'Ensalada griega con pollo (200 g) a la plancha',snack:'Aceitunas (15 uds) y frutos secos (30 g)',cena:'Pasta integral (80 g en seco) con salsa de tomate y albahaca'},
-    Miércoles:{desayuno:'Yogur griego (200 g) con miel y nueces (30 g)',comida:'Paella de marisco y verduras (100 g arroz en seco)',snack:'Hummus (100 g) con pan pita',cena:'Lubina (200 g) al horno con limón y hierbas'},
-    Jueves:{desayuno:'Tostadas (3 uds) con aguacate y huevo pochado',comida:'Guiso de garbanzos (150 g) con espinaca y chorizo',snack:'Tomates cherry (150 g) con mozzarella (100 g)',cena:'Pollo (200 g) al horno con aceitunas y limón'},
-    Viernes:{desayuno:'Smoothie de frutos rojos y yogur + avena (40 g)',comida:'Ensalada de atún (150 g) con huevo cocido y verduras',snack:'Queso fresco (100 g) con miel',cena:'Calamares (200 g) a la plancha con ensalada'},
-    Sábado:{desayuno:'Tortilla española (4 huevos) con ensalada',comida:'Arroz (80 g en seco) con verduras y marisco',snack:'Fruta seca (40 g) y almendras (30 g)',cena:'Sardinas (200 g) a la plancha con pimientos'},
-    Domingo:{desayuno:'Huevos Benedict (4 uds) con espinaca',comida:'Cordero (200 g) al horno con verduras mediterráneas',snack:'Yogur griego (200 g) con fruta',cena:'Bacalao (200 g) al pil-pil con patatas'}
-  }
-};
+const DIET_MED_WEEKS=[
+{Lunes:{desayuno:'Tostadas integrales con tomate y aceite de oliva',comida:'Salmón a la plancha con quinoa y verduras',cena:'Merluza al horno con patata y cebolla'},Martes:{desayuno:'Huevos revueltos con espinaca y queso feta',comida:'Ensalada griega con pollo a la plancha',cena:'Pasta integral con salsa de tomate y albahaca'},Miércoles:{desayuno:'Yogur griego con miel y nueces',comida:'Paella de marisco y verduras',cena:'Lubina al horno con limón y hierbas'},Jueves:{desayuno:'Tostadas con aguacate y huevo pochado',comida:'Guiso de garbanzos con espinaca y chorizo',cena:'Pollo al horno con aceitunas y limón'},Viernes:{desayuno:'Smoothie de frutos rojos y yogur',comida:'Ensalada de atún con huevo cocido y verduras',cena:'Calamares a la plancha con ensalada'},Sábado:{desayuno:'Tortilla española con ensalada',comida:'Arroz con verduras y marisco',cena:'Sardinas a la plancha con pimientos'},Domingo:{desayuno:'Huevos Benedict con espinaca',comida:'Cordero al horno con verduras mediterráneas',cena:'Bacalao al pil-pil con patatas'}},
+{Lunes:{desayuno:'Porridge de avena con nueces y miel',comida:'Pollo al horno con patata y romero',cena:'Sardinas a la parrilla con ensalada'},Martes:{desayuno:'Tostadas de centeno con aguacate y huevo',comida:'Arroz integral con verduras y pollo',cena:'Merluza con espinacas y ajo'},Miércoles:{desayuno:'Yogur griego con frutos rojos',comida:'Lentejas guisadas con verduras',cena:'Salmón al horno con espárragos'},Jueves:{desayuno:'Huevos pochados con espinaca',comida:'Pasta integral con atún y tomate',cena:'Pollo a la plancha con quinoa'},Viernes:{desayuno:'Tostadas integrales con pavo y aguacate',comida:'Ensalada de garbanzos con verduras asadas',cena:'Lubina al horno con limón'},Sábado:{desayuno:'Tortilla de espinacas',comida:'Paella de pollo y verduras',cena:'Sardinas con pimientos asados'},Domingo:{desayuno:'Smoothie de frutos rojos',comida:'Cordero al horno con patata',cena:'Bacalao con verduras al horno'}},
+{Lunes:{desayuno:'Avena con plátano y canela',comida:'Salmón a la plancha con boniato',cena:'Merluza con calabacín y ajo'},Martes:{desayuno:'Tostadas integrales con tomate',comida:'Pollo con arroz y verduras',cena:'Sardinas a la plancha con ensalada'},Miércoles:{desayuno:'Yogur con miel y nueces',comida:'Guiso de garbanzos con espinaca',cena:'Lubina al horno con limón y hierbas'},Jueves:{desayuno:'Huevos revueltos con espinaca',comida:'Pasta integral con verduras',cena:'Salmón con espárragos'},Viernes:{desayuno:'Tostadas de centeno con huevo',comida:'Ensalada de atún con verduras',cena:'Pollo al horno con aceitunas'},Sábado:{desayuno:'Porridge de avena',comida:'Arroz con marisco',cena:'Merluza con patata asada'},Domingo:{desayuno:'Tortilla española',comida:'Cordero con verduras',cena:'Bacalao al pil-pil'}},
+{Lunes:{desayuno:'Huevos revueltos con espinaca',comida:'Salmón con quinoa y verduras',cena:'Sardinas a la parrilla'},Martes:{desayuno:'Tostadas integrales con aguacate',comida:'Pollo al horno con boniato',cena:'Merluza con espinacas'},Miércoles:{desayuno:'Yogur griego con frutos rojos',comida:'Lentejas con verduras y arroz',cena:'Lubina al horno con limón'},Jueves:{desayuno:'Porridge de avena con nueces',comida:'Pasta integral con atún',cena:'Pollo a la plancha con quinoa'},Viernes:{desayuno:'Tostadas de centeno con huevo',comida:'Ensalada de garbanzos',cena:'Salmón con espárragos'},Sábado:{desayuno:'Tortilla de espinacas',comida:'Arroz con verduras',cena:'Sardinas con pimientos'},Domingo:{desayuno:'Smoothie de frutos rojos',comida:'Cordero al horno',cena:'Bacalao con verduras'}}
+];
+const DIET_MASS_MED_WEEKS=[
+{Lunes:{desayuno:'Tostadas integrales (3 uds) con tomate y aceite de oliva',comida:'Salmón (200 g) a la plancha con quinoa (80 g en seco) y verduras',snack:'Fruta + frutos secos (40 g)',cena:'Merluza (200 g) al horno con patata (200 g) y cebolla'},Martes:{desayuno:'Huevos revueltos (3 uds) con espinaca y queso feta',comida:'Ensalada griega con pollo (200 g) a la plancha',snack:'Aceitunas (15 uds) y frutos secos (30 g)',cena:'Pasta integral (80 g en seco) con salsa de tomate y albahaca'},Miércoles:{desayuno:'Yogur griego (200 g) con miel y nueces (30 g)',comida:'Paella de marisco y verduras (100 g arroz en seco)',snack:'Hummus (100 g) con pan pita',cena:'Lubina (200 g) al horno con limón y hierbas'},Jueves:{desayuno:'Tostadas (3 uds) con aguacate y huevo pochado',comida:'Guiso de garbanzos (150 g) con espinaca y chorizo',snack:'Tomates cherry (150 g) con mozzarella (100 g)',cena:'Pollo (200 g) al horno con aceitunas y limón'},Viernes:{desayuno:'Smoothie de frutos rojos y yogur + avena (40 g)',comida:'Ensalada de atún (150 g) con huevo cocido y verduras',snack:'Queso fresco (100 g) con miel',cena:'Calamares (200 g) a la plancha con ensalada'},Sábado:{desayuno:'Tortilla española (4 huevos) con ensalada',comida:'Arroz (80 g en seco) con verduras y marisco',snack:'Fruta seca (40 g) y almendras (30 g)',cena:'Sardinas (200 g) a la plancha con pimientos'},Domingo:{desayuno:'Huevos Benedict (4 uds) con espinaca',comida:'Cordero (200 g) al horno con verduras mediterráneas',snack:'Yogur griego (200 g) con fruta',cena:'Bacalao (200 g) al pil-pil con patatas'}},
+{Lunes:{desayuno:'Porridge de avena (80 g) con nueces (30 g) y miel',comida:'Pollo al horno (200 g) con patata (200 g) y romero',snack:'Fruta + almendras (30 g)',cena:'Sardinas (200 g) a la parrilla con ensalada y aceite de oliva'},Martes:{desayuno:'Tostadas de centeno (3 uds) con aguacate (½) y huevo',comida:'Arroz integral (80 g en seco) con verduras y pollo (200 g)',snack:'Hummus (100 g) con pan pita',cena:'Merluza (200 g) con espinacas y ajo'},Miércoles:{desayuno:'Yogur griego (200 g) con frutos rojos y granola (30 g)',comida:'Lentejas (100 g en seco) guisadas con verduras',snack:'Nueces (40 g) y fruta',cena:'Salmón (200 g) al horno con espárragos'},Jueves:{desayuno:'Huevos pochados (3 uds) con espinaca y tostada',comida:'Pasta integral (80 g en seco) con atún (150 g) y tomate',snack:'Queso fresco (80 g) con fruta',cena:'Pollo (200 g) a la plancha con quinoa (80 g en seco)'},Viernes:{desayuno:'Tostadas integrales (3 uds) con pavo (80 g) y aguacate',comida:'Ensalada de garbanzos (150 g) con verduras asadas',snack:'Barrita de frutos secos + fruta',cena:'Lubina (200 g) al horno con limón y hierbas'},Sábado:{desayuno:'Tortilla de espinacas (4 huevos)',comida:'Paella de pollo (200 g) y verduras (100 g arroz en seco)',snack:'Fruta seca (40 g) y almendras (30 g)',cena:'Sardinas (200 g) con pimientos asados'},Domingo:{desayuno:'Smoothie de frutos rojos (300 ml) + avena (40 g)',comida:'Cordero (200 g) al horno con patata (200 g)',snack:'Yogur griego (200 g) con miel',cena:'Bacalao (200 g) con verduras al horno'}},
+{Lunes:{desayuno:'Avena (80 g) con plátano y canela + nueces (30 g)',comida:'Salmón (200 g) a la plancha con boniato (200 g)',snack:'Hummus (100 g) con pan pita',cena:'Merluza (200 g) con calabacín y ajo'},Martes:{desayuno:'Tostadas integrales (3 uds) con tomate y mozzarella',comida:'Pollo (200 g) con arroz (80 g) y verduras',snack:'Fruta + almendras (30 g)',cena:'Sardinas (200 g) a la plancha con ensalada'},Miércoles:{desayuno:'Yogur (200 g) con miel y nueces (30 g)',comida:'Guiso de garbanzos (150 g) con espinaca',snack:'Queso fresco (80 g) con fruta',cena:'Lubina (200 g) al horno con limón y hierbas'},Jueves:{desayuno:'Huevos revueltos (3 uds) con espinaca',comida:'Pasta integral (80 g en seco) con verduras',snack:'Nueces (40 g) y fruta',cena:'Salmón (200 g) con espárragos'},Viernes:{desayuno:'Tostadas de centeno (3 uds) con huevo y aguacate',comida:'Ensalada de atún (150 g) con verduras',snack:'Barrita de frutos secos + fruta',cena:'Pollo (200 g) al horno con aceitunas'},Sábado:{desayuno:'Porridge de avena (80 g)',comida:'Arroz (80 g en seco) con marisco',snack:'Hummus (100 g) con pan pita',cena:'Merluza (200 g) con patata asada'},Domingo:{desayuno:'Tortilla española (4 huevos)',comida:'Cordero (200 g) con verduras',snack:'Yogur griego (200 g) con fruta',cena:'Bacalao (200 g) al pil-pil'}},
+{Lunes:{desayuno:'Huevos revueltos (3 uds) con espinaca',comida:'Salmón (200 g) con quinoa (80 g en seco) y verduras',snack:'Fruta + almendras (30 g)',cena:'Sardinas (200 g) a la parrilla'},Martes:{desayuno:'Tostadas integrales (3 uds) con aguacate',comida:'Pollo (200 g) al horno con boniato (200 g)',snack:'Nueces (40 g) y fruta',cena:'Merluza (200 g) con espinacas'},Miércoles:{desayuno:'Yogur griego (200 g) con frutos rojos',comida:'Lentejas (100 g en seco) con verduras y arroz (80 g)',snack:'Hummus (100 g) con pan pita',cena:'Lubina (200 g) al horno con limón'},Jueves:{desayuno:'Porridge de avena (80 g) con nueces (30 g)',comida:'Pasta integral (80 g en seco) con atún (150 g)',snack:'Queso fresco (80 g) con fruta',cena:'Pollo (200 g) a la plancha con quinoa (80 g)'},Viernes:{desayuno:'Tostadas de centeno (3 uds) con huevo',comida:'Ensalada de garbanzos (150 g)',snack:'Barrita de frutos secos + fruta',cena:'Salmón (200 g) con espárragos'},Sábado:{desayuno:'Tortilla de espinacas (4 huevos)',comida:'Arroz (80 g en seco) con verduras',snack:'Fruta seca (40 g) y almendras (30 g)',cena:'Sardinas (200 g) con pimientos'},Domingo:{desayuno:'Smoothie de frutos rojos (300 ml)',comida:'Cordero (200 g) al horno',snack:'Yogur griego (200 g) con miel',cena:'Bacalao (200 g) con verduras'}}
+];
+const DIET_MEDITERRANEO={regular:DIET_MED_WEEKS,ganar:DIET_MASS_MED_WEEKS};
 const DIET_VEGETARIANO={
   regular:{
     Lunes:{desayuno:'Tostadas integrales con huevo revuelto y aguacate',comida:'Pasta integral con verduras y queso parmesano',snack:'Fruta de temporada',cena:'Tortilla de espinacas y champiñones con ensalada'},
@@ -304,35 +325,57 @@ const DIET_VEGETARIANO={
     Domingo:{desayuno:'Huevos Benedict vegetarianos (4 uds) con espinaca',comida:'Risotto de espárragos (80 g arroz) y parmesano (40 g)',snack:'Yogur griego (200 g) con fruta',cena:'Tarta de verduras con masa filo (2 porciones)'}
   }
 };
-const DIET_PLANS={cetogenico:DIET_KETO,vegano:DIET_VEGANO,mediterraneo:DIET_MEDITERRANEO,vegetariano:DIET_VEGETARIANO};
-function newMenu(tipo,alergias,wi,objetivo,dieta){
+const DIET_PLANS={cetogenica:DIET_KETO,vegana:DIET_VEGANO,mediterranea:DIET_MEDITERRANEO,vegetariana:DIET_VEGETARIANO};
+function newMenu(tipo,alergias,wi,objetivo,dieta,user){
   dieta=dieta||'todos';
-  const isPaleo=dieta==='paleo';
+  const numComidas=user&&user.numComidas||4;
   let src;
   if(dieta!=='todos'&&DIET_PLANS[dieta]){
     const objKey=objetivo==='Regular el peso'?'regular':objetivo==='Ganar masa muscular'?'ganar':'regular';
     if(DIET_PLANS[dieta][objKey])src=DIET_PLANS[dieta][objKey];
   }
   if(!src)src=objetivo==='Regular el peso'?WEIGHT_WEEKS:objetivo==='Ganar masa muscular'?MASS_WEEKS:WEEKS;
+  if(!Array.isArray(src))src=[src];
   const w=src[(wi||0)%src.length];
   alergias=(alergias||[]).filter(a=>a!=='Ninguna');
-  const hasSnack=dieta!=='todos';
-  const slots4=['desayuno','comida','snack','cena'];
-  const slots5=['desayuno','media_mañana','comida','merienda','cena'];
-  const mts=hasSnack?slots4:slots5;
+  const slotCfg=makeSlots(numComidas);
+  const mts=slotCfg.list;
+  const pcts=slotCfg.pct;
+  let targetCal=null;
+  if(user&&user.physical){
+    const ph=user.physical;
+    const bmr=calcBMR(ph.sexo||'hombre',ph.peso||70,ph.altura||175,ph.edad||30);
+    const mult=activityMultiplier(ph.actividad||'moderado',user.entreno?.dias||3,user.entreno?.duracion||60,user.entreno?.tipo||'gimnasio');
+    const tdee=calcTDEE(bmr,mult);
+    targetCal=adjustCalories(tdee,user.objetivo||objetivo);
+  }
   return DIAS.map((dia,i)=>{
-    const slots={};
+    const dayMeals={};
     mts.forEach((k,si)=>{
       let n=w[dia]&&w[dia][k];
+      if(!n){
+        const fallbackSlots=['desayuno','comida','merienda','cena','media_mañana','snack','post_entreno'];
+        for(const fb of fallbackSlots){
+          if(w[dia]&&w[dia][fb]&&mts.includes(fb)){n=w[dia][fb];break;}
+        }
+      }
       if(!n)return;
       if(dishHasAllergen(n,alergias)){
         const pool=[];
-        src.forEach(wk=>DIAS.forEach(d=>{const cand=wk[d]&&wk[d][k];if(cand&&!pool.includes(cand)&&!dishHasAllergen(cand,alergias))pool.push(cand);}));
+        src.forEach(wk=>DIAS.forEach(d=>{for(const sl of mts){const cand=wk[d]&&wk[d][sl];if(cand&&!pool.includes(cand)&&!dishHasAllergen(cand,alergias))pool.push(cand);}}));
         if(pool.length)n=pool[(i*2+si)%pool.length];
       }
-      slots[k]=n;
+      if(targetCal){
+        dayMeals[k]={n,cal:Math.round(targetCal*(pcts[k]||.20))};
+      }else{
+        dayMeals[k]=n;
+      }
     });
-    return{dia,tag:'',desayuno:slots.desayuno||'',media_mañana:slots.media_mañana||'',comida:slots.comida||'',merienda:slots.merienda||'',cena:slots.cena||'',snack:slots.snack||''};
+    const dayTotal=targetCal?mts.reduce((s,k)=>s+(dayMeals[k]?.cal||0),0):0;
+    const result={dia,tag:''};
+    mts.forEach(k=>{result[k]=dayMeals[k]||'';});
+    result.dayCal=dayTotal||null;
+    return result;
   });
 }
 /* 4 semanas en bucle — variantes creadas con sustituciones 1×1 del mismo grupo */
@@ -386,7 +429,7 @@ const MASS_WEEKS=[
 {Lunes:{desayuno:'Tortilla de claras (4 uds) con espinaca, cebolla, champiñón y pimiento + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de pollo con estragón y Dijon (2 raciones) + Batido de piña y frambuesa',cena:'Bistec simple (1 ración) + Ensalada de frutas clásica con frutos secos',snack:'Ensalada picante de plátano macho (1½ ración)'},Martes:{desayuno:'Huevos revueltos (2 uds) + Batido de açaí (3 tazas)',comida:'Ensalada de atún con sésamo (1½ ración) + Batido de canela, plátano y nectarina',cena:'Pollo con gravy de chipotle (1½ ración) + Ensalada de pimientos y tomate con aguacate',snack:'Manzana con mantequilla de almendra (1 manzana + 2 cda)'},Miércoles:{desayuno:'Revuelto de espinaca y champiñón (2 raciones) + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada batida de frambuesa (2 raciones) + Batido de plátano, coco y verduras verdes',cena:'Sopa picante de pollo (1½ ración) + Ensalada de kale y pepino con aguacate',snack:'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras'},Jueves:{desayuno:'Zumo verde de jengibre (1 ración) + Batata al microondas (1 batata)',comida:'Ensalada de atún y aguacate (1½ ración) + Batido de piña y frambuesa',cena:'Salteado de bacalao (1½ ración) + Ensalada de piña y aguacate',snack:'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras'},Viernes:{desayuno:'Huevos revueltos (3 uds) + Batido de sandía y açaí (3 tazas)',comida:'Ensalada de atún y aguacate (1½ ración) + Zumo verde variado (1 ración)',cena:'Pollo con gravy de chipotle (1½ ración) + Ensalada de pimientos y tomate con aguacate',snack:'Manzana con mantequilla de almendra (1 manzana + 2 cda)'},Sábado:{desayuno:'Tortilla de claras (4 uds) con espinaca, cebolla, champiñón y pimiento + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de pollo con estragón y Dijon (2 raciones) + Batido de piña y frambuesa',cena:'Bistec simple (1 ración) + Ensalada de frutas clásica con frutos secos',snack:'Ensalada picante de plátano macho (1½ ración)'},Domingo:{desayuno:'Huevos revueltos (2 uds) + Batido de açaí (3 tazas)',comida:'Ensalada de atún con sésamo (1½ ración) + Batido de canela, plátano y nectarina',cena:'Sopa picante de pollo (1½ ración) + Ensalada de kale y pepino con aguacate',snack:'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras'}},
 {Lunes:{desayuno:'Revuelto de espinaca y champiñón (2 raciones) + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de atún y aguacate (1½ ración) + Zumo verde variado (1 ración)',cena:'Pollo con gravy de chipotle (1½ ración) + Ensalada de pimientos y tomate con aguacate',snack:'Manzana con mantequilla de almendra (1 manzana + 2 cda)'},Martes:{desayuno:'Zumo verde de jengibre (1 ración) + Batata al microondas (1 batata)',comida:'Ensalada de pollo con estragón y Dijon (2 raciones) + Batido de piña y frambuesa',cena:'Salteado de bacalao (1½ ración) + Ensalada de piña y aguacate',snack:'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras'},Miércoles:{desayuno:'Huevos revueltos (3 uds) + Batido de sandía y açaí (3 tazas)',comida:'Ensalada batida de frambuesa (2 raciones) + Batido de plátano, coco y verduras verdes',cena:'Sopa picante de pollo (1½ ración) + Ensalada de kale y pepino con aguacate',snack:'Ensalada picante de plátano macho (1½ ración)'},Jueves:{desayuno:'Tortilla de claras (4 uds) con espinaca, cebolla, champiñón y pimiento + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de atún con sésamo (1½ ración) + Batido de canela, plátano y nectarina',cena:'Bistec simple (1 ración) + Ensalada de frutas clásica con frutos secos',snack:'Manzana con mantequilla de almendra (1 manzana + 2 cda)'},Viernes:{desayuno:'Huevos revueltos (2 uds) + Batido de açaí (3 tazas)',comida:'Ensalada de atún y aguacate (1½ ración) + Batido de piña y frambuesa',cena:'Pollo con gravy de chipotle (1½ ración) + Ensalada de pimientos y tomate con aguacate',snack:'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras'},Sábado:{desayuno:'Revuelto de espinaca y champiñón (2 raciones) + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de pollo con estragón y Dijon (2 raciones) + Batido de piña y frambuesa',cena:'Sopa picante de pollo (1½ ración) + Ensalada de kale y pepino con aguacate',snack:'Manzana con mantequilla de almendra (1 manzana + 2 cda)'},Domingo:{desayuno:'Tortilla de claras (4 uds) con espinaca, cebolla, champiñón y pimiento + Plátano, frutos rojos y chocolate amargo',comida:'Ensalada de atún con sésamo (1½ ración) + Batido de canela, plátano y nectarina',cena:'Salteado de bacalao (1½ ración) + Ensalada de piña y aguacate',snack:'Ensalada picante de plátano macho (1½ ración)'}}
 ];
-DIET_PLANS.paleo={regular:WEIGHT_WEEKS[0],ganar:MASS_WEEKS[0]};
+DIET_PLANS.paleo={regular:WEIGHT_WEEKS,ganar:MASS_WEEKS};
 const W_MEAL_DETAILS={
 'Yogur proteico con avena y plátano':{items:[['150 g','Yogur natural alto en proteína','PL'],['40 g','Avena en copos','HB'],['1 uds','Plátano','FA'],['','Canela',null,1]],note:'Media mañana: manzana + 15 g de almendras.'},
 'Huevos revueltos con tostadas integrales y naranja':{items:[['2 uds','Huevos revueltos','PA'],['2 uds','Tostadas de pan integral','HB'],['1 uds','Naranja','FB']],note:'Media mañana: yogur alto en proteína.'},
@@ -480,7 +523,8 @@ $('#registerForm').addEventListener('submit',e=>{
   if(pw.length<6){setMsg('#regMsg','Mínimo 6 caracteres.','err');return;}
   if(pw!==pw2){setMsg('#regMsg','Las contraseñas no coinciden.','err');return;}
   if(getUsers().some(u=>u.email===email)){setMsg('#regMsg','Ya existe una cuenta con ese correo.','err');return;}
-  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,dietaType:'todos',createdAt:new Date().toISOString(),mv:2,menu:newMenu(tipo,alergias,0,objetivo,'todos'),menuObj:objetivo,consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
+  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,dietaType:'todos',createdAt:new Date().toISOString(),mv:2,menu:[],menuObj:objetivo,consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
+  try{user.menu=newMenu(tipo,alergias,0,objetivo,'todos',user);}catch(e){console.error('newMenu reg error:',e);user.menu=[];}
   setUsers([...getUsers(),user]);setSession(email);showOnboarding();
 });
 
@@ -488,11 +532,11 @@ $('#regPlans').addEventListener('click',e=>{const c=e.target.closest('.chip');if
 
 function enterPortal(){
   let u=currentUser();if(!u){showView('view-auth');showAuth('login');return;}
-  if(u.objetivo!=='Regular el peso'&&u.objetivo!=='Reset & Build')u.objetivo='Reset & Build';
+  if(u.objetivo!=='Regular el peso'&&u.objetivo!=='Equilibrado'&&u.objetivo!=='Ganar masa muscular')u.objetivo='Equilibrado';
   /* Migración: si existe u.dieta (antiguo) pero no u.dietaType, migrar */
   if(!u.dietaType){u.dietaType=u.dieta||'todos';delete u.dieta;saveUser(u);}
-  if(u.mv!==2){u.menu=newMenu(u.tipo,u.alergias||[],u.weekIdx||0,u.objetivo,u.dietaType);u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
-  if(!u.menuObj||u.menuObj!==u.objetivo){u.weekIdx=0;u.menu=newMenu(u.tipo,u.alergias||[],0,u.objetivo,u.dietaType);u.menuObj=u.objetivo;u.subs={};u.consumed={};u.glassed={};saveUser(u);}
+  if(u.mv!==2){try{u.menu=newMenu(u.tipo,u.alergias||[],u.weekIdx||0,u.objetivo,u.dietaType,u);}catch(e){console.error('newMenu mv error:',e);u.menu=u.menu||[];}u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
+  if(!u.menuObj||u.menuObj!==u.objetivo){u.weekIdx=0;try{u.menu=newMenu(u.tipo,u.alergias||[],0,u.objetivo,u.dietaType,u);}catch(e){console.error('newMenu objetivo error:',e);u.menu=u.menu||[];}u.menuObj=u.objetivo;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
   if(u.weekIdx==null){u.weekIdx=0;saveUser(u);}
   showView('view-dashboard');$('#navUser').classList.remove('hidden');
   $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;
@@ -572,7 +616,12 @@ $('#onbSexo').addEventListener('click',e=>{const b=e.target.closest('.sex-btn');
 $('#onbActividad').addEventListener('click',e=>{const b=e.target.closest('.activity-card');if(!b)return;$('#onbActividad').querySelectorAll('.activity-card').forEach(x=>x.classList.remove('active'));b.classList.add('active');onbData.actividad=b.dataset.val;});
 $('#onbNext3').addEventListener('click',()=>{
   if(!onbData.actividad){alert('Selecciona tu nivel de actividad.');return;}
-  const u=currentUser();if(!u)return;
+  let u=currentUser();
+  if(!u){
+    const s=getSession();const all=getUsers();
+    u=s?all.find(x=>x.email===s):all[all.length-1];
+  }
+  if(!u){console.error('onbNext3: no user found');return;}
   const stats=calcStats(onbData.peso,onbData.altura,onbData.edad,onbData.sexo,onbData.actividad,u.objetivo);
   u.physical={altura:onbData.altura,peso:onbData.peso,edad:onbData.edad,sexo:onbData.sexo,actividad:onbData.actividad};
   u.stats=stats;saveUser(u);
@@ -724,29 +773,25 @@ function cleanNote(note){if(!note)return'';return note.replace(/Merienda pre-ent
 function renderSemana(u){
   $('#menuTipo').textContent=u.objetivo;
   const ti=todayIndex();
-  const hasSnack=u.dietaType&&u.dietaType!=='todos';
-  const mts=hasSnack?['desayuno','comida','snack','cena']:['desayuno','comida','merienda','cena'];
-  const headers=hasSnack?['Desayuno','Comida','Snack','Cena']:['Desayuno','Comida','Merienda','Cena'];
-  $('#menuHead').innerHTML='<tr><th>Día</th>'+headers.map(h=>'<th>'+h+'</th>').join('')+'</tr>';
+  const day0=u.menu&&u.menu[0];
+  const allSlotKeys=['desayuno','media_mañana','comida','merienda','cena','snack','post_entreno'];
+  const headerMap={desayuno:'Desayuno','media_mañana':'Media mañana',comida:'Comida',merienda:'Merienda',cena:'Cena',snack:'Snack',post_entreno:'Post-entreno'};
+  const mts=day0?allSlotKeys.filter(k=>day0[k]&&day0[k]!==''&&(typeof day0[k]==='object'?day0[k].n:true)):[];
+  const headers=mts.map(k=>headerMap[k]||k);
+  $('#menuHead').innerHTML='<tr><th>Día</th>'+headers.map(h=>'<th>'+h+'</th>').join('')+'<th>Total</th></tr>';
   $('#menuBody').innerHTML=u.menu.map((m,i)=>{
     const cells=mts.map(mt=>{
-      if(mt==='merienda'&&u.objetivo==='Reset & Build'){
-        const preMap={
-          'Lunes':'Pre-entreno (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda.',
-          'Martes':'Pre-entreno: 1 yogur griego + 1 plátano + 1 cda de miel + agua con pizca de sal.',
-          'Miércoles':'Pre-entreno (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda.',
-          'Jueves':'Pre-entreno: 1 yogur griego + 1 plátano + 1 cda de miel + agua con pizca de sal.',
-          'Viernes':'Pre-entreno: 1 yogur griego + 1 plátano + 1 cda de miel + agua con pizca de sal.'
-        };
-        const pre=preMap[m.dia];
-        if(pre)return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${pre}</span></td>`;
-      }
-      if(!m[mt])return'<td class="meal-empty">—</td>';
-      const hasDetail=getAllDetails(m[mt]);
+      const meal=m[mt];
+      if(!meal)return'<td class="meal-empty">—</td>';
+      const name=typeof meal==='object'?meal.n:meal;
+      const cal=typeof meal==='object'?meal.cal:null;
+      const hasDetail=getAllDetails(name);
       const receta=hasDetail?'<span class="meal-receta">🍽️ Ver receta</span>':'';
-      return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${m[mt]}</span>${receta}</td>`;
+      const calStr=cal?`<span class="meal-cal">${cal} kcal</span>`:'';
+      return`<td class="meal-cell" data-day="${i}" data-mt="${mt}"><span class="meal-name">${name}</span>${calStr}${receta}</td>`;
     }).join('');
-    return`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td>${cells}</tr>`;
+    const dayCal=m.dayCal?`<td class="day-total"><b>${m.dayCal} kcal</b></td>`:'<td></td>';
+    return`<tr${i===ti?' class="today"':''}><td><b>${m.dia}${i===ti?' ←':''}</b></td>${cells}${dayCal}</tr>`;
   }).join('');
   $('#menuBody').querySelectorAll('.meal-cell').forEach(c=>c.addEventListener('click',()=>openMealDetail(+c.dataset.day,c.dataset.mt,u)));
 }
@@ -757,13 +802,14 @@ let mealCtx=null;
 function getSubs(u){if(!u.subs)u.subs={};return u.subs;}
 function openMealDetail(dayIdx,mt,u){
   mealCtx={dayIdx,mt};
-  const m=u.menu[dayIdx];const det=getAllDetails(m[mt]);
-  const isReset=u.objetivo==='Reset & Build';
-  $('#mealDetailTitle').textContent=m[mt];
+  const m=u.menu[dayIdx];const raw=m[mt];const mealName=typeof raw==='object'?raw.n:raw;const det=getAllDetails(mealName);
+  const isEquilibrado=u.objetivo==='Equilibrado';
+  $('#mealDetailTitle').textContent=mealName;
   $('#mealDetailTag').textContent=(m.dia+' · '+MEAL_LABELS[mt]).replace(/^ · /,'');
-  if(!isReset){
-    const nd=getND(m[mt]);
-    $('#mealDetailMacros').innerHTML=`<span class="macro-chip">🔥 ${nd.k} kcal</span><span class="macro-chip">P ${nd.p}g</span><span class="macro-chip">C ${nd.c}g</span><span class="macro-chip">G ${nd.g}g</span>`;
+  if(!isEquilibrado){
+    const nd=getND(mealName);
+    const calInfo=typeof raw==='object'&&raw.cal?`🔥 ${raw.cal} kcal`:`🔥 ${nd.k} kcal`;
+    $('#mealDetailMacros').innerHTML=`<span class="macro-chip">${calInfo}</span><span class="macro-chip">P ${nd.p}g</span><span class="macro-chip">C ${nd.c}g</span><span class="macro-chip">G ${nd.g}g</span>`;
     $('#mealDetailMacros').style.display='flex';
   }else{$('#mealDetailMacros').style.display='none';}
   renderMealItems(u);
@@ -775,8 +821,8 @@ function openMealDetail(dayIdx,mt,u){
   $('#mealOverlay').classList.remove('hidden');
 }
 function renderMealItems(u){
-  const {dayIdx,mt}=mealCtx;const m=u.menu[dayIdx];const det=getAllDetails(m[mt]);
-  const isReset=u.objetivo==='Reset & Build';
+  const {dayIdx,mt}=mealCtx;const m=u.menu[dayIdx];const raw=m[mt];const mealName=typeof raw==='object'?raw.n:raw;const det=getAllDetails(mealName);
+  const isEquilibrado=u.objetivo==='Equilibrado';
   const wrap=$('#mealDetailItems');wrap.innerHTML='';
   if(!det){wrap.innerHTML='<p style="font-size:.85rem;color:var(--ink-soft);">Sin detalle disponible para esta comida.</p>';return;}
   const subs=getSubs(u);const daySubs=subs[dayIdx]&&subs[dayIdx][mt]||{};
@@ -785,8 +831,8 @@ function renderMealItems(u){
     const subName=daySubs[idx];
     const row=document.createElement('div');row.className='mdi-row';
     let nameHtml=subName?`<span class="mdi-name sub">${subName}</span><span style="font-size:.7rem;color:var(--ink-soft);">(antes: ${name})</span>`:`<span class="mdi-name">${name}</span>`;
-    row.innerHTML=`<span class="mdi-qty">${qty||'·'}</span>${nameHtml}${opt?'<span class="mdi-opt">opcional</span>':''}${!isReset&&grp&&grp!==SUP?`<span class="mdi-badge">${GROUP_NAMES[grp]||grp}</span>`:''}`;
-    if(!isReset&&grp&&grp!==SUP){
+    row.innerHTML=`<span class="mdi-qty">${qty||'·'}</span>${nameHtml}${opt?'<span class="mdi-opt">opcional</span>':''}${!isEquilibrado&&grp&&grp!==SUP?`<span class="mdi-badge">${GROUP_NAMES[grp]||grp}</span>`:''}`;
+    if(!isEquilibrado&&grp&&grp!==SUP){
       const sel=document.createElement('select');sel.className='mdi-sel';
       sel.innerHTML='<option value="">⇄ sustituir…</option>'+SUBSTITUTION_GROUPS[grp].filter(x=>x!==name).map(x=>`<option value="${x}">${x}</option>`).join('');
       sel.addEventListener('change',()=>{
@@ -871,8 +917,8 @@ function renderPerfil(u){
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);applyPlanGating(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
 }
-$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}const oldObj=u.objetivo;const oldDieta=u.dietaType||'todos';u.name=name;u.objetivo=$('#perfObjetivo').value;u.dietaType=$('#perfDieta').value||'todos';u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');if(oldObj!==u.objetivo)u.weekIdx=0;if(oldDieta!==u.dietaType)u.dietaData=null;u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo,u.dietaType);u.menuObj=u.objetivo;u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderLista(u);renderSemana(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
-$('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;saveUser(u);setMsg('#perfilMsg','Datos físicos actualizados. Plan recalculado.','ok');});
+$('#perfSave').addEventListener('click',()=>{try{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}const oldObj=u.objetivo;const oldDieta=u.dietaType||'todos';const oldNumComidas=u.numComidas||4;const oldAlergias=JSON.stringify(u.alergias||[]);const newNumComidas=+$('#perfNumComidas').value||4;u.name=name;u.objetivo=$('#perfObjetivo').value;u.dietaType=$('#perfDieta').value||'todos';u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.numComidas=newNumComidas;const newAlergias=JSON.stringify(u.alergias);if(oldObj!==u.objetivo)u.weekIdx=0;if(oldDieta!==u.dietaType)u.dietaData=null;if(oldNumComidas!==newNumComidas)u.dietaData=null;if(oldAlergias!==newAlergias)u.dietaData=null;u.menuObj=u.objetivo;u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);try{u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo,u.dietaType,u);}catch(menuErr){console.error('newMenu error (profile saved):',menuErr);u.menu=u.menu||[];}saveUser(u);renderLista(u);renderSemana(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');}catch(e){console.error('perfSave error:',e);setMsg('#perfilMsg','Error al guardar. Intenta de nuevo.','err');}});
+$('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);try{u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo,u.dietaType,u);}catch(e){console.error('newMenu physSave error:',e);}saveUser(u);renderSemana(u);setMsg('#perfilMsg','Datos físicos actualizados. Menú recalculado.','ok');});
 $('#pwSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const cur=$('#pwActual').value,n1=$('#pwNueva').value,n2=$('#pwNueva2').value;if(u.pw!==hash(cur)){setMsg('#perfilMsg','Contraseña actual incorrecta.','err');return;}if(n1.length<6){setMsg('#perfilMsg','Mínimo 6 caracteres.','err');return;}if(n1!==n2){setMsg('#perfilMsg','Las contraseñas no coinciden.','err');return;}u.pw=hash(n1);saveUser(u);['pwActual','pwNueva','pwNueva2'].forEach(i=>$('#'+i).value='');setMsg('#perfilMsg','Contraseña actualizada.','ok');});
 $('#delBtn').addEventListener('click',()=>{const u=currentUser();if(!u)return;if(!confirm('¿Eliminar tu cuenta? No se puede deshacer.'))return;setUsers(getUsers().filter(x=>x.email!==u.email));setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
 
@@ -1149,7 +1195,7 @@ function renderTrainPrefs(u){
 $('#perfTrainSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;saveTrainPrefs(u);setMsg('#perfilMsg','Preferencias guardadas.','ok');});
 function autoGenDieta(u){
   if(!u.physical||!u.physical.altura){$('#dietaContent').innerHTML='<div class="section-head"><p class="eyebrow">Dieta</p><h2>Configura tu perfil</h2><p>Introduce tus datos físicos y de entrenamiento en la pestaña Perfil para generar tu dieta personalizada.</p></div>';return;}
-  const objetivoMap={'Reset & Build':'ganancia','Regular el peso':'perdida','Ganar masa muscular':'ganancia'};
+  const objetivoMap={'Equilibrado':'mantenimiento','Regular el peso':'perdida','Ganar masa muscular':'ganancia'};
   const datos={
     edad:u.physical.edad,
     sexo:u.physical.sexo,
@@ -1164,14 +1210,27 @@ function autoGenDieta(u){
     noComer:u.noComer||'',
     actividad:u.physical.actividad||'moderado'
   };
-  const dietaType=u.dietaType||'mediterraneo';
+  const dietaType=u.dietaType||'mediterranea';
+  /* Fingerprint: solo regenerar si cambiaron los datos relevantes */
+  const fp=[datos.peso,datos.altura,datos.edad,datos.sexo,datos.objetivo,datos.actividad,datos.tipoEntreno,datos.diasEntreno,datos.duracionEntreno,datos.numComidas,dietaType].join('|');
+  if(u.dietaData&&u.dietaData._fp===fp&&u.dietaData.plan){
+    mostrarDieta(u.dietaData);
+    return;
+  }
   let dieta;
   if(dietaType==='paleo'){
     dieta=genDietaPaleo(datos);
+  }else if(dietaType==='vegana'){
+    dieta=genDietaVegana(datos);
+  }else if(dietaType==='vegetariana'){
+    dieta=genDietaVegetariana(datos);
+  }else if(dietaType==='cetogenica'){
+    dieta=genDietaCeto(datos);
   }else{
     dieta=genDietaMediterranea(datos);
   }
   dieta.dietaType=dietaType;
+  dieta._fp=fp;
   u.dietaData=dieta;
   saveUser(u);
   mostrarDieta(dieta);
@@ -1179,8 +1238,8 @@ function autoGenDieta(u){
 function mostrarDieta(d){
   activateTab('dieta');
   const objLabel={perdida:'Pérdida de grasa',mantenimiento:'Mantenimiento',ganancia:'Ganancia de masa muscular'}[d.objetivo]||d.objetivo;
-  const dietaType=d.dietaType||'mediterraneo';
-  const dietLabels={mediterraneo:'Mediterránea',paleo:'Paleo'};
+  const dietaType=d.dietaType||'mediterranea';
+  const dietLabels={mediterranea:'Mediterránea',paleo:'Paleo',vegana:'Vegana',cetogenica:'Cetogénica',vegetariana:'Vegetariana'};
   const dietLabel=dietLabels[dietaType]||'Mediterránea';
   const entrenos=new Set(d.plan.filter(p=>p.entrenando).map((_,i)=>i));
   let html=`<div class="section-head"><p class="eyebrow">Dieta ${dietLabel}</p><h2>Tu dieta ${dietLabel.toLowerCase()} personalizada</h2></div>
@@ -1226,7 +1285,7 @@ function verReceta(dia,tipo){
   $('#recipeTitle').textContent=comida.n;
   $('#recipeTime').textContent='~'+(comida.t||10)+' min de preparación';
   let ingHtml='<b>Ingredientes:</b><ul style="margin:6px 0;">';
-  comida.ing.forEach(i=>{ingHtml+=`<li style="font-size:.85rem;">${i.a}: ${i.q} g <span style="color:var(--ink-soft);">(${i.c} kcal · P ${i.p}g · C ${i.c}g · G ${i.g}g)</span></li>`;});
+  comida.ing.forEach(i=>{ingHtml+=`<li style="font-size:.85rem;">${i.a}: ${i.q} g <span style="color:var(--ink-soft);">(${i.cal} kcal · P ${i.p}g · C ${i.c}g · G ${i.g}g)</span></li>`;});
   ingHtml+='</ul>';
   $('#recipeIngredients').innerHTML=ingHtml;
   $('#recipeSteps').innerHTML='<b>Preparación:</b><p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px;">Prepara todos los ingredientes. Cocina según las indicaciones de cada alimento. Sirve y disfruta.</p>';
@@ -1235,11 +1294,16 @@ function verReceta(dia,tipo){
 function verListaCompra(){
   const d=JSON.parse($('#dietaData')?.value||'{}');
   if(!d.plan)return;
-  const dietaType=d.dietaType||'mediterraneo';
-  const lista=dietaType==='paleo'?genListaCompraPaleo(d.plan):genListaCompra(d.plan);
-  const dietLabels={mediterraneo:'Mediterránea',paleo:'Paleo'};
+  const dietaType=d.dietaType||'mediterranea';
+  let lista;
+  if(dietaType==='paleo')lista=genListaCompraPaleo(d.plan);
+  else if(dietaType==='vegana')lista=genListaCompraVegana(d.plan);
+  else if(dietaType==='vegetariana')lista=genListaCompraVegetariana(d.plan);
+  else if(dietaType==='cetogenica')lista=genListaCompraCeto(d.plan);
+  else lista=genListaCompra(d.plan);
+  const dietLabels={mediterranea:'Mediterránea',paleo:'Paleo',vegana:'Vegana',cetogenica:'Cetogénica',vegetariana:'Vegetariana'};
   const dietLabel=dietLabels[dietaType]||'Mediterránea';
-  let html=`<div class="section-head"><p class="eyebrow">Lista de la compra · Dieta ${dietLabel}</p><h2>Tu lista semanal</h2></div>`;
+  let html=`<div class="section-head"><p class="eyebrow">Lista de la compra · Dieta ${dietLabel}</p><h2>Tu lista semanal</h2><p style="font-size:.82rem;color:var(--ink-soft);margin-top:4px;">Las cantidades de arroz, pasta y legumbres se indican en peso en crudo.</p></div>`;
   Object.keys(lista).forEach(cat=>{
     html+=`<div class="dash-card" style="max-width:700px;margin-top:12px;"><b>${cat}</b><ul style="margin:6px 0;">`;
     Object.keys(lista[cat]).forEach(al=>{
@@ -1253,7 +1317,8 @@ function verListaCompra(){
 /* Init */
 (function init(){
   if(!getUsers().length){
-    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Reset & Build',dietaType:'todos',alergias:[],createdAt:new Date().toISOString(),mv:2,menu:newMenu('Equilibrada',[],0,'Reset & Build','todos'),menuObj:'Reset & Build',consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
+    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Equilibrado',dietaType:'todos',alergias:[],createdAt:new Date().toISOString(),mv:2,menu:[],menuObj:'Equilibrado',consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
+    try{demo.menu=newMenu('Equilibrada',[],0,'Equilibrado','todos',demo);}catch(e){console.error('newMenu demo error:',e);demo.menu=[];}
     setUsers([demo]);
   }
   renderChips('regChips',ALERGIAS,[]);

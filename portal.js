@@ -480,7 +480,7 @@ $('#registerForm').addEventListener('submit',e=>{
   if(pw.length<6){setMsg('#regMsg','Mínimo 6 caracteres.','err');return;}
   if(pw!==pw2){setMsg('#regMsg','Las contraseñas no coinciden.','err');return;}
   if(getUsers().some(u=>u.email===email)){setMsg('#regMsg','Ya existe una cuenta con ese correo.','err');return;}
-  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,dieta:'todos',createdAt:new Date().toISOString(),mv:2,menu:newMenu(tipo,alergias,0,objetivo,'todos'),menuObj:objetivo,consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
+  const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,dietaType:'todos',createdAt:new Date().toISOString(),mv:2,menu:newMenu(tipo,alergias,0,objetivo,'todos'),menuObj:objetivo,consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
   setUsers([...getUsers(),user]);setSession(email);showOnboarding();
 });
 
@@ -489,8 +489,10 @@ $('#regPlans').addEventListener('click',e=>{const c=e.target.closest('.chip');if
 function enterPortal(){
   let u=currentUser();if(!u){showView('view-auth');showAuth('login');return;}
   if(u.objetivo!=='Regular el peso'&&u.objetivo!=='Reset & Build')u.objetivo='Reset & Build';
-  if(u.mv!==2){u.menu=newMenu(u.tipo,u.alergias||[],u.weekIdx||0,u.objetivo,u.dieta||'todos');u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
-  if(!u.menuObj||u.menuObj!==u.objetivo){u.weekIdx=0;u.menu=newMenu(u.tipo,u.alergias||[],0,u.objetivo,u.dieta||'todos');u.menuObj=u.objetivo;u.subs={};u.consumed={};u.glassed={};saveUser(u);}
+  /* Migración: si existe u.dieta (antiguo) pero no u.dietaType, migrar */
+  if(!u.dietaType){u.dietaType=u.dieta||'todos';delete u.dieta;saveUser(u);}
+  if(u.mv!==2){u.menu=newMenu(u.tipo,u.alergias||[],u.weekIdx||0,u.objetivo,u.dietaType);u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
+  if(!u.menuObj||u.menuObj!==u.objetivo){u.weekIdx=0;u.menu=newMenu(u.tipo,u.alergias||[],0,u.objetivo,u.dietaType);u.menuObj=u.objetivo;u.subs={};u.consumed={};u.glassed={};saveUser(u);}
   if(u.weekIdx==null){u.weekIdx=0;saveUser(u);}
   showView('view-dashboard');$('#navUser').classList.remove('hidden');
   $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;
@@ -722,7 +724,7 @@ function cleanNote(note){if(!note)return'';return note.replace(/Merienda pre-ent
 function renderSemana(u){
   $('#menuTipo').textContent=u.objetivo;
   const ti=todayIndex();
-  const hasSnack=u.dieta&&u.dieta!=='todos';
+  const hasSnack=u.dietaType&&u.dietaType!=='todos';
   const mts=hasSnack?['desayuno','comida','snack','cena']:['desayuno','comida','merienda','cena'];
   const headers=hasSnack?['Desayuno','Comida','Snack','Cena']:['Desayuno','Comida','Merienda','Cena'];
   $('#menuHead').innerHTML='<tr><th>Día</th>'+headers.map(h=>'<th>'+h+'</th>').join('')+'</tr>';
@@ -860,7 +862,7 @@ const INGREDIENTS={'Avena con fruta y nueces':['Avena','Fruta','Nueces'],'Tostad
 
 /* PERFIL */
 function renderPerfil(u){
-  $('#perfName').value=u.name;$('#perfEmail').value=u.email;$('#perfObjetivo').value=u.objetivo;$('#perfDieta').value=u.dieta||'todos';
+  $('#perfName').value=u.name;$('#perfEmail').value=u.email;$('#perfObjetivo').value=u.objetivo;$('#perfDieta').value=u.dietaType||'todos';
   renderChips('perfChips',ALERGIAS,u.alergias.length?u.alergias:['Ninguna']);
   if(u.physical){$('#perfAltura').value=u.physical.altura;$('#perfPeso').value=u.physical.peso;$('#perfEdad').value=u.physical.edad;$('#perfSexo').value=u.physical.sexo;$('#perfActividad').value=u.physical.actividad;}
   renderTrainPrefs(u);
@@ -869,7 +871,7 @@ function renderPerfil(u){
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);applyPlanGating(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
 }
-$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}const oldObj=u.objetivo;const oldDieta=u.dieta||'todos';u.name=name;u.objetivo=$('#perfObjetivo').value;u.dieta=$('#perfDieta').value||'todos';u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');if(oldObj!==u.objetivo)u.weekIdx=0;if(oldDieta!==u.dieta)u.dietaData=null;u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo,u.dieta);u.menuObj=u.objetivo;u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderLista(u);renderSemana(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
+$('#perfSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}const oldObj=u.objetivo;const oldDieta=u.dietaType||'todos';u.name=name;u.objetivo=$('#perfObjetivo').value;u.dietaType=$('#perfDieta').value||'todos';u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');if(oldObj!==u.objetivo)u.weekIdx=0;if(oldDieta!==u.dietaType)u.dietaData=null;u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo,u.dietaType);u.menuObj=u.objetivo;u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);renderLista(u);renderSemana(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');});
 $('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;saveUser(u);setMsg('#perfilMsg','Datos físicos actualizados. Plan recalculado.','ok');});
 $('#pwSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const cur=$('#pwActual').value,n1=$('#pwNueva').value,n2=$('#pwNueva2').value;if(u.pw!==hash(cur)){setMsg('#perfilMsg','Contraseña actual incorrecta.','err');return;}if(n1.length<6){setMsg('#perfilMsg','Mínimo 6 caracteres.','err');return;}if(n1!==n2){setMsg('#perfilMsg','Las contraseñas no coinciden.','err');return;}u.pw=hash(n1);saveUser(u);['pwActual','pwNueva','pwNueva2'].forEach(i=>$('#'+i).value='');setMsg('#perfilMsg','Contraseña actualizada.','ok');});
 $('#delBtn').addEventListener('click',()=>{const u=currentUser();if(!u)return;if(!confirm('¿Eliminar tu cuenta? No se puede deshacer.'))return;setUsers(getUsers().filter(x=>x.email!==u.email));setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
@@ -1162,7 +1164,7 @@ function autoGenDieta(u){
     noComer:u.noComer||'',
     actividad:u.physical.actividad||'moderado'
   };
-  const dietaType=u.dieta||'mediterraneo';
+  const dietaType=u.dietaType||'mediterraneo';
   let dieta;
   if(dietaType==='paleo'){
     dieta=genDietaPaleo(datos);
@@ -1251,7 +1253,7 @@ function verListaCompra(){
 /* Init */
 (function init(){
   if(!getUsers().length){
-    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Reset & Build',dieta:'todos',alergias:[],createdAt:new Date().toISOString(),mv:2,menu:newMenu('Equilibrada',[],0,'Reset & Build','todos'),menuObj:'Reset & Build',consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
+    const demo={id:'u-demo',name:'Demo Vitaria',email:'test@vitaria.com',pw:hash('vitaria123'),plan:'pro',tipo:'Equilibrada',objetivo:'Reset & Build',dietaType:'todos',alergias:[],createdAt:new Date().toISOString(),mv:2,menu:newMenu('Equilibrada',[],0,'Reset & Build','todos'),menuObj:'Reset & Build',consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
     setUsers([demo]);
   }
   renderChips('regChips',ALERGIAS,[]);

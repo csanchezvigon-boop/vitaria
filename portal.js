@@ -916,6 +916,7 @@ function renderPerfil(u){
   const ups=$('#perfilUpgrades');ups.innerHTML='';const rank={starter:0,pro:1,premium:2};
   Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);applyPlanGating(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
+  if(typeof syncProfileVisuals==='function')syncProfileVisuals();
 }
 $('#perfSave').addEventListener('click',()=>{try{const u=currentUser();if(!u)return;const name=$('#perfName').value.trim();if(!name){setMsg('#perfilMsg','El nombre no puede estar vacío.','err');return;}const oldObj=u.objetivo;const oldDieta=u.dietaType||'todos';const oldNumComidas=u.numComidas||4;const oldAlergias=JSON.stringify(u.alergias||[]);const newNumComidas=+$('#perfNumComidas').value||4;u.name=name;u.objetivo=$('#perfObjetivo').value;u.dietaType=$('#perfDieta').value||'todos';u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');u.numComidas=newNumComidas;const newAlergias=JSON.stringify(u.alergias);if(oldObj!==u.objetivo)u.weekIdx=0;if(oldDieta!==u.dietaType)u.dietaData=null;if(oldNumComidas!==newNumComidas)u.dietaData=null;if(oldAlergias!==newAlergias)u.dietaData=null;u.menuObj=u.objetivo;u.weekIdx=u.weekIdx||0;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);try{u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo,u.dietaType,u);}catch(menuErr){console.error('newMenu error (profile saved):',menuErr);u.menu=u.menu||[];}saveUser(u);renderLista(u);renderSemana(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;setMsg('#perfilMsg','Cambios guardados. Menú regenerado.','ok');}catch(e){console.error('perfSave error:',e);setMsg('#perfilMsg','Error al guardar. Intenta de nuevo.','err');}});
 $('#perfPhysSave').addEventListener('click',()=>{const u=currentUser();if(!u)return;const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos.','err');return;}const stats=calcStats(p,a,e,s,ac,u.objetivo);u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};u.stats=stats;u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};saveUser(u);try{u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo,u.dietaType,u);}catch(e){console.error('newMenu physSave error:',e);}saveUser(u);renderSemana(u);setMsg('#perfilMsg','Datos físicos actualizados. Menú recalculado.','ok');});
@@ -1324,5 +1325,106 @@ function verListaCompra(){
   renderChips('regChips',ALERGIAS,[]);
   const u=currentUser();
   if(u){if(!u.physical){showOnboarding();}else{enterPortal();}}else{showView('view-auth');showAuth('login');}
+})();
+
+/* ===== PERFIL: Interacciones visuales ===== */
+(function(){
+  /* Diet grid ↔ hidden select */
+  const dietaGrid=$('#perfDietaGrid');
+  const dietaSelect=$('#perfDieta');
+  if(dietaGrid&&dietaSelect){
+    dietaGrid.querySelectorAll('.pf-diet-opt').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        dietaGrid.querySelectorAll('.pf-diet-opt').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        dietaSelect.value=btn.dataset.val;
+        markUnsaved();
+      });
+    });
+  }
+
+  /* Meals grid ↔ hidden select */
+  const mealsGrid=$('#perfNumComidasGrid');
+  const mealsSelect=$('#perfNumComidas');
+  if(mealsGrid&&mealsSelect){
+    mealsGrid.querySelectorAll('.pf-meal-opt').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        mealsGrid.querySelectorAll('.pf-meal-opt').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        mealsSelect.value=btn.dataset.val;
+        markUnsaved();
+      });
+    });
+  }
+
+  /* Sync visual grids from hidden selects on render */
+  window.syncProfileVisuals=function(){
+    if(dietaSelect&&dietaGrid){
+      dietaGrid.querySelectorAll('.pf-diet-opt').forEach(b=>{
+        b.classList.toggle('active',b.dataset.val===dietaSelect.value);
+      });
+    }
+    if(mealsSelect&&mealsGrid){
+      mealsGrid.querySelectorAll('.pf-meal-opt').forEach(b=>{
+        b.classList.toggle('active',b.dataset.val===mealsSelect.value);
+      });
+    }
+  };
+
+  /* Unsaved changes */
+  const unsavedEl=$('#pfUnsaved');
+  function markUnsaved(){if(unsavedEl)unsavedEl.classList.remove('hidden');}
+  function clearUnsaved(){if(unsavedEl)unsavedEl.classList.add('hidden');}
+
+  document.querySelectorAll('#perfName,#perfObjetivo,#perfDieta,#perfAltura,#perfPeso,#perfEdad,#perfSexo,#perfActividad,#perfEntreno,#perfDiasEntreno,#perfDuracionEntreno,#perfNumComidas,#perfNoComer').forEach(el=>{
+    el.addEventListener('input',markUnsaved);
+    el.addEventListener('change',markUnsaved);
+  });
+
+  /* Save button states */
+  function animateSave(btn){
+    btn.classList.add('is-loading');
+    btn.disabled=true;
+    setTimeout(()=>{
+      btn.classList.remove('is-loading');
+      btn.classList.add('is-done');
+      btn.disabled=false;
+      clearUnsaved();
+      setTimeout(()=>btn.classList.remove('is-done'),2200);
+    },400);
+  }
+
+  const perfSaveBtn=$('#perfSave');
+  if(perfSaveBtn){
+    perfSaveBtn.addEventListener('click',function(){animateSave(this);},{capture:true});
+  }
+  const perfPhysBtn=$('#perfPhysSave');
+  if(perfPhysBtn){
+    perfPhysBtn.addEventListener('click',function(){animateSave(this);},{capture:true});
+  }
+  const perfTrainBtn=$('#perfTrainSave');
+  if(perfTrainBtn){
+    perfTrainBtn.addEventListener('click',function(){animateSave(this);},{capture:true});
+  }
+  const pwSaveBtn=$('#pwSave');
+  if(pwSaveBtn){
+    pwSaveBtn.addEventListener('click',function(){animateSave(this);},{capture:true});
+  }
+
+  /* Stagger card animations on perfil tab */
+  const origActivateTab=window.activateTab;
+  if(typeof origActivateTab==='function'){
+    window.activateTab=function(){
+      origActivateTab.apply(this,arguments);
+      if(arguments[0]==='perfil'){
+        document.querySelectorAll('#tab-perfil .pf-card--fade,#tab-perfil .pf-row--fade').forEach(el=>{
+          el.style.animation='none';
+          el.offsetHeight;
+          el.style.animation='';
+        });
+        syncProfileVisuals();
+      }
+    };
+  }
 })();
 })();

@@ -376,70 +376,146 @@
       <div class="section-head"><p class="eyebrow">Lista de la compra</p><h2>Lo que necesitas esta semana</h2><p style="font-size:.85rem;color:var(--ink-soft);margin-top:6px;">Selecciona solo los alimentos que necesites para esta semana; no es necesario comprar la lista completa, y si prefieres sustituir algún producto por otro equivalente de la misma familia, siéntete con total libertad</p></div>
       <div class="shop-cats" id="shopList"></div>
     </section>
-    <!-- PERFIL -->
+    <!-- PERFIL — Rediseñado -->
     <section id="tab-perfil" class="tab hidden">
-
-      <!-- 1. DATOS PERSONALES -->
-      <div class="section-head"><p class="eyebrow">Perfil</p><h2>Datos personales</h2><p>Información básica para personalizar tu experiencia.</p></div>
+      <div class="section-head"><p class="eyebrow">Perfil</p><h2>Tu perfil</h2><p>Configura tu experiencia nutricional.</p></div>
       <p class="auth-msg" id="perfilMsg"></p>
-      <div class="dash-card profile-card">
-        <div class="profile-grid-2">
-          <div class="field"><label>Nombre</label><input type="text" id="perfName"></div>
-          <div class="field"><label>Correo</label><input type="email" id="perfEmail" disabled style="opacity:.6;"></div>
+      <div class="pf-unsaved hidden" id="pfUnsaved"><span class="pf-unsaved-dot"></span>Cambios sin guardar</div>
+
+      <!-- INFO PERSONAL + OBJETIVO -->
+      <div class="pf-row pf-row--2">
+        <div class="pf-card pf-card--fade" data-delay="0">
+          <div class="pf-card-head"><span class="pf-icon">👤</span><h3>Información personal</h3></div>
+          <div class="pf-fields">
+            <div class="pf-field"><label for="perfName">Nombre</label><input type="text" id="perfName" placeholder="Tu nombre"></div>
+            <div class="pf-field"><label for="perfEmail">Correo</label><input type="email" id="perfEmail" disabled class="pf-input--disabled"></div>
+          </div>
         </div>
-        <div class="profile-grid-2">
-          <div class="field"><label>Objetivo</label><select id="perfObjetivo"><option>Equilibrado</option><option>Regular el peso</option><option>Ganar masa muscular</option></select></div>
-          <div class="field"><label>Tipo de dieta</label><select id="perfDieta"><option value="todos">Todos (sin restricción)</option><option value="cetogenica">Cetogénica</option><option value="vegana">Vegana</option><option value="paleo">Paleo</option><option value="mediterranea">Mediterránea</option><option value="vegetariana">Vegetariana</option></select></div>
+        <div class="pf-card pf-card--fade" data-delay="1">
+          <div class="pf-card-head"><span class="pf-icon">🎯</span><h3>Objetivo</h3></div>
+          <div class="pf-field"><label for="perfObjetivo">¿Qué buscas?</label>
+            <select id="perfObjetivo" class="pf-select">
+              <option value="Equilibrado">Equilibrado — Enfoque estable</option>
+              <option value="Regular el peso">Pérdida de grasa</option>
+              <option value="Ganar masa muscular">Ganancia muscular</option>
+            </select>
+          </div>
         </div>
-        <div class="field"><label>Alergias e intolerancias</label><div class="chips" id="perfChips"></div><input type="text" id="perfChipsOtra" class="hidden otra-input" placeholder="Escribe tu alergia…" maxlength="40"></div>
-        <div class="profile-actions"><button class="btn btn-solid" id="perfSave">Guardar datos personales</button></div>
       </div>
 
-      <!-- 2. DATOS FÍSICOS -->
-      <div class="section-head section-head--sub"><h2>Datos físicos</h2><p>Actualiza tus datos para recalcular tu plan.</p></div>
-      <div class="dash-card profile-card">
-        <div class="profile-grid-2">
-          <div class="field"><label>Altura (cm)</label><input type="number" id="perfAltura" min="100" max="250"></div>
-          <div class="field"><label>Peso (kg)</label><input type="number" id="perfPeso" min="30" max="300" step="0.1"></div>
+      <!-- DATOS FÍSICOS -->
+      <div class="pf-row pf-row--fade" data-delay="2">
+        <div class="pf-card">
+          <div class="pf-card-head"><span class="pf-icon">📏</span><h3>Datos físicos</h3><p class="pf-card-sub">Actualiza para recalcular tu plan</p></div>
+          <div class="pf-metrics">
+            <div class="pf-metric">
+              <span class="pf-metric-icon">📏</span>
+              <div class="pf-field"><label for="perfAltura">Altura</label><div class="pf-input-wrap"><input type="number" id="perfAltura" min="100" max="250" placeholder="170"><span class="pf-unit">cm</span></div></div>
+            </div>
+            <div class="pf-metric">
+              <span class="pf-metric-icon">⚖️</span>
+              <div class="pf-field"><label for="perfPeso">Peso</label><div class="pf-input-wrap"><input type="number" id="perfPeso" min="30" max="300" step="0.1" placeholder="70"><span class="pf-unit">kg</span></div></div>
+            </div>
+            <div class="pf-metric">
+              <span class="pf-metric-icon">🎂</span>
+              <div class="pf-field"><label for="perfEdad">Edad</label><div class="pf-input-wrap"><input type="number" id="perfEdad" min="14" max="100" placeholder="25"><span class="pf-unit">años</span></div></div>
+            </div>
+          </div>
+          <div class="pf-row pf-row--3" style="margin-top:16px;">
+            <div class="pf-field"><label for="perfSexo">Sexo</label>
+              <select id="perfSexo" class="pf-select"><option value="hombre">Hombre</option><option value="mujer">Mujer</option></select>
+            </div>
+            <div class="pf-field"><label for="perfActividad">Actividad</label>
+              <select id="perfActividad" class="pf-select"><option value="sedentario">Sedentario</option><option value="ligero">Ligero</option><option value="moderado">Moderado</option><option value="intenso">Intenso</option></select>
+            </div>
+          </div>
+          <div class="pf-actions"><button class="btn pf-btn pf-btn--primary" id="perfPhysSave"><span class="pf-btn-text">Actualizar datos físicos</span><span class="pf-btn-loading hidden"><span class="pf-spinner"></span>Guardando...</span><span class="pf-btn-done hidden">✓ Guardado</span></button></div>
         </div>
-        <div class="profile-grid-3">
-          <div class="field"><label>Edad</label><input type="number" id="perfEdad" min="14" max="100"></div>
-          <div class="field"><label>Sexo</label><select id="perfSexo"><option value="hombre">Hombre</option><option value="mujer">Mujer</option></select></div>
-          <div class="field"><label>Actividad</label><select id="perfActividad"><option value="sedentario">Sedentario</option><option value="ligero">Ligero</option><option value="moderado">Moderado</option><option value="intenso">Intenso</option></select></div>
-        </div>
-        <div class="profile-actions"><button class="btn btn-ghost" id="perfPhysSave">Actualizar datos físicos</button></div>
       </div>
 
-      <!-- 3. ENTRENAMIENTO Y PREFERENCIAS -->
-      <div class="section-head section-head--sub"><h2>Entrenamiento y preferencias</h2><p>Cuéntanos cómo entrenas y qué preferencias tienes para adaptar tu dieta.</p></div>
-      <div class="dash-card profile-card">
-        <div class="profile-grid-3">
-          <div class="field"><label>Tipo de entrenamiento</label><select id="perfEntreno"><option value="gimnasio">Gimnasio</option><option value="futbol">Fútbol</option><option value="running">Running</option><option value="ciclismo">Ciclismo</option><option value="otro">Otro</option></select></div>
-          <div class="field"><label>Días por semana</label><input type="number" id="perfDiasEntreno" min="1" max="7" value="3"></div>
-          <div class="field"><label>Duración (min)</label><input type="number" id="perfDuracionEntreno" min="15" max="180" value="60"></div>
+      <!-- ALIMENTACIÓN -->
+      <div class="pf-row pf-row--fade" data-delay="3">
+        <div class="pf-card">
+          <div class="pf-card-head"><span class="pf-icon">🥗</span><h3>Alimentación</h3><p class="pf-card-sub">Define tu tipo de dieta y restricciones</p></div>
+          <div class="pf-field"><label>Tipo de dieta</label>
+            <div class="pf-diet-grid" id="perfDietaGrid">
+              <button type="button" class="pf-diet-opt" data-val="mediterranea"><span class="pf-diet-icon">🫒</span><span class="pf-diet-name">Mediterránea</span></button>
+              <button type="button" class="pf-diet-opt" data-val="paleo"><span class="pf-diet-icon">🦴</span><span class="pf-diet-name">Paleo</span></button>
+              <button type="button" class="pf-diet-opt" data-val="vegana"><span class="pf-diet-icon">🌱</span><span class="pf-diet-name">Vegana</span></button>
+              <button type="button" class="pf-diet-opt" data-val="vegetariana"><span class="pf-diet-icon">🥚</span><span class="pf-diet-name">Vegetariana</span></button>
+              <button type="button" class="pf-diet-opt" data-val="cetogenica"><span class="pf-diet-icon">🥑</span><span class="pf-diet-name">Cetogénica</span></button>
+              <button type="button" class="pf-diet-opt" data-val="todos"><span class="pf-diet-icon">🍽️</span><span class="pf-diet-name">Sin restricción</span></button>
+            </div>
+            <select id="perfDieta" class="hidden">
+              <option value="todos">Todos (sin restricción)</option><option value="cetogenica">Cetogénica</option><option value="vegana">Vegana</option><option value="paleo">Paleo</option><option value="mediterranea">Mediterránea</option><option value="vegetariana">Vegetariana</option>
+            </select>
+          </div>
+          <div class="pf-field" style="margin-top:20px;"><label>Alergias e intolerancias</label><div class="pf-chips" id="perfChips"></div><input type="text" id="perfChipsOtra" class="hidden pf-otra-input" placeholder="Escribe tu alergia…" maxlength="40"></div>
+          <div class="pf-actions"><button class="btn pf-btn pf-btn--primary" id="perfSave"><span class="pf-btn-text">Guardar datos personales</span><span class="pf-btn-loading hidden"><span class="pf-spinner"></span>Guardando...</span><span class="pf-btn-done hidden">✓ Guardado</span></button></div>
         </div>
-        <div class="profile-grid-2">
-          <div class="field"><label>Comidas al día</label><select id="perfNumComidas"><option value="3">3 comidas</option><option value="4" selected>4 comidas</option><option value="5">5 comidas</option><option value="6">6 comidas</option></select></div>
-          <div class="field"><label>Alimentos que no consumes</label><input type="text" id="perfNoComer" placeholder="Ej: brócoli, gambas…"></div>
+      </div>
+
+      <!-- ENTRENAMIENTO -->
+      <div class="pf-row pf-row--fade" data-delay="4">
+        <div class="pf-card">
+          <div class="pf-card-head"><span class="pf-icon">🏋️</span><h3>Entrenamiento</h3><p class="pf-card-sub">Adaptamos tu dieta a tu rutina</p></div>
+          <div class="pf-row pf-row--3">
+            <div class="pf-field"><label for="perfEntreno">Tipo</label>
+              <select id="perfEntreno" class="pf-select"><option value="gimnasio">Gimnasio</option><option value="futbol">Fútbol</option><option value="running">Running</option><option value="ciclismo">Ciclismo</option><option value="otro">Otro</option></select>
+            </div>
+            <div class="pf-field"><label for="perfDiasEntreno">Días / semana</label><div class="pf-input-wrap"><input type="number" id="perfDiasEntreno" min="1" max="7" value="3"><span class="pf-unit">días</span></div></div>
+            <div class="pf-field"><label for="perfDuracionEntreno">Duración</label><div class="pf-input-wrap"><input type="number" id="perfDuracionEntreno" min="15" max="180" value="60"><span class="pf-unit">min</span></div></div>
+          </div>
         </div>
-        <div class="profile-actions"><button class="btn btn-ghost" id="perfTrainSave">Guardar preferencias</button></div>
+      </div>
+
+      <!-- PREFERENCIAS -->
+      <div class="pf-row pf-row--fade" data-delay="5">
+        <div class="pf-card">
+          <div class="pf-card-head"><span class="pf-icon">🍽️</span><h3>Preferencias</h3><p class="pf-card-sub">Personaliza tu plan semanal</p></div>
+          <div class="pf-field"><label>Comidas al día</label>
+            <div class="pf-meals-grid" id="perfNumComidasGrid">
+              <button type="button" class="pf-meal-opt" data-val="3"><span class="pf-meal-num">3</span><span class="pf-meal-label">comidas</span></button>
+              <button type="button" class="pf-meal-opt" data-val="4"><span class="pf-meal-num">4</span><span class="pf-meal-label">comidas</span></button>
+              <button type="button" class="pf-meal-opt" data-val="5"><span class="pf-meal-num">5</span><span class="pf-meal-label">comidas</span></button>
+              <button type="button" class="pf-meal-opt" data-val="6"><span class="pf-meal-num">6</span><span class="pf-meal-label">comidas</span></button>
+            </div>
+            <select id="perfNumComidas" class="hidden"><option value="3">3 comidas</option><option value="4" selected>4 comidas</option><option value="5">5 comidas</option><option value="6">6 comidas</option></select>
+          </div>
+          <div class="pf-field" style="margin-top:16px;"><label for="perfNoComer">Alimentos que no consumes</label><input type="text" id="perfNoComer" placeholder="Ej: brócoli, gambas…" class="pf-input"></div>
+          <div class="pf-actions"><button class="btn pf-btn pf-btn--ghost" id="perfTrainSave"><span class="pf-btn-text">Guardar preferencias</span><span class="pf-btn-loading hidden"><span class="pf-spinner"></span>Guardando...</span><span class="pf-btn-done hidden">✓ Guardado</span></button></div>
+        </div>
       </div>
 
       <!-- PLAN ACTUAL -->
-      <div class="dash-card profile-card" style="margin-top:22px;">
-        <span class="label">Plan actual</span>
-        <div class="cards" style="margin-top:10px;"><div id="perfilPlan"></div></div>
-        <div class="chips" style="margin-top:14px;" id="perfilUpgrades"></div>
+      <div class="pf-row pf-row--fade" data-delay="6">
+        <div class="pf-card pf-card--compact">
+          <div class="pf-card-head"><span class="pf-icon">📦</span><h3>Tu plan</h3></div>
+          <div id="perfilPlan" class="pf-plan-info"></div>
+          <div class="pf-chips" style="margin-top:14px;" id="perfilUpgrades"></div>
+        </div>
       </div>
 
       <!-- SEGURIDAD -->
-      <div class="dash-card profile-card" style="margin-top:22px;">
-        <span class="label">Seguridad</span>
-        <div class="field"><label>Contraseña actual</label><input type="password" id="pwActual"></div>
-        <div class="profile-grid-2"><div class="field"><label>Nueva</label><input type="password" id="pwNueva"></div><div class="field"><label>Repite</label><input type="password" id="pwNueva2"></div></div>
-        <div class="profile-actions"><button class="btn btn-ghost" id="pwSave">Cambiar contraseña</button></div>
+      <div class="pf-row pf-row--fade" data-delay="7">
+        <div class="pf-card pf-card--compact pf-card--security">
+          <div class="pf-card-head"><span class="pf-icon">🔒</span><h3>Seguridad</h3></div>
+          <div class="pf-field"><label for="pwActual">Contraseña actual</label><input type="password" id="pwActual" class="pf-input" placeholder="Tu contraseña actual"></div>
+          <div class="pf-row pf-row--2" style="margin-top:12px;">
+            <div class="pf-field"><label for="pwNueva">Nueva contraseña</label><input type="password" id="pwNueva" class="pf-input" placeholder="Mínimo 6 caracteres"></div>
+            <div class="pf-field"><label for="pwNueva2">Repite contraseña</label><input type="password" id="pwNueva2" class="pf-input" placeholder="Repite la nueva"></div>
+          </div>
+          <div class="pf-actions"><button class="btn pf-btn pf-btn--ghost" id="pwSave"><span class="pf-btn-text">Cambiar contraseña</span><span class="pf-btn-loading hidden"><span class="pf-spinner"></span>Guardando...</span><span class="pf-btn-done hidden">✓ Guardado</span></button></div>
+        </div>
       </div>
-      <div class="inline-actions"><button class="btn btn-danger btn-small" id="delBtn">Eliminar cuenta</button></div>
+
+      <!-- ELIMINAR CUENTA -->
+      <div class="pf-row pf-row--fade" data-delay="8">
+        <div class="pf-danger-zone">
+          <button class="btn btn-danger btn-small" id="delBtn">Eliminar cuenta</button>
+          <span class="pf-danger-note">Esta acción no se puede deshacer</span>
+        </div>
+      </div>
     </section>
     <section id="tab-dieta" class="tab hidden">
       <div id="dietaContent"></div>
@@ -466,6 +542,6 @@
 <script src="vegano.js?v=1"></script>
 <script src="vegetariano.js?v=1"></script>
 <script src="cetogenico.js?v=1"></script>
-<script src="portal.js?v=9"></script>
+<script src="portal.js?v=10"></script>
 </body>
 </html>

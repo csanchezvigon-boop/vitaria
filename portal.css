@@ -419,6 +419,156 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 .mdi-sel:focus{border-color:var(--herb);outline:none;}
 .macro-chip{font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:600;border-radius:999px;padding:4px 12px;background:rgba(74,103,65,.1);color:var(--herb);}
 
+/* ===== INICIO / DASHBOARD ===== */
+.inicio-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+.inicio-big-num{font-family:'Fraunces',serif;font-weight:900;font-size:1.6rem;color:var(--ink);line-height:1.2;}
+.inicio-big-unit{font-family:'Karla',sans-serif;font-weight:600;font-size:.85rem;color:var(--ink-soft);}
+.inicio-remain{font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--ink-soft);margin-top:6px;}
+.inicio-macro-detail{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft);margin-top:6px;}
+.sleep-display{margin-bottom:6px;}
+.sleep-hours{font-family:'Fraunces',serif;font-weight:900;font-size:2rem;color:var(--ink);}
+.sleep-hours-unit{font-family:'Karla',sans-serif;font-weight:600;font-size:1rem;color:var(--ink-soft);margin-left:2px;}
+.sleep-empty .sleep-hours{color:var(--line);}
+.sleep-rating{font-weight:700;font-size:.88rem;margin-bottom:4px;padding:4px 10px;border-radius:99px;display:inline-block;}
+.sleep-very-low{background:rgba(239,83,80,.1);color:#C62828;}
+.sleep-low{background:rgba(255,152,0,.1);color:#E65100;}
+.sleep-medium{background:rgba(255,193,7,.1);color:#F57F17;}
+.sleep-good{background:rgba(76,175,80,.1);color:#2E7D32;}
+.sleep-desc{font-size:.78rem;color:var(--ink-soft);margin:4px 0 8px;line-height:1.3;}
+.sleep-target{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-soft);margin:0 0 10px;}
+.sleep-week{margin-top:14px;padding-top:14px;border-top:1px solid var(--line);}
+.sleep-week-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.sleep-week-title{font-size:.82rem;font-weight:700;color:var(--ink);}
+.sleep-week-avg{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--herb);font-weight:600;}
+.sleep-week-row{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.sleep-week-day{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:8px;background:var(--bg);}
+.sleep-week-day.today{background:rgba(79,111,63,.1);font-weight:700;}
+.sleep-week-day.logged{background:rgba(33,150,243,.06);}
+.sleep-week-label{font-family:'IBM Plex Mono',monospace;font-size:.58rem;text-transform:uppercase;color:var(--ink-soft);letter-spacing:.05em;}
+.sleep-week-val{font-family:'IBM Plex Mono',monospace;font-size:.72rem;font-weight:700;color:var(--ink);}
+.inicio-training{display:flex;flex-direction:column;gap:8px;}
+.inicio-train-row{display:flex;justify-content:space-between;padding:4px 0;}
+.inicio-train-label{font-size:.85rem;color:var(--ink-soft);}
+.inicio-train-val{font-weight:700;font-size:.85rem;color:var(--ink);}
+.inicio-meal{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:12px;border:1px solid var(--line);margin-bottom:8px;transition:background .2s;}
+.inicio-meal.eaten{background:rgba(79,111,63,.06);border-color:rgba(79,111,63,.25);}
+.inicio-meal-icon{font-size:1.1rem;flex:none;}
+.inicio-meal-info{flex:1;min-width:0;}
+.inicio-meal-type{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--tomato);display:block;}
+.inicio-meal-name{font-size:.88rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.inicio-meal-kcal{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft);flex:none;}
+.inicio-meal-check{color:var(--herb);font-weight:700;font-size:.9rem;}
+.inicio-progress-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+.inicio-prog-stat{text-align:center;padding:12px 8px;background:var(--bg);border-radius:12px;}
+.inicio-prog-val{font-family:'Fraunces',serif;font-weight:900;font-size:1.1rem;display:block;color:var(--ink);}
+.inicio-prog-label{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-top:4px;display:block;}
+.inicio-chart{display:flex;align-items:flex-end;gap:4px;height:55px;padding:8px 0;}
+.inicio-chart-bar{flex:1;background:linear-gradient(to top,var(--herb),rgba(79,111,63,.5));border-radius:4px 4px 0 0;min-width:6px;transition:height .5s ease;}
+.inicio-pct{display:flex;align-items:baseline;gap:8px;margin-bottom:12px;}
+.inicio-pct-num{font-family:'Fraunces',serif;font-weight:900;font-size:2rem;color:var(--herb);}
+.inicio-pct-label{font-size:.88rem;color:var(--ink-soft);}
+.inicio-checks{display:flex;flex-wrap:wrap;gap:8px;}
+.inicio-check{padding:6px 14px;background:rgba(79,111,63,.08);border-radius:999px;font-size:.82rem;font-weight:600;color:var(--herb);}
+
+/* HOY — Calorie bar */
+.hoy-calorie-bar{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin-bottom:20px;}
+.hoy-bar-wrap{margin-bottom:12px;}
+.hoy-bar-track{height:14px;background:var(--bg-alt);border-radius:99px;overflow:hidden;}
+.hoy-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--herb),var(--yolk));transition:width .8s cubic-bezier(.4,0,.2,1);}
+.hoy-bar-nums{display:flex;justify-content:space-between;margin-top:8px;font-size:.85rem;}
+.hoy-consumed{font-weight:700;color:var(--ink);}
+.hoy-remaining{color:var(--ink-soft);font-family:'IBM Plex Mono',monospace;font-size:.82rem;}
+.hoy-macro-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px;}
+.hoy-macro{font-size:.82rem;color:var(--ink-soft);font-weight:600;}
+.hoy-sleep-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+
+/* ===== WATER / HYDRATION ===== */
+.water-target-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;}
+.water-target-label{font-size:.85rem;color:var(--ink-soft);font-weight:600;}
+.water-target-val{font-family:'Fraunces',serif;font-weight:900;font-size:1.5rem;color:#2196F3;}
+.water-bar-wrap{margin-bottom:8px;}
+.water-bar-track{height:16px;background:var(--bg-alt);border-radius:99px;overflow:hidden;}
+.water-bar-fill{height:100%;border-radius:99px;background:linear-gradient(90deg,#42A5F5,#2196F3);transition:width .6s cubic-bezier(.4,0,.2,1);}
+.water-consumed-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;}
+.water-consumed-val{font-family:'IBM Plex Mono',monospace;font-size:.88rem;font-weight:700;color:var(--ink);}
+.water-consumed-pct{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:var(--ink-soft);font-weight:600;}
+.water-done-msg{text-align:center;padding:12px;background:rgba(79,111,63,.08);border-radius:12px;font-weight:700;color:var(--herb);font-size:.95rem;margin-bottom:12px;animation:fadeSlide .4s ease;}
+.water-btns{display:flex;gap:10px;margin-bottom:12px;}
+.water-btn{flex:1;padding:14px 8px;border:1.5px solid #BBDEFB;border-radius:14px;background:rgba(33,150,243,.04);color:#1565C0;font-weight:700;font-size:.88rem;cursor:pointer;transition:all .2s ease;font-family:'Karla',sans-serif;}
+.water-btn:hover{background:rgba(33,150,243,.1);border-color:#2196F3;transform:translateY(-1px);box-shadow:0 2px 8px rgba(33,150,243,.15);}
+.water-btn:active{transform:translateY(0);box-shadow:none;}
+.water-log{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;}
+.water-log-entry{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(33,150,243,.06);border-radius:99px;font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:#1565C0;font-weight:600;}
+.water-log-del{background:none;border:none;color:#EF5350;cursor:pointer;font-size:.85rem;padding:0 2px;font-weight:700;line-height:1;}
+.water-log-del:hover{color:#C62828;}
+.water-hint{font-size:.78rem;color:var(--ink-soft);font-style:italic;margin:0;}
+#inicioWaterSection{margin-bottom:16px;padding-bottom:16px;border-bottom:1px solid var(--line);}
+.tips-list{display:flex;flex-direction:column;gap:10px;}
+.tip-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:.88rem;color:var(--ink);}
+.tip-icon{font-size:1rem;flex:none;margin-top:1px;}
+.tip-text{line-height:1.4;}
+.plan-history{margin-bottom:16px;padding:14px 18px;background:var(--card);border:1px solid var(--line);border-radius:14px;}
+.plan-history-header{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.plan-history-header h3{font-size:.92rem;font-weight:700;margin:0;}
+.plan-history-list{display:flex;flex-direction:column;gap:6px;}
+.plan-history-item{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--line);font-size:.82rem;}
+.plan-history-item:last-child{border-bottom:none;}
+.plan-history-date{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--ink);}
+.plan-history-info{color:var(--ink-soft);}
+
+/* Compra — checklist */
+.compra-actions{display:flex;gap:10px;margin-bottom:16px;}
+.shop-item{list-style:none;transition:opacity .2s;}
+.shop-item.checked{opacity:.5;text-decoration:line-through;}
+.shop-item label{display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 0;}
+.shop-item input[type="checkbox"]{width:18px;height:18px;accent-color:var(--herb);cursor:pointer;}
+.shop-item-text{flex:1;font-size:.88rem;}
+.shop-item-qty{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft);flex:none;}
+
+/* ===== SEMANA — Card layout ===== */
+.semana-nav{display:flex;gap:8px;margin-bottom:20px;overflow-x:auto;padding:2px 0;-webkit-overflow-scrolling:touch;}
+.semana-nav::-webkit-scrollbar{display:none;}
+.semana-day-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 14px;border:1.5px solid var(--line);border-radius:14px;background:var(--card);cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);min-width:54px;position:relative;flex:none;}
+.semana-day-btn:hover{border-color:var(--herb);background:rgba(79,111,63,.04);}
+.semana-day-btn.active{border-color:var(--herb);background:rgba(79,111,63,.08);box-shadow:0 2px 12px rgba(79,111,63,.12);}
+.semana-day-icon{font-size:1.1rem;}
+.semana-day-name{font-family:'IBM Plex Mono',monospace;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);}
+.semana-day-dot{position:absolute;bottom:4px;width:5px;height:5px;border-radius:50%;background:var(--herb);}
+.semana-day-card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px 22px;animation:fadeSlide .4s ease;}
+.semana-day-card.today{border-color:rgba(79,111,63,.3);box-shadow:0 4px 24px rgba(79,111,63,.08);}
+.semana-day-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;gap:16px;}
+.semana-day-title{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.semana-day-title h3{font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;margin:0;color:var(--ink);}
+.semana-today-badge{font-family:'IBM Plex Mono',monospace;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--herb);background:rgba(79,111,63,.1);padding:3px 10px;border-radius:99px;}
+.semana-tag{font-size:.75rem;color:var(--ink-soft);font-style:italic;}
+.semana-day-total{display:flex;align-items:baseline;gap:4px;flex:none;}
+.semana-day-total-num{font-family:'Fraunces',serif;font-weight:900;font-size:1.6rem;color:var(--herb);}
+.semana-day-total-unit{font-size:.82rem;color:var(--ink-soft);font-weight:600;}
+.semana-meals-grid{display:flex;flex-direction:column;gap:10px;}
+.semana-meal-card{border:1px solid var(--line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:all .2s ease;background:var(--bg);}
+.semana-meal-card:hover{border-color:var(--herb);box-shadow:0 2px 10px rgba(79,111,63,.08);transform:translateY(-1px);}
+.semana-meal-card.eaten{background:rgba(79,111,63,.04);border-color:rgba(79,111,63,.2);}
+.semana-meal-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.semana-meal-icon{font-size:1rem;}
+.semana-meal-type{font-family:'IBM Plex Mono',monospace;font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--tomato);}
+.semana-meal-check{margin-left:auto;color:var(--herb);font-weight:700;font-size:.85rem;}
+.semana-meal-name{font-size:.9rem;font-weight:600;color:var(--ink);margin:0 0 6px;line-height:1.3;}
+.semana-meal-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.semana-meal-kcal{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft);font-weight:600;}
+.semana-meal-receta{font-size:.72rem;color:var(--tomato);font-weight:600;cursor:pointer;}
+.semana-meal-receta:hover{text-decoration:underline;}
+
+@media(max-width:780px){
+  .semana-day-btn{min-width:48px;padding:8px 10px;}
+  .semana-day-card{padding:18px 16px;}
+  .semana-day-header{flex-direction:column;gap:8px;}
+}
+
+@media(max-width:780px){
+  .inicio-grid{grid-template-columns:1fr;}
+  .inicio-progress-stats{grid-template-columns:1fr;}
+}
+
 /* Weekly calorie chart */
 .weekly-chart{background:var(--card);border-radius:var(--radius);padding:20px 24px;margin-top:20px;}
 .weekly-chart h3{font-size:1rem;font-weight:800;margin:0 0 4px;}

@@ -407,8 +407,6 @@ function buildDietPlan(datos,mealDB,mealSlots,allergens,noComer){
 
   /* --- 2. Slots y porcentajes --- */
   const n=numComidas||4;
-  const isGanancia=objetivo==='ganancia';
-  const isPerdida=objetivo==='perdida';
   const slots=mealSlots(n);
   const totalPct=Object.values(slots.pct).reduce((a,b)=>a+b,0);
 
@@ -439,10 +437,29 @@ function buildDietPlan(datos,mealDB,mealSlots,allergens,noComer){
     if(filtered[slot].length===0)filtered[slot]=mealDB[slot];
   }
 
-  /* --- 5. Generar 7 días --- */
+  /* --- 5. Generar 7 días con variedad máxima --- */
   const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
-  const usados=new Set();
+  const usageCount=new Map();
   const plan=[];
+
+  function pickBest(pool,dayIdx,prevMealName,dayUsed){
+    if(!pool||pool.length===0)return null;
+    const scored=pool.map(m=>{
+      let score=0;
+      const count=usageCount.get(m.n)||0;
+      score-=count*200;
+      if(m.n===prevMealName)score-=50;
+      if(count===0)score+=30;
+      score+=Math.random()*10;
+      return{m,score};
+    });
+    scored.sort((a,b)=>b.score-a.score);
+    for(const s of scored){
+      if(dayUsed&&dayUsed.has(s.m.n))continue;
+      return s.m;
+    }
+    return scored[0].m;
+  }
 
   for(let i=0;i<7;i++){
     const entrenando=i<diasEntreno;
@@ -451,19 +468,19 @@ function buildDietPlan(datos,mealDB,mealSlots,allergens,noComer){
 
     const comidas=[];
     let dayTotalCal=0,dayTotalP=0,dayTotalC=0,dayTotalG=0;
+    let prevMealName='';
+    const dayUsed=new Set();
 
     for(const slot of slots.list){
       const pct=slots.pct[slot]||0;
       const targetCal=Math.round(dayCalAvg*pct/totalPct);
-
       const pool=filtered[slot]||[];
-      let chosen=null;
-      for(const m of pool){
-        if(!usados.has(slot+':'+m.n)){chosen=m;usados.add(slot+':'+m.n);break;}
-      }
-      if(!chosen&&pool.length>0){chosen=pool[i%pool.length];}
 
+      const chosen=pickBest(pool,i,prevMealName,dayUsed);
       if(chosen){
+        usageCount.set(chosen.n,(usageCount.get(chosen.n)||0)+1);
+        dayUsed.add(chosen.n);
+        prevMealName=chosen.n;
         const scaled=scaleMeal(chosen,targetCal);
         comidas.push(scaled);
         dayTotalCal+=scaled.cal;

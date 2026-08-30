@@ -18,10 +18,14 @@ media_mañana:[
 {n:'Guacamole con palitos de pepino',ing:[nut('Guacamole',60),nut('Palitos de pepino',80)],t:3},
 {n:'Aceitunas y queso',ing:[nut('Aceitunas',30),nut('Queso fresco',40)],t:1},
 {n:'Hummus con palitos de zanahoria',ing:[nut('Hummus',60),nut('Zanahoria',80)],t:3},
-{n:'Nueces de Brasil',ing:[nut('Nueces de Brasil',25)],t:1}
+{n:'Nueces de Brasil',ing:[nut('Nueces de Brasil',25)],t:1},
+{n:'Nueces mixtas con queso',ing:[nut('Nueces mixtas',30),nut('Queso fresco',40)],t:1},
+{n:'Mantequilla de almendra',ing:[nut('Mantequilla de almendra',20)],t:1},
+{n:'Queso fresco con aceitunas',ing:[nut('Queso fresco',100),nut('Aceitunas',50),nut('Aceite de oliva',5)],t:1}
 ],
 comida:[
 {n:'Pechuga de pollo a la plancha con brócoli',ing:[nut('Pechuga de pollo',180),nut('Brócoli',120),nut('Aceite de oliva',10)],t:18},
+{n:'Pechuga de pollo con brócoli y aceite de oliva',ing:[nut('Pechuga de pollo',180),nut('Brócoli',120),nut('Aceite de oliva',10)],t:18},
 {n:'Ternera con ensalada verde y aguacate',ing:[nut('Ternera',180),nut('Lechuga',60),nut('Aguacate',60),nut('Aceite de oliva',10)],t:20},
 {n:'Pollo al horno con coles de bruselas',ing:[nut('Pollo al horno',180),nut('Coles de bruselas',120),nut('Aceite de oliva',10)],t:35},
 {n:'Salmón con ensalada de kale y nueces',ing:[nut('Salmón a la plancha',180),nut('Kale',80),nut('Nueces',15),nut('Aceite de oliva',10)],t:20},
@@ -36,7 +40,8 @@ merienda:[
 {n:'Yogur griego con fruta',ing:[nut('Yogur griego',150),nut('Fresas',60)],t:2},
 {n:'Hummus con palitos de zanahoria',ing:[nut('Hummus',60),nut('Zanahoria',80)],t:3},
 {n:'Smoothie verde paleo',ing:[nut('Espinaca',40),nut('Plátano',100),nut('Leche de coco',200),nut('Mantequilla de almendra',15)],t:5},
-{n:'Aceitunas y queso fresco',ing:[nut('Aceitunas',30),nut('Queso fresco',40)],t:1}
+{n:'Aceitunas y queso fresco',ing:[nut('Aceitunas',30),nut('Queso fresco',40)],t:1},
+{n:'Nueces',ing:[nut('Nueces mixtas',50),nut('Queso fresco',40)],t:1}
 ],
 cena:[
 {n:'Salmón al horno con espárragos',ing:[nut('Salmón',180),nut('Espárragos',120),nut('Aceite de oliva',10)],t:25},

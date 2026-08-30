@@ -228,7 +228,157 @@ const MEAL_DETAILS={
 'Poke bowl de salmón, quinoa y feta':{items:[['90 g','Quinoa en seco, lavada previamente','HA'],['150-200 g','Salmón especiado (sal, pimienta, limón)','PA'],['30 g','Queso feta desmenuzado','PL'],['½ uds','Aguacate / 80 g guacamole','GR'],['','Pepino o calabacín + zanahoria rallada + espinacas','VN'],['1 cda','AOVE','GR'],['1 uds','Manzana','FB'],['2 oz','Chocolate negro >85%'],['2 cápsulas','Bisglicinato de Magnesio',SUP]]},
 'Fajitas integrales de pollo o pizza casera':{prep:'FAJITAS: tortillas + pollo en tiras con pimientos, cebolla y calabacín, especias y lima. PIZZA: base de avena molida/sarraceno con huevo, hornear 10-12 min, añadir toppings y hornear 10 min más a 200 °C.',items:[['2 uds','Tortillas integrales / 100 g avena molida','HB'],['150-180 g','Pollo o pavo en tiras (o atún)','PB'],['','½ pimiento rojo + ½ verde, ½ cebolla, ½ calabacín','VN'],['1 cda','AOVE','GR'],['50 g','Mozzarella rallada / queso feta / guacamole','PL',1],['','Especias: cúrcuma, pimentón, comino, orégano'],['','Zumo de lima o limón al final'],['1 pieza','Fruta (postre)','FB'],['125 ml','Kéfir de cabra/oveja + frutos rojos + canela','PL'],['2 cápsulas','Bisglicinato de Magnesio (+20 min después de cenar)',SUP]]},
 'Hamburguesa completa con boniato asado':{prep:'Cebolla pochada en la sartén queda mucho más rica.',items:[['80 g','Pan de masa madre / centeno / espelta','HB'],['¼ uds','Aguacate / 50 g guacamole','GR'],['150-180 g','Carne picada de ternera','PB'],['30 g','Queso feta','PL',1],['','Canónigos + tomate + cebolla pochada','VH'],['250-300 g','Boniato asado','HA'],['1 cdta','AOVE','GR'],['125 ml','Kéfir de cabra/oveja + frutos rojos + canela','PL',1],['2 oz','Chocolate negro >85%'],['1 uds','Manzana',null,1]]},
-'Pescado con puré vegetal y salsa de yogur':{items:[['','Puré caliente de calabaza / calabacín / zanahoria','VR'],['1 cda','AOVE + sal + especias suaves (cúrcuma, jengibre)','GR'],['250 g','Pescado blanco o azul (merluza, salmón)'],['Al gusto','Aceitunas','GR',1],['','Espinacas o rúcula salteadas','VH'],['','Cebolla pochada','VN',1],['½ uds','Yogur griego para salsa + limón + sal + AOVE','PL'],['1 uds','Manzana','FB'],['','Puñado de frutos secos o crema de almendras','GR']]}
+'Pescado con puré vegetal y salsa de yogur':{items:[['','Puré caliente de calabaza / calabacín / zanahoria','VR'],['1 cda','AOVE + sal + especias suaves (cúrcuma, jengibre)','GR'],['250 g','Pescado blanco o azul (merluza, salmón)'],['Al gusto','Aceitunas','GR',1],['','Espinacas o rúcula salteadas','VH'],['','Cebolla pochada','VN',1],['½ uds','Yogur griego para salsa + limón + sal + AOVE','PL'],['1 uds','Manzana','FB'],['','Puñado de frutos secos o crema de almendras','GR']]},
+'Huevos revueltos (2 unidades) + Batido de sandía y açaí (2½ tazas)':{items:[['2 uds','Huevos','EG'],['1 chda','AOVE','GR'],['200 g','Sandía','FR'],['100 g','Açaí','FR'],['1 chda','Miel','OT',1]],note:'Batido: sandía + açaí + hielo batidos.'},
+'Huevos revueltos (1 huevo) + Batido de açaí (3 tazas)':{items:[['1 ud','Huevo','EG'],['1 chda','AOVE','GR'],['150 g','Açaí','FR'],['1 ud','Plátano','FR'],['100 ml','Leche de coco','OT']],note:'Batido: açaí + plátano + leche de coco batidos.'},
+'Huevos revueltos (3 uds) + Batido de sandía y açaí (3 tazas)':{items:[['3 uds','Huevos','EG'],['1 chda','AOVE','GR'],['300 g','Sandía','FR'],['150 g','Açaí','FR'],['1 chda','Miel','OT',1]],note:'Batido: sandía + açaí + hielo batidos.'},
+'Tortilla de claras con espinaca, cebolla, champiñón y pimiento (1 ración) + Plátano, frutos rojos y chocolate amargo':{items:[['4 uds','Claras de huevo','EG'],['50 g','Espinaca','VH'],['30 g','Cebolla','VH'],['50 g','Champiñones','VH'],['50 g','Pimiento','VH'],['1 ud','Plátano','FR'],['100 g','Frutos rojos','FR'],['20 g','Chocolate negro >85%','OT']]},
+'Tortilla de claras con espinaca, cebolla, champiñón y pimiento (2 raciones) + Batido de piña y frambuesa':{items:[['6 uds','Claras de huevo','EG'],['100 g','Espinaca','VH'],['50 g','Cebolla','VH'],['80 g','Champiñones','VH'],['80 g','Pimiento','VH'],['150 g','Piña','FR'],['100 g','Frutos rojos','FR'],['100 ml','Leche de almendra','OT']]},
+'Ensalada de atún y aguacate (1 ración) + Zumo verde variado (½ ración)':{items:[['150 g','Atún','PA'],['½ ud','Aguacate','GR'],['100 g','Lechuga','VH'],['50 g','Tomate','VH'],['125 ml','Zumo verde (espinaca, pepino, limón)','VH'],['1 cda','AOVE','GR']]},
+'Ensalada de atún y aguacate (1½ ración) + Zumo verde variado (½ ración)':{items:[['200 g','Atún','PA'],['½ ud','Aguacate','GR'],['150 g','Lechuga','VH'],['75 g','Tomate','VH'],['125 ml','Zumo verde (espinaca, pepino, limón)','VH'],['1 cda','AOVE','GR']]},
+'Ensalada de atún y aguacate (1½ ración) + Batido de piña y frambuesa':{items:[['200 g','Atún','PA'],['½ ud','Aguacate','GR'],['150 g','Lechuga','VH'],['75 g','Tomate','VH'],['150 g','Piña','FR'],['100 g','Frutos rojos','FR'],['100 ml','Leche de almendra','OT']]},
+'Ensalada de atún con sésamo (1 ración) + Batido de canela, plátano y nectarina':{items:[['150 g','Atún','PA'],['100 g','Lechuga','VH'],['50 g','Tomate','VH'],['10 g','Sésamo','SE'],['1 ud','Plátano','FR'],['1 ud','Nectarina','FR'],['1 cdta','Canela','OT'],['100 ml','Leche de almendra','OT']]},
+'Ensalada de atún con sésamo (1½ ración) + Batido de canela, plátano y nectarina':{items:[['200 g','Atún','PA'],['150 g','Lechuga','VH'],['75 g','Tomate','VH'],['10 g','Sésamo','SE'],['1 ud','Plátano','FR'],['1 ud','Nectarina','FR'],['1 cdta','Canela','OT'],['100 ml','Leche de almendra','OT']]},
+'Zumo de zanahoria y naranja (470 ml)':{items:[['300 g','Zanahoria','VH'],['2 ud','Naranja','FR']],note:'Exprimir o licuar zanahoria y naranja.'},
+'Zumo de zanahoria y naranja (470 ml) + 30 g de almendras':{items:[['300 g','Zanahoria','VH'],['2 ud','Naranja','FR'],['30 g','Almendras','SE']]},
+'Sopa picante de pollo (1 ración) + Ensalada de kale y pepino':{items:[['150 g','Pechuga de pollo','PB'],['100 g','Kale','VH'],['100 g','Pepino','VH'],['50 g','Cebolla','VH'],['1 cdta','Especias picantes','OT'],['1 cda','AOVE','GR']]},
+'Sopa picante de pollo (1½ ración) + Ensalada de kale y pepino':{items:[['200 g','Pechuga de pollo','PB'],['150 g','Kale','VH'],['150 g','Pepino','VH'],['75 g','Cebolla','VH'],['1 cdta','Especias picantes','OT'],['1 cda','AOVE','GR']]},
+'Sopa picante de pollo (1½ ración) + Ensalada de kale y pepino con aguacate':{items:[['200 g','Pechuga de pollo','PB'],['150 g','Kale','VH'],['150 g','Pepino','VH'],['½ ud','Aguacate','GR'],['75 g','Cebolla','VH'],['1 cdta','Especias picantes','OT'],['1 cda','AOVE','GR']]},
+'Ensalada batida de frambuesa (1½ ración) + Batido de plátano, coco y verduras verdes':{items:[['150 g','Frutos rojos','FR'],['100 g','Lechuga','VH'],['1 ud','Plátano','FR'],['100 ml','Leche de coco','OT'],['50 g','Espinaca','VH']]},
+'Ensalada batida de frambuesa (2 raciones) + Batido de plátano, coco y verduras verdes':{items:[['200 g','Frutos rojos','FR'],['150 g','Lechuga','VH'],['1 ud','Plátano','FR'],['100 ml','Leche de coco','OT'],['75 g','Espinaca','VH']]},
+'Manzana con mantequilla de almendra (1 manzana)':{items:[['1 ud','Manzana','FR'],['2 cda','Mantequilla de almendra','SE']]},
+'Manzana con mantequilla de almendra (1 manzana + 2 cda)':{items:[['1 ud','Manzana','FR'],['2 cda','Mantequilla de almendra','SE']]},
+'Pollo con gravy de chipotle (1 ración) + Ensalada de pimientos y tomate':{items:[['150 g','Pechuga de pollo','PB'],['50 g','Salsa chipotle','OT'],['100 g','Pimiento','VH'],['100 g','Tomate','VH'],['1 cda','AOVE','GR']]},
+'Pollo con gravy de chipotle (1½ ración) + Ensalada de pimientos y tomate':{items:[['200 g','Pechuga de pollo','PB'],['75 g','Salsa chipotle','OT'],['150 g','Pimiento','VH'],['150 g','Tomate','VH'],['1 cda','AOVE','GR']]},
+'Pollo con gravy de chipotle (1½ ración) + Ensalada de pimientos y tomate con aguacate':{items:[['200 g','Pechuga de pollo','PB'],['75 g','Salsa chipotle','OT'],['150 g','Pimiento','VH'],['150 g','Tomate','VH'],['½ ud','Aguacate','GR'],['1 cda','AOVE','GR']]},
+'Ensalada de pollo con estragón y Dijon (1½ ración) + Batido de piña y frambuesa':{items:[['200 g','Pechuga de pollo','PB'],['100 g','Lechuga','VH'],['1 cdta','Estragón','OT'],['1 cdta','Mostaza Dijon','OT'],['150 g','Piña','FR'],['100 g','Frutos rojos','FR'],['100 ml','Leche de almendra','OT']]},
+'Ensalada de pollo con estragón y Dijon (2 raciones) + Batido de piña y frambuesa':{items:[['250 g','Pechuga de pollo','PB'],['150 g','Lechuga','VH'],['1 cdta','Estragón','OT'],['1 cdta','Mostaza Dijon','OT'],['150 g','Piña','FR'],['100 g','Frutos rojos','FR'],['100 ml','Leche de almendra','OT']]},
+'Ensalada picante de plátano macho (1 ración)':{items:[['1 ud','Plátano macho','FR'],['50 g','Lechuga','VH'],['1 cdta','Especias picantes','OT'],['1 cda','AOVE','GR']]},
+'Ensalada picante de plátano macho (1½ ración)':{items:[['1½ ud','Plátano macho','FR'],['75 g','Lechuga','VH'],['1 cdta','Especias picantes','OT'],['1 cda','AOVE','GR']]},
+'Bistec simple (½ ración) + Ensalada de frutas clásica':{items:[['100 g','Ternera','PB'],['100 g','Fruta mixta','FR'],['1 cda','AOVE','GR']]},
+'Bistec simple (1 ración) + Ensalada de frutas clásica':{items:[['150 g','Ternera','PB'],['150 g','Fruta mixta','FR'],['1 cda','AOVE','GR']]},
+'Bistec simple (1 ración) + Ensalada de frutas clásica con frutos secos':{items:[['150 g','Ternera','PB'],['150 g','Fruta mixta','FR'],['20 g','Nueces','SE'],['1 cda','AOVE','GR']]},
+'Salteado de bacalao (1 ración) + Ensalada de piña y aguacate':{items:[['150 g','Bacalao','PA'],['150 g','Piña','FR'],['½ ud','Aguacate','GR'],['1 cda','AOVE','GR']]},
+'Salteado de bacalao (1½ ración) + Ensalada de piña y aguacate':{items:[['200 g','Bacalao','PA'],['150 g','Piña','FR'],['½ ud','Aguacate','GR'],['1 cda','AOVE','GR']]},
+'Zumo verde de jengibre (1 ración) + Batata al microondas (½ batata)':{items:[['100 g','Espinaca','VH'],['1 ud','Pepino','VH'],['1 ud','Limón','FR'],['5 g','Jengibre','VH'],['150 g','Batata','VH']]},
+'Zumo verde de jengibre (1 ración) + Batata al microondas (1 batata)':{items:[['100 g','Espinaca','VH'],['1 ud','Pepino','VH'],['1 ud','Limón','FR'],['5 g','Jengibre','VH'],['250 g','Batata','VH']]},
+'Revuelto de espinaca y champiñón (1 ración) + Plátano, frutos rojos y chocolate amargo':{items:[['2 uds','Huevos','EG'],['50 g','Espinaca','VH'],['50 g','Champiñones','VH'],['1 ud','Plátano','FR'],['100 g','Frutos rojos','FR'],['20 g','Chocolate negro >85%','OT'],['1 cda','AOVE','GR']]},
+'Revuelto de espinaca y champiñón (1½ ración) + Plátano, frutos rojos y chocolate amargo':{items:[['3 uds','Huevos','EG'],['75 g','Espinaca','VH'],['75 g','Champiñones','VH'],['1 ud','Plátano','FR'],['100 g','Frutos rojos','FR'],['20 g','Chocolate negro >85%','OT'],['1 cda','AOVE','GR']]},
+'Revuelto de espinaca y champiñón (2 raciones) + Plátano, frutos rojos y chocolate amargo':{items:[['4 uds','Huevos','EG'],['100 g','Espinaca','VH'],['100 g','Champiñones','VH'],['1 ud','Plátano','FR'],['100 g','Frutos rojos','FR'],['20 g','Chocolate negro >85%','OT'],['1 cda','AOVE','GR']]},
+'Tortilla de claras (4 uds) con espinaca, cebolla, champiñón y pimiento + Plátano, frutos rojos y chocolate amargo':{items:[['4 uds','Claras de huevo','EG'],['50 g','Espinaca','VH'],['30 g','Cebolla','VH'],['50 g','Champiñones','VH'],['50 g','Pimiento','VH'],['1 ud','Plátano','FR'],['100 g','Frutos rojos','FR'],['20 g','Chocolate negro >85%','OT']]},
+'Tortilla de claras (4 uds) con espinaca, cebolla, champiñón y pimiento + Plátano, frutos rojos y chocolate amargo':{items:[['4 uds','Claras de huevo','EG'],['50 g','Espinaca','VH'],['30 g','Cebolla','VH'],['50 g','Champiñones','VH'],['50 g','Pimiento','VH'],['1 ud','Plátano','FR'],['100 g','Frutos rojos','FR'],['20 g','Chocolate negro >85%','OT']]},
+'Pechuga de pollo (200 g) con brócoli y aceite de oliva':{items:[['200 g','Pechuga de pollo','PB'],['150 g','Brócoli','VH'],['1 cda','AOVE','GR']]},
+'Ternera (200 g) con ensalada verde y aguacate':{items:[['200 g','Ternera','PB'],['100 g','Lechuga','VH'],['50 g','Tomate','VH'],['½ ud','Aguacate','GR'],['1 cda','AOVE','GR']]},
+'Merluza (200 g) con calabacín salteado':{items:[['200 g','Merluza','PA'],['150 g','Calabacín','VH'],['1 cda','AOVE','GR']]},
+'Atún (200 g) a la plancha con espárragos':{items:[['200 g','Atún','PA'],['150 g','Espárragos','VH'],['1 cda','AOVE','GR']]},
+'Nueces mixtas (30 g) + queso':{items:[['30 g','Nueces','SE'],['50 g','Queso','PL']]},
+'Queso fresco (100 g) con aceitunas':{items:[['100 g','Queso fresco','PL'],['15 ud','Aceitunas','OT']]},
+'Queso fresco (80 g) con aceitunas':{items:[['80 g','Queso fresco','PL'],['15 ud','Aceitunas','OT']]},
+'Palitos de apio con mantequilla de almendra (3 cdas)':{items:[['100 g','Apio','VH'],['3 cda','Mantequilla de almendra','SE']]},
+'Guacamole (½ aguacate) con palitos de pepino':{items:[['½ ud','Aguacate','GR'],['100 g','Pepino','VH'],['1 cdta','Limón','FR']]},
+'Guacamole con palitos de pepino':{items:[['½ ud','Aguacate','GR'],['100 g','Pepino','VH'],['1 cdta','Limón','FR']]},
+'Mantequilla de almendra (4 cdas)':{items:[['4 cda','Mantequilla de almendra','SE']]},
+'Mantequilla de almendra (2 cdas)':{items:[['2 cda','Mantequilla de almendra','SE']]},
+'Aceitunas (15 uds) y queso (80 g)':{items:[['15 ud','Aceitunas','OT'],['80 g','Queso','PL']]},
+'Aceitunas (15 uds) y frutos secos (30 g)':{items:[['15 ud','Aceitunas','OT'],['30 g','Nueces','SE']]},
+'Aceitunas y queso':{items:[['15 ud','Aceitunas','OT'],['50 g','Queso','PL']]},
+'Hummus (100 g) con pan pita':{items:[['100 g','Hummus','OT'],['2 ud','Pan pita','HA']]},
+'Nueces (40 g) y fruta':{items:[['40 g','Nueces','SE'],['1 ud','Fruta de temporada','FR']]},
+'Queso fresco (100 g) con miel':{items:[['100 g','Queso fresco','PL'],['1 cda','Miel','OT']]},
+'Queso fresco (80 g) con fruta':{items:[['80 g','Queso fresco','PL'],['1 ud','Fruta de temporada','FR']]},
+'Yogur griego (200 g) con miel':{items:[['200 g','Yogur griego','PL'],['1 cda','Miel','OT']]},
+'Yogur griego (200 g) con fruta':{items:[['200 g','Yogur griego','PL'],['1 ud','Fruta de temporada','FR']]},
+'Yogur griego (200 g) con frutos rojos y granola (30 g)':{items:[['200 g','Yogur griego','PL'],['100 g','Frutos rojos','FR'],['30 g','Granola','HA']]},
+'Fruta + almendras (30 g)':{items:[['1 ud','Fruta de temporada','FR'],['30 g','Almendras','SE']]},
+'Fruta + frutos secos (30 g)':{items:[['1 ud','Fruta de temporada','FR'],['30 g','Frutos secos','SE']]},
+'Fruta seca (40 g) y almendras (30 g)':{items:[['40 g','Frutos secos','SE'],['30 g','Almendras','SE']]},
+'Barrita de frutos secos + fruta':{items:[['1 ud','Barrita de frutos secos','SE'],['1 ud','Fruta de temporada','FR']]},
+'Fruta + frutos secos (40 g)':{items:[['1 ud','Fruta de temporada','FR'],['40 g','Frutos secos','SE']]},
+'Smoothie de frutos rojos (300 ml)':{items:[['200 g','Frutos rojos','FR'],['100 ml','Leche de almendra','OT']]},
+'Edamame con sal':{items:[['100 g','Edamame','LG'],['1 pizca','Sal','OT']]},
+'Huevos Benedict (4 uds) con espinaca':{items:[['4 uds','Huevos','EG'],['100 g','Espinaca','VH'],['1 cda','AOVE','GR']]},
+'Huevos Benedict (4 uds) con espinaca':{items:[['4 uds','Huevos','EG'],['100 g','Espinaca','VH'],['1 cda','AOVE','GR']]},
+'Tostadas integrales (3 uds) con tomate y aceite de oliva':{items:[['3 ud','Pan integral','HA'],['100 g','Tomate','VH'],['1 cda','AOVE','GR']]},
+'Tostadas integrales (3 uds) con tomate y mozzarella':{items:[['3 ud','Pan integral','HA'],['100 g','Tomate','VH'],['100 g','Mozzarella','PL']]},
+'Tostadas de centeno (3 uds) con aguacate (½) y huevo':{items:[['3 ud','Pan de centeno','HA'],['½ ud','Aguacate','GR'],['1 ud','Huevo','EG']]},
+'Tostadas de centeno (3 uds) con huevo y aguacate':{items:[['3 ud','Pan de centeno','HA'],['1 ud','Huevo','EG'],['½ ud','Aguacate','GR']]},
+'Porridge de avena (80 g) con nueces (30 g) y miel':{items:[['80 g','Avena','HA'],['30 g','Nueces','SE'],['1 cda','Miel','OT'],['200 ml','Leche','PL']]},
+'Porridge de avena (80 g) con nueces (30 g) y miel + fruta':{items:[['80 g','Avena','HA'],['30 g','Nueces','SE'],['1 cda','Miel','OT'],['200 ml','Leche','PL'],['1 ud','Fruta de temporada','FR']]},
+'Avena (80 g) con plátano y canela + nueces (30 g)':{items:[['80 g','Avena','HA'],['1 ud','Plátano','FR'],['1 cdta','Canela','OT'],['30 g','Nueces','SE'],['200 ml','Leche','PL']]},
+'Tortilla de espinacas (4 huevos)':{items:[['4 uds','Huevos','EG'],['100 g','Espinaca','VH'],['1 cda','AOVE','GR']]},
+'Tortilla española (4 huevos) con ensalada':{items:[['4 uds','Huevos','EG'],['200 g','Patata','VH'],['100 g','Lechuga','VH'],['1 cda','AOVE','GR']]},
+'Tortilla española (4 huevos)':{items:[['4 uds','Huevos','EG'],['200 g','Patata','VH'],['1 cda','AOVE','GR']]},
+'Salmón (200 g) a la plancha con quinoa (80 g en seco) y verduras':{items:[['200 g','Salmón','PA'],['80 g','Quinoa','HA'],['150 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Salmón (200 g) a la plancha con boniato (200 g)':{items:[['200 g','Salmón','PA'],['200 g','Boniato','VH'],['1 cda','AOVE','GR']]},
+'Merluza (200 g) al horno con patata (200 g) y cebolla':{items:[['200 g','Merluza','PA'],['200 g','Patata','VH'],['50 g','Cebolla','VH'],['1 cda','AOVE','GR']]},
+'Merluza (200 g) con espinacas y ajo':{items:[['200 g','Merluza','PA'],['100 g','Espinaca','VH'],['1 diente','Ajo','VH'],['1 cda','AOVE','GR']]},
+'Merluza (200 g) con calabacín y ajo':{items:[['200 g','Merluza','PA'],['150 g','Calabacín','VH'],['1 diente','Ajo','VH'],['1 cda','AOVE','GR']]},
+'Merluza (200 g) con patata asada':{items:[['200 g','Merluza','PA'],['200 g','Patata','VH'],['1 cda','AOVE','GR']]},
+'Paella de marisco y verduras (100 g arroz en seco)':{items:[['100 g','Arroz','HA'],['150 g','Marisco mixto','PA'],['100 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Paella de pollo (200 g) y verduras (100 g arroz en seco)':{items:[['200 g','Pollo','PB'],['100 g','Arroz','HA'],['100 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Arroz integral (80 g en seco) con verduras y pollo (200 g)':{items:[['80 g','Arroz integral','HA'],['200 g','Pollo','PB'],['100 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Arroz (80 g en seco) con verduras y marisco':{items:[['80 g','Arroz','HA'],['150 g','Marisco mixto','PA'],['100 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Arroz (80 g en seco) con marisco':{items:[['80 g','Arroz','HA'],['150 g','Marisco mixto','PA'],['1 cda','AOVE','GR']]},
+'Arroz (80 g en seco) con verduras':{items:[['80 g','Arroz','HA'],['150 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Lentejas (100 g en seco) guisadas con verduras':{items:[['100 g','Lentejas','LG'],['150 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Lentejas (100 g en seco) con verduras y arroz (80 g)':{items:[['100 g','Lentejas','LG'],['100 g','Verduras variadas','VH'],['80 g','Arroz','HA'],['1 cda','AOVE','GR']]},
+'Guiso de garbanzos (150 g) con espinaca y chorizo':{items:[['150 g','Garbanzos','LG'],['100 g','Espinaca','VH'],['50 g','Chorizo','PB'],['1 cda','AOVE','GR']]},
+'Guiso de garbanzos (150 g) con espinaca':{items:[['150 g','Garbanzos','LG'],['100 g','Espinaca','VH'],['1 cda','AOVE','GR']]},
+'Cordero (200 g) al horno con verduras mediterráneas':{items:[['200 g','Cordero','PB'],['150 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Cordero (200 g) al horno con patata (200 g)':{items:[['200 g','Cordero','PB'],['200 g','Patata','VH'],['1 cda','AOVE','GR']]},
+'Cordero (200 g) con verduras':{items:[['200 g','Cordero','PB'],['150 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Bacalao (200 g) al pil-pil con patatas':{items:[['200 g','Bacalao','PA'],['200 g','Patata','VH'],['1 cda','AOVE','GR']]},
+'Bacalao (200 g) con verduras al horno':{items:[['200 g','Bacalao','PA'],['150 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Pasta integral (80 g en seco) con salsa de tomate y albahaca':{items:[['80 g','Pasta integral','HA'],['150 g','Salsa de tomate','OT'],['Al gusto','Albahaca','OT'],['1 cda','AOVE','GR']]},
+'Pasta integral (80 g en seco) con atún (150 g) y tomate':{items:[['80 g','Pasta integral','HA'],['150 g','Atún','PA'],['100 g','Tomate','VH'],['1 cda','AOVE','GR']]},
+'Pasta integral (80 g en seco) con verduras':{items:[['80 g','Pasta integral','HA'],['150 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Pasta integral (80 g en seco) con atún':{items:[['80 g','Pasta integral','HA'],['150 g','Atún','PA'],['1 cda','AOVE','GR']]},
+'Sardinas (200 g) a la plancha con pimientos':{items:[['200 g','Sardinas','PA'],['150 g','Pimiento','VH'],['1 cda','AOVE','GR']]},
+'Sardinas (200 g) con pimientos asados':{items:[['200 g','Sardinas','PA'],['150 g','Pimiento','VH'],['1 cda','AOVE','GR']]},
+'Sardinas (200 g) a la parrilla con ensalada y aceite de oliva':{items:[['200 g','Sardinas','PA'],['100 g','Lechuga','VH'],['1 cda','AOVE','GR']]},
+'Sardinas (200 g) a la parrilla':{items:[['200 g','Sardinas','PA'],['1 cda','AOVE','GR']]},
+'Sardinas (200 g) a la plancha con ensalada':{items:[['200 g','Sardinas','PA'],['100 g','Lechuga','VH'],['1 cda','AOVE','GR']]},
+'Sardinas (200 g) con pimientos':{items:[['200 g','Sardinas','PA'],['150 g','Pimiento','VH'],['1 cda','AOVE','GR']]},
+'Calamares (200 g) a la plancha con ensalada':{items:[['200 g','Calamares','PA'],['100 g','Lechuga','VH'],['1 cda','AOVE','GR']]},
+'Pollo (200 g) al horno con boniato (200 g)':{items:[['200 g','Pollo','PB'],['200 g','Boniato','VH'],['1 cda','AOVE','GR']]},
+'Pollo (200 g) al horno con aceitunas y limón':{items:[['200 g','Pollo','PB'],['15 ud','Aceitunas','OT'],['1 ud','Limón','FR'],['1 cda','AOVE','GR']]},
+'Pollo (200 g) al horno con patata (200 g) y romero':{items:[['200 g','Pollo','PB'],['200 g','Patata','VH'],['1 cdta','Romero','OT'],['1 cda','AOVE','GR']]},
+'Pollo (200 g) a la plancha con quinoa (80 g en seco)':{items:[['200 g','Pollo','PB'],['80 g','Quinoa','HA'],['1 cda','AOVE','GR']]},
+'Pollo (200 g) con arroz (80 g) y verduras':{items:[['200 g','Pollo','PB'],['80 g','Arroz','HA'],['100 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Lubina (200 g) al horno con limón':{items:[['200 g','Lubina','PA'],['1 ud','Limón','FR'],['1 cda','AOVE','GR']]},
+'Lubina (200 g) al horno con limón y hierbas':{items:[['200 g','Lubina','PA'],['1 ud','Limón','FR'],['Al gusto','Hierbas','OT'],['1 cda','AOVE','GR']]},
+'Lubina (200 g) con espinacas':{items:[['200 g','Lubina','PA'],['100 g','Espinaca','VH'],['1 cda','AOVE','GR']]},
+'Lubina (200 g) con calabacín y pimiento':{items:[['200 g','Lubina','PA'],['100 g','Calabacín','VH'],['50 g','Pimiento','VH'],['1 cda','AOVE','GR']]},
+'Salmón (200 g) al horno con espárragos':{items:[['200 g','Salmón','PA'],['150 g','Espárragos','VH'],['1 cda','AOVE','GR']]},
+'Salmón (200 g) con espárragos':{items:[['200 g','Salmón','PA'],['150 g','Espárragos','VH'],['1 cda','AOVE','GR']]},
+'Salmón (200 g) con quinoa (80 g en seco) y verduras':{items:[['200 g','Salmón','PA'],['80 g','Quinoa','HA'],['100 g','Verduras variadas','VH'],['1 cda','AOVE','GR']]},
+'Ternera (200 g) con espárragos y mantequilla':{items:[['200 g','Ternera','PB'],['150 g','Espárragos','VH'],['10 g','Mantequilla','PL']]},
+'Ternera (200 g) con puré de coliflor':{items:[['200 g','Ternera','PB'],['200 g','Coliflor','VH'],['10 g','Mantequilla','PL']]},
+'Ternera (200 g) con ensalada verde y aguacate':{items:[['200 g','Ternera','PB'],['100 g','Lechuga','VH'],['½ ud','Aguacate','GR'],['1 cda','AOVE','GR']]},
+'Pavo (200 g) con verduras salteadas en aceite de coco':{items:[['200 g','Pavo','PB'],['150 g','Verduras variadas','VH'],['1 cda','Aceite de coco','GR']]},
+'Cerdo (200 g) con brócoli y salsa de soja':{items:[['200 g','Cerdo','PB'],['150 g','Brócoli','VH'],['1 cda','Salsa de soja','OT']]},
+'Pollo (200 g) con ensalada de aguacate':{items:[['200 g','Pollo','PB'],['100 g','Lechuga','VH'],['½ ud','Aguacate','GR'],['1 cda','AOVE','GR']]},
+'Huevos revueltos (4 uds) con espinaca y aguacate':{items:[['4 uds','Huevos','EG'],['50 g','Espinaca','VH'],['½ ud','Aguacate','GR'],['1 cda','AOVE','GR']]},
+'Huevos revueltos (3 uds) con espinaca y aguacate':{items:[['3 uds','Huevos','EG'],['50 g','Espinaca','VH'],['½ ud','Aguacate','GR'],['1 cda','AOVE','GR']]},
+'Tortilla de 3 huevos con champiñones':{items:[['3 uds','Huevos','EG'],['50 g','Champiñones','VH'],['1 cda','AOVE','GR']]},
+'Tortilla de 4 huevos con champiñones':{items:[['4 uds','Huevos','EG'],['50 g','Champiñones','VH'],['1 cda','AOVE','GR']]},
+'Huevos pochados (3 uds) sobre aguacate':{items:[['3 uds','Huevos','EG'],['½ ud','Aguacate','GR']]},
+'Huevos pochados sobre aguacate':{items:[['2 uds','Huevos','EG'],['½ ud','Aguacate','GR']]},
+'Revuelto de huevos (4 uds) con tocino':{items:[['4 uds','Huevos','EG'],['50 g','Tocino','PB'],['1 cda','AOVE','GR']]},
+'Revuelto de huevos con tocino':{items:[['2 uds','Huevos','EG'],['50 g','Tocino','PB'],['1 cda','AOVE','GR']]},
+'Salmón con ensalada de kale y nueces':{items:[['180 g','Salmón','PA'],['100 g','Kale','VH'],['20 g','Nueces','SE'],['1 cda','AOVE','GR']]},
+'Ternera con puré de coliflor':{items:[['180 g','Ternera','PB'],['200 g','Coliflor','VH'],['10 g','Mantequilla','PL']]},
+'Huevos Benedict con espinaca':{items:[['2 uds','Huevos','EG'],['100 g','Espinaca','VH'],['1 cda','AOVE','GR']]},
+'Pavo con verduras salteadas en aceite de coco':{items:[['180 g','Pavo','PB'],['150 g','Verduras variadas','VH'],['1 cda','Aceite de coco','GR']]},
+'Lubina con calabacín y pimiento':{items:[['180 g','Lubina','PA'],['100 g','Calabacín','VH'],['50 g','Pimiento','VH'],['1 cda','AOVE','GR']]},
+'Omelette de queso y champiñones':{items:[['2 uds','Huevos','EG'],['50 g','Queso','PL'],['50 g','Champiñones','VH'],['1 cda','AOVE','GR']]},
+'Omelette de queso (4 huevos) y champiñones':{items:[['4 uds','Huevos','EG'],['50 g','Queso','PL'],['50 g','Champiñones','VH'],['1 cda','AOVE','GR']]},
+'Cerdo con brócoli y salsa de soja':{items:[['180 g','Cerdo','PB'],['150 g','Brócoli','VH'],['1 cda','Salsa de soja','OT']]},
+'Pollo con ensalada de aguacate':{items:[['180 g','Pollo','PB'],['100 g','Lechuga','VH'],['½ ud','Aguacate','GR'],['1 cda','AOVE','GR']]},
+'Huevos revueltos con salmón ahumado':{items:[['2 uds','Huevos','EG'],['60 g','Salmón ahumado','PA'],['1 cda','AOVE','GR']]},
+'Huevos revueltos (4 uds) con salmón ahumado':{items:[['4 uds','Huevos','EG'],['60 g','Salmón ahumado','PA'],['1 cda','AOVE','GR']]},
+'Ternera con espárragos y mantequilla':{items:[['180 g','Ternera','PB'],['150 g','Espárragos','VH'],['10 g','Mantequilla','PL']]},
+'Merluza con espinacas salteadas':{items:[['180 g','Merluza','PA'],['100 g','Espinaca','VH'],['1 cda','AOVE','GR']]}
 };
 
 Object.assign(MEAL_DETAILS,M_MEAL_DETAILS);Object.assign(NDATA,M_NDATA);/* Sistema de sustitución 1×1 — solo dentro del mismo grupo */
@@ -1355,6 +1505,15 @@ function getMealsDbForDieta(dietaType){
     default:return null;
   }
 }
+function getAllMealsDbs(){
+  var dbs=[];
+  if(typeof MED_MEALS!=='undefined')dbs.push(MED_MEALS);
+  if(typeof CETO_MEALS!=='undefined')dbs.push(CETO_MEALS);
+  if(typeof VEGAN_MEALS!=='undefined')dbs.push(VEGAN_MEALS);
+  if(typeof VEGET_MEALS!=='undefined')dbs.push(VEGET_MEALS);
+  if(typeof PALEO_MEALS!=='undefined')dbs.push(PALEO_MEALS);
+  return dbs;
+}
 function normalizeMealName(s){
   var n=s.toLowerCase().trim().replace(/\s+/g,' ');
   n=n.replace(/½/g,'una');
@@ -1419,6 +1578,50 @@ function normalizeMealName(s){
   n=n.replace(/pimiento verde/g,'pimiento');
   n=n.replace(/pimiento rojo/g,'pimiento');
   n=n.replace(/tomate natural/g,'tomate');
+  n=n.replace(/yogur griego con/g,'yogur griego proteico con');
+  n=n.replace(/tostadas de centeno con/g,'tostadas de espelta con');
+  n=n.replace(/tostadas integrales con/g,'tostadas de espelta con');
+  n=n.replace(/salmón a la plancha con/g,'salmón con');
+  n=n.replace(/salmón al horno con/g,'salmón con');
+  n=n.replace(/merluza al horno con/g,'merluza con');
+  n=n.replace(/merluza con espinacas/g,'merluza con espinaca');
+  n=n.replace(/sardinas a la parrilla con/g,'sardinas con');
+  n=n.replace(/sardinas a la plancha con/g,'sardinas con');
+  n=n.replace(/cordero al horno con/g,'cordero con');
+  n=n.replace(/bacalao al pil-pil con/g,'bacalao con');
+  n=n.replace(/bacalao con verduras al horno/g,'bacalao al pil-pil con patatas');
+  n=n.replace(/pollo a la plancha con/g,'pollo con');
+  n=n.replace(/arroz con verduras y marisco/g,'arroz con verduras y marisco');
+  n=n.replace(/arroz integral con verduras y pollo/g,'pollo con arroz y verduras');
+  n=n.replace(/pasta integral con atún y tomate/g,'pasta integral con atún');
+  n=n.replace(/pasta integral con verduras y pesto/g,'pasta integral con verduras');
+  n=n.replace(/lentejas guisadas con verduras/g,'lentejas con verduras');
+  n=n.replace(/lubina al horno con limón y hierbas/g,'lubina al horno con limón');
+  n=n.replace(/tortilla española con ensalada/g,'tortilla española');
+  n=n.replace(/porridge de avena con/g,'avena con');
+  n=n.replace(/porridge de avena/g,'avena');
+  n=n.replace(/smoothie de frutos rojos y yogur/g,'yogur con frutos rojos');
+  n=n.replace(/smoothie de frutos rojos/g,'frutos rojos');
+  n=n.replace(/paella de pollo y verduras/g,'paella de marisco y verduras');
+  n=n.replace(/cordero con verduras/g,'cordero al horno con verduras mediterráneas');
+  n=n.replace(/ensalada de garbanzos con verduras asadas/g,'ensalada de garbanzos');
+  n=n.replace(/ensalada de atún con verduras/g,'ensalada de atún con huevo cocido y verduras');
+  n=n.replace(/merluza con calabacín y ajo/g,'merluza con espinaca y ajo');
+  n=n.replace(/salmón con espárragos/g,'salmón al horno con espárragos');
+  n=n.replace(/sardinas con pimientos asados/g,'sardinas a la plancha con pimientos');
+  n=n.replace(/sardinas con pimientos/g,'sardinas a la plancha con pimientos');
+  n=n.replace(/arroz con marisco/g,'arroz con verduras y marisco');
+  n=n.replace(/merluza con patata asada/g,'merluza al horno con patata y cebolla');
+  n=n.replace(/pollo con arroz y verduras/g,'pollo con arroz y verduras');
+  n=n.replace(/salmón a la plancha con boniato/g,'salmón con boniato asado y espárragos');
+  n=n.replace(/avena con plátano y canela/g,'avena con leche y plátano');
+  n=n.replace(/aguacate \/ 50 g guacamole/g,'aguacate');
+  n=n.replace(/canónigos \+ tomate \+ cebolla pochada/g,'ensalada verde');
+  n=n.replace(/250-300 g boniato asado/g,'250 g boniato asado');
+  n=n.replace(/180-220 g salmón fresco con limón y especias/g,'180 g salmón');
+  n=n.replace(/\d+(?:\.\d+)?\s*-\s*\d+\s*g/g,function(m){return m.replace(/-\s*\d+/,'');});
+  n=n.replace(/\(\d+\s*(?:uds?|unidades?|piezas?|raciones?|tazas?|cdas?|cdtas?)\)/gi,'');
+  n=n.replace(/½/g,'una');
   n=n.replace(/\s+/g,' ').trim();
   return n.toLowerCase();
 }
@@ -1435,30 +1638,48 @@ function findMealInDb(name,mealsDb){
   }
   return null;
 }
-function getIngredientsFromMeal(name,dietaType){
-  var det=getAllDetails(name);
-  if(det&&det.items){
-    var result=[];
-    for(var i=0;i<det.items.length;i++){
-      var item=det.items[i];
-      if(item[3]==='SUP')continue;
-      var qtyStr=item[0]||'';var food=item[1]||'';var grp=item[2]||'';
-      if(!food)continue;
-      var parsed=parseQty(qtyStr);
-      result.push({a:food,q:parsed.type==='g'?parsed.val:0,grp:grp});
-    }
-    return result;
+function _extractIngFromDetail(det){
+  var result=[];
+  for(var i=0;i<det.items.length;i++){
+    var item=det.items[i];
+    if(item[3]==='SUP')continue;
+    var qtyStr=item[0]||'';var food=item[1]||'';var grp=item[2]||'';
+    if(!food)continue;
+    var parsed=parseQty(qtyStr);
+    result.push({a:food,q:parsed.type==='g'?parsed.val:0,grp:grp});
   }
+  return result;
+}
+function _extractIngFromDbMatch(found){
+  var result=[];
+  for(var i=0;i<found.ing.length;i++){
+    var ing=found.ing[i];
+    result.push({a:ing.a||'',q:ing.q||0,grp:''});
+  }
+  return result;
+}
+function getIngredientsFromMeal(name,dietaType){
+  if(!name)return null;
+  var det=getAllDetails(name);
+  if(det&&det.items)return _extractIngFromDetail(det);
   var mealsDb=getMealsDbForDieta(dietaType);
   var found=findMealInDb(name,mealsDb);
-  if(found&&found.ing){
-    var result2=[];
-    for(var i2=0;i2<found.ing.length;i2++){
-      var ing=found.ing[i2];
-      result2.push({a:ing.a||'',q:ing.q||0,grp:''});
-    }
-    return result2;
+  if(found&&found.ing)return _extractIngFromDbMatch(found);
+  var allDbs=getAllMealsDbs();
+  for(var d=0;d<allDbs.length;d++){
+    found=findMealInDb(name,allDbs[d]);
+    if(found&&found.ing)return _extractIngFromDbMatch(found);
   }
+  if(name.includes(' + ')||name.includes(' +')||name.includes('+ ')){
+    var parts=name.split(/\s*\+\s*/);
+    var allIng=[];
+    for(var p=0;p<parts.length;p++){
+      var partIng=getIngredientsFromMeal(parts[p].trim(),dietaType);
+      if(partIng)allIng=allIng.concat(partIng);
+    }
+    if(allIng.length>0)return allIng;
+  }
+  console.log('[SHOPPING ERROR] No se pudieron obtener ingredientes de: "'+name+'"');
   return null;
 }
 function generateShoppingList(user){

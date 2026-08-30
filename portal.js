@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-console.log('[APP VERSION] portal.js UNIFIED-SAVE-AUDIT');
+console.log('[APP VERSION] portal.js PLANS-V1');
 const $=s=>document.querySelector(s);
 function debugPlan(label,menu){
   if(!menu||!menu.length)return;
@@ -12,6 +12,9 @@ function debugPlan(label,menu){
   });
 }
 const PLANS={starter:{name:'Starter',price:'6 €/mes',tagline:'Tu dieta, sin extras',features:['Dieta personalizada','Menú semanal completo con recetas y cantidades','Sustituciones y filtrado por alergias','Lista de la compra semanal']},pro:{name:'Pro',price:'20 €/mes',tagline:'Plan dinámico con ajuste mensual',features:['Plan dinámico con ajuste mensual','Chat limitado para resolver dudas','Lista de la compra semanal','Protocolos avanzados: ayuno, recuperación y suplementación']},premium:{name:'Premium',price:'40 €/mes',tagline:'Seguimiento continuo y personalizado',features:['Seguimiento continuo personalizado','Feedback sobre tus comidas','Atención prioritaria sin esperas','Protocolos avanzados: ayuno, recuperación y suplementación']}};
+function hasPlan(u,level){if(!u||!u.plan)return level==='pro';return u.plan===level||u.plan==='premium'&&level==='pro';}
+function isPremium(u){return u&&u.plan==='premium';}
+function isProOrAbove(u){return u&&u.plan!=='starter';}
 const DIAS=['Lunes','Martes','Miércoles','Jueves','Viernes','Sábado','Domingo'];
 const ALERGIAS=['Lácteos','Frutos secos','Pescado','Otra…','Ninguna'];
 const ALLERGEN_RX=[
@@ -514,6 +517,22 @@ const DIET_VEGETARIANO={
   }
 };
 const DIET_PLANS={cetogenica:DIET_KETO,vegana:DIET_VEGANO,mediterranea:DIET_MEDITERRANEO,vegetariana:DIET_VEGETARIANO,paleo:DIET_PALEO};
+const STARTER_PLANS={
+  todos:{4:[
+    {Lunes:{desayuno:'Avena con fruta y nueces',comida:'Pollo al horno, quinoa y brócoli',merienda:'Yogur con fruta',cena:'Pescado a la plancha con ensalada'},Martes:{desayuno:'Tostada integral con aguacate y huevo',comida:'Lentejas con verduras y arroz integral',merienda:'Fruta y frutos secos',cena:'Tortilla de espinacas y ensalada'},Miércoles:{desayuno:'Yogur natural con fruta y semillas',comida:'Garbanzos salteados con espinaca',merienda:'Tostada integral con pavo',cena:'Crema de calabacín y huevo cocido'},Jueves:{desayuno:'Porridge de avena y plátano',comida:'Pollo con arroz, pimientos y calabacín',merienda:'Fruta',cena:'Pescado blanco con patata y verduras'},Viernes:{desayuno:'Tostada integral con tomate y aceite de oliva',comida:'Ensalada de atún con huevo cocido',merienda:'Yogur con nueces',cena:'Ternera con verduras salteadas'},Sábado:{desayuno:'Huevos revueltos con espinaca',comida:'Pasta integral con verduras al pesto',merienda:'Fruta',cena:'Merluza con patata y calabacín'},Domingo:{desayuno:'Yogur griego con granola y frutos rojos',comida:'Pollo al horno con patata y ensalada',merienda:'Tostada con aguacate',cena:'Salmón con boniato y espárragos'}},{Lunes:{desayuno:'Avena con leche, plátano y canela',comida:'Ternera con patata y espinacas',merienda:'Yogur con fruta',cena:'Merluza al horno con verduras'},Martes:{desayuno:'Tostadas integrales con pavo y tomate',comida:'Quinoa con verduras y garbanzos',merienda:'Fruta y almendras',cena:'Tortilla de champiñones y ensalada'},Miércoles:{desayuno:'Yogur griego con miel y nueces',comida:'Pollo con arroz y brócoli',merienda:'Tostada integral con aguacate',cena:'Salmón con espárragos'},Jueves:{desayuno:'Huevos revueltos con tomate',comida:'Lentejas con verduras',merienda:'Fruta',cena:'Pescado blanco con patata cocida'},Viernes:{desayuno:'Porridge de avena y frutos rojos',comida:'Ensalada de pollo con quinoa',merienda:'Yogur con semillas',cena:'Ternera con puré de patata'},Sábado:{desayuno:'Tostadas con aguacate y huevo',comida:'Pasta integral con pollo y verduras',merienda:'Fruta',cena:'Caballa a la plancha con ensalada'},Domingo:{desayuno:'Yogur con granola y fruta',comida:'Pollo al horno con verduras mediterráneas',merienda:'Nueces y fruta',cena:'Salmón con boniato asado'}},{Lunes:{desayuno:'Tostada integral con aguacate y huevo cocido',comida:'Pollo con arroz integral y verduras',merienda:'Yogur con fruta',cena:'Merluza con calabacín'},Martes:{desayuno:'Yogur griego con avena y frutos rojos',comida:'Lentejas guisadas con verduras',merienda:'Fruta y frutos secos',cena:'Salmón con espárragos y patata'},Miércoles:{desayuno:'Avena con plátano y canela',comida:'Ternera con ensalada y aguacate',merienda:'Tostada con pavo',cena:'Pescado blanco con verduras'},Jueves:{desayuno:'Huevos revueltos con espinaca',comida:'Garbanzos con espinaca y arroz',merienda:'Fruta',cena:'Pollo al horno con patata'},Viernes:{desayuno:'Porridge de avena y plátano',comida:'Ensalada de atún y verduras',merienda:'Yogur con nueces',cena:'Ternera con brócoli'},Sábado:{desayuno:'Tostadas con tomate y aceite de oliva',comida:'Pollo con pasta integral',merienda:'Fruta',cena:'Sardinas a la plancha con ensalada'},Domingo:{desayuno:'Yogur griego con frutos rojos',comida:'Merluza al horno con patata',merienda:'Tostada integral con aguacate',cena:'Salmón con verduras al vapor'}},{Lunes:{desayuno:'Avena con fruta y canela',comida:'Ternera con arroz y verduras',merienda:'Yogur con fruta',cena:'Pescado blanco con ensalada'},Martes:{desayuno:'Tostada integral con pavo y aguacate',comida:'Pollo con quinoa y brócoli',merienda:'Fruta y almendras',cena:'Tortilla de espinacas'},Miércoles:{desayuno:'Yogur griego con miel y nueces',comida:'Garbanzos con verduras asadas',merienda:'Tostada con tomate',cena:'Salmón con boniato y espárragos'},Jueves:{desayuno:'Huevos revueltos con champiñones',comida:'Lentejas con pollo y verduras',merienda:'Fruta',cena:'Merluza con patata cocida'},Viernes:{desayuno:'Porridge de avena y frutos rojos',comida:'Ensalada mediterránea con atún',merienda:'Yogur con semillas',cena:'Ternera con calabacín'},Sábado:{desayuno:'Tostadas con aguacate y huevo',comida:'Pasta integral con verduras',merienda:'Fruta',cena:'Caballa a la plancha con pimientos'},Domingo:{desayuno:'Yogur con granola y fruta',comida:'Pollo al horno con patata y cebolla',merienda:'Nueces',cena:'Salmón con verduras al horno'}}]},
+  mediterranea:{4:[
+    {Lunes:{desayuno:'Tostadas integrales con tomate y AOVE',comida:'Salmón a la plancha con quinoa y verduras',cena:'Merluza al horno con patata y cebolla'},Martes:{desayuno:'Huevos revueltos con espinaca y queso feta',comida:'Ensalada griega con pollo a la plancha',cena:'Pasta integral con salsa de tomate y albahaca'},Miércoles:{desayuno:'Yogur griego con miel y nueces',comida:'Paella de marisco y verduras',cena:'Lubina al horno con limón y hierbas'},Jueves:{desayuno:'Tostadas con aguacate y huevo pochado',comida:'Guiso de garbanzos con espinaca y chorizo',cena:'Pollo al horno con aceitunas y limón'},Viernes:{desayuno:'Smoothie de frutos rojos y yogur',comida:'Ensalada de atún con huevo cocido y verduras',cena:'Calamares a la plancha con ensalada'},Sábado:{desayuno:'Tortilla española con ensalada',comida:'Arroz con verduras y marisco',cena:'Sardinas a la plancha con pimientos'},Domingo:{desayuno:'Huevos Benedict con espinaca',comida:'Cordero al horno con verduras mediterráneas',cena:'Bacalao al pil-pil con patatas'}}]},
+  paleo:{4:[
+    {Lunes:{desayuno:'Huevos revueltos con espinaca y aguacate',comida:'Pechuga de pollo a la plancha con boniato asado y brócoli',cena:'Salmón al horno con espárragos y aceite de oliva'},Martes:{desayuno:'Tortilla de 3 huevos con champiñones y pimiento',comida:'Ternera con ensalada verde, aguacate y nueces',cena:'Merluza con calabacín salteado y ajo'},Miércoles:{desayuno:'Huevos pochados sobre aguacate con espinacas salteadas',comida:'Pollo al horno con coles de bruselas y mantequilla de almendra',cena:'Atún a la plancha con espárragos'},Jueves:{desayuno:'Revuelto de huevos con tocino y tomate',comida:'Salmón con ensalada de kale, nueces y semillas de calabaza',cena:'Ternera con puré de coliflor'},Viernes:{desayuno:'Omelette de champiñones y cebolla',comida:'Pavo con verduras salteadas en aceite de coco y boniato',cena:'Lubina con calabacín y pimiento asado'},Sábado:{desayuno:'Huevos fritos con aguacate y espinacas',comida:'Cerdo con brócoli al vapor y salsa de almendra',cena:'Pollo con ensalada de col morada y nueces'},Domingo:{desayuno:'Huevos revueltos con salmón ahumado y aguacate',comida:'Ternera con espárragos y mantequilla de hierbas',cena:'Merluza con espinacas salteadas y ajo'}},
+    {Lunes:{desayuno:'Tortilla de espinacas y champiñones',comida:'Pechuga de pollo con boniato al horno y pimientos',cena:'Salmón a la plancha con ensalada de rúcula y nueces'},Martes:{desayuno:'Huevos revueltos con tocino y aguacate',comida:'Ternera con brócoli al vapor y aceite de oliva',cena:'Merluza con calabacín y cebolla asada'},Miércoles:{desayuno:'Omelette de 4 huevos con cebolla y espinaca',comida:'Pollo al horno con coles de bruselas y boniato',cena:'Atún con espárragos y aguacate'},Jueves:{desayuno:'Huevos pochados con espinacas y tomate',comida:'Salmón con puré de coliflor y nueces',cena:'Ternera con ensalada verde y semillas'},Viernes:{desayuno:'Tortilla de jamón y champiñones',comida:'Pavo con verduras asadas en aceite de coco',cena:'Lubina con calabacín y almendras'},Sábado:{desayuno:'Huevos fritos con aguacate y pimiento',comida:'Cerdo con boniato asado y brócoli',cena:'Pollo con espinacas y ajo'},Domingo:{desayuno:'Huevos revueltos con salmón y cebolla',comida:'Ternera con espárragos y mantequilla',cena:'Sardinas a la plancha con ensalada de col'}}]},
+  vegana:{4:[
+    {Lunes:{desayuno:'Avena con leche de almendra y frutos rojos',comida:'Bowl de quinoa con garbanzos y verduras asadas',cena:'Crema de calabaza con semillas'},Martes:{desayuno:'Tostadas integrales con aguacate y semillas',comida:'Curry de garbanzos con espinaca y arroz',cena:'Salteado de tofu con verduras y salsa de soja'},Miércoles:{desayuno:'Smoothie verde de espinaca, plátano y leche de coco',comida:'Ensalada de lentejas con pimiento y cebolla',cena:'Pasta integral con salsa de tomate y alubias'},Jueves:{desayuno:'Pudín de chía con leche de coco y mango',comida:'Bowl de arroz con tofu teriyaki y verduras',cena:'Lasaña de berenjenas con bechamel de anacardos'},Viernes:{desayuno:'Pancakes de avena con sirope de arce',comida:'Tofu salteado con verduras y salsa de soja',cena:'Ensalada de quinoa, aguacate y maíz'},Sábado:{desayuno:'Tostadas con hummus y verduras',comida:'Berberecho de garbanzos con espinaca',cena:'Wok de tofu con arroz y verduras'},Domingo:{desayuno:'Smoothie bowl de açaí con granola vegana',comida:'Lentejas guisadas con verduras y arroz',cena:'Bowl de arroz con tofu revuelto y verduras'}}]},
+  vegetariana:{4:[
+    {Lunes:{desayuno:'Porridge de avena y plátano',comida:'Garbanzos salteados con espinaca',cena:'Crema de calabacín y huevo cocido'},Martes:{desayuno:'Tostada con queso fresco y tomate',comida:'Bowl de quinoa, hummus y verduras',cena:'Revuelto de tofu con champiñones'},Miércoles:{desayuno:'Yogur con granola y frutos rojos',comida:'Pasta integral con verduras al pesto',cena:'Ensalada de lentejas y queso feta'},Jueves:{desayuno:'Huevos revueltos con espinaca',comida:'Curry de verduras con arroz basmati',cena:'Pizza integral con verduras y mozzarella'},Viernes:{desayuno:'Avena con leche, plátano y nueces',comida:'Ensalada de garbanzos con espinaca y queso de cabra',cena:'Crema de calabaza con semillas'},Sábado:{desayuno:'Tostadas integrales con aguacate y huevo',comida:'Bowl de arroz con tofu, aguacate y verduras',cena:'Tortilla de espinacas y champiñones con ensalada'},Domingo:{desayuno:'Yogur griego con frutos rojos',comida:'Lasaña de verduras con bechamel',cena:'Risotto de champiñones y parmesano'}}]},
+  cetogenica:{4:[
+    {Lunes:{desayuno:'Huevos revueltos con espinaca y mantequilla',comida:'Pechuga de pollo a la plancha con brócoli y aceite de oliva',cena:'Salmón al horno con espárragos y limón'},Martes:{desayuno:'Tortilla de 4 huevos con champiñones y queso',comida:'Ternera con ensalada de aguacate y pepino',cena:'Merluza con calabacín salteado en mantequilla'},Miércoles:{desayuno:'Huevos pochados con aguacate y bacon',comida:'Pollo al horno con coles de bruselas y aceite de coco',cena:'Atún a la plancha con espárragos y aceitunas'},Jueves:{desayuno:'Revuelto de huevos con tocino y queso',comida:'Salmón con ensalada de kale, nueces y queso feta',cena:'Ternera con puré de coliflor y mantequilla'},Viernes:{desayuno:'Omelette de champiñones con queso y aceitunas',comida:'Pavo con verduras salteadas en aceite de coco',cena:'Lubina con calabacín y pimiento asado'},Sábado:{desayuno:'Huevos fritos con aguacate y bacon',comida:'Cerdo con brócoli al vapor y salsa de queso',cena:'Pollo con ensalada de col morada y nueces'},Domingo:{desayuno:'Huevos revueltos con salmón ahumado y mantequilla',comida:'Ternera con espárragos y aceite de oliva',cena:'Merluza con espinacas salteadas y ajo'}},
+    {Lunes:{desayuno:'Tortilla de espinacas con queso y bacon',comida:'Pechuga de pollo con brócoli y aceite de oliva',cena:'Salmón a la plancha con ensalada de rúcula y nueces'},Martes:{desayuno:'Huevos revueltos con aguacate y aceitunas',comida:'Ternera con ensalada verde y queso feta',cena:'Merluza con calabacín y cebolla asada'},Miércoles:{desayuno:'Omelette de 4 huevos con champiñones y queso',comida:'Pollo al horno con coles de bruselas y mantequilla',cena:'Atún con espárragos y aguacate'},Jueves:{desayuno:'Huevos pochados con espinaca y bacon',comida:'Salmón con puré de coliflor y nueces',cena:'Ternera con ensalada verde y semillas de calabaza'},Viernes:{desayuno:'Tortilla de jamón y queso con champiñones',comida:'Pavo con verduras asadas en aceite de coco',cena:'Lubina con calabacín y almendras'},Sábado:{desayuno:'Huevos fritos con aguacate y pimiento',comida:'Cerdo con coliflor al vapor y brócoli',cena:'Pollo con espinacas y ajo'},Domingo:{desayuno:'Huevos revueltos con salmón y mantequilla',comida:'Ternera con espárragos y aceite de oliva',cena:'Sardinas a la plancha con ensalada de col y nueces'}}]}
+};
 function savePlanHistory(u){
   if(!u.menu||!u.menu.length)return;
   if(!u.planHistory)u.planHistory=[];
@@ -773,13 +792,71 @@ $('#registerForm').addEventListener('submit',e=>{
 
 $('#regPlans').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;$('#regPlans').querySelectorAll('.chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');});
 
+function generateStarterMenu(dietaType,objetivo,numComidas,user){
+  var plans=STARTER_PLANS[dietaType]||STARTER_PLANS.todos;
+  var weeks=plans[numComidas]||plans[4]||plans[Object.keys(plans)[0]];
+  if(!weeks||!weeks.length)return[];
+  var w=weeks[Math.floor(Math.random()*weeks.length)];
+  var slotCfg=makeSlots(numComidas);
+  var mts=slotCfg.list;
+  var alergias=user&&user.alergias?user.alergias.filter(function(a){return a!=='Ninguna';}):[];
+  var noLike=user&&user.noComer?parseNoComer(user.noComer):[];
+  var pool=[];
+  Object.keys(STARTER_PLANS).forEach(function(dt){
+    var dp=STARTER_PLANS[dt];
+    Object.keys(dp).forEach(function(nc){
+      var wk=dp[nc];
+      if(!wk||!Array.isArray(wk))return;
+      wk.forEach(function(week){
+        DIAS.forEach(function(dia){
+          var day=week[dia];
+          if(!day)return;
+          mts.forEach(function(slot){
+            var m=day[slot];
+            if(m&&typeof m==='string'&&pool.indexOf(m)===-1)pool.push(m);
+          });
+        });
+      });
+    });
+  });
+  var result=DIAS.map(function(dia){
+    var day=w[dia]||{};
+    var r={dia:dia,tag:''};
+    mts.forEach(function(k){
+      var meal=day[k]||'';
+      if(meal&&dishHasAllergen(meal,alergias)){
+        var alt='';
+        for(var i=0;i<pool.length;i++){
+          if(!dishHasAllergen(pool[i],alergias)&&!dishHasNoLike(pool[i],noLike)){alt=pool[i];break;}
+        }
+        meal=alt||meal;
+      }else if(meal&&dishHasNoLike(meal,noLike)){
+        var alt2='';
+        for(var j=0;j<pool.length;j++){
+          if(!dishHasAllergen(pool[j],alergias)&&!dishHasNoLike(pool[j],noLike)){alt2=pool[j];break;}
+        }
+        meal=alt2||meal;
+      }
+      r[k]=meal;
+    });
+    return r;
+  });
+  return result;
+}
 function enterPortal(){
   let u=currentUser();if(!u){showView('view-auth');showAuth('login');return;}
   if(u.objetivo!=='Regular el peso'&&u.objetivo!=='Equilibrado'&&u.objetivo!=='Ganar masa muscular')u.objetivo='Equilibrado';
-  /* Migración: si existe u.dieta (antiguo) pero no u.dietaType, migrar */
   if(!u.dietaType){u.dietaType=u.dieta||'todos';delete u.dieta;saveUser(u);}
-  if(u.mv!==2){try{u.menu=newMenu(u.tipo,u.alergias||[],u.weekIdx||0,u.objetivo,u.dietaType,u);}catch(e){console.error('newMenu mv error:',e);u.menu=u.menu||[];}u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
-  if(!u.menuObj||u.menuObj!==u.objetivo){u.weekIdx=0;try{u.menu=newMenu(u.tipo,u.alergias||[],0,u.objetivo,u.dietaType,u);}catch(e){console.error('newMenu objetivo error:',e);u.menu=u.menu||[];}u.menuObj=u.objetivo;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
+  if(!u.plan)u.plan='pro';
+  if(u.plan==='starter'){
+    if(!u.menu||!u.menu.length||u.menuObj!==u.objetivo||u.menuDieta!==u.dietaType){
+      u.menu=generateStarterMenu(u.dietaType||'todos',u.objetivo,u.numComidas||4,u);
+      u.menuObj=u.objetivo;u.menuDieta=u.dietaType;saveUser(u);
+    }
+  }else{
+    if(u.mv!==2){try{u.menu=newMenu(u.tipo,u.alergias||[],u.weekIdx||0,u.objetivo,u.dietaType,u);}catch(e){console.error('newMenu mv error:',e);u.menu=u.menu||[];}u.mv=2;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
+    if(!u.menuObj||u.menuObj!==u.objetivo){u.weekIdx=0;try{u.menu=newMenu(u.tipo,u.alergias||[],0,u.objetivo,u.dietaType,u);}catch(e){console.error('newMenu objetivo error:',e);u.menu=u.menu||[];}u.menuObj=u.objetivo;u.subs={};u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};saveUser(u);}
+  }
   if(u.weekIdx==null){u.weekIdx=0;saveUser(u);}
   showView('view-dashboard');$('#navUser').classList.remove('hidden');
   $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;
@@ -787,10 +864,16 @@ function enterPortal(){
   applyPlanGating(u);
 }
 function applyPlanGating(u){
-  const full=u.plan!=='starter';
-  document.querySelectorAll('.dash-tab.plan-gated').forEach(t=>t.classList.toggle('hidden',!full));
-  const active=document.querySelector('.dash-tab.active');
-  if(!full&&active&&active.classList.contains('plan-gated'))activateTab('hoy');
+  if(!u)return;
+  var isStarter=u.plan==='starter';
+  var isPremiumUser=u.plan==='premium';
+  document.querySelectorAll('.pf-card--advanced').forEach(function(c){c.classList.toggle('hidden',isStarter);});
+  document.querySelectorAll('.plan-gated').forEach(function(el){el.classList.toggle('hidden',isStarter);});
+  if(isPremiumUser){
+    document.querySelectorAll('.premium-gated').forEach(function(el){el.classList.remove('hidden');});
+  }else{
+    document.querySelectorAll('.premium-gated').forEach(function(el){el.classList.add('hidden');});
+  }
 }
 
 $('#perfilNavBtn').addEventListener('click',()=>{activateTab('perfil');});
@@ -838,8 +921,24 @@ function selectedChips(id){
 function showView(id){document.querySelectorAll('.view').forEach(v=>v.classList.toggle('hidden',v.id!==id));}
 document.querySelectorAll('.dash-tab').forEach(t=>t.addEventListener('click',()=>activateTab(t.dataset.tab)));
 function activateTab(n){document.querySelectorAll('.dash-tab').forEach(t=>t.classList.toggle('active',t.dataset.tab===n));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('hidden',t.id!=='tab-'+n));const u=currentUser();if(!u)return;if(n==='inicio')renderInicio(u);if(n==='semana')renderSemana(u);if(n==='evaluacion')renderEvaluacion(u);if(n==='compra')renderLista(u);if(n==='perfil')renderPerfil(u);if(n==='bienestar')applyBienGating(u);if(n==='dieta')autoGenDieta(u);window.scrollTo({top:0,behavior:'smooth'});}
-function applyBienGating(u){var locked=u.plan==='pro';document.querySelectorAll('.bien-btn').forEach(function(b){var k=b.dataset.bien;var needLock=locked&&(k==='ayuno'||k==='recuperacion');b.classList.toggle('locked',needLock);if(needLock){b.onclick=function(){setMsg('#perfilMsg','\uD83D\uDD12 Upgrade a Premium para acceder a Ayuno y Recuperaci\u00f3n. Plan Premium 40\u20ac/mes.','err');};}else{b.onclick=null;}});}
-document.querySelectorAll('.bien-btn').forEach(function(b){b.addEventListener('click',function(){if(b.classList.contains('locked'))return;document.querySelectorAll('.bien-btn').forEach(function(x){x.classList.toggle('active',x===b);});document.querySelectorAll('.bien-content').forEach(function(c){c.classList.toggle('hidden',c.id!=='bien-'+b.dataset.bien);});});});
+function applyBienGating(u){
+  var isPremiumUser=u&&u.plan==='premium';
+  var lockScreen=document.getElementById('bienLocked');
+  var bienNav=document.getElementById('bienNav');
+  var bienContents=document.querySelectorAll('.bien-content');
+  if(isPremiumUser){
+    if(lockScreen)lockScreen.classList.add('hidden');
+    if(bienNav)bienNav.classList.remove('hidden');
+    var anyVisible=false;
+    bienContents.forEach(function(c){if(!c.classList.contains('hidden'))anyVisible=true;});
+    if(!anyVisible&&bienContents.length)bienContents[0].classList.remove('hidden');
+  }else{
+    if(lockScreen)lockScreen.classList.remove('hidden');
+    if(bienNav)bienNav.classList.add('hidden');
+    bienContents.forEach(function(c){c.classList.add('hidden');});
+  }
+}
+document.querySelectorAll('.bien-btn').forEach(function(b){b.addEventListener('click',function(){var u=currentUser();if(!u||u.plan!=='premium')return;if(b.classList.contains('locked'))return;document.querySelectorAll('.bien-btn').forEach(function(x){x.classList.toggle('active',x===b);});document.querySelectorAll('.bien-content').forEach(function(c){c.classList.toggle('hidden',c.id!=='bien-'+b.dataset.bien);});});});
 
 /* Onboarding */
 let onbData={};
@@ -1951,8 +2050,10 @@ function renderPerfil(u){
   renderTrainPrefs(u);
   $('#perfilPlan').innerHTML=`<span style="font-family:'Fraunces',serif;font-weight:900;font-size:1.3rem;">${PLANS[u.plan].name}</span><br><span style="color:var(--ink-soft);font-size:.9rem;">${PLANS[u.plan].price}</span>`;
   const ups=$('#perfilUpgrades');ups.innerHTML='';const rank={starter:0,pro:1,premium:2};
-  Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Bajar a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);applyPlanGating(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;});ups.appendChild(b);});
+  Object.keys(PLANS).forEach(k=>{if(k===u.plan)return;const dir=rank[k]>rank[u.plan]?'Subir a ':'Baja a ';const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=dir+PLANS[k].name;b.addEventListener('click',()=>{u.plan=k;saveUser(u);applyPlanGating(u);renderPerfil(u);$('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;if(k==='starter'){u.menu=generateStarterMenu(u.dietaType||'todos',u.objetivo,u.numComidas||4,u);u.menuObj=u.objetivo;u.menuDieta=u.dietaType;saveUser(u);renderLista(u);renderSemana(u);}else{if(!u.menu||!u.menu.length){try{u.menu=newMenu(u.tipo,u.alergias||[],0,u.objetivo,u.dietaType,u);}catch(e){u.menu=u.menu||[];}saveUser(u);renderLista(u);renderSemana(u);}}});ups.appendChild(b);});
   setMsg('#perfilMsg','','');
+  var isStarter=u.plan==='starter';
+  document.querySelectorAll('.pf-card--advanced').forEach(function(c){c.classList.toggle('hidden',isStarter);});
   if(typeof syncProfileVisuals==='function')syncProfileVisuals();
 }
 $('#perfSave').addEventListener('click',()=>saveAllProfile());
@@ -1967,29 +2068,35 @@ function saveAllProfile(){
     const oldDieta=u.dietaType||'todos';
     const oldNumComidas=u.numComidas||4;
     const oldAlergias=JSON.stringify(u.alergias||[]);
-    const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;
-    if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos (altura, peso, edad).','err');return;}
-    const newNumComidas=+$('#perfNumComidas').value||4;
     u.name=name;
     u.objetivo=$('#perfObjetivo').value;
     u.dietaType=$('#perfDieta').value||'todos';
     u.alergias=selectedChips('perfChips').filter(a=>a!=='Ninguna');
-    u.numComidas=newNumComidas;
+    u.numComidas=+$('#perfNumComidas').value||4;
     u.noComer=$('#perfNoComer').value;
-    u.entreno={tipo:$('#perfEntreno').value,dias:+$('#perfDiasEntreno').value,duracion:+$('#perfDuracionEntreno').value};
-    u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};
-    u.stats=calcStats(p,a,e,s,ac,u.objetivo);
+    if(u.plan!=='starter'){
+      const a=+$('#perfAltura').value,p=+$('#perfPeso').value,e=+$('#perfEdad').value,s=$('#perfSexo').value,ac=$('#perfActividad').value;
+      if(!a||!p||!e){setMsg('#perfilMsg','Completa todos los campos físicos (altura, peso, edad).','err');return;}
+      u.entreno={tipo:$('#perfEntreno').value,dias:+$('#perfDiasEntreno').value,duracion:+$('#perfDuracionEntreno').value};
+      u.physical={altura:a,peso:p,edad:e,sexo:s,actividad:ac};
+      u.stats=calcStats(p,a,e,s,ac,u.objetivo);
+    }
     const newAlergiasStr=JSON.stringify(u.alergias);
     if(oldObj!==u.objetivo)u.weekIdx=0;
     if(oldDieta!==u.dietaType)u.dietaData=null;
-    if(oldNumComidas!==newNumComidas)u.dietaData=null;
+    if(oldNumComidas!==u.numComidas)u.dietaData=null;
     if(oldAlergias!==newAlergiasStr)u.dietaData=null;
     u.menuObj=u.objetivo;
+    u.menuDieta=u.dietaType;
     u.weekIdx=u.weekIdx||0;
     u.consumed={};u.glassed={};u.sleep={};u.customFoods={};u.extraFoods={};u.subs={};
     savePlanHistory(u);
     saveUser(u);
-    try{u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo,u.dietaType,u);}catch(menuErr){console.error('newMenu error:',menuErr);u.menu=u.menu||[];}
+    if(u.plan==='starter'){
+      u.menu=generateStarterMenu(u.dietaType,u.objetivo,u.numComidas,u);
+    }else{
+      try{u.menu=newMenu(u.tipo,u.alergias,u.weekIdx||0,u.objetivo,u.dietaType,u);}catch(menuErr){console.error('newMenu error:',menuErr);u.menu=u.menu||[];}
+    }
     saveUser(u);
     renderLista(u);renderSemana(u);
     $('#userChip').textContent=u.name+' · '+PLANS[u.plan].name;

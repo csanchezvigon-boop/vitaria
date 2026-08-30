@@ -601,3 +601,13 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 #dietaContent .dash-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;}
 .day-total{font-size:.78rem;color:var(--herb);text-align:center;white-space:nowrap;}
 .meal-cal{display:block;font-size:.72rem;color:var(--ink-soft);margin-top:2px;}
+.bien-locked{display:flex;justify-content:center;padding:40px 20px;}
+.bien-locked-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:40px 32px;max-width:420px;width:100%;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.06);}
+.bien-locked-icon{font-size:3rem;margin-bottom:16px;}
+.bien-locked-card h3{font-family:'Fraunces',serif;font-weight:900;font-size:1.4rem;margin:0 0 8px;}
+.bien-locked-card p{color:var(--ink-soft);font-size:.9rem;margin:0 0 16px;line-height:1.5;}
+.bien-locked-sub{font-weight:600;color:var(--ink);margin-bottom:12px!important;}
+.bien-locked-list{list-style:none;padding:0;margin:0 0 24px;text-align:left;display:inline-block;}
+.bien-locked-list li{padding:6px 0;font-size:.9rem;color:var(--ink);}
+.bien-locked-btn{background:linear-gradient(135deg,var(--tomato),#c0392b);color:#fff;border:none;border-radius:10px;padding:14px 32px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.bien-locked-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(231,76,60,.3);}

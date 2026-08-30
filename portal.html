@@ -166,7 +166,7 @@
     <button class="dash-tab active" data-tab="inicio">Inicio</button>
     <button class="dash-tab" data-tab="semana">Plan semanal</button>
     <button class="dash-tab" data-tab="compra">Compra</button>
-    <button class="dash-tab" data-tab="bienestar">Bienestar</button>
+    <button class="dash-tab plan-gated" data-tab="bienestar">Bienestar</button>
     <button class="dash-tab" data-tab="perfil">Perfil</button>
   </aside>
   <main class="dash-main">
@@ -259,7 +259,7 @@
         </div>
       </div>
       <!-- DATOS FÍSICOS -->
-      <div class="pf-row pf-row--fade" data-delay="2">
+      <div class="pf-row pf-row--fade pf-card--advanced" data-delay="2">
         <div class="pf-card">
           <div class="pf-card-head"><span class="pf-icon">📏</span><h3>Datos físicos</h3><p class="pf-card-sub">Actualiza para recalcular tu plan</p></div>
           <div class="pf-metrics">
@@ -309,7 +309,7 @@
         </div>
       </div>
       <!-- ENTRENAMIENTO -->
-      <div class="pf-row pf-row--fade" data-delay="4">
+      <div class="pf-row pf-row--fade pf-card--advanced" data-delay="4">
         <div class="pf-card">
           <div class="pf-card-head"><span class="pf-icon">🏋️</span><h3>Entrenamiento</h3><p class="pf-card-sub">Adaptamos tu dieta a tu rutina</p></div>
           <div class="pf-row pf-row--3">
@@ -322,7 +322,7 @@
         </div>
       </div>
       <!-- PREFERENCIAS -->
-      <div class="pf-row pf-row--fade" data-delay="5">
+      <div class="pf-row pf-row--fade pf-card--advanced" data-delay="5">
         <div class="pf-card">
           <div class="pf-card-head"><span class="pf-icon">🍽️</span><h3>Preferencias</h3><p class="pf-card-sub">Personaliza tu plan semanal</p></div>
           <div class="pf-field"><label>Comidas al día</label>
@@ -378,8 +378,25 @@
     </section>
     <!-- BIENESTAR -->
     <section id="tab-bienestar" class="tab hidden">
-      <div class="section-head"><p class="eyebrow">Protocolos avanzado · Planes Pro y Premium</p><h2>Bienestar</h2></div>
-      <div class="bien-nav" id="bienNav">
+      <div class="section-head"><p class="eyebrow">Protocolos avanzados · Plan Premium</p><h2>Bienestar</h2></div>
+      <div id="bienLocked" class="bien-locked">
+        <div class="bien-locked-card">
+          <div class="bien-locked-icon">🔒</div>
+          <h3>Bienestar Premium</h3>
+          <p>Esta sección está disponible exclusivamente con el plan Premium.</p>
+          <p class="bien-locked-sub">Desbloquea Premium para acceder a:</p>
+          <ul class="bien-locked-list">
+            <li>✓ Recuperación</li>
+            <li>✓ Ayuno</li>
+            <li>✓ Suplementación</li>
+            <li>✓ Sueño</li>
+            <li>✓ Hidratación</li>
+            <li>✓ Recomendaciones de bienestar</li>
+          </ul>
+          <button class="btn bien-locked-btn" onclick="activateTab('perfil')">Desbloquear Premium</button>
+        </div>
+      </div>
+      <div class="bien-nav hidden" id="bienNav">
         <button class="bien-btn active" data-bien="ayuno">Ayuno</button>
         <button class="bien-btn" data-bien="recuperacion">Recuperación</button>
         <button class="bien-btn" data-bien="suplementacion">Suplementación</button>
@@ -452,6 +469,6 @@
 <script src="vegano.js?v=1"></script>
 <script src="vegetariano.js?v=1"></script>
 <script src="cetogenico.js?v=1"></script>
-<script src="portal.js?v=26"></script>
+<script src="portal.js?v=28"></script>
 </body>
 </html>

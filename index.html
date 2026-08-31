@@ -399,7 +399,7 @@ ul { list-style: none; }
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12"/><path d="M12 2v10l7-4"/></svg>
         </div>
         <h3>Tipo de dieta</h3>
-        <p>Mediterránea, Cetogénica, Paleo, Vegana o Vegetariana. Tú eliges, Vitaria adapta.</p>
+        <p>Mediterránea, Cetogénica, Paleo, Vegana, Vegetariana o Sin restricción. Tú eliges, Vitaria adapta.</p>
       </div>
       <div class="card">
         <div class="card-icon">
@@ -441,13 +441,14 @@ ul { list-style: none; }
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
         </div>
         <h3>Plan nutricional personalizado</h3>
-        <p>Generado según tu perfil completo. Disponible en 5 tipos de dieta:</p>
+        <p>Generado según tu perfil completo. Disponible en 6 tipos de dieta:</p>
         <ul>
           <li>Mediterránea</li>
           <li>Cetogénica</li>
           <li>Paleo</li>
           <li>Vegana</li>
           <li>Vegetariana</li>
+          <li>Sin restricción</li>
         </ul>
       </div>
       <div class="card">
@@ -535,6 +536,7 @@ ul { list-style: none; }
               <option value="paleo">Paleo</option>
               <option value="vegana">Vegana</option>
               <option value="vegetariana">Vegetariana</option>
+              <option value="todos">Sin restricción</option>
             </select>
           </div>
           <div>
@@ -583,7 +585,7 @@ ul { list-style: none; }
         <div class="label">Planes generados</div>
       </div>
       <div class="stat-card">
-        <div class="number">5</div>
+        <div class="number">6</div>
         <div class="label">Dietas disponibles</div>
       </div>
       <div class="stat-card">
@@ -655,7 +657,7 @@ ul { list-style: none; }
         </div>
         <ul class="plan-features">
           <li><span class="check">✓</span> Plan nutricional base</li>
-          <li><span class="check">✓</span> 5 tipos de dieta</li>
+          <li><span class="check">✓</span> 6 tipos de dieta</li>
           <li><span class="check">✓</span> Adaptación al objetivo</li>
           <li><span class="check">✓</span> Alergias incluidas</li>
           <li><span class="check">✓</span> Estructura semanal</li>
@@ -744,9 +746,9 @@ ul { list-style: none; }
           </tr>
           <tr>
             <td>Dietas disponibles</td>
-            <td class="feat-yes">5</td>
-            <td class="feat-yes">5</td>
-            <td class="feat-yes">5</td>
+            <td class="feat-yes">6</td>
+            <td class="feat-yes">6</td>
+            <td class="feat-yes">6</td>
           </tr>
           <tr>
             <td>Adaptación al objetivo</td>
@@ -867,7 +869,7 @@ ul { list-style: none; }
       </div>
       <div class="faq-item">
         <button class="faq-question">¿Puedo elegir mi tipo de dieta?<span class="icon">+</span></button>
-        <div class="faq-answer"><div class="faq-answer-inner">Sí. Puedes elegir entre Mediterránea, Cetogénica, Paleo, Vegana y Vegetariana. Tu plan se genera en base a la dieta que prefieras.</div></div>
+        <div class="faq-answer"><div class="faq-answer-inner">Sí. Puedes elegir entre Mediterránea, Cetogénica, Paleo, Vegana, Vegetariana o Sin restricción. Tu plan se genera en base a la dieta que prefieras.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-question">¿Qué ocurre si tengo alergias?<span class="icon">+</span></button>
@@ -1133,6 +1135,26 @@ ul { list-style: none; }
         cn: ['Sopa de verduras con huevo','Risotto de champiñones doble','Guiso de verduras con queso gratinado','Tortilla española grande','Crema de calabaza con queso','Estofado de legumbres con huevo','Cazuela de verduras con queso y huevo'],
         m: ['Batido proteico vegetariano','Frutos secos dobles','Hummus con pan integral','Yogur griego con nueces','Huevos y queso','Barrita proteica','Tostada doble con aguacate y huevo']
       }
+    },
+    todos: {
+      perdida: {
+        d: ['Tostada integral con aguacate y huevo','Yogur griego con fruta y nueces','Avena con plátano y canela','Huevos revueltos con espinacas','Batido de frutos rojos','Tostada de centeno con tomate','Muesli con leche y fruta'],
+        c: ['Pechuga de pollo con arroz y brócoli','Ensalada de quinoa con vegetales','Salmón al horno con patata y ensalada','Ternera a la plancha con verduras','Bowl de arroz con pollo y aguacate','Pasta integral con verduras asadas','Lentejas con verduras y arroz'],
+        cn: ['Crema de calabacín con huevo cocido','Pescado a la plancha con ensalada','Tortilla de espinacas y patata','Sopa de verduras con fideos','Merluza al horno con verduras','Tofu salteado con vegetales','Pollo al horno con verduras'],
+        m: ['Fruta fresca y frutos secos','Yogur con semillas de chía','Hummus con palitos de zanahoria','Tostada de aguacate','Barritas caseras sin azúcar','Batido verde','Edamames con sal marina']
+      },
+      mantenimiento: {
+        d: ['Huevos Benedict con aguacate','Tostada de costra de queso','Batido proteico con frutos rojos','Yogur griego con granola','Omelette de jamón y queso','Huevos revueltos con champiñones','Avena con fruta y nueces'],
+        c: ['Ensalada de salmón ahumado','Pollo al horno con queso','Ternera con espárragos','Salmón con salsa de eneldo','Pollo al curry','Bowl de carne y verduras','Atún con aguacate'],
+        cn: ['Sopa de res','Cerdo con coleslaw','Pollo con salsa de queso','Merluza con mantequilla de limón','Estofado de ternera','Albóndigas','Pavo con verduras'],
+        m: ['Queso y aceitunas','Nueces mixtas','Yogur de coco','Hummus con pan pita','Barrita energética','Mantequilla de almendras','Snack de pavo']
+      },
+      ganancia: {
+        d: ['Huevos con salmón y aguacate doble','Batido proteico grande','Tostada doble con huevo','Yogur griego con nueces y semillas','Omelette de 4 huevos con queso','Huevos revueltos con bacon','Batido de avena y fruta'],
+        c: ['Bowl de pollo grande','Salmón doble con espárragos','Ternera con queso y brócoli','Pollo al pesto con calabacín','Bowl de carne molida','Ensalada de atún con aguacate doble','Pollo con mantequilla de avellana'],
+        cn: ['Sopa de huesos con carne','Ternera con setas doble','Merluza con salsa de queso','Pollo al horno con queso gratinado','Estofado de res','Lomo de cerdo con crema','Albóndigas dobles'],
+        m: ['Batido proteico','Queso y frutos secos dobles','Yogur con semillas','Mantequilla de cacahuete','Barrita proteica','Nueces y aceite de oliva','Snack de pavo y queso']
+      }
     }
   };
 
@@ -1146,6 +1168,9 @@ ul { list-style: none; }
     if (comidas >= 3) { types.push('d', 'c', 'cn'); }
     if (comidas >= 4) { types.push('m'); }
     if (comidas >= 5) { types.push('d'); }
+    types = types.filter(function(t, i) { return types.indexOf(t) === i; });
+    var order = { d: 1, c: 2, m: 3, cn: 4 };
+    types.sort(function(a, b) { return order[a] - order[b]; });
     var labels = { d: 'Desayuno', c: 'Comida', cn: 'Cena', m: 'Merienda' };
     var colors = { d: 'var(--yolk)', c: 'var(--tomato)', cn: 'var(--herb)', m: 'var(--muted)' };
     var html = '';

@@ -611,3 +611,21 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 .bien-locked-list li{padding:6px 0;font-size:.9rem;color:var(--ink);}
 .bien-locked-btn{background:linear-gradient(135deg,var(--tomato),#c0392b);color:#fff;border:none;border-radius:10px;padding:14px 32px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;}
 .bien-locked-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(231,76,60,.3);}
+.bien-nav{display:flex;gap:8px;margin-bottom:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;}
+.bien-nav::-webkit-scrollbar{display:none;}
+.bn-detail{background:var(--card);border:1.5px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:border-color .2s;}
+.bn-detail[open]{border-color:rgba(79,111,63,.3);}
+.bn-summary{padding:16px 20px;cursor:pointer;font-family:'Karla',sans-serif;font-size:.95rem;font-weight:700;color:var(--ink);list-style:none;display:flex;align-items:center;gap:10px;transition:background .15s;}
+.bn-summary::-webkit-details-marker{display:none;}
+.bn-summary::after{content:'▸';margin-left:auto;font-size:.8rem;color:var(--ink-soft);transition:transform .2s;}
+.bn-detail[open] .bn-summary::after{transform:rotate(90deg);}
+.bn-summary:hover{background:rgba(79,111,63,.04);}
+.bn-detail .ay-card{margin:0;border:none;border-radius:0;border-top:1px solid var(--line);}
+.bn-detail .ay-card:first-child{border-top:none;}
+.bn-sleep-msg{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:14px;text-align:center;}
+.bn-sleep-msg .bn-sleep-val{font-family:'Fraunces',serif;font-weight:900;font-size:1.8rem;color:var(--ink);display:block;}
+.bn-sleep-msg .bn-sleep-label{font-size:.85rem;color:var(--ink-soft);margin-top:4px;}
+.bn-sleep-msg.good{border-color:rgba(79,111,63,.3);}.bn-sleep-msg.good .bn-sleep-val{color:var(--herb);}
+.bn-sleep-msg.warn{border-color:rgba(232,169,59,.3);}.bn-sleep-msg.warn .bn-sleep-val{color:#8A6D1A;}
+.bn-sleep-msg.bad{border-color:rgba(214,85,44,.3);}.bn-sleep-msg.bad .bn-sleep-val{color:var(--tomato);}
+@media(max-width:780px){.bien-nav{flex-wrap:nowrap;gap:6px;}.bien-btn{white-space:nowrap;font-size:.82rem;padding:8px 14px;}}

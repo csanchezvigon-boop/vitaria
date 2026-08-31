@@ -932,11 +932,25 @@ function applyBienGating(u){
     var anyVisible=false;
     bienContents.forEach(function(c){if(!c.classList.contains('hidden'))anyVisible=true;});
     if(!anyVisible&&bienContents.length)bienContents[0].classList.remove('hidden');
+    renderBienSleep(u);
   }else{
     if(lockScreen)lockScreen.classList.remove('hidden');
     if(bienNav)bienNav.classList.add('hidden');
     bienContents.forEach(function(c){c.classList.add('hidden');});
   }
+}
+function renderBienSleep(u){
+  var el=document.getElementById('bnSleepMsg');if(!el)return;
+  var key=todayKey();
+  var sleepH=u.sleep&&u.sleep[key]!=null?parseFloat(u.sleep[key]):null;
+  if(sleepH==null||isNaN(sleepH)){el.innerHTML='<span class="bn-sleep-val">—</span><span class="bn-sleep-label">Registra tu sueño en el dashboard para ver recomendaciones personalizadas</span>';el.className='bn-sleep-msg';return;}
+  var cls,label,desc;
+  if(sleepH>=8){cls='good';label='Buen descanso';desc='Has dormido suficiente. Tu cuerpo está listo para entrenar y recuperarse al máximo.';}
+  else if(sleepH>=7){cls='good';label='Descanso adecuado';desc='Suficiente para rendir. Mantén la consistencia para llegar a 8 h de forma regular.';}
+  else if(sleepH>=6){cls='warn';label='Has dormido poco';desc='Reduce cafeína hoy, prioriza comidas ligeras y mantén buena hidratación. No es día para exigir al máximo.';}
+  else{cls='bad';label='Descanso insuficiente';desc='Tu rendimiento y recuperación se verán afectados. Hoy es día de priorizar descanso, alimentación ligera e hidratación.';}
+  el.className='bn-sleep-msg '+cls;
+  el.innerHTML='<span class="bn-sleep-val">'+(sleepH%1===0?sleepH:sleepH.toFixed(1))+' h</span><span class="bn-sleep-label"><b>'+label+'</b> — '+desc+'</span>';
 }
 document.querySelectorAll('.bien-btn').forEach(function(b){b.addEventListener('click',function(){var u=currentUser();if(!u||u.plan!=='premium')return;if(b.classList.contains('locked'))return;document.querySelectorAll('.bien-btn').forEach(function(x){x.classList.toggle('active',x===b);});document.querySelectorAll('.bien-content').forEach(function(c){c.classList.toggle('hidden',c.id!=='bien-'+b.dataset.bien);});});});
 

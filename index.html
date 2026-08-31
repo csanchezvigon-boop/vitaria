@@ -1116,7 +1116,7 @@ footer p {
       <div class="adapt-card fade-in">
         <div class="adapt-icon">🍽️</div>
         <h4>Número de comidas</h4>
-        <p>3, 4 o 5 comidas al día según tu rutina.</p>
+        <p>3 o 4 comidas al día según tu rutina.</p>
       </div>
     </div>
     <div class="key-message fade-in">
@@ -1219,7 +1219,6 @@ footer p {
         <select id="meals-select">
           <option value="3">3 comidas</option>
           <option value="4" selected>4 comidas</option>
-          <option value="5">5 comidas</option>
         </select>
       </div>
       <div class="control-group">
@@ -1260,20 +1259,7 @@ footer p {
           <div class="meal-flow-item">Cena</div>
         </div>
       </div>
-      <div class="meal-system-card fade-in">
-        <h4>5 comidas</h4>
-        <div class="meal-flow">
-          <div class="meal-flow-item">Desayuno</div>
-          <span class="meal-flow-arrow">→</span>
-          <div class="meal-flow-item">Media mañana</div>
-          <span class="meal-flow-arrow">→</span>
-          <div class="meal-flow-item">Comida</div>
-          <span class="meal-flow-arrow">→</span>
-          <div class="meal-flow-item">Merienda</div>
-          <span class="meal-flow-arrow">→</span>
-          <div class="meal-flow-item">Cena</div>
-        </div>
-      </div>
+
     </div>
   </div>
 </section>
@@ -1752,8 +1738,7 @@ const mealLabels = {
   d: 'Desayuno',
   c: 'Comida',
   cn: 'Cena',
-  m: 'Merienda',
-  mm: 'Media mañana'
+  m: 'Merienda'
 };
 
 function generateMenu() {
@@ -1762,10 +1747,7 @@ function generateMenu() {
   const objective = document.getElementById('objective-select').value;
 
   const data = mealsDB[diet][objective];
-  let types;
-  if (numMeals === 3) types = ['d', 'c', 'cn'];
-  else if (numMeals === 4) types = ['d', 'c', 'm', 'cn'];
-  else types = ['d', 'mm', 'c', 'm', 'cn'];
+  let types = numMeals === 3 ? ['d', 'c', 'cn'] : ['d', 'c', 'm', 'cn'];
 
   // Deduplicate and sort by order
   const uniqueTypes = [...new Set(types)].sort((a, b) => mealOrder[a] - mealOrder[b]);
@@ -1777,7 +1759,7 @@ function generateMenu() {
     // Pick 2 random meals
     const shuffled = [...meals].sort(() => Math.random() - 0.5);
     const selected = shuffled.slice(0, 2);
-    const label = type === 'mm' ? 'Media mañana' : mealLabels[type];
+    const label = mealLabels[type];
     html += '<div class="meal-type-group">';
     html += '<div class="meal-type-label">' + label + '</div>';
     html += '<div class="meal-options">';

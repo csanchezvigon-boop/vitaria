@@ -954,6 +954,22 @@ function renderBienSleep(u){
 }
 document.querySelectorAll('.bien-btn').forEach(function(b){b.addEventListener('click',function(){var u=currentUser();if(!u||u.plan!=='premium')return;if(b.classList.contains('locked'))return;document.querySelectorAll('.bien-btn').forEach(function(x){x.classList.toggle('active',x===b);});document.querySelectorAll('.bien-content').forEach(function(c){c.classList.toggle('hidden',c.id!=='bien-'+b.dataset.bien);});});});
 
+/* Bien-nav scroll hint */
+(function(){
+  var nav=document.getElementById('bienNav');
+  var hint=document.getElementById('bienNavHint');
+  if(!nav||!hint)return;
+  var hidden=false;
+  nav.addEventListener('scroll',function(){
+    if(!hidden&&nav.scrollLeft>20){hint.style.opacity='0';hint.style.transition='opacity .3s';hidden=true;}
+  });
+  var resizeObs=new ResizeObserver(function(){
+    if(nav.scrollWidth<=nav.clientWidth+5){hint.style.display='none';}
+    else{hint.style.display='';}
+  });
+  resizeObs.observe(nav);
+})();
+
 /* Onboarding */
 let onbData={};
 function showOnboarding(){
@@ -1120,14 +1136,36 @@ function renderSleepWeek(u){
 function editSleep(){
   const u=currentUser();if(!u)return;
   const key=todayKey();
-  const current=(u.sleep&&u.sleep[key])||'';
-  const val=prompt('Horas de sueño (ej: 7.5):',current);
-  if(val===null)return;
-  const v=parseFloat(val);
-  if(isNaN(v)||v<0||v>24){alert('Introduce un valor válido (0-24).');return;}
-  if(!u.sleep)u.sleep={};
-  if(v||v===0){u.sleep[key]=v;}else{delete u.sleep[key];}
-  saveUser(u);renderInicio(u);
+  const current=(u.sleep&&u.sleep[key])||7;
+  const el=$('#inicioSleepCard');if(!el)return;
+  let val=parseFloat(current)||7;
+  function render(){
+    const rating=getSleepRating(val);
+    let h=`<div class="sleep-edit">`;
+    h+=`<button class="sleep-edit-btn" id="sleepMinus">−</button>`;
+    h+=`<span class="sleep-edit-val">${val%1===0?val:val.toFixed(1)}</span>`;
+    h+=`<span class="sleep-edit-unit">h</span>`;
+    h+=`<button class="sleep-edit-btn" id="sleepPlus">+</button>`;
+    h+=`</div>`;
+    h+=`<div class="sleep-rating ${rating.cls}">${rating.emoji} ${rating.label}</div>`;
+    h+=`<p class="sleep-desc">${rating.desc}</p>`;
+    h+=`<p class="sleep-target">Objetivo: 7–9 h</p>`;
+    h+=`<div class="sleep-edit-actions">`;
+    h+=`<button class="btn btn-small pf-btn pf-btn--primary" id="sleepSave">Guardar</button>`;
+    h+=`<button class="btn btn-small pf-btn pf-btn--ghost" id="sleepCancel">Cancelar</button>`;
+    h+=`</div>`;
+    h+=renderSleepWeek(u);
+    el.innerHTML=h;
+    $('#sleepMinus').addEventListener('click',()=>{val=Math.max(0,val-0.5);render();});
+    $('#sleepPlus').addEventListener('click',()=>{val=Math.min(14,val+0.5);render();});
+    $('#sleepSave').addEventListener('click',()=>{
+      if(!u.sleep)u.sleep={};
+      u.sleep[key]=val;
+      saveUser(u);renderInicio(u);
+    });
+    $('#sleepCancel').addEventListener('click',()=>{renderInicio(u);});
+  }
+  render();
 }
 function renderInicioTraining(u){
   const el=$('#inicioTraining');if(!u.entreno||!u.entreno.tipo){el.innerHTML='';return;}

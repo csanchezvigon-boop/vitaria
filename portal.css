@@ -379,6 +379,12 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 .sleep-input{display:flex;align-items:center;gap:10px;margin-top:8px;}
 .sleep-input input{width:60px;padding:8px;border-radius:10px;border:1.5px solid var(--line);background:var(--bg);font-family:'Karla',sans-serif;font-size:1rem;text-align:center;font-weight:700;}
 .sleep-input span{font-size:.82rem;color:var(--ink-soft);}
+.sleep-edit{display:flex;align-items:center;justify-content:center;gap:14px;margin:8px 0;}
+.sleep-edit-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--card);font-size:1.4rem;font-weight:700;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;font-family:'Karla',sans-serif;}
+.sleep-edit-btn:hover{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.sleep-edit-val{font-family:'Fraunces',serif;font-weight:900;font-size:2rem;color:var(--ink);min-width:50px;text-align:center;}
+.sleep-edit-unit{font-family:'Karla',sans-serif;font-weight:600;font-size:1rem;color:var(--ink-soft);}
+.sleep-edit-actions{display:flex;gap:8px;margin-top:10px;}
 
 /* Streak widget */
 .eval-q{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:18px 20px;margin-bottom:14px;}
@@ -612,8 +618,9 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 .bien-locked-list li{padding:6px 0;font-size:.9rem;color:var(--ink);}
 .bien-locked-btn{background:linear-gradient(135deg,var(--tomato),#c0392b);color:#fff;border:none;border-radius:10px;padding:14px 32px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;}
 .bien-locked-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(231,76,60,.3);}
-.bien-nav{display:flex;gap:8px;margin-bottom:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;}
+.bien-nav{display:flex;gap:8px;margin-bottom:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;position:relative;}
 .bien-nav::-webkit-scrollbar{display:none;}
+.bien-nav-hint{display:none;font-size:.72rem;color:var(--muted);text-align:right;margin-top:2px;font-style:italic;}
 .bn-detail{background:var(--card);border:1.5px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:border-color .2s;}
 .bn-detail[open]{border-color:rgba(79,111,63,.3);}
 .bn-summary{padding:16px 20px;cursor:pointer;font-family:'Karla',sans-serif;font-size:.95rem;font-weight:700;color:var(--ink);list-style:none;display:flex;align-items:center;gap:10px;transition:background .15s;}
@@ -629,4 +636,4 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 .bn-sleep-msg.good{border-color:rgba(79,111,63,.3);}.bn-sleep-msg.good .bn-sleep-val{color:var(--herb);}
 .bn-sleep-msg.warn{border-color:rgba(232,169,59,.3);}.bn-sleep-msg.warn .bn-sleep-val{color:#8A6D1A;}
 .bn-sleep-msg.bad{border-color:rgba(214,85,44,.3);}.bn-sleep-msg.bad .bn-sleep-val{color:var(--tomato);}
-@media(max-width:780px){.bien-nav{flex-wrap:nowrap;gap:6px;}.bien-btn{white-space:nowrap;font-size:.82rem;padding:8px 14px;}}
+@media(max-width:780px){.bien-nav{flex-wrap:nowrap;gap:6px;mask-image:linear-gradient(to right,black 85%,transparent 100%);-webkit-mask-image:linear-gradient(to right,black 85%,transparent 100%);}.bien-nav-hint{display:block;}.bien-btn{white-space:nowrap;font-size:.82rem;padding:8px 14px;}}

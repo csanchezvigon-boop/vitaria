@@ -618,9 +618,9 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 .bien-locked-list li{padding:6px 0;font-size:.9rem;color:var(--ink);}
 .bien-locked-btn{background:linear-gradient(135deg,var(--tomato),#c0392b);color:#fff;border:none;border-radius:10px;padding:14px 32px;font-size:1rem;font-weight:700;cursor:pointer;transition:all .2s;}
 .bien-locked-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(231,76,60,.3);}
-.bien-nav{display:flex;gap:8px;margin-bottom:18px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;position:relative;}
+.bien-nav{display:flex;gap:8px;margin-bottom:4px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px;position:relative;}
 .bien-nav::-webkit-scrollbar{display:none;}
-.bien-nav-hint{display:none;font-size:.72rem;color:var(--muted);text-align:right;margin-top:2px;font-style:italic;}
+.bien-nav-hint{font-size:.72rem;color:var(--muted);text-align:right;margin-top:2px;font-style:italic;transition:opacity .3s;}
 .bn-detail{background:var(--card);border:1.5px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:border-color .2s;}
 .bn-detail[open]{border-color:rgba(79,111,63,.3);}
 .bn-summary{padding:16px 20px;cursor:pointer;font-family:'Karla',sans-serif;font-size:.95rem;font-weight:700;color:var(--ink);list-style:none;display:flex;align-items:center;gap:10px;transition:background .15s;}
@@ -636,4 +636,4 @@ footer{padding:32px 0 44px;border-top:1px solid var(--line);font-size:.85rem;col
 .bn-sleep-msg.good{border-color:rgba(79,111,63,.3);}.bn-sleep-msg.good .bn-sleep-val{color:var(--herb);}
 .bn-sleep-msg.warn{border-color:rgba(232,169,59,.3);}.bn-sleep-msg.warn .bn-sleep-val{color:#8A6D1A;}
 .bn-sleep-msg.bad{border-color:rgba(214,85,44,.3);}.bn-sleep-msg.bad .bn-sleep-val{color:var(--tomato);}
-@media(max-width:780px){.bien-nav{flex-wrap:nowrap;gap:6px;mask-image:linear-gradient(to right,black 85%,transparent 100%);-webkit-mask-image:linear-gradient(to right,black 85%,transparent 100%);}.bien-nav-hint{display:block;}.bien-btn{white-space:nowrap;font-size:.82rem;padding:8px 14px;}}
+@media(max-width:780px){.bien-nav{flex-wrap:nowrap;gap:6px;mask-image:linear-gradient(to right,black 85%,transparent 100%);-webkit-mask-image:linear-gradient(to right,black 85%,transparent 100%);}.bien-btn{white-space:nowrap;font-size:.82rem;padding:8px 14px;}}

@@ -960,14 +960,17 @@ document.querySelectorAll('.bien-btn').forEach(function(b){b.addEventListener('c
   var hint=document.getElementById('bienNavHint');
   if(!nav||!hint)return;
   var hidden=false;
-  nav.addEventListener('scroll',function(){
-    if(!hidden&&nav.scrollLeft>20){hint.style.opacity='0';hint.style.transition='opacity .3s';hidden=true;}
-  });
-  var resizeObs=new ResizeObserver(function(){
-    if(nav.scrollWidth<=nav.clientWidth+5){hint.style.display='none';}
+  function updateHint(){
+    if(nav.scrollLeft>20){hint.style.opacity='0';hidden=true;}
+    else if(hidden){hint.style.opacity='1';}
+    var maxScroll=nav.scrollWidth-nav.clientWidth;
+    if(maxScroll<=5){hint.style.display='none';}
     else{hint.style.display='';}
-  });
+  }
+  nav.addEventListener('scroll',updateHint);
+  var resizeObs=new ResizeObserver(updateHint);
   resizeObs.observe(nav);
+  updateHint();
 })();
 
 /* Onboarding */
@@ -1085,15 +1088,16 @@ function renderInicioSleep(u,key){
     html+=`<div class="sleep-rating ${rating.cls}">${rating.emoji} ${rating.label}</div>`;
     html+=`<p class="sleep-desc">${rating.desc}</p>`;
     html+=`<p class="sleep-target">Objetivo: 7–9 h</p>`;
-    html+=`<button class="btn btn-small pf-btn pf-btn--ghost" onclick="editSleep()">Editar</button>`;
+    html+=`<button class="btn btn-small pf-btn pf-btn--ghost" data-sleep-action="edit">Editar</button>`;
   }else{
     html=`<div class="sleep-display sleep-empty"><span class="sleep-hours">—</span><span class="sleep-hours-unit">h</span></div>`;
     html+=`<p class="sleep-desc" style="color:var(--ink-soft);">Registra tus horas de sueño</p>`;
     html+=`<p class="sleep-target">Objetivo: 7–9 h</p>`;
-    html+=`<button class="btn btn-small pf-btn pf-btn--ghost" onclick="editSleep()">Registrar sueño</button>`;
+    html+=`<button class="btn btn-small pf-btn pf-btn--ghost" data-sleep-action="edit">Registrar sueño</button>`;
   }
   html+=renderSleepWeek(u);
   el.innerHTML=html;
+  el.querySelectorAll('[data-sleep-action="edit"]').forEach(function(btn){btn.addEventListener('click',function(){editSleep();});});
 }
 function getSleepRating(h){
   if(h===null||h===undefined||h==='')return{cls:'',label:'',emoji:'',desc:''};
@@ -1376,7 +1380,7 @@ function addWater(ml,u){
   log.entries.push({ml,ts:Date.now()});
   log.total+=ml;
   saveUser(u);
-  renderWaterSection(u);
+  renderWaterSection(u,$('#inicioWaterCard'));
 }
 function removeWaterEntry(idx,u){
   const log=getWaterLog(u);
@@ -1386,7 +1390,7 @@ function removeWaterEntry(idx,u){
   if(log.total<0)log.total=0;
   entries.splice(idx,1);
   saveUser(u);
-  renderWaterSection(u);
+  renderWaterSection(u,$('#inicioWaterCard'));
 }
 
 /* Extra foods (fuera del plan) */

@@ -481,6 +481,7 @@ nav.scrolled { box-shadow: var(--shadow-sm); }
   transition: border-color 0.2s;
 }
 .control-group select:focus { outline: none; border-color: var(--accent); }
+.diet-description { font-size: .82rem; color: var(--muted); line-height: 1.45; margin-top: 4px; min-height: 1.2em; }
 .generate-btn-wrap { text-align: center; margin-bottom: 40px; }
 .meal-result {
   display: none;
@@ -1206,13 +1207,14 @@ footer p {
       <div class="control-group">
         <label for="diet-select">Tipo de dieta</label>
         <select id="diet-select">
-          <option value="mediterranea">Mediterránea</option>
-          <option value="cetogenica">Cetogénica</option>
-          <option value="paleo">Paleo</option>
-          <option value="vegana">Vegana</option>
-          <option value="vegetariana">Vegetariana</option>
-          <option value="todos">Sin restricción</option>
+          <option value="mediterranea" data-desc="Basada en alimentos frescos y mínimamente procesados, con verduras, frutas, pescado, huevos, legumbres y grasas de calidad.">Mediterránea</option>
+          <option value="cetogenica" data-desc="Muy baja en carbohidratos y alta en grasas, diseñada para usar la grasa como fuente principal de energía.">Cetogénica</option>
+          <option value="paleo" data-desc="Basada en alimentos reales y mínimamente procesados: carnes, pescados, huevos, frutas, verduras y grasas naturales.">Paleo</option>
+          <option value="vegana" data-desc="Basada exclusivamente en alimentos de origen vegetal, excluyendo carne, pescado, huevos, lácteos y cualquier producto animal.">Vegana</option>
+          <option value="vegetariana" data-desc="Basada en alimentos vegetales, permitiendo huevos y lácteos, pero excluyendo carne y pescado.">Vegetariana</option>
+          <option value="todos" data-desc="Alimentación flexible y variada, sin excluir grupos de alimentos concretos.">Sin restricción</option>
         </select>
+        <p id="diet-desc" class="diet-description"></p>
       </div>
       <div class="control-group">
         <label for="meals-select">Comidas al día</label>
@@ -1786,6 +1788,18 @@ function generateMenu() {
 }
 
 document.getElementById('generate-btn').addEventListener('click', generateMenu);
+
+// ---- DIET DESCRIPTION ----
+(function(){
+  var sel=document.getElementById('diet-select');
+  var desc=document.getElementById('diet-desc');
+  function updateDesc(){
+    var opt=sel.options[sel.selectedIndex];
+    desc.textContent=opt.getAttribute('data-desc')||'';
+  }
+  updateDesc();
+  sel.addEventListener('change',updateDesc);
+})();
 
 // ---- BILLING TOGGLE ----
 let isAnnual = false;

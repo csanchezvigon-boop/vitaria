@@ -2043,6 +2043,16 @@ function formatShopQty(nk,info){
   const unit=catEntry?catEntry[1]:'g';
   if(unit==='ud'){
     const u=info.hasUnits?Math.ceil(info.units):Math.ceil(info.grams/150);
+    if(nk==='huevo'){
+      if(u<=6)return '½ docena de huevos';
+      if(u<=12)return '1 docena de huevos';
+      const docenas=Math.floor(u/12);
+      const resto=u%12;
+      const docenaWord=docenas>1?'docenas':'docena';
+      if(resto===0)return docenas+' '+docenaWord+' de huevos';
+      if(resto<=6)return docenas+' '+docenaWord+' + ½ docena de huevos';
+      return docenas+' '+docenaWord+' + '+(resto-6)+' uds. de huevos';
+    }
     return u+' ud.';
   }
   if(unit==='ml'){

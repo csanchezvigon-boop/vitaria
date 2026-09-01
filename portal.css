@@ -291,6 +291,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{ou
 .pf-diet-opt.active{background:var(--ink);color:var(--bg);border-color:var(--ink);transform:translateY(-1px);box-shadow:0 3px 12px rgba(38,48,31,.15);}
 .pf-diet-icon{font-size:1.5rem;}
 .pf-diet-name{font-size:.82rem;font-weight:700;}
+.pf-diet-desc{font-size:.8rem;color:var(--ink-soft);line-height:1.4;margin-top:6px;min-height:1.2em;transition:opacity .2s;}
 
 /* Meals grid */
 .pf-meals-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}

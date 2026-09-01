@@ -293,13 +293,14 @@
           <div class="pf-card-head"><span class="pf-icon">🥗</span><h3>Alimentación</h3><p class="pf-card-sub">Define tu tipo de dieta y restricciones</p></div>
           <div class="pf-field"><label>Tipo de dieta</label>
             <div class="pf-diet-grid" id="perfDietaGrid">
-              <button type="button" class="pf-diet-opt" data-val="mediterranea"><span class="pf-diet-icon">🫒</span><span class="pf-diet-name">Mediterránea</span></button>
-              <button type="button" class="pf-diet-opt" data-val="paleo"><span class="pf-diet-icon">🦴</span><span class="pf-diet-name">Paleo</span></button>
-              <button type="button" class="pf-diet-opt" data-val="vegana"><span class="pf-diet-icon">🌱</span><span class="pf-diet-name">Vegana</span></button>
-              <button type="button" class="pf-diet-opt" data-val="vegetariana"><span class="pf-diet-icon">🥚</span><span class="pf-diet-name">Vegetariana</span></button>
-              <button type="button" class="pf-diet-opt" data-val="cetogenica"><span class="pf-diet-icon">🥑</span><span class="pf-diet-name">Cetogénica</span></button>
-              <button type="button" class="pf-diet-opt" data-val="todos"><span class="pf-diet-icon">🍽️</span><span class="pf-diet-name">Sin restricción</span></button>
+              <button type="button" class="pf-diet-opt" data-val="mediterranea" data-desc="Basada en alimentos frescos y mínimamente procesados, con verduras, frutas, pescado, huevos, legumbres y grasas de calidad."><span class="pf-diet-icon">🫒</span><span class="pf-diet-name">Mediterránea</span></button>
+              <button type="button" class="pf-diet-opt" data-val="paleo" data-desc="Basada en alimentos reales y mínimamente procesados: carnes, pescados, huevos, frutas, verduras y grasas naturales."><span class="pf-diet-icon">🦴</span><span class="pf-diet-name">Paleo</span></button>
+              <button type="button" class="pf-diet-opt" data-val="vegana" data-desc="Basada exclusivamente en alimentos de origen vegetal, excluyendo carne, pescado, huevos, lácteos y cualquier producto animal."><span class="pf-diet-icon">🌱</span><span class="pf-diet-name">Vegana</span></button>
+              <button type="button" class="pf-diet-opt" data-val="vegetariana" data-desc="Basada en alimentos vegetales, permitiendo huevos y lácteos, pero excluyendo carne y pescado."><span class="pf-diet-icon">🥚</span><span class="pf-diet-name">Vegetariana</span></button>
+              <button type="button" class="pf-diet-opt" data-val="cetogenica" data-desc="Muy baja en carbohidratos y alta en grasas, diseñada para usar la grasa como fuente principal de energía."><span class="pf-diet-icon">🥑</span><span class="pf-diet-name">Cetogénica</span></button>
+              <button type="button" class="pf-diet-opt" data-val="todos" data-desc="Alimentación flexible y variada, sin excluir grupos de alimentos concretos."><span class="pf-diet-icon">🍽️</span><span class="pf-diet-name">Sin restricción</span></button>
             </div>
+            <p id="pfDietDesc" class="pf-diet-desc"></p>
             <select id="perfDieta" class="hidden">
               <option value="todos">Todos (sin restricción)</option><option value="cetogenica">Cetogénica</option><option value="vegana">Vegana</option><option value="paleo">Paleo</option><option value="mediterranea">Mediterránea</option><option value="vegetariana">Vegetariana</option>
             </select>

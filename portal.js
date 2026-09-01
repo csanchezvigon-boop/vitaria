@@ -1984,7 +1984,7 @@ function normalizeFoodName(name){
     'aguacate':'aguacate','palta':'aguacate',
     'aceite de oliva virgen extra':'AOVE','aove':'AOVE','aceite de oliva':'AOVE','aceite oliva':'AOVE','aceite virgen extra':'AOVE',
     'arroz vaporizado':'arroz','arroz integral':'arroz',
-    'huevo cocido':'huevos','huevos cocidos':'huevos',
+    'huevo':'huevos','huevo cocido':'huevos','huevos cocidos':'huevos','huevo revuelto':'huevos','huevo pochado':'huevos','huevo frito':'huevos',
     'almendra':'almendras','almendras crudas':'almendras',
     'nuez':'nueces','nueces mixtas':'nueces',
     'plátanos':'plátano','plátano congelado':'plátano',
@@ -2525,6 +2525,7 @@ function verListaCompra(){
         dietaGrid.querySelectorAll('.pf-diet-opt').forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
         dietaSelect.value=btn.dataset.val;
+        var desc=$('#pfDietDesc');if(desc)desc.textContent=btn.dataset.desc||'';
         markUnsaved();
       });
     });
@@ -2548,7 +2549,9 @@ function verListaCompra(){
   window.syncProfileVisuals=function(){
     if(dietaSelect&&dietaGrid){
       dietaGrid.querySelectorAll('.pf-diet-opt').forEach(b=>{
-        b.classList.toggle('active',b.dataset.val===dietaSelect.value);
+        var isActive=b.dataset.val===dietaSelect.value;
+        b.classList.toggle('active',isActive);
+        if(isActive){var desc=$('#pfDietDesc');if(desc)desc.textContent=b.dataset.desc||'';}
       });
     }
     if(mealsSelect&&mealsGrid){

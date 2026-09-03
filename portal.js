@@ -1491,7 +1491,6 @@ function renderSemana(u){
   const nav=$('#semanaNav');
   const wrap=$('#semanaCards');
   if(!nav||!wrap)return;
-  renderPlanHistory(u);
   const dayIcons=['🌙','🛒','🍽️','🔥','💪','🎉','☀️'];
   nav.innerHTML=u.menu.map((m,i)=>{
     const short=m.dia?m.dia.slice(0,3):'';

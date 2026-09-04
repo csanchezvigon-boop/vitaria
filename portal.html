@@ -330,9 +330,8 @@
               <button type="button" class="pf-meal-opt" data-val="3"><span class="pf-meal-num">3</span><span class="pf-meal-label">comidas</span></button>
               <button type="button" class="pf-meal-opt" data-val="4"><span class="pf-meal-num">4</span><span class="pf-meal-label">comidas</span></button>
               <button type="button" class="pf-meal-opt" data-val="5"><span class="pf-meal-num">5</span><span class="pf-meal-label">comidas</span></button>
-              <button type="button" class="pf-meal-opt" data-val="6"><span class="pf-meal-num">6</span><span class="pf-meal-label">comidas</span></button>
             </div>
-            <select id="perfNumComidas" class="hidden"><option value="3">3 comidas</option><option value="4" selected>4 comidas</option><option value="5">5 comidas</option><option value="6">6 comidas</option></select>
+            <select id="perfNumComidas" class="hidden"><option value="3">3 comidas</option><option value="4" selected>4 comidas</option><option value="5">5 comidas</option></select>
           </div>
           <div class="pf-field" style="margin-top:16px;"><label for="perfNoComer">Alimentos que no consumes</label><input type="text" id="perfNoComer" placeholder="Ej: brócoli, gambas…" class="pf-input"></div>
           <div class="pf-actions"><button class="btn pf-btn pf-btn--ghost" id="perfTrainSave"><span class="pf-btn-text">Guardar preferencias</span><span class="pf-btn-loading hidden"><span class="pf-spinner"></span>Guardando...</span><span class="pf-btn-done hidden">✓ Guardado</span></button></div>
@@ -439,7 +438,6 @@
     </details>
     <div class="ay-card safe"><blockquote class="ay-quote">No es perfección. Es constancia.</blockquote></div>
     </div>
-  </div>
 
   <div class="bien-content hidden" id="bien-alimentacion">
     <h3>🥗 Alimentación y calidad</h3>
@@ -475,7 +473,6 @@
     </details>
     </details>
     </div>
-  </div>
 
   <div class="bien-content hidden" id="bien-hidratacion">
     <h3>💧 Hidratación y rendimiento</h3>
@@ -496,7 +493,6 @@
     <div class="ay-card"><ul class="ay-list no"><li>Orina oscura</li><li>Boca seca</li><li>Dolor de cabeza</li><li>Fatiga inexplicable</li><li>Mareos al levantarte</li><li>Piel que no vuelve rápido al pellizcarla</li></ul></div>
     </details>
     </div>
-  </div>
 
   <div class="bien-content hidden" id="bien-mentalidad">
     <h3>🧠 Mentalidad y energía</h3>
@@ -551,7 +547,6 @@
     </details>
     </details>
     </div>
-  </div>
 
   <div class="bien-content hidden" id="bien-deportiva">
     <h3>⚽ Nutrición deportiva</h3>
@@ -935,7 +930,6 @@
 
     <div class="ay-card"><p class="ay-note">Estas recomendaciones deben individualizarse según tolerancia, deporto, duración e intensidad.</p></div>
     </div>
-  </div>
 
   <div class="bien-content hidden" id="bien-comidas">
     <h3>🍽️ Comidas y equivalencias</h3>
@@ -1004,7 +998,6 @@
     </details>
     <div class="ay-card"><h3>📋 Reglas generales de equivalencia</h3><ul class="ay-check"><li>Sustituir únicamente dentro del mismo grupo</li><li>Sustituir una opción por otra</li><li>Mantener la cantidad indicada salvo que se especifique lo contrario</li><li>No mezclar varias sustituciones</li><li>Si un alimento no aparece en la plantilla, no asumir automáticamente que es equivalente</li><li>El objetivo es mantener la coherencia nutricional y la digestibilidad</li></ul></div>
     </div>
-  </div>
 
   <div class="bien-content hidden" id="bien-ayuno">
     <h3>🧘 Ayuno</h3>
@@ -1028,7 +1021,6 @@
     <div class="ay-card safe"><h3>🛡️ Seguridad ante todo</h3><p>El ayuno se pausa sin culpa si hay:</p><div class="ay-pauses"><span>Fatiga persistente</span><span>Estrés crónico</span><span>Infección</span><span>Mareos</span><span>Hambre descontrolada</span></div><p class="ay-note">Es parte del sistema, no un fracaso.</p></div>
     <div class="ay-card"><p class="ay-note">🏃 <b>Nota para deportistas:</b> Prioriza el rendimiento y la recuperación frente a forzar ventanas de ayuno. No ayunes en días de competición o entrenamientos de alta intensidad.</p></div>
     </div>
-  </div>
 
   <div class="bien-content hidden" id="bien-suplementacion">
     <h3>💊 Suplementación</h3>
@@ -1043,7 +1035,6 @@
     </div>
     <div class="ay-card safe"><blockquote class="ay-quote">Cada suplemento tiene su momento. Respeta el orden y el timing, y el efecto se multiplica.</blockquote></div>
     </div>
-  </div>
 </section>
 
     <div id="recipeOverlay" class="overlay hidden"><div class="modal" id="recipeModal">
@@ -1053,6 +1044,7 @@
       <div id="recipeIngredients"></div>
       <div id="recipeSteps" style="margin-top:14px;"></div>
     </div></div>
+    <div id="dietaContent" class="hidden"></div>
     <input type="hidden" id="dietaData">
   </main>
 </div></div></div>

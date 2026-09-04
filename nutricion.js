@@ -349,6 +349,22 @@ function mealHasAllergen(meal,allergens){
 }
 
 /* ================================================================
+   1b. HELPERS VARIANTES / SEED DETERMINISTA (Vitaria 5/25/ilimitado)
+   ================================================================ */
+function hashString(str){
+  let h=2161461;
+  for(let i=0;i<str.length;i++){h^=str.charCodeAt(i);h=Math.imul(h,16777619);}
+  return h>>>0;
+}
+function seededRandom(seed){
+  let s=seed>>>0;
+  return function(){
+    s=Math.imul(s,1664525)+1013904223;
+    return (s>>>0)/4294967296;
+  };
+}
+
+/* ================================================================
    2. FUNCIONES DE CÁLCULO NUTRICIONAL                          */
 
 function calcBMR(sexo,peso,altura,edad){
@@ -395,7 +411,10 @@ function distributeMacros(calObj,pGr,objetivo){
 /* ================================================================
    3. MOTOR DE GENERACIÓN COMPARTIDO                            */
 
-function buildDietPlan(datos,mealDB,mealSlots,allergens,noComer){
+function buildDietPlan(datos,mealDB,mealSlots,allergens,noComer,variantIndex){
+  const _seedBase=(datos._variantSeed!=null?datos._variantSeed:(variantIndex!=null?hashString((datos._dietaType||'')+'|'+variantIndex+'|'+(datos._userId||'')):null));
+  const _rng=_seedBase!=null?seededRandom(_seedBase):Math.random;
+  const _rand=typeof _rng==='function'?_rng:function(){return _rng;};
   const{edad,sexo,peso,altura,objetivo,tipoEntreno,diasEntreno,duracionEntreno,numComidas,actividad}=datos;
 
   /* --- 1. Calcular necesidades --- */
@@ -450,7 +469,9 @@ function buildDietPlan(datos,mealDB,mealSlots,allergens,noComer){
       score-=count*200;
       if(m.n===prevMealName)score-=50;
       if(count===0)score+=30;
-      score+=Math.random()*10;
+      score+=_rand()*10;
+      // variante: offset por variantIndex para diversidad real entre variantes
+      if(_seedBase!=null) score+= (hashString(m.n+':'+dayIdx)%100)/1000;
       return{m,score};
     });
     scored.sort((a,b)=>b.score-a.score);
@@ -482,6 +503,7 @@ function buildDietPlan(datos,mealDB,mealSlots,allergens,noComer){
         dayUsed.add(chosen.n);
         prevMealName=chosen.n;
         const scaled=scaleMeal(chosen,targetCal);
+        scaled.tipo=slot;
         comidas.push(scaled);
         dayTotalCal+=scaled.cal;
         dayTotalP+=scaled.p;
@@ -544,18 +566,56 @@ function scaleMeal(meal,targetCal){
   const baseCal=meal.ing.reduce((s,i)=>s+i.cal,0);
   if(baseCal===0)return{...meal,cal:0,p:0,c:0,g:0};
   const factor=targetCal/baseCal;
-  const ing=meal.ing.map(i=>({
-    ...i,
-    q:Math.round(i.q*factor),
-    cal:Math.round(i.cal*factor),
-    p:Math.round(i.p*factor*10)/10,
-    c:Math.round(i.c*factor*10)/10,
-    g:Math.round(i.g*factor*10)/10
-  }));
-  const cal=ing.reduce((s,i)=>s+i.cal,0);
-  const p=ing.reduce((s,i)=>s+i.p,0);
-  const c=ing.reduce((s,i)=>s+i.c,0);
-  const g=ing.reduce((s,i)=>s+i.g,0);
+  // Helper para redondeo práctico
+  function practicalRound(g){
+    if(g<50) return Math.round(g/5)*5;
+    if(g<200) return Math.round(g/10)*10;
+    if(g<400) return Math.round(g/25)*25;
+    return Math.round(g/50)*50;
+  }
+  const ing=meal.ing.map(i=>{
+    const density=i.q>0? (i.cal/i.q*100) : 0;
+    let f=factor;
+    // Capar escalado para alimentos muy poco calóricos (verduras) para evitar 400g+ absurdos
+    if(density<25) f=Math.min(f, 1.6);
+    else if(density<40) f=Math.min(f, 2.0);
+    else if(density<70) f=Math.min(f, 2.5);
+    let q=Math.round(i.q*f);
+    q=practicalRound(q);
+    // Evitar 0 o cantidades ridículas
+    if(q<5) q=5;
+    if(q>500 && density>50) q=500; // capar ingredientes densos a 500g máx
+    const cal=Math.round(i.cal*f);
+    const p=Math.round(i.p*f*10)/10;
+    const c=Math.round(i.c*f*10)/10;
+    const g=Math.round(i.g*f*10)/10;
+    // Recalcular cal por densidad para mantener coherencia si q fue capado/redondeado
+    const calPerGram = i.q>0? i.cal/i.q : 0;
+    const adjCal = Math.round(q*calPerGram);
+    return{...i, q, cal: adjCal, p, c, g};
+  });
+  // Recalcular totales reales tras redondeo/capado y ajustar si se desvía mucho del target
+  let cal=ing.reduce((s,i)=>s+i.cal,0);
+  let p=ing.reduce((s,i)=>s+i.p,0);
+  let c=ing.reduce((s,i)=>s+i.c,0);
+  let g=ing.reduce((s,i)=>s+i.g,0);
+  // Si por capado nos quedamos cortos (>15% debajo), redistribuir diferencia a ingredientes densos
+  if(cal < targetCal*0.85){
+    const deficit=targetCal-cal;
+    // buscar ingrediente más denso (mayor cal/g) para compensar
+    let idxMax=-1, maxDens=-1;
+    ing.forEach((ing,i)=>{
+      const dens=ing.q>0? ing.cal/ing.q : 0;
+      if(dens>maxDens){maxDens=dens; idxMax=i;}
+    });
+    if(idxMax>=0){
+      const addCal=Math.min(deficit, Math.round(targetCal*0.1));
+      const addQ=Math.round(addCal / (maxDens||1));
+      ing[idxMax].q+=addQ;
+      ing[idxMax].cal+=addCal;
+      cal+=addCal;
+    }
+  }
   return{...meal,ing,cal,p,c,g};
 }
 
@@ -581,6 +641,8 @@ function genListaCompraUniversal(plan,catMap){
   for(const dia of plan){
     for(const c of dia.comidas){
       for(const i of c.ing){
+        const norm=(i.a||'').toLowerCase().trim();
+        if(norm==='proteina en polvo' || norm==='proteína en polvo') continue;
         const cat=catMap[i.a]||'Otros';
         if(!cats[cat])cats[cat]={};
         if(!cats[cat][i.a])cats[cat][i.a]={total:0};

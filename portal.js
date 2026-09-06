@@ -1174,7 +1174,18 @@ $('#onbFinish').addEventListener('click',()=>{hideOnboarding();enterPortal();});
 /* ===== INICIO / DASHBOARD ===== */
 function renderInicio(u){
   const idx=todayIndex();const key=todayKey();
-  const day=u.menu[idx];
+  // Fuente única: Plan semanal (dietaData.plan) si existe, fallback a menu legacy
+  let day=null; let dietaDay=null;
+  if(u.dietaData && u.dietaData.plan && u.dietaData.plan[idx]){
+    dietaDay=u.dietaData.plan[idx];
+    // Construir objeto day compatible con getMealSlots para reutilizar lógica existente
+    day={dia:dietaDay.dia};
+    dietaDay.comidas.forEach(c=>{ day[c.tipo]=c.n; });
+    // Guardar referencia para uso posterior en comidas
+    day._dietaComidas=dietaDay.comidas;
+  } else {
+    day=u.menu[idx];
+  }
   const d=new Date();
   const name=(u.name||'').split(' ')[0];
   const hour=d.getHours();
@@ -1188,15 +1199,29 @@ function renderInicio(u){
   const fatTarget=Math.round(calTarget*0.3/9);
   const eaten=u.consumed[key]||{};
   let totalCal=0,totalProt=0,totalCarb=0,totalFat=0;
-  const mts=day?getMealSlots(day):[];
-  mts.forEach(mt=>{
-    const name=day[mt];const nd=getND(name);
-    if(eaten[mt]&&nd){totalCal+=nd.k;totalProt+=nd.p;totalCarb+=nd.c;totalFat+=nd.g;}
-    const extras=u.extraFoods&&u.extraFoods[key]&&u.extraFoods[key][mt];
-    if(extras)extras.forEach(e=>{totalCal+=(e.k||0);totalProt+=(e.p||0);totalCarb+=(e.c||0);totalFat+=(e.g||0);});
-    const custom=u.customFoods&&u.customFoods[key]&&u.customFoods[key][mt];
-    if(custom){totalCal+=(custom.k||0);totalProt+=(custom.p||0);totalCarb+=(custom.c||0);totalFat+=(custom.g||0);}
-  });
+  if(dietaDay){
+    // Usar dietaData para cálculo de consumidos (kcal reales de la dieta)
+    dietaDay.comidas.forEach(c=>{
+      const mt=c.tipo;
+      if(eaten[mt]){
+        totalCal+=c.cal||0; totalProt+=c.p||0; totalCarb+=c.c||0; totalFat+=c.g||0;
+      }
+      const extras=u.extraFoods&&u.extraFoods[key]&&u.extraFoods[key][mt];
+      if(extras)extras.forEach(e=>{totalCal+=(e.k||0);totalProt+=(e.p||0);totalCarb+=(e.c||0);totalFat+=(e.g||0);});
+      const custom=u.customFoods&&u.customFoods[key]&&u.customFoods[key][mt];
+      if(custom){totalCal+=(custom.k||0);totalProt+=(custom.p||0);totalCarb+=(custom.c||0);totalFat+=(custom.g||0);}
+    });
+  } else {
+    const mts=day?getMealSlots(day):[];
+    mts.forEach(mt=>{
+      const name=day[mt];const nd=getND(name);
+      if(eaten[mt]&&nd){totalCal+=nd.k;totalProt+=nd.p;totalCarb+=nd.c;totalFat+=nd.g;}
+      const extras=u.extraFoods&&u.extraFoods[key]&&u.extraFoods[key][mt];
+      if(extras)extras.forEach(e=>{totalCal+=(e.k||0);totalProt+=(e.p||0);totalCarb+=(e.c||0);totalFat+=(e.g||0);});
+      const custom=u.customFoods&&u.customFoods[key]&&u.customFoods[key][mt];
+      if(custom){totalCal+=(custom.k||0);totalProt+=(custom.p||0);totalCarb+=(custom.c||0);totalFat+=(custom.g||0);}
+    });
+  }
   const calPct=calTarget?Math.min(100,Math.round(totalCal/calTarget*100)):0;
   const protPct=protTarget?Math.min(100,Math.round(totalProt/protTarget*100)):0;
   const calRemain=Math.max(0,calTarget-totalCal);
@@ -1208,20 +1233,34 @@ function renderInicio(u){
     const d2=new Date();
     $('#hoyDate').textContent=day.dia+', '+d2.getDate()+'/'+(d2.getMonth()+1)+'/'+d2.getFullYear();
     let mealsHtml='';
-    mts.forEach(mt=>{
-      const m=day[mt];if(!m)return;
-      const mealName=typeof m==='object'?m.n:m;
-      const calVal=typeof m==='object'?m.cal:(getND(mealName)?getND(mealName).k:0);
-      const icon=MEAL_ICONS[mt]||'🍽️';
-      const label=MEAL_LABELS[mt]||mt;
-      const isEaten=!!eaten[mt];
-      mealsHtml+=`<div class="meal-card${isEaten?' eaten':''}" data-type="${mt}" data-key="${key}"><span class="meal-check">✅</span><div class="meal-header"><span class="meal-icon">${icon}</span><span class="meal-type">${label}</span></div><p class="meal-name">${mealName}</p><p class="meal-cal">${calVal?calVal+' kcal':''}</p><button class="meal-btn${isEaten?' done':''}" ${isEaten?'disabled':''}>${isEaten?'✓ Comido':'Marcar como comido'}</button><div class="extra-section"><button class="extra-toggle" data-type="${mt}">+ ¿Comiste algo más?</button><div class="extra-list" id="extraList-${mt}"></div><div class="extra-total" id="extraTotal-${mt}"></div></div></div>`;
-    });
+    if(dietaDay){
+      dietaDay.comidas.forEach(c=>{
+        const mt=c.tipo;
+        const mealName=c.n;
+        const calVal=c.cal||0;
+        const icon=MEAL_ICONS[mt]||'🍽️';
+        const label=MEAL_LABELS[mt]||mt;
+        const isEaten=!!eaten[mt];
+        mealsHtml+=`<div class="meal-card${isEaten?' eaten':''}" data-type="${mt}" data-key="${key}"><span class="meal-check">✅</span><div class="meal-header"><span class="meal-icon">${icon}</span><span class="meal-type">${label}</span></div><p class="meal-name">${mealName}</p><p class="meal-cal">${calVal?calVal+' kcal':''}</p><button class="meal-btn${isEaten?' done':''}" ${isEaten?'disabled':''}>${isEaten?'✓ Comido':'Marcar como comido'}</button><div class="extra-section"><button class="extra-toggle" data-type="${mt}">+ ¿Comiste algo más?</button><div class="extra-list" id="extraList-${mt}"></div><div class="extra-total" id="extraTotal-${mt}"></div></div></div>`;
+      });
+    } else {
+      const mts2=getMealSlots(day);
+      mts2.forEach(mt=>{
+        const m=day[mt];if(!m)return;
+        const mealName=typeof m==='object'?m.n:m;
+        const calVal=typeof m==='object'?m.cal:(getND(mealName)?getND(mealName).k:0);
+        const icon=MEAL_ICONS[mt]||'🍽️';
+        const label=MEAL_LABELS[mt]||mt;
+        const isEaten=!!eaten[mt];
+        mealsHtml+=`<div class="meal-card${isEaten?' eaten':''}" data-type="${mt}" data-key="${key}"><span class="meal-check">✅</span><div class="meal-header"><span class="meal-icon">${icon}</span><span class="meal-type">${label}</span></div><p class="meal-name">${mealName}</p><p class="meal-cal">${calVal?calVal+' kcal':''}</p><button class="meal-btn${isEaten?' done':''}" ${isEaten?'disabled':''}>${isEaten?'✓ Comido':'Marcar como comido'}</button><div class="extra-section"><button class="extra-toggle" data-type="${mt}">+ ¿Comiste algo más?</button><div class="extra-list" id="extraList-${mt}"></div><div class="extra-total" id="extraTotal-${mt}"></div></div></div>`;
+      });
+    }
     $('#todayMeals').innerHTML=mealsHtml||'<p style="color:var(--ink-soft);font-size:.88rem;">Sin comidas planificadas</p>';
     $('#todayMeals').querySelectorAll('.meal-btn:not(.done)').forEach(btn=>{
       btn.addEventListener('click',function(){const card=this.closest('.meal-card');openFoodModal(card.dataset.type,card.dataset.key,u);});
     });
-    mts.forEach(mt=>{renderExtraList(mt,key,u);});
+    const mtsExtra = dietaDay ? dietaDay.comidas.map(c=>c.tipo) : (day?getMealSlots(day):[]);
+    mtsExtra.forEach(mt=>{renderExtraList(mt,key,u);});
     $('#todayMeals').querySelectorAll('.extra-toggle').forEach(btn=>{
       btn.addEventListener('click',function(){openExtraFoodModal(this.dataset.type,key,u);});
     });

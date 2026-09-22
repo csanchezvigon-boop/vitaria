@@ -13,7 +13,7 @@ router = APIRouter(prefix="/payments", tags=["payments"])
 
 @router.post("/checkout")
 async def create_checkout(
-    tier: str, current_user: User = CurrentUser, db: DbSession = DbSession
+    tier: str, current_user: CurrentUser, db: DbSession = DbSession
 ) -> dict:
     """Crea una sesión de checkout de Stripe (placeholder)."""
     if tier not in {"starter", "pro", "premium"}:

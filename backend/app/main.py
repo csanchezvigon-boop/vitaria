@@ -5,6 +5,7 @@ Sirve la API (prefijo /api/v1), el health check y los estáticos del portal
 "en web activo" sin CORS desde un solo puerto.
 """
 from contextlib import asynccontextmanager
+import os
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -16,8 +17,9 @@ from app.core.database import init_db
 from app.core.security import is_strong_secret
 from app.routers.v1 import api_router
 
-# Raíz del proyecto (~/nutricion) donde están index.html y portal.html
-FRONTEND_ROOT = Path(__file__).resolve().parents[2]
+# Raíz del proyecto (~/nutricion) donde están index.html y portal.html.
+# En Vercel lo fija api/index.py (el cwd del lambda no coincide con parents[2]).
+FRONTEND_ROOT = Path(os.environ.get("VITARIA_FRONTEND_ROOT") or Path(__file__).resolve().parents[2])
 
 
 @asynccontextmanager

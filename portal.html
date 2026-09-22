@@ -2,11 +2,18 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="description" content="Portal de Vitaria: tu dieta personalizada, plan semanal, lista de la compra, bienestar y registro de alimentos.">
+<meta name="theme-color" content="#4F6F3F">
+<meta name="color-scheme" content="light">
 <title>Portal Vitaria</title>
+<link rel="icon" type="image/svg+xml" href="/icon.svg">
+<link rel="manifest" href="/manifest.webmanifest">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,650;0,9..144,900;1,9..144,500&family=Karla:wght@400;500;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="portal.css?v=15">
+<link rel="stylesheet" href="portal.css?v=30">
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){})}</script>
+</head>
 </head>
 <body>
 
@@ -84,6 +91,33 @@
     <div class="food-actions">
       <button class="btn btn-solid" id="foodConfirm">Confirmar</button>
       <button class="btn btn-ghost" id="foodCancel">Cancelar</button>
+    </div>
+    <div class="food-scan">
+      <button class="btn btn-scan" id="foodScanBtn" aria-label="Escanear código de barras de un alimento con la cámara">📷 Escanear código de barras</button>
+    </div>
+    <div class="scan-panel hidden" id="scanPanel">
+      <div class="scan-preview"><video id="scanVideo" playsinline muted></video><div class="scan-frame"></div></div>
+      <p class="scan-hint">Apunta la cámara al código de barras del producto</p>
+      <div class="scan-manual">
+        <input type="text" id="scanCode" placeholder="O escribe el código (EAN-13)" aria-label="Código de barras del producto">
+        <button class="btn btn-solid" id="scanLookup" aria-label="Buscar producto por código">Buscar</button>
+      </div>
+      <button class="btn btn-ghost" id="scanClose" aria-label="Cancelar escaneo">Cancelar escaneo</button>
+    </div>
+    <div class="scan-result hidden" id="scanResult">
+      <div class="scan-result-card">
+        <img id="scanImg" alt="" hidden>
+        <div>
+          <div class="scan-result-name" id="scanResultName"></div>
+          <div class="scan-result-brand" id="scanResultBrand"></div>
+          <div class="scan-result-kcal" id="scanResultKcal"></div>
+          <div class="est-macros" id="scanResultMacros">P: 0g · C: 0g · G: 0g</div>
+        </div>
+      </div>
+      <div class="food-actions">
+        <button class="btn btn-solid" id="scanLog" aria-label="Registrar el alimento escaneado">Registrar alimento</button>
+        <button class="btn btn-ghost" id="scanRetry" aria-label="Escanear otro código">Escanear otro</button>
+      </div>
     </div>
     <button class="food-skip" id="foodSkip">Usar la comida del plan sin modificar</button>
   </div>
@@ -173,6 +207,12 @@
     <!-- INICIO / DASHBOARD -->
     <section id="tab-inicio" class="tab">
       <div class="section-head"><p class="eyebrow">Bienvenido</p><h2 id="inicioGreeting">Hola</h2><p id="inicioSubtitle"></p></div>
+      <!-- Acción rápida: escanear alimento -->
+      <button class="quick-scan" id="quickScanBtn" type="button" tabindex="0" aria-label="Escanear código de barras de un alimento">
+        <span class="quick-scan-icon">📷</span>
+        <span class="quick-scan-text"><b>Escanear alimento</b><small>Registra por código de barras</small></span>
+        <span class="quick-scan-arrow">›</span>
+      </button>
       <!-- Summary grid -->
       <div class="inicio-grid">
         <div class="dash-card pf-card pf-card--fade" data-delay="0">

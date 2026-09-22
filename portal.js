@@ -1610,7 +1610,7 @@ function renderExtraList(mt,key,u){
 }
 
 function openExtraFoodModal(mt,key,u){
-  foodModalState={mt,key,user,u,extra:true};
+  foodModalState={mt,key,user:u,u,extra:true};
   $('#foodTitle').textContent='¿Qué más has comido?';
   $('#foodSubtitle').textContent='Algo fuera del plan que quieras registrar';
   $('#foodInput').value='';
@@ -3055,6 +3055,148 @@ function verListaCompra(){
   });
   $('#dietaContent').innerHTML=html;
 }
+
+/* ================================================================
+   Escáner de código de barras (food logging con cámara)
+   Usa BarcodeDetector si está disponible; fallback a entrada manual.
+   ================================================================ */
+  var scanStream=null,scanDetector=null,scanLastCode='',scanResultObj=null;
+
+  function barcodeSupported(){
+    return typeof window!=='undefined'&&'BarcodeDetector' in window;
+  }
+
+  function scanInitDetector(){
+    try{
+      if(!barcodeSupported())return null;
+      var opts=window.__vitariaBarcodeFormats||['ean_13','ean_8','upc_a','upc_e','code_128','code_39'];
+      return new BarcodeDetector({formats:opts});
+    }catch(e){return null;}
+  }
+
+  function scanIsOpen(){
+    var p=$('#scanPanel');return p&&!p.classList.contains('hidden');
+  }
+
+  function scanStart(){
+    var p=$('#scanPanel');if(!p)return;
+    p.classList.remove('hidden');
+    var r=$('#scanResult');r&&r.classList.add('hidden');
+    scanLastCode='';scanResultObj=null;
+    if(scanIsOpen()){
+      navigator.mediaDevices&&navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}})
+        .then(function(stream){
+          scanStream=stream;
+          var v=$('#scanVideo');if(v){v.srcObject=stream;v.play();}
+          scanDetector=scanInitDetector();
+          if(scanDetector){scanDetector.addEventListener('detect',function(ev){scanTick(ev);});}
+        })
+        .catch(function(){scanDetector=null;});
+    }
+  }
+
+  function scanTick(ev){
+    if(!scanIsOpen())return;
+    if(ev&&ev.detectedCodes&&ev.detectedCodes.length)scanHandleCode(ev.detectedCodes[0].rawValue);
+  }
+
+  function scanHandleCode(code){
+    if(!code||code===scanLastCode)return;
+    scanLastCode=code;
+    scanLookupCode(code);
+  }
+
+  function scanLookupCode(code){
+    if(!code)return;
+    // Lookup directo contra el backend (sin depender de js/api.js)
+    var res=null;
+    try{
+      var x=new XMLHttpRequest();
+      x.open('GET','/api/v1/food-logs/barcode/'+encodeURIComponent(code),false);
+      x.send();
+      if(x.status===200){try{res=JSON.parse(x.responseText);}catch(e){res=null;}}
+    }catch(e){res=null;}
+    if(!res){alert('No se encontró el producto '+(code||'')+'.');scanLastCode='';return;}
+    scanShowResult(res);
+  }
+
+  function scanShowResult(res){
+    scanResultObj=res;
+    $('#scanPanel').classList.add('hidden');
+    $('#scanResult').classList.remove('hidden');
+    $('#scanResultName').textContent=res.name||'Producto';
+    $('#scanResultBrand').textContent=res.brand?('Marca: '+res.brand):'';
+    var kcal=res.kcal_per_100g!=null?Math.round(res.kcal_per_100g):0;
+    $('#scanResultKcal').textContent=kcal+' kcal / 100g';
+    var p=Math.round(res.protein_per_100g||0),c=Math.round(res.carbs_per_100g||0),g=Math.round(res.fat_per_100g||0);
+    $('#scanResultMacros').textContent='P: '+p+'g · C: '+c+'g · G: '+g+'g';
+    var img=$('#scanImg');
+    if(res.image_url){img.src=res.image_url;img.hidden=false;}else{img.hidden=true;}
+    scanStopCamera();
+  }
+
+  function scanStopCamera(){
+    if(scanStream){
+      try{scanStream.getTracks().forEach(function(t){t.stop();});}catch(e){}
+      scanStream=null;
+    }
+    scanDetector=null;
+  }
+
+  function scanClose(){
+    scanStopCamera();
+    scanLastCode='';scanResultObj=null;
+    $('#scanPanel')&&$('#scanPanel').classList.add('hidden');
+    $('#scanResult')&&$('#scanResult').classList.add('hidden');
+  }
+
+  function scanRegisterLog(){
+    if(!scanResultObj)return;
+    var u=currentUser();
+    var s=foodModalState||{};
+    /* Guardar en el usuario local (siempre) para el tracking del día */
+    var name=scanResultObj.name||'Producto escaneado';
+    var q=+$('#foodQty').value||100;
+    var k=Math.round((scanResultObj.kcal_per_100g||0)*q/100);
+    var p=Math.round((scanResultObj.protein_per_100g||0)*q/100);
+    var c=Math.round((scanResultObj.carbs_per_100g||0)*q/100);
+    var g=Math.round((scanResultObj.fat_per_100g||0)*q/100);
+    var mt=(s&&s.mt)||'';
+    if(!u.extraFoods)u.extraFoods={};
+    var ky=(s&&s.key)||todayKey();
+    if(!u.extraFoods[ky])u.extraFoods[ky]={};
+    if(!u.extraFoods[ky][mt])u.extraFoods[ky][mt]=[];
+    u.extraFoods[ky][mt].push({text:name,k:k,p:p,c:c,g:g,source:'barcode'});
+    saveUser(u);
+    /* Sync con backend (opcional, silencioso) si existe token */
+    try{
+      var token=localStorage.getItem('vitaria_token');
+      if(token&&scanResultObj.barcode){
+        var x=new XMLHttpRequest();
+        x.open('POST','/api/v1/food-logs',false);
+        x.setRequestHeader('Content-Type','application/json');
+        x.setRequestHeader('Authorization','Bearer '+token);
+        x.send(JSON.stringify({
+          meal_type:mt||'snack',name:name,barcode:scanResultObj.barcode,source:'barcode',
+          portion:'100g',quantity:q,kcal:k,protein_g:p,carbs_g:c,fat_g:g
+        }));
+      }
+    }catch(e){}
+    $('#foodOverlay').classList.add('hidden');
+    scanClose();
+    if(typeof renderExtraList==='function'&&s&&s.mt&&s.key)renderExtraList(s.mt,s.key,u);
+    if(typeof renderInicio==='function')renderInicio(u);
+  }
+
+  /* Hook de testing del escáner (no afecta funcionalidad) */
+  if(typeof window!=='undefined'){
+    window.__vitariaTest={
+      scanLookupCode:function(code){scanLookupCode(code);return scanResultObj;},
+      scanShowResult:function(res){scanShowResult(res);return true;},
+      scanClose:function(){scanClose();return true;}
+    };
+  }
+
 /* Init */
 (function init(){
   if(!getUsers().length){
@@ -3169,5 +3311,33 @@ function verListaCompra(){
       }
     };
   }
+})();
+
+/* Bindings del escáner (al final del body; when() espera si el elemento aún no existe) */
+(function(){
+  function when(sel,fn){
+    var el=$(sel);if(el){fn(el);return;}
+    var t=setInterval(function(){var e=$(sel);if(e){clearInterval(t);fn(e);}},100);
+    setTimeout(function(){clearInterval(t);},8000);
+  }
+  when('#foodScanBtn',function(btn){btn.addEventListener('click',scanStart);});
+  when('#quickScanBtn',function(btn){btn.addEventListener('click',function(ev){
+    ev.preventDefault();
+    var u=currentUser();if(!u)return;
+    openExtraFoodModal('',todayKey(),u);
+    setTimeout(scanStart,150);
+  });});
+  when('#scanLookup',function(btn){btn.addEventListener('click',function(){scanLookupCode($('#scanCode').value.trim());});});
+  when('#scanCode',function(input){input.addEventListener('keydown',function(ev){if(ev.key==='Enter'){scanLookupCode(input.value.trim());}});});
+  when('#scanClose',function(btn){btn.addEventListener('click',scanClose);});
+  when('#scanRetry',function(btn){btn.addEventListener('click',function(){
+    $('#scanResult').classList.add('hidden');
+    $('#scanPanel').classList.remove('hidden');
+    $('#scanCode').value='';
+    scanLastCode='';
+    scanStart();
+  });});
+  when('#scanLog',function(btn){btn.addEventListener('click',scanRegisterLog);});
+  when('#foodCancel',function(btn){btn.addEventListener('click',scanClose);});
 })();
 })();

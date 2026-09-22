@@ -1,0 +1,6598 @@
+{
+ "WEEKS": [
+  {
+   "Lunes": {
+    "desayuno": "Yogur griego proteico con cacao y frutos rojos",
+    "comida": "Pollo con arroz vaporizado y espinacas",
+    "cena": "Salmón con boniato asado y espárragos"
+   },
+   "Martes": {
+    "desayuno": "Tostadas de espelta con huevos, pavo y aguacate",
+    "comida": "Quinoa con caballa, huevo y verduras salteadas",
+    "cena": "Pescado blanco con patata cocida y verduras"
+   },
+   "Miércoles": {
+    "desayuno": "Yogur griego proteico con cacao y frutos rojos",
+    "comida": "Ternera especiada con boniato y espárragos",
+    "cena": "Poke bowl de salmón, quinoa y feta"
+   },
+   "Jueves": {
+    "desayuno": "Tostadas de espelta con huevos, pavo y aguacate",
+    "comida": "Arroz vaporizado con caballa y huevo cocido",
+    "cena": "Fajitas integrales de pollo o pizza casera"
+   },
+   "Viernes": {
+    "desayuno": "Porridge overnight de avena con plátano",
+    "comida": "Pollo con arroz vaporizado y aguacate",
+    "cena": "Hamburguesa completa con boniato asado"
+   },
+   "Sábado": {
+    "desayuno": "Tostadas de espelta con huevos revueltos y aguacate",
+    "comida": "Ensaladilla rusa casera con caballa",
+    "cena": "Hamburguesa completa con boniato asado"
+   },
+   "Domingo": {
+    "desayuno": "Ayuno metabólico / Bulletproof Coffee",
+    "comida": "Ternera con aguacate, rúcula y yogur griego",
+    "cena": "Pescado con puré vegetal y salsa de yogur"
+   }
+  },
+  {
+   "Lunes": {
+    "desayuno": "Yogur de cabra proteico con fresas y nueces",
+    "comida": "Pavo con quinoa y brócoli",
+    "cena": "Trucha con patata asada y judías verdes"
+   },
+   "Martes": {
+    "desayuno": "Pan Wasa con salmón ahumado y aguacate",
+    "comida": "Boniato con atún y huevo cocido",
+    "cena": "Lubina con calabaza asada y espinacas"
+   },
+   "Miércoles": {
+    "desayuno": "Yogur griego proteico con cacao y frutos rojos",
+    "comida": "Solomillo de cerdo con boniato y espárragos",
+    "cena": "Poke bowl de atún, quinoa y mozzarella"
+   },
+   "Jueves": {
+    "desayuno": "Tostadas de espelta con huevos, pavo y aguacate",
+    "comida": "Patata con sardinas y verduras salteadas",
+    "cena": "Fajitas integrales de pollo o pizza casera"
+   },
+   "Viernes": {
+    "desayuno": "Porridge overnight de avena con plátano",
+    "comida": "Pavo con arroz vaporizado y aguacate",
+    "cena": "Hamburguesa de cerdo con boniato asado"
+   },
+   "Sábado": {
+    "desayuno": "Tostadas de espelta con huevos revueltos y aguacate",
+    "comida": "Ensaladilla rusa casera con caballa",
+    "cena": "Hamburguesa completa con boniato asado"
+   },
+   "Domingo": {
+    "desayuno": "Ayuno metabólico / Bulletproof Coffee",
+    "comida": "Ternera con aguacate, rúcula y yogur griego",
+    "cena": "Pescado con puré vegetal y salsa de yogur"
+   }
+  },
+  {
+   "Lunes": {
+    "desayuno": "Requesón con miel, nueces y fresas",
+    "comida": "Ternera con patata y espinacas",
+    "cena": "Sardinas con boniato y ensalada verde"
+   },
+   "Martes": {
+    "desayuno": "Tortitas de arroz con huevo y pavo",
+    "comida": "Calabaza con caballa y huevo",
+    "cena": "Pescado blanco con patata cocida y verduras"
+   },
+   "Miércoles": {
+    "desayuno": "Yogur griego proteico con cacao y frutos rojos",
+    "comida": "Filete magro de cerdo con quinoa y verduras",
+    "cena": "Poke bowl de salmón, quinoa y feta"
+   },
+   "Jueves": {
+    "desayuno": "Tostadas de espelta con huevos, pavo y aguacate",
+    "comida": "Quinoa con caballa, huevo y verduras salteadas",
+    "cena": "Fajitas integrales de pollo o pizza casera"
+   },
+   "Viernes": {
+    "desayuno": "Porridge overnight de avena con plátano",
+    "comida": "Pollo con ñoquis y espinacas",
+    "cena": "Hamburguesa de pollo con boniato asado"
+   },
+   "Sábado": {
+    "desayuno": "Tostadas de espelta con huevos revueltos y aguacate",
+    "comida": "Ensaladilla rusa casera con caballa",
+    "cena": "Hamburguesa completa con boniato asado"
+   },
+   "Domingo": {
+    "desayuno": "Ayuno metabólico / Bulletproof Coffee",
+    "comida": "Entrecot con ensalada y yogur griego",
+    "cena": "Pescado con puré vegetal y salsa de yogur"
+   }
+  },
+  {
+   "Lunes": {
+    "desayuno": "Yogur de coco con mango y semillas",
+    "comida": "Pollo con pasta de lenteja roja y brócoli",
+    "cena": "Salmón con calabaza y espárragos"
+   },
+   "Martes": {
+    "desayuno": "Tostadas de centeno con huevos y salmón ahumado",
+    "comida": "Arroz con bonito y verduras",
+    "cena": "Pescado blanco con patata cocida y verduras"
+   },
+   "Miércoles": {
+    "desayuno": "Yogur griego proteico con cacao y frutos rojos",
+    "comida": "Ternera especiada con boniato y espárragos",
+    "cena": "Bowl de trucha, patata y feta"
+   },
+   "Jueves": {
+    "desayuno": "Tostadas de centeno con huevos y salmón ahumado",
+    "comida": "Arroz vaporizado con caballa y huevo cocido",
+    "cena": "Fajitas integrales de pollo o pizza casera"
+   },
+   "Viernes": {
+    "desayuno": "Porridge overnight de avena con plátano",
+    "comida": "Pollo con arroz vaporizado y aguacate",
+    "cena": "Hamburguesa completa con patata asada"
+   },
+   "Sábado": {
+    "desayuno": "Tostadas de espelta con huevos revueltos y aguacate",
+    "comida": "Ensaladilla rusa casera con caballa",
+    "cena": "Hamburguesa completa con boniato asado"
+   },
+   "Domingo": {
+    "desayuno": "Ayuno metabólico / Bulletproof Coffee",
+    "comida": "Ternera con aguacate, rúcula y yogur griego",
+    "cena": "Pescado con puré vegetal y salsa de yogur"
+   }
+  }
+ ],
+ "WEIGHT_WEEKS": [
+  {
+   "Lunes": {
+    "desayuno": "Yogur proteico con avena y plátano",
+    "comida": "Pechuga de pollo con arroz, brócoli y AOVE",
+    "cena": "Tortilla de huevos con ensalada y patata cocida"
+   },
+   "Martes": {
+    "desayuno": "Huevos revueltos con tostadas integrales y naranja",
+    "comida": "Merluza al horno con patata y calabacín",
+    "cena": "Pechuga de pavo con ensalada y arroz"
+   },
+   "Miércoles": {
+    "desayuno": "Yogur con avena, fresas y canela",
+    "comida": "Ternera magra con patata asada y verduras",
+    "cena": "Salmón con brócoli y ensalada"
+   },
+   "Jueves": {
+    "desayuno": "Tostadas integrales con pavo, tomate y kiwi",
+    "comida": "Pollo con arroz, pimientos y calabacín",
+    "cena": "Tortilla de verduras con ensalada"
+   },
+   "Viernes": {
+    "desayuno": "Yogur proteico con avena y plátano",
+    "comida": "Pasta integral con pollo, tomate y verduras",
+    "cena": "Merluza con patata y ensalada"
+   },
+   "Sábado": {
+    "desayuno": "Huevos con tostadas integrales y fruta",
+    "comida": "Ternera magra con arroz y verduras",
+    "cena": "Pollo a la plancha con ensalada y patata"
+   },
+   "Domingo": {
+    "desayuno": "Yogur con avena y fruta",
+    "comida": "Pollo al horno con patata y ensalada",
+    "cena": "Tortilla de verduras con ensalada"
+   }
+  },
+  {
+   "Lunes": {
+    "desayuno": "Avena con yogur, plátano y canela",
+    "comida": "Pechuga de pollo con arroz, brócoli y AOVE",
+    "cena": "Merluza con patata y ensalada"
+   },
+   "Martes": {
+    "desayuno": "Huevos revueltos con tostadas integrales y kiwi",
+    "comida": "Ternera magra con patata y ensalada",
+    "cena": "Pavo con ensalada y patata"
+   },
+   "Miércoles": {
+    "desayuno": "Yogur con avena y frutos rojos",
+    "comida": "Salmón con patata y brócoli",
+    "cena": "Tortilla de huevos con ensalada y patata cocida"
+   },
+   "Jueves": {
+    "desayuno": "Tostadas integrales con pavo, tomate y fruta",
+    "comida": "Pasta integral con pollo y verduras",
+    "cena": "Tortilla de verduras con ensalada"
+   },
+   "Viernes": {
+    "desayuno": "Yogur proteico con avena y plátano",
+    "comida": "Pavo con arroz y verduras",
+    "cena": "Salmón con verduras y patata"
+   },
+   "Sábado": {
+    "desayuno": "Huevos con tostadas integrales y fruta",
+    "comida": "Ternera magra con patata y ensalada",
+    "cena": "Pollo con verduras y arroz"
+   },
+   "Domingo": {
+    "desayuno": "Yogur con avena y fruta",
+    "comida": "Lentejas con verduras y pollo",
+    "cena": "Tortilla de huevos con ensalada y patata cocida"
+   }
+  },
+  {
+   "Lunes": {
+    "desayuno": "Yogur proteico con avena y plátano",
+    "comida": "Pollo con arroz y verduras",
+    "cena": "Merluza con patata y ensalada"
+   },
+   "Martes": {
+    "desayuno": "Huevos revueltos con tostadas integrales y naranja",
+    "comida": "Ternera magra con patata y brócoli",
+    "cena": "Pavo con arroz y verduras"
+   },
+   "Miércoles": {
+    "desayuno": "Yogur con avena, kiwi y canela",
+    "comida": "Salmón con arroz y verduras",
+    "cena": "Tortilla de verduras con ensalada"
+   },
+   "Jueves": {
+    "desayuno": "Tostadas integrales con pavo, tomate y fruta",
+    "comida": "Pollo con patata y ensalada",
+    "cena": "Merluza con verduras y patata"
+   },
+   "Viernes": {
+    "desayuno": "Yogur proteico con avena y plátano",
+    "comida": "Pasta integral con ternera y verduras",
+    "cena": "Pollo con ensalada y arroz"
+   },
+   "Sábado": {
+    "desayuno": "Huevos con tostadas integrales y fruta",
+    "comida": "Pavo con arroz y verduras",
+    "cena": "Salmón con ensalada y patata"
+   },
+   "Domingo": {
+    "desayuno": "Yogur con avena y frutos rojos",
+    "comida": "Pollo al horno con patata y verduras",
+    "cena": "Tortilla de verduras con ensalada"
+   }
+  },
+  {
+   "Lunes": {
+    "desayuno": "Yogur proteico con avena y plátano",
+    "comida": "Pechuga de pollo con arroz, brócoli y AOVE",
+    "cena": "Merluza con patata y ensalada"
+   },
+   "Martes": {
+    "desayuno": "Huevos revueltos con tostadas integrales y kiwi",
+    "comida": "Ternera magra con patata y ensalada",
+    "cena": "Pavo con ensalada y patata"
+   },
+   "Miércoles": {
+    "desayuno": "Yogur con avena y frutos rojos",
+    "comida": "Salmón con patata y verduras",
+    "cena": "Tortilla de verduras con ensalada"
+   },
+   "Jueves": {
+    "desayuno": "Tostadas integrales con pavo, tomate y fruta",
+    "comida": "Pasta integral con pollo y verduras",
+    "cena": "Merluza con patata y ensalada"
+   },
+   "Viernes": {
+    "desayuno": "Yogur proteico con avena y plátano",
+    "comida": "Pavo con arroz y verduras",
+    "cena": "Salmón con verduras y patata"
+   },
+   "Sábado": {
+    "desayuno": "Huevos con tostadas integrales y fruta",
+    "comida": "Ternera magra con patata y ensalada",
+    "cena": "Pollo con verduras y arroz"
+   },
+   "Domingo": {
+    "desayuno": "Yogur con avena y fruta",
+    "comida": "Pollo al horno con patata y ensalada",
+    "cena": "Tortilla de verduras con ensalada"
+   }
+  }
+ ],
+ "MEAL_DETAILS": {
+  "Yogur griego proteico con cacao y frutos rojos": {
+   "prep": "Mezcla yogures con proteína y cacao, decora con frutos rojos, chocolate troceado y canela.",
+   "items": [
+    [
+     "2 uds",
+     "Yogur griego natural",
+     "PL"
+    ],
+    [
+     "15 g",
+     "Proteína en polvo",
+     null
+    ],
+    [
+     "1 chda",
+     "Cacao puro sin azúcar",
+     null,
+     1
+    ],
+    [
+     "Al gusto",
+     "Frutos rojos",
+     "FR",
+     1
+    ],
+    [
+     "30 g",
+     "Crema de almendras / nueces de Brasil / anacardos",
+     "GR"
+    ],
+    [
+     "1 chda",
+     "Semillas de lino o chía",
+     "GR"
+    ],
+    [
+     "1 oz",
+     "Chocolate negro >85%",
+     null,
+     1
+    ],
+    [
+     "Al gusto",
+     "Canela",
+     null,
+     1
+    ],
+    [
+     "",
+     "Café solo o con bebida de almendras 0%",
+     null,
+     1
+    ],
+    [
+     "1 vaso",
+     "Agua con pizca de sal"
+    ],
+    [
+     "1 perla",
+     "Vitamina D3 + K2",
+     "SUP"
+    ],
+    [
+     "2 perlas",
+     "Omega 3",
+     "SUP"
+    ]
+   ]
+  },
+  "Tostadas de espelta con huevos, pavo y aguacate": {
+   "items": [
+    [
+     "80 g",
+     "Pan integral de espelta o centeno (2 rebanadas)",
+     "HB"
+    ],
+    [
+     "60 g",
+     "Pavo en lonchas / salmón ahumado / jamón ibérico",
+     "PB"
+    ],
+    [
+     "3 uds",
+     "Huevos revueltos",
+     "PA"
+    ],
+    [
+     "½ uds",
+     "Aguacate",
+     "GR"
+    ],
+    [
+     "",
+     "Tomate rallado o en rodajas",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "",
+     "Café solo o con bebida de almendras 0%",
+     null,
+     1
+    ],
+    [
+     "1 vaso",
+     "Agua con pizca de sal"
+    ],
+    [
+     "1 perla",
+     "Vitamina D3 + K2",
+     "SUP"
+    ],
+    [
+     "2 perlas",
+     "Omega 3",
+     "SUP"
+    ]
+   ]
+  },
+  "Tostadas de espelta con huevos revueltos y aguacate": {
+   "items": [
+    [
+     "80 g",
+     "Pan integral de espelta o centeno (2 rebanadas)",
+     "HB"
+    ],
+    [
+     "3 uds",
+     "Huevos revueltos",
+     "PA"
+    ],
+    [
+     "½ uds",
+     "Aguacate",
+     "GR"
+    ],
+    [
+     "",
+     "Tomate rallado o en rodajas",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "",
+     "Café solo o con bebida de almendras 0%",
+     null,
+     1
+    ],
+    [
+     "1 vaso",
+     "Agua con pizca de sal"
+    ],
+    [
+     "1 perla",
+     "Vitamina D3 + K2",
+     "SUP"
+    ],
+    [
+     "2 perlas",
+     "Omega 3",
+     "SUP"
+    ]
+   ]
+  },
+  "Porridge overnight de avena con plátano": {
+   "prep": "Prepara la noche anterior (mínimo 6 h en nevera). No calentar: frío digiere mejor y sacia más.",
+   "items": [
+    [
+     "50 g",
+     "Avena remojada",
+     "HB"
+    ],
+    [
+     "150-200 ml",
+     "Bebida de almendras 0%"
+    ],
+    [
+     "20 g",
+     "Proteína en polvo"
+    ],
+    [
+     "1 uds",
+     "Plátano machacado",
+     "FA"
+    ],
+    [
+     "1 chda",
+     "Miel natural"
+    ],
+    [
+     "Al gusto",
+     "Frutos rojos",
+     "FR",
+     1
+    ],
+    [
+     "1 chdta",
+     "Semillas (sésamo, lino, chía)",
+     "GR"
+    ],
+    [
+     "10 uds",
+     "Almendras",
+     "GR"
+    ],
+    [
+     "1 chdta",
+     "Cacao puro + canela"
+    ],
+    [
+     "",
+     "Café solo o con bebida de almendras 0%",
+     null,
+     1
+    ],
+    [
+     "1 vaso",
+     "Agua con pizca de sal"
+    ],
+    [
+     "1 perla",
+     "Vitamina D3 + K2",
+     "SUP"
+    ],
+    [
+     "2 perlas",
+     "Omega 3",
+     "SUP"
+    ]
+   ],
+   "note": "Si entrenas pronto: ½ porción pre-entreno y el resto de postre."
+  },
+  "Ayuno metabólico / Bulletproof Coffee": {
+   "prep": "Ayuno completo o Bulletproof: café + bebida de almendras 0% + 1½ cda de aceite de coco. Bátelo para estilo latte.",
+   "items": [
+    [
+     "",
+     "Café / descafeinado espresso"
+    ],
+    [
+     "150 ml",
+     "Bebida de almendras 0%"
+    ],
+    [
+     "1½ cda",
+     "Aceite de coco",
+     "GR"
+    ],
+    [
+     "",
+     "Agua con pizca de sal (toda la mañana)"
+    ]
+   ],
+   "note": "Mantén la hidratación durante toda la mañana."
+  },
+  "Pollo con arroz vaporizado y espinacas": {
+   "prep": "Saltea el pollo con cúrcuma y pimienta negra; añade espinacas al final. Brócoli cocido aparte.",
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "80 g",
+     "Arroz vaporizado en seco (~240 g cocido)",
+     "HA"
+    ],
+    [
+     "200 g",
+     "Pechuga de pollo especiada (cúrcuma y pimienta)",
+     "PB"
+    ],
+    [
+     "1 chda",
+     "Salsa pesto o soja",
+     null,
+     1
+    ],
+    [
+     "",
+     "Espinacas salteadas",
+     "VH"
+    ],
+    [
+     "",
+     "Brócoli cocido",
+     "VC"
+    ],
+    [
+     "1 cda",
+     "AOVE + limón",
+     "GR"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "15-20 uds",
+     "Almendras",
+     "GR"
+    ]
+   ],
+   "note": "Merienda pre-entreno opcional (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda."
+  },
+  "Quinoa con caballa, huevo y verduras salteadas": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "90 g",
+     "Quinoa en seco (~240 g cocida)",
+     "HA"
+    ],
+    [
+     "1 lata",
+     "Caballa / bonito",
+     "PA"
+    ],
+    [
+     "2 uds",
+     "Huevos cocidos salteados con AOVE",
+     "PA"
+    ],
+    [
+     "",
+     "Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "Chucrut",
+     null,
+     1
+    ],
+    [
+     "",
+     "Chorrito final de AOVE",
+     "GR"
+    ],
+    [
+     "1 pieza",
+     "Manzana / pera / mandarina / kiwi",
+     "FB"
+    ]
+   ],
+   "note": "Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal."
+  },
+  "Ternera especiada con boniato y espárragos": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "300 g",
+     "Boniato airfryer / asado",
+     "HA"
+    ],
+    [
+     "150 g",
+     "Calabaza al airfryer",
+     "VR"
+    ],
+    [
+     "200 g",
+     "Carne picada de ternera especiada + tomate natural sin azúcar",
+     "PB"
+    ],
+    [
+     "",
+     "Espárragos trigueros salteados",
+     "VF"
+    ],
+    [
+     "125 ml",
+     "Kéfir de cabra/oveja + frutos rojos + canela",
+     "PL"
+    ]
+   ],
+   "note": "Merienda pre-entreno opcional (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda."
+  },
+  "Arroz vaporizado con caballa y huevo cocido": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "100 g",
+     "Arroz vaporizado en seco",
+     "HA"
+    ],
+    [
+     "1 lata",
+     "Caballa / sardinas",
+     "PA"
+    ],
+    [
+     "2 uds",
+     "Huevos cocidos",
+     "PA"
+    ],
+    [
+     "",
+     "Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "Chucrut",
+     null,
+     1
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 pieza",
+     "Manzana / pera / mandarina / kiwi",
+     "FB"
+    ]
+   ],
+   "note": "Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal."
+  },
+  "Pollo con arroz vaporizado y aguacate": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "100 g",
+     "Arroz vaporizado en seco (~300 g cocido)",
+     "HA"
+    ],
+    [
+     "200 g",
+     "Pechuga de pollo especiada (cúrcuma y pimienta)",
+     "PB"
+    ],
+    [
+     "1 chda",
+     "Salsa pesto o soja",
+     null,
+     1
+    ],
+    [
+     "½ uds",
+     "Aguacate",
+     "GR"
+    ],
+    [
+     "",
+     "Espinacas salteadas",
+     "VH"
+    ],
+    [
+     "1 cda",
+     "AOVE + limón",
+     "GR"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "15-20 uds",
+     "Almendras",
+     "GR"
+    ]
+   ],
+   "note": "Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal."
+  },
+  "Ensaladilla rusa casera con caballa": {
+   "prep": "Aliño: yogur griego con chorrito de AOVE y sal (nada de mayonesa). Postre: resto de yogur + fruta + miel + canela.",
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "350 g",
+     "Patata cocida",
+     "HA"
+    ],
+    [
+     "1 lata",
+     "Caballa / atún / bonito",
+     "PA"
+    ],
+    [
+     "3 uds",
+     "Huevos cocidos",
+     "PA"
+    ],
+    [
+     "1 lata",
+     "Guisantes",
+     null,
+     1
+    ],
+    [
+     "",
+     "Zanahoria rallada o cocida",
+     "VR"
+    ],
+    [
+     "",
+     "Yogur griego para aliñar + AOVE + sal",
+     "PL"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 pieza",
+     "Fruta (postre)",
+     "FB"
+    ],
+    [
+     "1 cda",
+     "Miel (postre)",
+     null,
+     1
+    ]
+   ]
+  },
+  "Ternera con aguacate, rúcula y yogur griego": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "250 g",
+     "Carne picada / entrecot / chuletas de ternera",
+     "PA"
+    ],
+    [
+     "2 uds",
+     "Huevos cocidos o a la plancha",
+     "PA",
+     1
+    ],
+    [
+     "1 uds",
+     "Aguacate",
+     "GR"
+    ],
+    [
+     "",
+     "Tomate cherry o natural",
+     "VN"
+    ],
+    [
+     "",
+     "Rúcula o espinaca fresca",
+     "VH"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 cda",
+     "Semillas de sésamo o lino",
+     "GR"
+    ],
+    [
+     "",
+     "Sal, pimienta y pimentón"
+    ],
+    [
+     "1 uds",
+     "Yogur griego + frutos rojos + canela",
+     "PL"
+    ]
+   ]
+  },
+  "Salmón con boniato asado y espárragos": {
+   "items": [
+    [
+     "350 g",
+     "Patata / 250 g boniato asado o airfryer",
+     "HA"
+    ],
+    [
+     "180-220 g",
+     "Salmón fresco con limón y especias",
+     "PA"
+    ],
+    [
+     "1 chda",
+     "Pesto",
+     null,
+     1
+    ],
+    [
+     "",
+     "Espárragos trigueros + champiñones salteados",
+     "VF"
+    ],
+    [
+     "",
+     "Tomate fresco, sal y especias",
+     "VN",
+     1
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "",
+     "Chorrito de salsa de soja para el salmón",
+     null,
+     1
+    ],
+    [
+     "1 uds",
+     "Yogur de cabra + cacao puro + frutos rojos",
+     "PL"
+    ],
+    [
+     "2 cápsulas",
+     "Bisglicinato de Magnesio (separar 20 min de la cena)",
+     "SUP"
+    ]
+   ]
+  },
+  "Pescado blanco con patata cocida y verduras": {
+   "items": [
+    [
+     "350 g",
+     "Patata cocida / horno / airfryer",
+     "HA"
+    ],
+    [
+     "200-250 g",
+     "Pescado blanco (merluza, lubina, dorada)",
+     "PB"
+    ],
+    [
+     "",
+     "Espinacas y brócoli de acompañamiento",
+     "VH"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "125 ml",
+     "Kéfir de cabra/oveja + frutos rojos + canela",
+     "PL"
+    ],
+    [
+     "2 oz",
+     "Chocolate negro >85%"
+    ],
+    [
+     "2 cápsulas",
+     "Bisglicinato de Magnesio (+20 min después de cenar)",
+     "SUP"
+    ]
+   ]
+  },
+  "Poke bowl de salmón, quinoa y feta": {
+   "items": [
+    [
+     "90 g",
+     "Quinoa en seco, lavada previamente",
+     "HA"
+    ],
+    [
+     "150-200 g",
+     "Salmón especiado (sal, pimienta, limón)",
+     "PA"
+    ],
+    [
+     "30 g",
+     "Queso feta desmenuzado",
+     "PL"
+    ],
+    [
+     "½ uds",
+     "Aguacate / 80 g guacamole",
+     "GR"
+    ],
+    [
+     "",
+     "Pepino o calabacín + zanahoria rallada + espinacas",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "2 oz",
+     "Chocolate negro >85%"
+    ],
+    [
+     "2 cápsulas",
+     "Bisglicinato de Magnesio",
+     "SUP"
+    ]
+   ]
+  },
+  "Fajitas integrales de pollo o pizza casera": {
+   "prep": "FAJITAS: tortillas + pollo en tiras con pimientos, cebolla y calabacín, especias y lima. PIZZA: base de avena molida/sarraceno con huevo, hornear 10-12 min, añadir toppings y hornear 10 min más a 200 °C.",
+   "items": [
+    [
+     "2 uds",
+     "Tortillas integrales / 100 g avena molida",
+     "HB"
+    ],
+    [
+     "150-180 g",
+     "Pollo o pavo en tiras (o atún)",
+     "PB"
+    ],
+    [
+     "",
+     "½ pimiento rojo + ½ verde, ½ cebolla, ½ calabacín",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "50 g",
+     "Mozzarella rallada / queso feta / guacamole",
+     "PL",
+     1
+    ],
+    [
+     "",
+     "Especias: cúrcuma, pimentón, comino, orégano"
+    ],
+    [
+     "",
+     "Zumo de lima o limón al final"
+    ],
+    [
+     "1 pieza",
+     "Fruta (postre)",
+     "FB"
+    ],
+    [
+     "125 ml",
+     "Kéfir de cabra/oveja + frutos rojos + canela",
+     "PL"
+    ],
+    [
+     "2 cápsulas",
+     "Bisglicinato de Magnesio (+20 min después de cenar)",
+     "SUP"
+    ]
+   ]
+  },
+  "Hamburguesa completa con boniato asado": {
+   "prep": "Cebolla pochada en la sartén queda mucho más rica.",
+   "items": [
+    [
+     "80 g",
+     "Pan de masa madre / centeno / espelta",
+     "HB"
+    ],
+    [
+     "¼ uds",
+     "Aguacate / 50 g guacamole",
+     "GR"
+    ],
+    [
+     "150-180 g",
+     "Carne picada de ternera",
+     "PB"
+    ],
+    [
+     "30 g",
+     "Queso feta",
+     "PL",
+     1
+    ],
+    [
+     "",
+     "Canónigos + tomate + cebolla pochada",
+     "VH"
+    ],
+    [
+     "250-300 g",
+     "Boniato asado",
+     "HA"
+    ],
+    [
+     "1 cdta",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "125 ml",
+     "Kéfir de cabra/oveja + frutos rojos + canela",
+     "PL",
+     1
+    ],
+    [
+     "2 oz",
+     "Chocolate negro >85%"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     null,
+     1
+    ]
+   ]
+  },
+  "Pescado con puré vegetal y salsa de yogur": {
+   "items": [
+    [
+     "",
+     "Puré caliente de calabaza / calabacín / zanahoria",
+     "VR"
+    ],
+    [
+     "1 cda",
+     "AOVE + sal + especias suaves (cúrcuma, jengibre)",
+     "GR"
+    ],
+    [
+     "250 g",
+     "Pescado blanco o azul (merluza, salmón)"
+    ],
+    [
+     "Al gusto",
+     "Aceitunas",
+     "GR",
+     1
+    ],
+    [
+     "",
+     "Espinacas o rúcula salteadas",
+     "VH"
+    ],
+    [
+     "",
+     "Cebolla pochada",
+     "VN",
+     1
+    ],
+    [
+     "½ uds",
+     "Yogur griego para salsa + limón + sal + AOVE",
+     "PL"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "",
+     "Puñado de frutos secos o crema de almendras",
+     "GR"
+    ]
+   ]
+  },
+  "Yogur de cabra proteico con fresas y nueces": {
+   "items": [
+    [
+     "2 uds",
+     "Yogur de cabra / oveja",
+     "PL",
+     null,
+     null
+    ],
+    [
+     "15 g",
+     "Proteína en polvo",
+     null
+    ],
+    [
+     "Al gusto",
+     "Fresas",
+     "FR",
+     1,
+     null
+    ],
+    [
+     "30 g",
+     "Frutos secos (nueces, almendras, avellanas)",
+     "GR",
+     null,
+     null
+    ],
+    [
+     "1 chda",
+     "Semillas de lino o chía",
+     "GR"
+    ],
+    [
+     "Al gusto",
+     "Canela",
+     null,
+     1
+    ],
+    [
+     "",
+     "Café solo o con bebida de almendras 0%",
+     null,
+     1
+    ],
+    [
+     "1 vaso",
+     "Agua con pizca de sal"
+    ],
+    [
+     "1 perla",
+     "Vitamina D3 + K2",
+     "SUP"
+    ],
+    [
+     "2 perlas",
+     "Omega 3",
+     "SUP"
+    ]
+   ],
+   "prep": "Mezcla yogures con proteína y cacao, decora con frutos rojos, chocolate troceado y canela."
+  },
+  "Pavo con quinoa y brócoli": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "80 g",
+     "Quinoa en seco (~240 g cocida)",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "200 g",
+     "Pechuga de pavo",
+     "PB",
+     null,
+     null
+    ],
+    [
+     "1 chda",
+     "Salsa pesto o soja",
+     null,
+     1
+    ],
+    [
+     "",
+     "Espinacas salteadas",
+     "VH"
+    ],
+    [
+     "",
+     "Brócoli cocido",
+     "VC"
+    ],
+    [
+     "1 cda",
+     "AOVE + limón",
+     "GR"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "15-20 uds",
+     "Almendras",
+     "GR"
+    ]
+   ],
+   "prep": "Saltea el pollo con cúrcuma y pimienta negra; añade espinacas al final. Brócoli cocido aparte.",
+   "note": "Merienda pre-entreno opcional (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda."
+  },
+  "Trucha con patata asada y judías verdes": {
+   "items": [
+    [
+     "350 g",
+     "Patata asada",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "180-220 g",
+     "Trucha",
+     "PA",
+     null,
+     null
+    ],
+    [
+     "1 chda",
+     "Pesto",
+     null,
+     1
+    ],
+    [
+     "",
+     "Judías verdes",
+     "VF",
+     null,
+     null
+    ],
+    [
+     "",
+     "Tomate fresco, sal y especias",
+     "VN",
+     1
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "",
+     "Chorrito de salsa de soja para el salmón",
+     null,
+     1
+    ],
+    [
+     "2 cápsulas",
+     "Bisglicinato de Magnesio (separar 20 min de la cena)",
+     "SUP"
+    ]
+   ]
+  },
+  "Pan Wasa con salmón ahumado y aguacate": {
+   "items": [
+    [
+     "80 g",
+     "Pan Wasa",
+     "HB",
+     null,
+     null
+    ],
+    [
+     "60 g",
+     "Salmón ahumado",
+     "PB",
+     null,
+     null
+    ],
+    [
+     "3 uds",
+     "Huevos revueltos",
+     "PA"
+    ],
+    [
+     "½ uds",
+     "Aguacate",
+     "GR"
+    ],
+    [
+     "",
+     "Tomate rallado o en rodajas",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "",
+     "Café solo o con bebida de almendras 0%",
+     null,
+     1
+    ],
+    [
+     "1 vaso",
+     "Agua con pizca de sal"
+    ],
+    [
+     "1 perla",
+     "Vitamina D3 + K2",
+     "SUP"
+    ],
+    [
+     "2 perlas",
+     "Omega 3",
+     "SUP"
+    ]
+   ]
+  },
+  "Boniato con atún y huevo cocido": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "100 g",
+     "Boniato asado",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "1 lata",
+     "Bonito / atún / boquerones",
+     "PA",
+     null,
+     null
+    ],
+    [
+     "2 uds",
+     "Huevos cocidos",
+     "PA"
+    ],
+    [
+     "",
+     "Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "Chucrut",
+     null,
+     1
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 pieza",
+     "Manzana / pera / mandarina / kiwi",
+     "FB"
+    ]
+   ],
+   "note": "Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal."
+  },
+  "Lubina con calabaza asada y espinacas": {
+   "items": [
+    [
+     "350 g",
+     "Calabaza asada",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "200-250 g",
+     "Lubina",
+     "PB",
+     null,
+     null
+    ],
+    [
+     "",
+     "Espinacas salteadas",
+     "VH",
+     null,
+     null
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "125 ml",
+     "Kéfir de cabra/oveja + frutos rojos + canela",
+     "PL"
+    ],
+    [
+     "2 oz",
+     "Chocolate negro >85%"
+    ],
+    [
+     "2 cápsulas",
+     "Bisglicinato de Magnesio (+20 min después de cenar)",
+     "SUP"
+    ]
+   ]
+  },
+  "Solomillo de cerdo con boniato y espárragos": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "300 g",
+     "Boniato airfryer / asado",
+     "HA"
+    ],
+    [
+     "150 g",
+     "Calabaza al airfryer",
+     "VR"
+    ],
+    [
+     "200 g",
+     "Solomillo de cerdo",
+     "PB",
+     null,
+     null
+    ],
+    [
+     "",
+     "Espárragos trigueros salteados",
+     "VF"
+    ],
+    [
+     "125 ml",
+     "Kéfir de cabra/oveja + frutos rojos + canela",
+     "PL"
+    ]
+   ],
+   "note": "Merienda pre-entreno opcional (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda."
+  },
+  "Poke bowl de atún, quinoa y mozzarella": {
+   "items": [
+    [
+     "90 g",
+     "Quinoa en seco, lavada previamente",
+     "HA"
+    ],
+    [
+     "150-200 g",
+     "Atún en dados",
+     "PA",
+     null,
+     null
+    ],
+    [
+     "30 g",
+     "Mozzarella",
+     "PL",
+     null,
+     null
+    ],
+    [
+     "½ uds",
+     "Aguacate / 80 g guacamole",
+     "GR"
+    ],
+    [
+     "",
+     "Pepino o calabacín + zanahoria rallada + espinacas",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "2 oz",
+     "Chocolate negro >85%"
+    ],
+    [
+     "2 cápsulas",
+     "Bisglicinato de Magnesio",
+     "SUP"
+    ]
+   ]
+  },
+  "Patata con sardinas y verduras salteadas": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "100 g",
+     "Patata cocida",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "1 lata",
+     "Caballa / sardinas",
+     "PA"
+    ],
+    [
+     "2 uds",
+     "Huevos cocidos",
+     "PA"
+    ],
+    [
+     "",
+     "Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "Chucrut",
+     null,
+     1
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 pieza",
+     "Manzana / pera / mandarina / kiwi",
+     "FB"
+    ]
+   ],
+   "note": "Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal."
+  },
+  "Pavo con arroz vaporizado y aguacate": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "100 g",
+     "Arroz vaporizado en seco (~300 g cocido)",
+     "HA"
+    ],
+    [
+     "200 g",
+     "Pechuga de pavo",
+     "PB",
+     null,
+     null
+    ],
+    [
+     "1 chda",
+     "Salsa pesto o soja",
+     null,
+     1
+    ],
+    [
+     "½ uds",
+     "Aguacate",
+     "GR"
+    ],
+    [
+     "",
+     "Espinacas salteadas",
+     "VH"
+    ],
+    [
+     "1 cda",
+     "AOVE + limón",
+     "GR"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "15-20 uds",
+     "Almendras",
+     "GR"
+    ]
+   ],
+   "note": "Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal."
+  },
+  "Hamburguesa de cerdo con boniato asado": {
+   "items": [
+    [
+     "80 g",
+     "Pan de masa madre / centeno / espelta",
+     "HB"
+    ],
+    [
+     "¼ uds",
+     "Aguacate / 50 g guacamole",
+     "GR"
+    ],
+    [
+     "150-180 g",
+     "Carne picada de cerdo",
+     "PB",
+     null,
+     null
+    ],
+    [
+     "30 g",
+     "Queso feta",
+     "PL",
+     1
+    ],
+    [
+     "",
+     "Canónigos + tomate + cebolla pochada",
+     "VH"
+    ],
+    [
+     "250-300 g",
+     "Boniato asado",
+     "HA"
+    ],
+    [
+     "1 cdta",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "125 ml",
+     "Kéfir de cabra/oveja + frutos rojos + canela",
+     "PL",
+     1
+    ],
+    [
+     "2 oz",
+     "Chocolate negro >85%"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     null,
+     1
+    ]
+   ],
+   "prep": "Cebolla pochada en la sartén queda mucho más rica."
+  },
+  "Requesón con miel, nueces y fresas": {
+   "items": [
+    [
+     "2 uds",
+     "Requesón",
+     "PL",
+     null,
+     null
+    ],
+    [
+     "Al gusto",
+     "Fresas",
+     "FR",
+     1,
+     null
+    ],
+    [
+     "30 g",
+     "Frutos secos (nueces, almendras, avellanas)",
+     "GR",
+     null,
+     null
+    ],
+    [
+     "1 chda",
+     "Semillas de lino o chía",
+     "GR"
+    ],
+    [
+     "Al gusto",
+     "Canela",
+     null,
+     1
+    ],
+    [
+     "",
+     "Café solo o con bebida de almendras 0%",
+     null,
+     1
+    ],
+    [
+     "1 vaso",
+     "Agua con pizca de sal"
+    ],
+    [
+     "1 perla",
+     "Vitamina D3 + K2",
+     "SUP"
+    ],
+    [
+     "2 perlas",
+     "Omega 3",
+     "SUP"
+    ]
+   ],
+   "prep": "Mezcla yogures con proteína y cacao, decora con frutos rojos, chocolate troceado y canela."
+  },
+  "Ternera con patata y espinacas": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "80 g",
+     "Patata cocida",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "200 g",
+     "Carne picada de ternera",
+     "PB",
+     null,
+     null
+    ],
+    [
+     "1 chda",
+     "Salsa pesto o soja",
+     null,
+     1
+    ],
+    [
+     "",
+     "Espinacas salteadas",
+     "VH"
+    ],
+    [
+     "",
+     "Brócoli cocido",
+     "VC"
+    ],
+    [
+     "1 cda",
+     "AOVE + limón",
+     "GR"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "15-20 uds",
+     "Almendras",
+     "GR"
+    ]
+   ],
+   "prep": "Saltea el pollo con cúrcuma y pimienta negra; añade espinacas al final. Brócoli cocido aparte.",
+   "note": "Merienda pre-entreno opcional (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda."
+  },
+  "Sardinas con boniato y ensalada verde": {
+   "items": [
+    [
+     "350 g",
+     "Boniato asado",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "180-220 g",
+     "Sardinas",
+     "PA",
+     null,
+     null
+    ],
+    [
+     "1 chda",
+     "Pesto",
+     null,
+     1
+    ],
+    [
+     "",
+     "Mezcla de hojas verdes",
+     "VF",
+     null,
+     null
+    ],
+    [
+     "",
+     "Tomate fresco, sal y especias",
+     "VN",
+     1
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "",
+     "Chorrito de salsa de soja para el salmón",
+     null,
+     1
+    ],
+    [
+     "2 cápsulas",
+     "Bisglicinato de Magnesio (separar 20 min de la cena)",
+     "SUP"
+    ]
+   ]
+  },
+  "Tortitas de arroz con huevo y pavo": {
+   "items": [
+    [
+     "80 g",
+     "Tortitas de arroz",
+     "HB",
+     null,
+     null
+    ],
+    [
+     "60 g",
+     "Pavo en lonchas / salmón ahumado / jamón ibérico",
+     "PB"
+    ],
+    [
+     "3 uds",
+     "Huevos cocidos",
+     "PA",
+     null,
+     null
+    ],
+    [
+     "½ uds",
+     "Aguacate",
+     "GR"
+    ],
+    [
+     "",
+     "Tomate rallado o en rodajas",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "",
+     "Café solo o con bebida de almendras 0%",
+     null,
+     1
+    ],
+    [
+     "1 vaso",
+     "Agua con pizca de sal"
+    ],
+    [
+     "1 perla",
+     "Vitamina D3 + K2",
+     "SUP"
+    ],
+    [
+     "2 perlas",
+     "Omega 3",
+     "SUP"
+    ]
+   ]
+  },
+  "Calabaza con caballa y huevo": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "100 g",
+     "Calabaza asada",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "1 lata",
+     "Caballa / sardinas",
+     "PA"
+    ],
+    [
+     "2 uds",
+     "Huevos cocidos",
+     "PA"
+    ],
+    [
+     "",
+     "Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "Chucrut",
+     null,
+     1
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 pieza",
+     "Manzana / pera / mandarina / kiwi",
+     "FB"
+    ]
+   ],
+   "note": "Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal."
+  },
+  "Filete magro de cerdo con quinoa y verduras": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "90 g",
+     "Quinoa en seco (~240 g cocida)",
+     "HA"
+    ],
+    [
+     "1 lata",
+     "Filete magro de cerdo",
+     "PA",
+     null,
+     null
+    ],
+    [
+     "2 uds",
+     "Huevos cocidos salteados con AOVE",
+     "PA"
+    ],
+    [
+     "",
+     "Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "Chucrut",
+     null,
+     1
+    ],
+    [
+     "",
+     "Chorrito final de AOVE",
+     "GR"
+    ],
+    [
+     "1 pieza",
+     "Manzana / pera / mandarina / kiwi",
+     "FB"
+    ]
+   ],
+   "note": "Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal."
+  },
+  "Pollo con ñoquis y espinacas": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "100 g",
+     "Ñoquis de patata (250 g)",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "200 g",
+     "Pechuga de pollo especiada (cúrcuma y pimienta)",
+     "PB"
+    ],
+    [
+     "1 chda",
+     "Salsa pesto o soja",
+     null,
+     1
+    ],
+    [
+     "½ uds",
+     "Aguacate",
+     "GR"
+    ],
+    [
+     "",
+     "Espinacas salteadas",
+     "VH"
+    ],
+    [
+     "1 cda",
+     "AOVE + limón",
+     "GR"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "15-20 uds",
+     "Almendras",
+     "GR"
+    ]
+   ],
+   "note": "Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal."
+  },
+  "Hamburguesa de pollo con boniato asado": {
+   "items": [
+    [
+     "80 g",
+     "Pan de masa madre / centeno / espelta",
+     "HB"
+    ],
+    [
+     "¼ uds",
+     "Aguacate / 50 g guacamole",
+     "GR"
+    ],
+    [
+     "150-180 g",
+     "Carne picada de pollo",
+     "PB",
+     null,
+     null
+    ],
+    [
+     "30 g",
+     "Queso feta",
+     "PL",
+     1
+    ],
+    [
+     "",
+     "Canónigos + tomate + cebolla pochada",
+     "VH"
+    ],
+    [
+     "250-300 g",
+     "Boniato asado",
+     "HA"
+    ],
+    [
+     "1 cdta",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "125 ml",
+     "Kéfir de cabra/oveja + frutos rojos + canela",
+     "PL",
+     1
+    ],
+    [
+     "2 oz",
+     "Chocolate negro >85%"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     null,
+     1
+    ]
+   ],
+   "prep": "Cebolla pochada en la sartén queda mucho más rica."
+  },
+  "Entrecot con ensalada y yogur griego": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "250 g",
+     "Entrecot",
+     "PA",
+     null,
+     null
+    ],
+    [
+     "2 uds",
+     "Huevos cocidos o a la plancha",
+     "PA",
+     1
+    ],
+    [
+     "1 uds",
+     "Aguacate",
+     "GR"
+    ],
+    [
+     "",
+     "Tomate cherry o natural",
+     "VN"
+    ],
+    [
+     "",
+     "Rúcula o espinaca fresca",
+     "VH"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 cda",
+     "Semillas de sésamo o lino",
+     "GR"
+    ],
+    [
+     "",
+     "Sal, pimienta y pimentón"
+    ],
+    [
+     "1 uds",
+     "Yogur griego + frutos rojos + canela",
+     "PL"
+    ]
+   ]
+  },
+  "Yogur de coco con mango y semillas": {
+   "items": [
+    [
+     "2 uds",
+     "Yogur de coco natural",
+     "PL",
+     null,
+     null
+    ],
+    [
+     "15 g",
+     "Proteína en polvo",
+     null
+    ],
+    [
+     "Al gusto",
+     "Mango",
+     "FR",
+     1,
+     null
+    ],
+    [
+     "30 g",
+     "Crema de almendras / nueces de Brasil / anacardos",
+     "GR"
+    ],
+    [
+     "1 chda",
+     "Semillas de lino o chía",
+     "GR"
+    ],
+    [
+     "Al gusto",
+     "Canela",
+     null,
+     1
+    ],
+    [
+     "",
+     "Café solo o con bebida de almendras 0%",
+     null,
+     1
+    ],
+    [
+     "1 vaso",
+     "Agua con pizca de sal"
+    ],
+    [
+     "1 perla",
+     "Vitamina D3 + K2",
+     "SUP"
+    ],
+    [
+     "2 perlas",
+     "Omega 3",
+     "SUP"
+    ]
+   ],
+   "prep": "Mezcla yogures con proteína y cacao, decora con frutos rojos, chocolate troceado y canela."
+  },
+  "Pollo con pasta de lenteja roja y brócoli": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "80 g",
+     "Pasta de lenteja roja (80 g en seco)",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "200 g",
+     "Pechuga de pollo especiada (cúrcuma y pimienta)",
+     "PB"
+    ],
+    [
+     "1 chda",
+     "Salsa pesto o soja",
+     null,
+     1
+    ],
+    [
+     "",
+     "Espinacas salteadas",
+     "VH"
+    ],
+    [
+     "",
+     "Brócoli cocido",
+     "VC"
+    ],
+    [
+     "1 cda",
+     "AOVE + limón",
+     "GR"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "15-20 uds",
+     "Almendras",
+     "GR"
+    ]
+   ],
+   "prep": "Saltea el pollo con cúrcuma y pimienta negra; añade espinacas al final. Brócoli cocido aparte.",
+   "note": "Merienda pre-entreno opcional (~60 min antes): 1 plátano o 3-4 dátiles con pizca de sal y miel cruda."
+  },
+  "Salmón con calabaza y espárragos": {
+   "items": [
+    [
+     "350 g",
+     "Calabaza asada",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "180-220 g",
+     "Salmón fresco con limón y especias",
+     "PA"
+    ],
+    [
+     "1 chda",
+     "Pesto",
+     null,
+     1
+    ],
+    [
+     "",
+     "Espárragos trigueros + champiñones salteados",
+     "VF"
+    ],
+    [
+     "",
+     "Tomate fresco, sal y especias",
+     "VN",
+     1
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "",
+     "Chorrito de salsa de soja para el salmón",
+     null,
+     1
+    ],
+    [
+     "1 uds",
+     "Yogur de cabra + cacao puro + frutos rojos",
+     "PL"
+    ],
+    [
+     "2 cápsulas",
+     "Bisglicinato de Magnesio (separar 20 min de la cena)",
+     "SUP"
+    ]
+   ]
+  },
+  "Arroz con bonito y verduras": {
+   "items": [
+    [
+     "",
+     "15 min antes: chupito de vinagre de sidra de manzana en agua"
+    ],
+    [
+     "100 g",
+     "Arroz vaporizado en seco",
+     "HA"
+    ],
+    [
+     "1 lata",
+     "Bonito / atún / boquerones",
+     "PA",
+     null,
+     null
+    ],
+    [
+     "2 uds",
+     "Huevos cocidos",
+     "PA"
+    ],
+    [
+     "",
+     "Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "Chucrut",
+     null,
+     1
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 pieza",
+     "Manzana / pera / mandarina / kiwi",
+     "FB"
+    ]
+   ],
+   "note": "Merienda pre-entreno (90 min antes): 1 yogur griego, 1 plátano, 1 cda de miel y agua con pizca de sal."
+  },
+  "Bowl de trucha, patata y feta": {
+   "items": [
+    [
+     "90 g",
+     "Patata cocida en dados",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "150-200 g",
+     "Trucha",
+     "PA",
+     null,
+     null
+    ],
+    [
+     "30 g",
+     "Queso feta desmenuzado",
+     "PL"
+    ],
+    [
+     "½ uds",
+     "Aguacate / 80 g guacamole",
+     "GR"
+    ],
+    [
+     "",
+     "Pepino o calabacín + zanahoria rallada + espinacas",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     "FB"
+    ],
+    [
+     "2 oz",
+     "Chocolate negro >85%"
+    ],
+    [
+     "2 cápsulas",
+     "Bisglicinato de Magnesio",
+     "SUP"
+    ]
+   ]
+  },
+  "Tostadas de centeno con huevos y salmón ahumado": {
+   "items": [
+    [
+     "80 g",
+     "Pan integral de centeno (2 rebanadas)",
+     "HB",
+     null,
+     null
+    ],
+    [
+     "60 g",
+     "Salmón ahumado",
+     "PB",
+     null,
+     null
+    ],
+    [
+     "3 uds",
+     "Huevos revueltos",
+     "PA"
+    ],
+    [
+     "½ uds",
+     "Aguacate",
+     "GR"
+    ],
+    [
+     "",
+     "Tomate rallado o en rodajas",
+     "VN"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "",
+     "Café solo o con bebida de almendras 0%",
+     null,
+     1
+    ],
+    [
+     "1 vaso",
+     "Agua con pizca de sal"
+    ],
+    [
+     "1 perla",
+     "Vitamina D3 + K2",
+     "SUP"
+    ],
+    [
+     "2 perlas",
+     "Omega 3",
+     "SUP"
+    ]
+   ]
+  },
+  "Hamburguesa completa con patata asada": {
+   "items": [
+    [
+     "80 g",
+     "Pan de masa madre / centeno / espelta",
+     "HB"
+    ],
+    [
+     "¼ uds",
+     "Aguacate / 50 g guacamole",
+     "GR"
+    ],
+    [
+     "150-180 g",
+     "Carne picada de ternera",
+     "PB"
+    ],
+    [
+     "30 g",
+     "Queso feta",
+     "PL",
+     1
+    ],
+    [
+     "",
+     "Canónigos + tomate + cebolla pochada",
+     "VH"
+    ],
+    [
+     "250-300 g",
+     "Patata asada",
+     "HA",
+     null,
+     null
+    ],
+    [
+     "1 cdta",
+     "AOVE",
+     "GR"
+    ],
+    [
+     "125 ml",
+     "Kéfir de cabra/oveja + frutos rojos + canela",
+     "PL",
+     1
+    ],
+    [
+     "2 oz",
+     "Chocolate negro >85%"
+    ],
+    [
+     "1 uds",
+     "Manzana",
+     null,
+     1
+    ]
+   ],
+   "prep": "Cebolla pochada en la sartén queda mucho más rica."
+  }
+ },
+ "W_MEAL_DETAILS": {
+  "Yogur proteico con avena y plátano": {
+   "items": [
+    [
+     "150 g",
+     "Yogur natural alto en proteína",
+     "PL"
+    ],
+    [
+     "40 g",
+     "Avena en copos",
+     "HB"
+    ],
+    [
+     "1 uds",
+     "Plátano",
+     "FA"
+    ],
+    [
+     "",
+     "Canela",
+     null,
+     1
+    ]
+   ],
+   "note": "Media mañana: manzana + 15 g de almendras."
+  },
+  "Huevos revueltos con tostadas integrales y naranja": {
+   "items": [
+    [
+     "2 uds",
+     "Huevos revueltos",
+     "PA"
+    ],
+    [
+     "2 uds",
+     "Tostadas de pan integral",
+     "HB"
+    ],
+    [
+     "1 uds",
+     "Naranja",
+     "FB"
+    ]
+   ],
+   "note": "Media mañana: yogur alto en proteína."
+  },
+  "Yogur con avena, fresas y canela": {
+   "items": [
+    [
+     "150 g",
+     "Yogur natural",
+     "PL"
+    ],
+    [
+     "40 g",
+     "Avena en copos",
+     "HB"
+    ],
+    [
+     "",
+     "Fresas",
+     "FR"
+    ],
+    [
+     "",
+     "Canela",
+     null,
+     1
+    ]
+   ],
+   "note": "Media mañana: manzana + yogur."
+  },
+  "Tostadas integrales con pavo, tomate y kiwi": {
+   "items": [
+    [
+     "2 uds",
+     "Tostadas de pan integral",
+     "HB"
+    ],
+    [
+     "60 g",
+     "Pavo en lonchas",
+     "PB"
+    ],
+    [
+     "",
+     "Tomate",
+     "VN"
+    ],
+    [
+     "1 uds",
+     "Kiwi",
+     "FB"
+    ]
+   ],
+   "note": "Media mañana: yogur + fruta."
+  },
+  "Huevos con tostadas integrales y fruta": {
+   "items": [
+    [
+     "2 uds",
+     "Huevos",
+     "PA"
+    ],
+    [
+     "2 uds",
+     "Tostadas de pan integral",
+     "HB"
+    ],
+    [
+     "1 pieza",
+     "Fruta de temporada",
+     "FB"
+    ]
+   ],
+   "note": "Media mañana: yogur."
+  },
+  "Yogur con avena y fruta": {
+   "items": [
+    [
+     "150 g",
+     "Yogur natural",
+     "PL"
+    ],
+    [
+     "40 g",
+     "Avena en copos",
+     "HB"
+    ],
+    [
+     "1 pieza",
+     "Fruta de temporada",
+     "FB"
+    ]
+   ],
+   "note": "Media mañana: fruta + nueces."
+  },
+  "Avena con yogur, plátano y canela": {
+   "items": [
+    [
+     "40 g",
+     "Avena en copos",
+     "HB"
+    ],
+    [
+     "150 g",
+     "Yogur natural",
+     "PL"
+    ],
+    [
+     "1 uds",
+     "Plátano",
+     "FA"
+    ],
+    [
+     "",
+     "Canela",
+     null,
+     1
+    ]
+   ],
+   "note": "Media mañana: manzana + almendras."
+  },
+  "Huevos revueltos con tostadas integrales y kiwi": {
+   "items": [
+    [
+     "2 uds",
+     "Huevos revueltos",
+     "PA"
+    ],
+    [
+     "2 uds",
+     "Tostadas de pan integral",
+     "HB"
+    ],
+    [
+     "1 uds",
+     "Kiwi",
+     "FB"
+    ]
+   ],
+   "note": "Media mañana: yogur."
+  },
+  "Yogur con avena y frutos rojos": {
+   "items": [
+    [
+     "150 g",
+     "Yogur natural",
+     "PL"
+    ],
+    [
+     "40 g",
+     "Avena en copos",
+     "HB"
+    ],
+    [
+     "",
+     "Frutos rojos",
+     "FR"
+    ]
+   ],
+   "note": "Media mañana: fruta."
+  },
+  "Tostadas integrales con pavo, tomate y fruta": {
+   "items": [
+    [
+     "2 uds",
+     "Tostadas de pan integral",
+     "HB"
+    ],
+    [
+     "60 g",
+     "Pavo en lonchas",
+     "PB"
+    ],
+    [
+     "",
+     "Tomate",
+     "VN"
+    ],
+    [
+     "1 pieza",
+     "Fruta de temporada",
+     "FB"
+    ]
+   ],
+   "note": "Media mañana: yogur + fruta."
+  },
+  "Yogur con avena, kiwi y canela": {
+   "items": [
+    [
+     "150 g",
+     "Yogur natural",
+     "PL"
+    ],
+    [
+     "40 g",
+     "Avena en copos",
+     "HB"
+    ],
+    [
+     "1 uds",
+     "Kiwi",
+     "FB"
+    ],
+    [
+     "",
+     "Canela",
+     null,
+     1
+    ]
+   ],
+   "note": "Media mañana: fruta."
+  },
+  "Pechuga de pollo con arroz, brócoli y AOVE": {
+   "items": [
+    [
+     "150 g",
+     "Pechuga de pollo",
+     "PB"
+    ],
+    [
+     "70 g",
+     "Arroz en seco",
+     "HA"
+    ],
+    [
+     "",
+     "Brócoli",
+     "VC"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ]
+   ],
+   "note": "Merienda: yogur + frutos rojos."
+  },
+  "Merluza al horno con patata y calabacín": {
+   "items": [
+    [
+     "200 g",
+     "Merluza",
+     "PB"
+    ],
+    [
+     "250 g",
+     "Patata",
+     "HA"
+    ],
+    [
+     "",
+     "Calabacín",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: plátano + 15 g de nueces."
+  },
+  "Ternera magra con patata asada y verduras": {
+   "items": [
+    [
+     "150 g",
+     "Ternera magra",
+     "PB"
+    ],
+    [
+     "250 g",
+     "Patata asada",
+     "HA"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: tostada integral con pavo."
+  },
+  "Pollo con arroz, pimientos y calabacín": {
+   "items": [
+    [
+     "150 g",
+     "Pechuga de pollo",
+     "PB"
+    ],
+    [
+     "70 g",
+     "Arroz en seco",
+     "HA"
+    ],
+    [
+     "",
+     "Pimientos y calabacín",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: plátano + frutos secos."
+  },
+  "Pasta integral con pollo, tomate y verduras": {
+   "items": [
+    [
+     "80 g",
+     "Pasta integral en seco",
+     "HA"
+    ],
+    [
+     "150 g",
+     "Pechuga de pollo",
+     "PB"
+    ],
+    [
+     "",
+     "Tomate y verduras",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: yogur + frutos rojos."
+  },
+  "Ternera magra con arroz y verduras": {
+   "items": [
+    [
+     "150 g",
+     "Ternera magra",
+     "PB"
+    ],
+    [
+     "70 g",
+     "Arroz en seco",
+     "HA"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: fruta + frutos secos."
+  },
+  "Pollo al horno con patata y ensalada": {
+   "items": [
+    [
+     "150 g",
+     "Pollo al horno",
+     "PB"
+    ],
+    [
+     "250 g",
+     "Patata",
+     "HA"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ]
+   ],
+   "note": "Merienda: yogur alto en proteína."
+  },
+  "Ternera magra con patata y ensalada": {
+   "items": [
+    [
+     "150 g",
+     "Ternera magra",
+     "PB"
+    ],
+    [
+     "250 g",
+     "Patata",
+     "HA"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ]
+   ],
+   "note": "Merienda: plátano + nueces."
+  },
+  "Salmón con patata y brócoli": {
+   "items": [
+    [
+     "150 g",
+     "Salmón",
+     "PA"
+    ],
+    [
+     "250 g",
+     "Patata",
+     "HA"
+    ],
+    [
+     "",
+     "Brócoli",
+     "VC"
+    ]
+   ],
+   "note": "Merienda: tostada integral + pavo."
+  },
+  "Pasta integral con pollo y verduras": {
+   "items": [
+    [
+     "80 g",
+     "Pasta integral en seco",
+     "HA"
+    ],
+    [
+     "150 g",
+     "Pechuga de pollo",
+     "PB"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: fruta + frutos secos."
+  },
+  "Pavo con arroz y verduras": {
+   "items": [
+    [
+     "150 g",
+     "Pechuga de pavo",
+     "PB"
+    ],
+    [
+     "70 g",
+     "Arroz en seco",
+     "HA"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: fruta + almendras."
+  },
+  "Lentejas con verduras y pollo": {
+   "items": [
+    [
+     "80 g",
+     "Lentejas en seco",
+     "HA"
+    ],
+    [
+     "120 g",
+     "Pechuga de pollo",
+     "PB"
+    ],
+    [
+     "",
+     "Verduras",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: yogur alto en proteína."
+  },
+  "Pollo con arroz y verduras": {
+   "items": [
+    [
+     "150 g",
+     "Pechuga de pollo",
+     "PB"
+    ],
+    [
+     "70 g",
+     "Arroz en seco",
+     "HA"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: yogur + frutos rojos."
+  },
+  "Ternera magra con patata y brócoli": {
+   "items": [
+    [
+     "150 g",
+     "Ternera magra",
+     "PB"
+    ],
+    [
+     "250 g",
+     "Patata",
+     "HA"
+    ],
+    [
+     "",
+     "Brócoli",
+     "VC"
+    ]
+   ],
+   "note": "Merienda: plátano + almendras."
+  },
+  "Salmón con arroz y verduras": {
+   "items": [
+    [
+     "150 g",
+     "Salmón",
+     "PA"
+    ],
+    [
+     "70 g",
+     "Arroz en seco",
+     "HA"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: tostada integral + pavo."
+  },
+  "Pollo con patata y ensalada": {
+   "items": [
+    [
+     "150 g",
+     "Pechuga de pollo",
+     "PB"
+    ],
+    [
+     "250 g",
+     "Patata",
+     "HA"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ]
+   ],
+   "note": "Merienda: fruta + frutos secos."
+  },
+  "Pasta integral con ternera y verduras": {
+   "items": [
+    [
+     "80 g",
+     "Pasta integral en seco",
+     "HA"
+    ],
+    [
+     "150 g",
+     "Ternera magra",
+     "PB"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: fruta + almendras."
+  },
+  "Pollo al horno con patata y verduras": {
+   "items": [
+    [
+     "150 g",
+     "Pollo al horno",
+     "PB"
+    ],
+    [
+     "250 g",
+     "Patata",
+     "HA"
+    ],
+    [
+     "",
+     "Verduras asadas",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: yogur alto en proteína."
+  },
+  "Salmón con patata y verduras": {
+   "items": [
+    [
+     "150 g",
+     "Salmón",
+     "PA"
+    ],
+    [
+     "250 g",
+     "Patata",
+     "HA"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ]
+   ],
+   "note": "Merienda: fruta + almendras."
+  },
+  "Tortilla de huevos con ensalada y patata cocida": {
+   "items": [
+    [
+     "2-3 uds",
+     "Huevos para tortilla",
+     "PA"
+    ],
+    [
+     "",
+     "Ensalada (tomate, lechuga, cebolla)",
+     "VH"
+    ],
+    [
+     "200 g",
+     "Patata cocida",
+     "HA"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ]
+   ]
+  },
+  "Pechuga de pavo con ensalada y arroz": {
+   "items": [
+    [
+     "150 g",
+     "Pechuga de pavo",
+     "PB"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ],
+    [
+     "60 g",
+     "Arroz en seco",
+     "HA"
+    ]
+   ]
+  },
+  "Salmón con brócoli y ensalada": {
+   "items": [
+    [
+     "150 g",
+     "Salmón",
+     "PA"
+    ],
+    [
+     "",
+     "Brócoli",
+     "VC"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ]
+   ]
+  },
+  "Tortilla de verduras con ensalada": {
+   "items": [
+    [
+     "2-3 uds",
+     "Huevos para tortilla",
+     "PA"
+    ],
+    [
+     "",
+     "Verduras para la tortilla",
+     "VN"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ],
+    [
+     "1 cda",
+     "AOVE",
+     "GR"
+    ]
+   ]
+  },
+  "Merluza con patata y ensalada": {
+   "items": [
+    [
+     "200 g",
+     "Merluza",
+     "PB"
+    ],
+    [
+     "200 g",
+     "Patata",
+     "HA"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ]
+   ]
+  },
+  "Pollo a la plancha con ensalada y patata": {
+   "items": [
+    [
+     "150 g",
+     "Pechuga de pollo",
+     "PB"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ],
+    [
+     "200 g",
+     "Patata",
+     "HA"
+    ]
+   ]
+  },
+  "Pavo con ensalada y patata": {
+   "items": [
+    [
+     "150 g",
+     "Pechuga de pavo",
+     "PB"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ],
+    [
+     "200 g",
+     "Patata",
+     "HA"
+    ]
+   ]
+  },
+  "Salmón con verduras y patata": {
+   "items": [
+    [
+     "150 g",
+     "Salmón",
+     "PA"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ],
+    [
+     "200 g",
+     "Patata",
+     "HA"
+    ]
+   ]
+  },
+  "Pollo con verduras y arroz": {
+   "items": [
+    [
+     "150 g",
+     "Pechuga de pollo",
+     "PB"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ],
+    [
+     "60 g",
+     "Arroz en seco",
+     "HA"
+    ]
+   ]
+  },
+  "Merluza con verduras y patata": {
+   "items": [
+    [
+     "200 g",
+     "Merluza",
+     "PB"
+    ],
+    [
+     "",
+     "Verduras salteadas",
+     "VN"
+    ],
+    [
+     "200 g",
+     "Patata",
+     "HA"
+    ]
+   ]
+  },
+  "Pollo con ensalada y arroz": {
+   "items": [
+    [
+     "150 g",
+     "Pechuga de pollo",
+     "PB"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ],
+    [
+     "60 g",
+     "Arroz en seco",
+     "HA"
+    ]
+   ]
+  },
+  "Salmón con ensalada y patata": {
+   "items": [
+    [
+     "150 g",
+     "Salmón",
+     "PA"
+    ],
+    [
+     "",
+     "Ensalada verde",
+     "VH"
+    ],
+    [
+     "200 g",
+     "Patata",
+     "HA"
+    ]
+   ]
+  }
+ },
+ "NDATA": {
+  "Yogur griego proteico con cacao y frutos rojos": {
+   "k": 520,
+   "p": 45,
+   "c": 30,
+   "g": 25
+  },
+  "Tostadas de espelta con huevos, pavo y aguacate": {
+   "k": 620,
+   "p": 38,
+   "c": 40,
+   "g": 32
+  },
+  "Porridge overnight de avena con plátano": {
+   "k": 550,
+   "p": 35,
+   "c": 65,
+   "g": 18
+  },
+  "Ayuno metabólico / Bulletproof Coffee": {
+   "k": 250,
+   "p": 2,
+   "c": 3,
+   "g": 26
+  },
+  "Pollo con arroz vaporizado y espinacas": {
+   "k": 650,
+   "p": 55,
+   "c": 70,
+   "g": 18
+  },
+  "Quinoa con caballa, huevo y verduras salteadas": {
+   "k": 640,
+   "p": 42,
+   "c": 55,
+   "g": 26
+  },
+  "Ternera especiada con boniato y espárragos": {
+   "k": 700,
+   "p": 50,
+   "c": 65,
+   "g": 24
+  },
+  "Arroz vaporizado con caballa y huevo cocido": {
+   "k": 600,
+   "p": 38,
+   "c": 60,
+   "g": 20
+  },
+  "Pollo con arroz vaporizado y aguacate": {
+   "k": 750,
+   "p": 55,
+   "c": 80,
+   "g": 24
+  },
+  "Ensaladilla rusa casera con caballa": {
+   "k": 650,
+   "p": 35,
+   "c": 55,
+   "g": 30
+  },
+  "Ternera con aguacate, rúcula y yogur griego": {
+   "k": 800,
+   "p": 55,
+   "c": 25,
+   "g": 52
+  },
+  "Salmón con boniato asado y espárragos": {
+   "k": 700,
+   "p": 45,
+   "c": 60,
+   "g": 28
+  },
+  "Pescado blanco con patata cocida y verduras": {
+   "k": 580,
+   "p": 45,
+   "c": 55,
+   "g": 16
+  },
+  "Poke bowl de salmón, quinoa y feta": {
+   "k": 720,
+   "p": 42,
+   "c": 55,
+   "g": 34
+  },
+  "Fajitas integrales de pollo o pizza casera": {
+   "k": 650,
+   "p": 45,
+   "c": 60,
+   "g": 22
+  },
+  "Hamburguesa completa con boniato asado": {
+   "k": 850,
+   "p": 50,
+   "c": 75,
+   "g": 35
+  },
+  "Pescado con puré vegetal y salsa de yogur": {
+   "k": 550,
+   "p": 40,
+   "c": 35,
+   "g": 25
+  },
+  "Tostadas de espelta con huevos revueltos y aguacate": {
+   "k": 560,
+   "p": 32,
+   "c": 40,
+   "g": 28
+  },
+  "Avena con fruta y nueces": {
+   "k": 340,
+   "p": 11,
+   "c": 48,
+   "g": 13
+  },
+  "Tostada integral con aguacate y huevo": {
+   "k": 370,
+   "p": 16,
+   "c": 28,
+   "g": 21
+  },
+  "Yogur natural con fruta y semillas": {
+   "k": 215,
+   "p": 10,
+   "c": 26,
+   "g": 8
+  },
+  "Lentejas con verduras y arroz integral": {
+   "k": 420,
+   "p": 22,
+   "c": 58,
+   "g": 8
+  },
+  "Pollo al horno, quinoa y brócoli": {
+   "k": 410,
+   "p": 35,
+   "c": 38,
+   "g": 12
+  },
+  "Garbanzos salteados con espinaca": {
+   "k": 350,
+   "p": 18,
+   "c": 42,
+   "g": 10
+  },
+  "Pescado a la plancha con ensalada": {
+   "k": 320,
+   "p": 30,
+   "c": 12,
+   "g": 16
+  },
+  "Crema de calabacín y huevo cocido": {
+   "k": 280,
+   "p": 14,
+   "c": 24,
+   "g": 14
+  },
+  "Tortilla de espinacas y ensalada": {
+   "k": 310,
+   "p": 18,
+   "c": 10,
+   "g": 22
+  },
+  "Porridge de avena y plátano": {
+   "k": 320,
+   "p": 9,
+   "c": 52,
+   "g": 9
+  },
+  "Tostada con queso fresco y tomate": {
+   "k": 290,
+   "p": 14,
+   "c": 26,
+   "g": 14
+  },
+  "Yogur con granola y frutos rojos": {
+   "k": 280,
+   "p": 9,
+   "c": 38,
+   "g": 10
+  },
+  "Bowl de quinoa, hummus y verduras": {
+   "k": 380,
+   "p": 16,
+   "c": 44,
+   "g": 15
+  },
+  "Pasta integral con verduras al pesto": {
+   "k": 420,
+   "p": 15,
+   "c": 56,
+   "g": 14
+  },
+  "Revuelto de tofu con champiñones": {
+   "k": 260,
+   "p": 18,
+   "c": 10,
+   "g": 16
+  },
+  "Ensalada de lentejas y queso feta": {
+   "k": 360,
+   "p": 20,
+   "c": 38,
+   "g": 14
+  },
+  "Batido de avena, plátano y cacao": {
+   "k": 290,
+   "p": 10,
+   "c": 48,
+   "g": 7
+  },
+  "Avena nocturna con bebida de almendra": {
+   "k": 280,
+   "p": 9,
+   "c": 40,
+   "g": 9
+  },
+  "Tostada con hummus y tomate": {
+   "k": 270,
+   "p": 10,
+   "c": 30,
+   "g": 12
+  },
+  "Tofu salteado con verduras y quinoa": {
+   "k": 360,
+   "p": 20,
+   "c": 36,
+   "g": 14
+  },
+  "Curry de garbanzos y arroz integral": {
+   "k": 430,
+   "p": 16,
+   "c": 60,
+   "g": 14
+  },
+  "Pisto con alubias y pan integral": {
+   "k": 380,
+   "p": 16,
+   "c": 48,
+   "g": 12
+  },
+  "Crema de boniato y garbanzos": {
+   "k": 340,
+   "p": 14,
+   "c": 52,
+   "g": 8
+  },
+  "Salteado de verduras con fideos de arroz": {
+   "k": 300,
+   "p": 10,
+   "c": 44,
+   "g": 8
+  },
+  "Ensalada de quinoa, aguacate y maíz": {
+   "k": 350,
+   "p": 12,
+   "c": 42,
+   "g": 15
+  },
+  "Pan de trigo sarraceno con aguacate": {
+   "k": 360,
+   "p": 14,
+   "c": 28,
+   "g": 22
+  },
+  "Yogur con fruta y semillas": {
+   "k": 215,
+   "p": 10,
+   "c": 26,
+   "g": 8
+  },
+  "Huevos revueltos con tomate": {
+   "k": 240,
+   "p": 16,
+   "c": 8,
+   "g": 17
+  },
+  "Arroz integral con pollo y brócoli": {
+   "k": 400,
+   "p": 32,
+   "c": 42,
+   "g": 10
+  },
+  "Salmorejo con atún y huevo": {
+   "k": 380,
+   "p": 26,
+   "c": 22,
+   "g": 20
+  },
+  "Garbanzos con espinaca y comino": {
+   "k": 330,
+   "p": 16,
+   "c": 44,
+   "g": 8
+  },
+  "Pescado al horno con verduras": {
+   "k": 290,
+   "p": 28,
+   "c": 10,
+   "g": 15
+  },
+  "Crema de calabaza con semillas": {
+   "k": 260,
+   "p": 8,
+   "c": 38,
+   "g": 9
+  },
+  "Yogur de cabra proteico con fresas y nueces": {
+   "k": 520,
+   "p": 45,
+   "c": 30,
+   "g": 25
+  },
+  "Pavo con quinoa y brócoli": {
+   "k": 650,
+   "p": 55,
+   "c": 70,
+   "g": 18
+  },
+  "Trucha con patata asada y judías verdes": {
+   "k": 700,
+   "p": 45,
+   "c": 60,
+   "g": 28
+  },
+  "Pan Wasa con salmón ahumado y aguacate": {
+   "k": 620,
+   "p": 38,
+   "c": 40,
+   "g": 32
+  },
+  "Boniato con atún y huevo cocido": {
+   "k": 600,
+   "p": 38,
+   "c": 60,
+   "g": 20
+  },
+  "Lubina con calabaza asada y espinacas": {
+   "k": 580,
+   "p": 45,
+   "c": 55,
+   "g": 16
+  },
+  "Solomillo de cerdo con boniato y espárragos": {
+   "k": 700,
+   "p": 50,
+   "c": 65,
+   "g": 24
+  },
+  "Poke bowl de atún, quinoa y mozzarella": {
+   "k": 720,
+   "p": 42,
+   "c": 55,
+   "g": 34
+  },
+  "Patata con sardinas y verduras salteadas": {
+   "k": 600,
+   "p": 38,
+   "c": 60,
+   "g": 20
+  },
+  "Pavo con arroz vaporizado y aguacate": {
+   "k": 750,
+   "p": 55,
+   "c": 80,
+   "g": 24
+  },
+  "Hamburguesa de cerdo con boniato asado": {
+   "k": 850,
+   "p": 50,
+   "c": 75,
+   "g": 35
+  },
+  "Requesón con miel, nueces y fresas": {
+   "k": 520,
+   "p": 45,
+   "c": 30,
+   "g": 25
+  },
+  "Ternera con patata y espinacas": {
+   "k": 650,
+   "p": 55,
+   "c": 70,
+   "g": 18
+  },
+  "Sardinas con boniato y ensalada verde": {
+   "k": 700,
+   "p": 45,
+   "c": 60,
+   "g": 28
+  },
+  "Tortitas de arroz con huevo y pavo": {
+   "k": 620,
+   "p": 38,
+   "c": 40,
+   "g": 32
+  },
+  "Calabaza con caballa y huevo": {
+   "k": 600,
+   "p": 38,
+   "c": 60,
+   "g": 20
+  },
+  "Filete magro de cerdo con quinoa y verduras": {
+   "k": 640,
+   "p": 42,
+   "c": 55,
+   "g": 26
+  },
+  "Pollo con ñoquis y espinacas": {
+   "k": 750,
+   "p": 55,
+   "c": 80,
+   "g": 24
+  },
+  "Hamburguesa de pollo con boniato asado": {
+   "k": 850,
+   "p": 50,
+   "c": 75,
+   "g": 35
+  },
+  "Entrecot con ensalada y yogur griego": {
+   "k": 800,
+   "p": 55,
+   "c": 25,
+   "g": 52
+  },
+  "Yogur de coco con mango y semillas": {
+   "k": 520,
+   "p": 45,
+   "c": 30,
+   "g": 25
+  },
+  "Pollo con pasta de lenteja roja y brócoli": {
+   "k": 650,
+   "p": 55,
+   "c": 70,
+   "g": 18
+  },
+  "Salmón con calabaza y espárragos": {
+   "k": 700,
+   "p": 45,
+   "c": 60,
+   "g": 28
+  },
+  "Arroz con bonito y verduras": {
+   "k": 600,
+   "p": 38,
+   "c": 60,
+   "g": 20
+  },
+  "Bowl de trucha, patata y feta": {
+   "k": 720,
+   "p": 42,
+   "c": 55,
+   "g": 34
+  },
+  "Tostadas de centeno con huevos y salmón ahumado": {
+   "k": 620,
+   "p": 38,
+   "c": 40,
+   "g": 32
+  },
+  "Hamburguesa completa con patata asada": {
+   "k": 850,
+   "p": 50,
+   "c": 75,
+   "g": 35
+  },
+  "Yogur proteico con avena y plátano": {
+   "kcal": 420,
+   "p": 25,
+   "c": 55,
+   "g": 10
+  },
+  "Huevos revueltos con tostadas integrales y naranja": {
+   "kcal": 450,
+   "p": 22,
+   "c": 45,
+   "g": 18
+  },
+  "Yogur con avena, fresas y canela": {
+   "kcal": 380,
+   "p": 20,
+   "c": 52,
+   "g": 8
+  },
+  "Tostadas integrales con pavo, tomate y kiwi": {
+   "kcal": 380,
+   "p": 18,
+   "c": 42,
+   "g": 12
+  },
+  "Huevos con tostadas integrales y fruta": {
+   "kcal": 400,
+   "p": 20,
+   "c": 40,
+   "g": 15
+  },
+  "Yogur con avena y fruta": {
+   "kcal": 350,
+   "p": 18,
+   "c": 48,
+   "g": 8
+  },
+  "Avena con yogur, plátano y canela": {
+   "kcal": 430,
+   "p": 22,
+   "c": 58,
+   "g": 10
+  },
+  "Huevos revueltos con tostadas integrales y kiwi": {
+   "kcal": 420,
+   "p": 21,
+   "c": 44,
+   "g": 14
+  },
+  "Yogur con avena y frutos rojos": {
+   "kcal": 360,
+   "p": 19,
+   "c": 50,
+   "g": 8
+  },
+  "Tostadas integrales con pavo, tomate y fruta": {
+   "kcal": 370,
+   "p": 17,
+   "c": 43,
+   "g": 11
+  },
+  "Yogur con avena, kiwi y canela": {
+   "kcal": 370,
+   "p": 19,
+   "c": 50,
+   "g": 8
+  },
+  "Pechuga de pollo con arroz, brócoli y AOVE": {
+   "kcal": 550,
+   "p": 42,
+   "c": 55,
+   "g": 15
+  },
+  "Merluza al horno con patata y calabacín": {
+   "kcal": 480,
+   "p": 38,
+   "c": 45,
+   "g": 14
+  },
+  "Ternera magra con patata asada y verduras": {
+   "kcal": 520,
+   "p": 40,
+   "c": 40,
+   "g": 18
+  },
+  "Pollo con arroz, pimientos y calabacín": {
+   "kcal": 540,
+   "p": 40,
+   "c": 52,
+   "g": 16
+  },
+  "Pasta integral con pollo, tomate y verduras": {
+   "kcal": 560,
+   "p": 38,
+   "c": 60,
+   "g": 16
+  },
+  "Ternera magra con arroz y verduras": {
+   "kcal": 520,
+   "p": 38,
+   "c": 48,
+   "g": 16
+  },
+  "Pollo al horno con patata y ensalada": {
+   "kcal": 500,
+   "p": 38,
+   "c": 42,
+   "g": 15
+  },
+  "Ternera magra con patata y ensalada": {
+   "kcal": 500,
+   "p": 36,
+   "c": 38,
+   "g": 18
+  },
+  "Salmón con patata y brócoli": {
+   "kcal": 520,
+   "p": 36,
+   "c": 42,
+   "g": 18
+  },
+  "Pasta integral con pollo y verduras": {
+   "kcal": 540,
+   "p": 36,
+   "c": 56,
+   "g": 15
+  },
+  "Pavo con arroz y verduras": {
+   "kcal": 520,
+   "p": 35,
+   "c": 50,
+   "g": 14
+  },
+  "Lentejas con verduras y pollo": {
+   "kcal": 480,
+   "p": 28,
+   "c": 60,
+   "g": 10
+  },
+  "Pollo con arroz y verduras": {
+   "kcal": 510,
+   "p": 38,
+   "c": 50,
+   "g": 14
+  },
+  "Ternera magra con patata y brócoli": {
+   "kcal": 510,
+   "p": 38,
+   "c": 40,
+   "g": 17
+  },
+  "Salmón con arroz y verduras": {
+   "kcal": 520,
+   "p": 36,
+   "c": 48,
+   "g": 16
+  },
+  "Pollo con patata y ensalada": {
+   "kcal": 490,
+   "p": 37,
+   "c": 40,
+   "g": 16
+  },
+  "Pasta integral con ternera y verduras": {
+   "kcal": 550,
+   "p": 36,
+   "c": 56,
+   "g": 16
+  },
+  "Pollo al horno con patata y verduras": {
+   "kcal": 500,
+   "p": 38,
+   "c": 42,
+   "g": 15
+  },
+  "Salmón con patata y verduras": {
+   "kcal": 500,
+   "p": 38,
+   "c": 42,
+   "g": 14
+  },
+  "Tortilla de huevos con ensalada y patata cocida": {
+   "kcal": 420,
+   "p": 24,
+   "c": 30,
+   "g": 20
+  },
+  "Pechuga de pavo con ensalada y arroz": {
+   "kcal": 470,
+   "p": 35,
+   "c": 38,
+   "g": 16
+  },
+  "Salmón con brócoli y ensalada": {
+   "kcal": 450,
+   "p": 32,
+   "c": 15,
+   "g": 22
+  },
+  "Tortilla de verduras con ensalada": {
+   "kcal": 380,
+   "p": 22,
+   "c": 22,
+   "g": 18
+  },
+  "Merluza con patata y ensalada": {
+   "kcal": 430,
+   "p": 34,
+   "c": 35,
+   "g": 14
+  },
+  "Pollo a la plancha con ensalada y patata": {
+   "kcal": 460,
+   "p": 36,
+   "c": 32,
+   "g": 17
+  },
+  "Pavo con ensalada y patata": {
+   "kcal": 440,
+   "p": 34,
+   "c": 30,
+   "g": 16
+  },
+  "Salmón con verduras y patata": {
+   "kcal": 460,
+   "p": 33,
+   "c": 30,
+   "g": 18
+  },
+  "Pollo con verduras y arroz": {
+   "kcal": 470,
+   "p": 36,
+   "c": 35,
+   "g": 15
+  },
+  "Merluza con verduras y patata": {
+   "kcal": 420,
+   "p": 33,
+   "c": 30,
+   "g": 13
+  },
+  "Pollo con ensalada y arroz": {
+   "kcal": 450,
+   "p": 35,
+   "c": 33,
+   "g": 15
+  },
+  "Salmón con ensalada y patata": {
+   "kcal": 450,
+   "p": 33,
+   "c": 28,
+   "g": 17
+  }
+ },
+ "DEFAULT_NDATA": {
+  "k": 350,
+  "p": 15,
+  "c": 40,
+  "g": 12
+ },
+ "MEALS": {
+  "Equilibrada": {
+   "desayuno": [
+    "Avena con fruta y nueces",
+    "Tostada integral con aguacate y huevo",
+    "Yogur natural con fruta y semillas"
+   ],
+   "comida": [
+    "Lentejas con verduras y arroz integral",
+    "Pollo al horno, quinoa y brócoli",
+    "Garbanzos salteados con espinaca"
+   ],
+   "cena": [
+    "Pescado a la plancha con ensalada",
+    "Crema de calabacín y huevo cocido",
+    "Tortilla de espinacas y ensalada"
+   ]
+  },
+  "Vegetariana": {
+   "desayuno": [
+    "Porridge de avena y plátano",
+    "Tostada con queso fresco y tomate",
+    "Yogur con granola y frutos rojos"
+   ],
+   "comida": [
+    "Garbanzos salteados con espinaca",
+    "Bowl de quinoa, hummus y verduras",
+    "Pasta integral con verduras al pesto"
+   ],
+   "cena": [
+    "Crema de calabacín y huevo cocido",
+    "Revuelto de tofu con champiñones",
+    "Ensalada de lentejas y queso feta"
+   ]
+  },
+  "Vegana": {
+   "desayuno": [
+    "Batido de avena, plátano y cacao",
+    "Avena nocturna con bebida de almendra",
+    "Tostada con hummus y tomate"
+   ],
+   "comida": [
+    "Tofu salteado con verduras y quinoa",
+    "Curry de garbanzos y arroz integral",
+    "Pisto con alubias y pan integral"
+   ],
+   "cena": [
+    "Crema de boniato y garbanzos",
+    "Salteado de verduras con fideos de arroz",
+    "Ensalada de quinoa, aguacate y maíz"
+   ]
+  },
+  "Sin gluten": {
+   "desayuno": [
+    "Pan de trigo sarraceno con aguacate",
+    "Yogur con fruta y semillas",
+    "Huevos revueltos con tomate"
+   ],
+   "comida": [
+    "Arroz integral con pollo y brócoli",
+    "Salmorejo con atún y huevo",
+    "Garbanzos con espinaca y comino"
+   ],
+   "cena": [
+    "Tortilla de espinacas y ensalada",
+    "Pescado al horno con verduras",
+    "Crema de calabaza con semillas"
+   ]
+  }
+ },
+ "ALLERGENS": {
+  "Yogur natural con fruta y semillas": [
+   "Lácteos",
+   "Frutos secos"
+  ],
+  "Yogur con granola y frutos rojos": [
+   "Lácteos"
+  ],
+  "Tostada con queso fresco y tomate": [
+   "Lácteos"
+  ],
+  "Bowl de quinoa, hummus y verduras": [
+   "Frutos secos"
+  ],
+  "Ensalada de lentejas y queso feta": [
+   "Lácteos"
+  ],
+  "Pescado a la plancha con ensalada": [
+   "Pescado"
+  ],
+  "Salmorejo con atún y huevo": [
+   "Pescado"
+  ],
+  "Pescado al horno con verduras": [
+   "Pescado"
+  ],
+  "Pan de trigo sarraceno con aguacate": [
+   "Huevo"
+  ],
+  "Tortilla de espinacas y ensalada": [
+   "Huevo"
+  ],
+  "Crema de calabacín y huevo cocido": [
+   "Huevo"
+  ]
+ },
+ "SUBSTITUTION_GROUPS": {
+  "PA": [
+   "Huevos enteros",
+   "Entrecot / chuletón / solomillo",
+   "Chuletas de cerdo",
+   "Salmón",
+   "Caballa / sardinas",
+   "Bonito / atún / boquerones",
+   "Pulpo",
+   "Trucha"
+  ],
+  "PB": [
+   "Pechuga de pollo",
+   "Pechuga de pavo",
+   "Carne picada de ternera",
+   "Lomo / solomillo de cerdo",
+   "Filete magro de cerdo",
+   "Pescado blanco (merluza, lubina, dorada)"
+  ],
+  "PL": [
+   "Yogur griego natural",
+   "Yogur de cabra / oveja",
+   "Yogur de coco natural",
+   "Requesón",
+   "Queso fresco de vaca / cabra",
+   "Queso feta / burrata / mozzarella",
+   "Queso curado (cabra / oveja / parmesano)"
+  ],
+  "HA": [
+   "Arroz vaporizado",
+   "Patata",
+   "Boniato",
+   "Quinoa",
+   "Calabaza",
+   "Pasta (sarraceno / maíz / lenteja roja)",
+   "Ñoquis"
+  ],
+  "HB": [
+   "Pan Wasa",
+   "Tostaditas de trigo sarraceno",
+   "Pan integral (trigo / espelta / centeno)",
+   "Tortitas de arroz",
+   "Avena"
+  ],
+  "GR": [
+   "AOVE",
+   "Aceite de coco",
+   "Coco troceado",
+   "Aguacate",
+   "Aceitunas",
+   "Frutos secos (nueces, almendras, avellanas)",
+   "Semillas (chía, lino, sésamo, calabaza)"
+  ],
+  "FB": [
+   "Piña",
+   "Papaya",
+   "Manzana",
+   "Pera",
+   "Naranja",
+   "Mandarina",
+   "Kiwi"
+  ],
+  "FA": [
+   "Mango",
+   "Plátano",
+   "Dátiles",
+   "Uvas"
+  ],
+  "FR": [
+   "Fresas",
+   "Arándanos",
+   "Frambuesas"
+  ],
+  "VH": [
+   "Lechuga",
+   "Canónigos",
+   "Espinaca",
+   "Rúcula",
+   "Mezcla de hojas verdes"
+  ],
+  "VN": [
+   "Tomate",
+   "Tomate cherry",
+   "Cebolla",
+   "Pimiento",
+   "Calabacín",
+   "Pepino",
+   "Champiñones",
+   "Setas",
+   "Berenjena"
+  ],
+  "VR": [
+   "Calabaza",
+   "Zanahoria",
+   "Remolacha"
+  ],
+  "VC": [
+   "Brócoli",
+   "Coliflor",
+   "Coles",
+   "Coles de Bruselas"
+  ],
+  "VF": [
+   "Judías verdes",
+   "Espárragos trigueros"
+  ]
+ },
+ "GROUP_NAMES": {
+  "PA": "Proteína grasa",
+  "PB": "Proteína magra",
+  "PL": "Proteína láctea",
+  "HA": "HC complejos",
+  "HB": "HC derivados",
+  "GR": "Grasas",
+  "FB": "Fruta base",
+  "FA": "Fruta azucarada",
+  "FR": "Frutos rojos",
+  "VH": "Verdura hoja",
+  "VN": "Verdura neutra",
+  "VR": "Verdura raíz",
+  "VC": "Crucífera",
+  "VF": "Verdura fibrosa"
+ },
+ "MEAL_LABELS": {
+  "desayuno": "Desayuno",
+  "comida": "Comida",
+  "cena": "Cena"
+ },
+ "MEAL_ICONS": {
+  "desayuno": "🌅",
+  "comida": "☀️",
+  "cena": "🌙"
+ },
+ "INGREDIENTS": {
+  "Avena con fruta y nueces": [
+   "Avena",
+   "Fruta",
+   "Nueces"
+  ],
+  "Tostada integral con aguacate y huevo": [
+   "Pan integral",
+   "Aguacate",
+   "Huevos"
+  ],
+  "Yogur natural con fruta y semillas": [
+   "Yogur natural",
+   "Fruta",
+   "Semillas de chía"
+  ],
+  "Lentejas con verduras y arroz integral": [
+   "Lentejas",
+   "Verduras",
+   "Arroz integral"
+  ],
+  "Pollo al horno, quinoa y brócoli": [
+   "Pollo",
+   "Quinoa",
+   "Brócoli"
+  ],
+  "Garbanzos salteados con espinaca": [
+   "Garbanzos",
+   "Espinacas",
+   "Ajo"
+  ],
+  "Pescado a la plancha con ensalada": [
+   "Pescado",
+   "Lechuga",
+   "Tomate",
+   "Cebolla"
+  ],
+  "Crema de calabacín y huevo cocido": [
+   "Calabacín",
+   "Huevos",
+   "Patata"
+  ],
+  "Tortilla de espinacas y ensalada": [
+   "Huevos",
+   "Espinacas",
+   "Lechuga",
+   "Tomate"
+  ],
+  "Porridge de avena y plátano": [
+   "Avena",
+   "Plátano",
+   "Bebida vegetal"
+  ],
+  "Tostada con queso fresco y tomate": [
+   "Pan integral",
+   "Queso fresco",
+   "Tomate"
+  ],
+  "Yogur con granola y frutos rojos": [
+   "Yogur",
+   "Granola",
+   "Frutos rojos"
+  ],
+  "Bowl de quinoa, hummus y verduras": [
+   "Quinoa",
+   "Hummus",
+   "Zanahoria",
+   "Pepino",
+   "Aguacate"
+  ],
+  "Pasta integral con verduras al pesto": [
+   "Pasta integral",
+   "Calabacín",
+   "Pimiento",
+   "Pesto"
+  ],
+  "Revuelto de tofu con champiñones": [
+   "Tofu",
+   "Champiñones",
+   "Cebolla"
+  ],
+  "Ensalada de lentejas y queso feta": [
+   "Lentejas",
+   "Queso feta",
+   "Tomate",
+   "Aceitunas"
+  ],
+  "Batido de avena, plátano y cacao": [
+   "Avena",
+   "Plátano",
+   "Cacao",
+   "Bebida vegetal"
+  ],
+  "Avena nocturna con bebida de almendra": [
+   "Avena",
+   "Bebida de almendra",
+   "Fruta"
+  ],
+  "Tostada con hummus y tomate": [
+   "Pan integral",
+   "Hummus",
+   "Tomate"
+  ],
+  "Tofu salteado con verduras y quinoa": [
+   "Tofu",
+   "Verduras",
+   "Quinoa",
+   "Salsa de soja"
+  ],
+  "Curry de garbanzos y arroz integral": [
+   "Garbanzos",
+   "Leche de coco",
+   "Curry",
+   "Arroz integral"
+  ],
+  "Pisto con alubias y pan integral": [
+   "Calabacín",
+   "Pimiento",
+   "Tomate",
+   "Alubias"
+  ],
+  "Crema de boniato y garbanzos": [
+   "Boniato",
+   "Garbanzos",
+   "Puerro"
+  ],
+  "Salteado de verduras con fideos de arroz": [
+   "Verduras",
+   "Fideos de arroz",
+   "Salsa de soja"
+  ],
+  "Ensalada de quinoa, aguacate y maíz": [
+   "Quinoa",
+   "Aguacate",
+   "Maíz",
+   "Tomate"
+  ],
+  "Pan de trigo sarraceno con aguacate": [
+   "Pan sarraceno",
+   "Aguacate",
+   "Huevos"
+  ],
+  "Yogur con fruta y semillas": [
+   "Yogur",
+   "Fruta",
+   "Semillas"
+  ],
+  "Huevos revueltos con tomate": [
+   "Huevos",
+   "Tomate",
+   "Aceite de oliva"
+  ],
+  "Arroz integral con pollo y brócoli": [
+   "Arroz integral",
+   "Pollo",
+   "Brócoli"
+  ],
+  "Salmorejo con atún y huevo": [
+   "Tomate",
+   "Atún",
+   "Huevos"
+  ],
+  "Garbanzos con espinaca y comino": [
+   "Garbanzos",
+   "Espinacas",
+   "Comino"
+  ],
+  "Pescado al horno con verduras": [
+   "Pescado",
+   "Verduras"
+  ],
+  "Crema de calabaza con semillas": [
+   "Calabaza",
+   "Cebolla",
+   "Semillas"
+  ]
+ },
+ "FOOD_DB": {
+  "pollo": {
+   "k": 165,
+   "p": 31,
+   "c": 0,
+   "g": 3.6
+  },
+  "pechuga de pollo": {
+   "k": 165,
+   "p": 31,
+   "c": 0,
+   "g": 3.6
+  },
+  "muslo de pollo": {
+   "k": 209,
+   "p": 26,
+   "c": 0,
+   "g": 10.9
+  },
+  "pollo al horno": {
+   "k": 190,
+   "p": 27,
+   "c": 0,
+   "g": 8
+  },
+  "pollo a la plancha": {
+   "k": 165,
+   "p": 31,
+   "c": 0,
+   "g": 3.6
+  },
+  "pollo frito": {
+   "k": 230,
+   "p": 24,
+   "c": 2,
+   "g": 13
+  },
+  "ternera": {
+   "k": 250,
+   "p": 26,
+   "c": 0,
+   "g": 15
+  },
+  "bistec": {
+   "k": 271,
+   "p": 26,
+   "c": 0,
+   "g": 18
+  },
+  "filete de ternera": {
+   "k": 250,
+   "p": 26,
+   "c": 0,
+   "g": 15
+  },
+  "carne picada": {
+   "k": 254,
+   "p": 17,
+   "c": 0,
+   "g": 20
+  },
+  "chuleta": {
+   "k": 260,
+   "p": 25,
+   "c": 0,
+   "g": 17
+  },
+  "cerdo": {
+   "k": 242,
+   "p": 27,
+   "c": 0,
+   "g": 14
+  },
+  "lomo de cerdo": {
+   "k": 143,
+   "p": 26,
+   "c": 0,
+   "g": 3.5
+  },
+  "solomillo": {
+   "k": 143,
+   "p": 26,
+   "c": 0,
+   "g": 3.5
+  },
+  "chashu": {
+   "k": 220,
+   "p": 20,
+   "c": 2,
+   "g": 15
+  },
+  "salchicha": {
+   "k": 277,
+   "p": 12,
+   "c": 2,
+   "g": 25
+  },
+  "salchichas": {
+   "k": 277,
+   "p": 12,
+   "c": 2,
+   "g": 25
+  },
+  "salchichas de Frankfurt": {
+   "k": 277,
+   "p": 12,
+   "c": 2,
+   "g": 25
+  },
+  "salchichas de vacuno": {
+   "k": 260,
+   "p": 14,
+   "c": 1,
+   "g": 22
+  },
+  "chorizo": {
+   "k": 455,
+   "p": 24,
+   "c": 2,
+   "g": 38
+  },
+  "longaniza": {
+   "k": 400,
+   "p": 22,
+   "c": 2,
+   "g": 34
+  },
+  "morcilla": {
+   "k": 379,
+   "p": 14,
+   "c": 12,
+   "g": 32
+  },
+  "fiambre": {
+   "k": 150,
+   "p": 16,
+   "c": 3,
+   "g": 8
+  },
+  "jamón": {
+   "k": 145,
+   "p": 21,
+   "c": 1,
+   "g": 6
+  },
+  "jamón serrano": {
+   "k": 145,
+   "p": 21,
+   "c": 1,
+   "g": 6
+  },
+  "jamón cocido": {
+   "k": 145,
+   "p": 20,
+   "c": 1,
+   "g": 6
+  },
+  "lomo embuchado": {
+   "k": 250,
+   "p": 28,
+   "c": 1,
+   "g": 14
+  },
+  "tofu": {
+   "k": 76,
+   "p": 8,
+   "c": 1.9,
+   "g": 4.8
+  },
+  "tofu firme": {
+   "k": 130,
+   "p": 15,
+   "c": 2,
+   "g": 8
+  },
+  "tofu seda": {
+   "k": 55,
+   "p": 5,
+   "c": 2,
+   "g": 3
+  },
+  "atún": {
+   "k": 132,
+   "p": 28,
+   "c": 0,
+   "g": 1.3
+  },
+  "atún a la plancha": {
+   "k": 132,
+   "p": 28,
+   "c": 0,
+   "g": 1.3
+  },
+  "atún en aceite": {
+   "k": 198,
+   "p": 24,
+   "c": 0,
+   "g": 11
+  },
+  "bonito": {
+   "k": 132,
+   "p": 28,
+   "c": 0,
+   "g": 1.3
+  },
+  "salmón": {
+   "k": 208,
+   "p": 20,
+   "c": 0,
+   "g": 13
+  },
+  "salmón a la plancha": {
+   "k": 208,
+   "p": 20,
+   "c": 0,
+   "g": 13
+  },
+  "salmón ahumado": {
+   "k": 177,
+   "p": 21,
+   "c": 0,
+   "g": 10
+  },
+  "sardinas": {
+   "k": 208,
+   "p": 25,
+   "c": 0,
+   "g": 11
+  },
+  "jurel": {
+   "k": 155,
+   "p": 24,
+   "c": 0,
+   "g": 6
+  },
+  "merluza": {
+   "k": 86,
+   "p": 18,
+   "c": 0,
+   "g": 1.5
+  },
+  "bacalao": {
+   "k": 82,
+   "p": 18,
+   "c": 0,
+   "g": 0.7
+  },
+  "calamares": {
+   "k": 175,
+   "p": 21,
+   "c": 8,
+   "g": 7
+  },
+  "gambas": {
+   "k": 99,
+   "p": 24,
+   "c": 0,
+   "g": 0.3
+  },
+  "langostinos": {
+   "k": 99,
+   "p": 24,
+   "c": 0,
+   "g": 0.3
+  },
+  "pescado": {
+   "k": 130,
+   "p": 22,
+   "c": 0,
+   "g": 5
+  },
+  "pescado a la plancha": {
+   "k": 130,
+   "p": 22,
+   "c": 0,
+   "g": 5
+  },
+  "pescado al horno": {
+   "k": 130,
+   "p": 22,
+   "c": 0,
+   "g": 5
+  },
+  "pescado frito": {
+   "k": 230,
+   "p": 18,
+   "c": 12,
+   "g": 13
+  },
+  "huevo": {
+   "k": 155,
+   "p": 13,
+   "c": 1.1,
+   "g": 11
+  },
+  "huevos": {
+   "k": 155,
+   "p": 13,
+   "c": 1.1,
+   "g": 11
+  },
+  "huevo cocido": {
+   "k": 155,
+   "p": 13,
+   "c": 1.1,
+   "g": 11
+  },
+  "huevo frito": {
+   "k": 196,
+   "p": 14,
+   "c": 1,
+   "g": 15
+  },
+  "revuelto": {
+   "k": 148,
+   "p": 10,
+   "c": 2,
+   "g": 11
+  },
+  "tortilla": {
+   "k": 155,
+   "p": 13,
+   "c": 1,
+   "g": 11
+  },
+  "omelette": {
+   "k": 154,
+   "p": 11,
+   "c": 2,
+   "g": 11
+  },
+  "queso": {
+   "k": 402,
+   "p": 25,
+   "c": 1.3,
+   "g": 33
+  },
+  "queso fresco": {
+   "k": 174,
+   "p": 18,
+   "c": 3,
+   "g": 10
+  },
+  "queso manchego": {
+   "k": 402,
+   "p": 25,
+   "c": 1.3,
+   "g": 33
+  },
+  "queso batata": {
+   "k": 360,
+   "p": 21,
+   "c": 3,
+   "g": 29
+  },
+  "mozzarella": {
+   "k": 280,
+   "p": 28,
+   "c": 3,
+   "g": 17
+  },
+  "yogur": {
+   "k": 59,
+   "p": 10,
+   "c": 3.5,
+   "g": 0.7
+  },
+  "yogur natural": {
+   "k": 59,
+   "p": 10,
+   "c": 3.5,
+   "g": 0.7
+  },
+  "yogur griego": {
+   "k": 97,
+   "p": 9,
+   "c": 3.6,
+   "g": 5
+  },
+  "queso de untar": {
+   "k": 235,
+   "p": 6,
+   "c": 4,
+   "g": 22
+  },
+  "ricotta": {
+   "k": 174,
+   "p": 11,
+   "c": 3,
+   "g": 13
+  },
+  "lentejas": {
+   "k": 116,
+   "p": 9,
+   "c": 20,
+   "g": 0.4
+  },
+  "lentejas guisadas": {
+   "k": 130,
+   "p": 9,
+   "c": 18,
+   "g": 2
+  },
+  "garbanzos": {
+   "k": 164,
+   "p": 8.9,
+   "c": 27,
+   "g": 2.6
+  },
+  "garbanzos salteados": {
+   "k": 164,
+   "p": 8.9,
+   "c": 27,
+   "g": 2.6
+  },
+  "alubias": {
+   "k": 127,
+   "p": 8.7,
+   "c": 22.8,
+   "g": 0.5
+  },
+  "alubias blancas": {
+   "k": 139,
+   "p": 9,
+   "c": 24,
+   "g": 0.4
+  },
+  "alubias negras": {
+   "k": 132,
+   "p": 8.9,
+   "c": 23.7,
+   "g": 0.5
+  },
+  "soja": {
+   "k": 173,
+   "p": 17,
+   "c": 10,
+   "g": 9
+  },
+  "arroz": {
+   "k": 130,
+   "p": 2.7,
+   "c": 28,
+   "g": 0.3
+  },
+  "arroz blanco": {
+   "k": 130,
+   "p": 2.7,
+   "c": 28,
+   "g": 0.3
+  },
+  "arroz integral": {
+   "k": 111,
+   "p": 2.6,
+   "c": 23,
+   "g": 0.9
+  },
+  "arroz basmati": {
+   "k": 130,
+   "p": 2.7,
+   "c": 28,
+   "g": 0.3
+  },
+  "pasta": {
+   "k": 131,
+   "p": 5,
+   "c": 25,
+   "g": 1.1
+  },
+  "pasta integral": {
+   "k": 124,
+   "p": 5.3,
+   "c": 26,
+   "g": 0.5
+  },
+  "espaguetis": {
+   "k": 131,
+   "p": 5,
+   "c": 25,
+   "g": 1.1
+  },
+  "macarrones": {
+   "k": 131,
+   "p": 5,
+   "c": 25,
+   "g": 1.1
+  },
+  "fideos": {
+   "k": 131,
+   "p": 5,
+   "c": 25,
+   "g": 1.1
+  },
+  "noodles": {
+   "k": 138,
+   "p": 4.5,
+   "c": 25,
+   "g": 2
+  },
+  "fideos de arroz": {
+   "k": 109,
+   "p": 0.9,
+   "c": 25,
+   "g": 0.2
+  },
+  "quinoa": {
+   "k": 120,
+   "p": 4.4,
+   "c": 21.3,
+   "g": 1.9
+  },
+  "avena": {
+   "k": 389,
+   "p": 16.9,
+   "c": 66,
+   "g": 6.9
+  },
+  "copos de avena": {
+   "k": 389,
+   "p": 16.9,
+   "c": 66,
+   "g": 6.9
+  },
+  "porridge": {
+   "k": 150,
+   "p": 5,
+   "c": 25,
+   "g": 3
+  },
+  "avena con leche": {
+   "k": 150,
+   "p": 5,
+   "c": 25,
+   "g": 3
+  },
+  "pan": {
+   "k": 265,
+   "p": 9,
+   "c": 49,
+   "g": 3.2
+  },
+  "pan integral": {
+   "k": 247,
+   "p": 13,
+   "c": 41,
+   "g": 3.4
+  },
+  "pan de molde": {
+   "k": 265,
+   "p": 9,
+   "c": 49,
+   "g": 3.2
+  },
+  "tostada": {
+   "k": 265,
+   "p": 9,
+   "c": 49,
+   "g": 3.2
+  },
+  "tostada integral": {
+   "k": 247,
+   "p": 13,
+   "c": 41,
+   "g": 3.4
+  },
+  "tostada con aguacate": {
+   "k": 230,
+   "p": 4,
+   "c": 20,
+   "g": 16
+  },
+  "tostada con tomate": {
+   "k": 160,
+   "p": 5,
+   "c": 26,
+   "g": 4
+  },
+  "boniato": {
+   "k": 86,
+   "p": 1.6,
+   "c": 20,
+   "g": 0.1
+  },
+  "batata": {
+   "k": 86,
+   "p": 1.6,
+   "c": 20,
+   "g": 0.1
+  },
+  "patata": {
+   "k": 77,
+   "p": 2,
+   "c": 17,
+   "g": 0.1
+  },
+  "patatas fritas": {
+   "k": 312,
+   "p": 3.4,
+   "c": 41,
+   "g": 15
+  },
+  "puré de patata": {
+   "k": 74,
+   "p": 1.8,
+   "c": 17,
+   "g": 0.1
+  },
+  "maíz": {
+   "k": 86,
+   "p": 3.2,
+   "c": 19,
+   "g": 1.2
+  },
+  "brócoli": {
+   "k": 34,
+   "p": 2.8,
+   "c": 7,
+   "g": 0.4
+  },
+  "espinaca": {
+   "k": 23,
+   "p": 2.9,
+   "c": 3.6,
+   "g": 0.4
+  },
+  "espinacas": {
+   "k": 23,
+   "p": 2.9,
+   "c": 3.6,
+   "g": 0.4
+  },
+  "calabacín": {
+   "k": 17,
+   "p": 1.2,
+   "c": 3.1,
+   "g": 0.3
+  },
+  "calabaza": {
+   "k": 26,
+   "p": 1,
+   "c": 6.5,
+   "g": 0.1
+  },
+  "cebolla": {
+   "k": 40,
+   "p": 1.1,
+   "c": 9.3,
+   "g": 0.1
+  },
+  "cebolla morada": {
+   "k": 40,
+   "p": 1.1,
+   "c": 9.3,
+   "g": 0.1
+  },
+  "ajo": {
+   "k": 149,
+   "p": 6.4,
+   "c": 33,
+   "g": 0.5
+  },
+  "pimiento": {
+   "k": 31,
+   "p": 1,
+   "c": 6,
+   "g": 0.3
+  },
+  "pimiento rojo": {
+   "k": 31,
+   "p": 1,
+   "c": 6,
+   "g": 0.3
+  },
+  "tomate": {
+   "k": 18,
+   "p": 0.9,
+   "c": 3.9,
+   "g": 0.2
+  },
+  "jitomate": {
+   "k": 18,
+   "p": 0.9,
+   "c": 3.9,
+   "g": 0.2
+  },
+  "lechuga": {
+   "k": 15,
+   "p": 1.4,
+   "c": 2.9,
+   "g": 0.2
+  },
+  "zanahoria": {
+   "k": 41,
+   "p": 0.9,
+   "c": 10,
+   "g": 0.2
+  },
+  "pepino": {
+   "k": 15,
+   "p": 0.7,
+   "c": 3.6,
+   "g": 0.1
+  },
+  "champiñones": {
+   "k": 22,
+   "p": 3.1,
+   "c": 3.3,
+   "g": 0.3
+  },
+  "setas": {
+   "k": 22,
+   "p": 3.1,
+   "c": 3.3,
+   "g": 0.3
+  },
+  "berenjena": {
+   "k": 25,
+   "p": 1,
+   "c": 6,
+   "g": 0.2
+  },
+  "coliflor": {
+   "k": 25,
+   "p": 1.9,
+   "c": 5,
+   "g": 0.3
+  },
+  "apio": {
+   "k": 16,
+   "p": 0.7,
+   "c": 3,
+   "g": 0.2
+  },
+  "puerro": {
+   "k": 61,
+   "p": 1.5,
+   "c": 14,
+   "g": 0.3
+  },
+  "judías verdes": {
+   "k": 31,
+   "p": 1.8,
+   "c": 7,
+   "g": 0.1
+  },
+  "guisantes": {
+   "k": 81,
+   "p": 5.4,
+   "c": 14,
+   "g": 0.4
+  },
+  "maíz dulce": {
+   "k": 86,
+   "p": 3.2,
+   "c": 19,
+   "g": 1.2
+  },
+  "alcachofa": {
+   "k": 47,
+   "p": 3.3,
+   "c": 11,
+   "g": 0.2
+  },
+  "remolacha": {
+   "k": 43,
+   "p": 1.6,
+   "c": 10,
+   "g": 0.2
+  },
+  "col": {
+   "k": 25,
+   "p": 1.3,
+   "c": 5.8,
+   "g": 0.1
+  },
+  "plátano": {
+   "k": 89,
+   "p": 1.1,
+   "c": 23,
+   "g": 0.3
+  },
+  "manzana": {
+   "k": 52,
+   "p": 0.3,
+   "c": 14,
+   "g": 0.2
+  },
+  "naranja": {
+   "k": 47,
+   "p": 0.9,
+   "c": 12,
+   "g": 0.1
+  },
+  "fresa": {
+   "k": 32,
+   "p": 0.7,
+   "c": 7.7,
+   "g": 0.3
+  },
+  "frutos rojos": {
+   "k": 50,
+   "p": 0.7,
+   "c": 12,
+   "g": 0.3
+  },
+  "uvas": {
+   "k": 69,
+   "p": 0.7,
+   "c": 18,
+   "g": 0.2
+  },
+  "pera": {
+   "k": 57,
+   "p": 0.4,
+   "c": 15,
+   "g": 0.1
+  },
+  "melocotón": {
+   "k": 39,
+   "p": 0.9,
+   "c": 10,
+   "g": 0.3
+  },
+  "sandía": {
+   "k": 30,
+   "p": 0.6,
+   "c": 7.6,
+   "g": 0.2
+  },
+  "limón": {
+   "k": 29,
+   "p": 1.1,
+   "c": 9.3,
+   "g": 0.3
+  },
+  "kiwi": {
+   "k": 61,
+   "p": 1.1,
+   "c": 15,
+   "g": 0.5
+  },
+  "mango": {
+   "k": 60,
+   "p": 0.8,
+   "c": 15,
+   "g": 0.4
+  },
+  "piña": {
+   "k": 50,
+   "p": 0.5,
+   "c": 13,
+   "g": 0.1
+  },
+  "cerezas": {
+   "k": 50,
+   "p": 1,
+   "c": 12,
+   "g": 0.3
+  },
+  "ciruelas": {
+   "k": 46,
+   "p": 0.7,
+   "c": 11,
+   "g": 0.3
+  },
+  "melón": {
+   "k": 34,
+   "p": 0.8,
+   "c": 8,
+   "g": 0.1
+  },
+  "nueces": {
+   "k": 654,
+   "p": 15,
+   "c": 14,
+   "g": 65
+  },
+  "almendras": {
+   "k": 579,
+   "p": 21,
+   "c": 22,
+   "g": 49
+  },
+  "cacahuetes": {
+   "k": 567,
+   "p": 26,
+   "c": 16,
+   "g": 49
+  },
+  "avellanas": {
+   "k": 628,
+   "p": 15,
+   "c": 17,
+   "g": 61
+  },
+  "pipas": {
+   "k": 575,
+   "p": 23,
+   "c": 20,
+   "g": 49
+  },
+  "semillas de chía": {
+   "k": 486,
+   "p": 16,
+   "c": 42,
+   "g": 31
+  },
+  "semillas de girasol": {
+   "k": 584,
+   "p": 21,
+   "c": 20,
+   "g": 51
+  },
+  "piñones": {
+   "k": 673,
+   "p": 14,
+   "c": 13,
+   "g": 68
+  },
+  "marañón": {
+   "k": 553,
+   "p": 18,
+   "c": 30,
+   "g": 44
+  },
+  "leche": {
+   "k": 61,
+   "p": 3.2,
+   "c": 4.8,
+   "g": 3.3
+  },
+  "leche entera": {
+   "k": 61,
+   "p": 3.2,
+   "c": 4.8,
+   "g": 3.3
+  },
+  "leche semidesnatada": {
+   "k": 50,
+   "p": 3.4,
+   "c": 5,
+   "g": 2
+  },
+  "leche desnatada": {
+   "k": 34,
+   "p": 3.4,
+   "c": 5,
+   "g": 0.1
+  },
+  "leche de almendra": {
+   "k": 15,
+   "p": 0.6,
+   "c": 0.3,
+   "g": 1.2
+  },
+  "leche de soja": {
+   "k": 33,
+   "p": 2.8,
+   "c": 1.6,
+   "g": 1.8
+  },
+  "leche de avena": {
+   "k": 40,
+   "p": 1,
+   "c": 6.5,
+   "g": 1.5
+  },
+  "leche de coco": {
+   "k": 230,
+   "p": 2.3,
+   "c": 6,
+   "g": 24
+  },
+  "café": {
+   "k": 2,
+   "p": 0.3,
+   "c": 0,
+   "g": 0
+  },
+  "café con leche": {
+   "k": 30,
+   "p": 1.5,
+   "c": 2.5,
+   "g": 1.5
+  },
+  "café con leche entera": {
+   "k": 40,
+   "p": 1.5,
+   "c": 3,
+   "g": 2.5
+  },
+  "té": {
+   "k": 1,
+   "p": 0,
+   "g": 0
+  },
+  "zumo de naranja": {
+   "k": 45,
+   "p": 0.7,
+   "c": 10,
+   "g": 0.2
+  },
+  "zumo": {
+   "k": 45,
+   "p": 0.5,
+   "c": 11,
+   "g": 0.1
+  },
+  "batido": {
+   "k": 100,
+   "p": 4,
+   "c": 15,
+   "g": 2
+  },
+  "coca-cola": {
+   "k": 42,
+   "p": 0,
+   "g": 0
+  },
+  "cerveza": {
+   "k": 43,
+   "p": 0.5,
+   "c": 3.6,
+   "g": 0
+  },
+  "vino tinto": {
+   "k": 85,
+   "p": 0.1,
+   "c": 2.6,
+   "g": 0
+  },
+  "aceite de oliva": {
+   "k": 884,
+   "p": 0,
+   "c": 0,
+   "g": 100
+  },
+  "aceite": {
+   "k": 884,
+   "p": 0,
+   "c": 0,
+   "g": 100
+  },
+  "mantequilla": {
+   "k": 717,
+   "p": 0.9,
+   "c": 0.1,
+   "g": 81
+  },
+  "mayonesa": {
+   "k": 680,
+   "p": 1,
+   "c": 1,
+   "g": 75
+  },
+  "ketchup": {
+   "k": 112,
+   "p": 1.7,
+   "c": 26,
+   "g": 0.1
+  },
+  "mayonesa light": {
+   "k": 390,
+   "p": 1,
+   "c": 3,
+   "g": 42
+  },
+  "salsa de soja": {
+   "k": 53,
+   "p": 8,
+   "c": 5,
+   "g": 0
+  },
+  "salsa teriyaki": {
+   "k": 89,
+   "p": 5,
+   "c": 16,
+   "g": 0
+  },
+  "pesto": {
+   "k": 378,
+   "p": 4,
+   "c": 4,
+   "g": 39
+  },
+  "hummus": {
+   "k": 166,
+   "p": 8,
+   "c": 14,
+   "g": 10
+  },
+  "guacamole": {
+   "k": 150,
+   "p": 2,
+   "c": 9,
+   "g": 13
+  },
+  "mostaza": {
+   "k": 66,
+   "p": 4,
+   "c": 6,
+   "g": 3
+  },
+  "ensalada": {
+   "k": 20,
+   "p": 1.5,
+   "c": 3.5,
+   "g": 0.3
+  },
+  "ensalada mixta": {
+   "k": 65,
+   "p": 3,
+   "c": 4,
+   "g": 4
+  },
+  "ensalada con pollo": {
+   "k": 120,
+   "p": 15,
+   "c": 5,
+   "g": 4
+  },
+  "ensalada cesar": {
+   "k": 180,
+   "p": 16,
+   "c": 6,
+   "g": 10
+  },
+  "sándwich": {
+   "k": 250,
+   "p": 12,
+   "c": 28,
+   "g": 10
+  },
+  "bocadillo": {
+   "k": 250,
+   "p": 12,
+   "c": 28,
+   "g": 10
+  },
+  "hummus con pan": {
+   "k": 180,
+   "p": 6,
+   "c": 18,
+   "g": 9
+  },
+  "wrap": {
+   "k": 230,
+   "p": 10,
+   "c": 30,
+   "g": 8
+  },
+  "pizza": {
+   "k": 266,
+   "p": 11,
+   "c": 33,
+   "g": 10
+  },
+  "hamburguesa": {
+   "k": 295,
+   "p": 17,
+   "c": 24,
+   "g": 13
+  },
+  "bocadillo de pollo": {
+   "k": 250,
+   "p": 18,
+   "c": 22,
+   "g": 9
+  },
+  "pasta con tomate": {
+   "k": 130,
+   "p": 4,
+   "c": 25,
+   "g": 1.5
+  },
+  "pasta con pesto": {
+   "k": 200,
+   "p": 5,
+   "c": 22,
+   "g": 10
+  },
+  "pasta con boloñesa": {
+   "k": 160,
+   "p": 9,
+   "c": 20,
+   "g": 5
+  },
+  "arroz con pollo": {
+   "k": 180,
+   "p": 14,
+   "c": 22,
+   "g": 4
+  },
+  "arroz con verduras": {
+   "k": 120,
+   "p": 3,
+   "c": 22,
+   "g": 2
+  },
+  "lentejas con arroz": {
+   "k": 130,
+   "p": 8,
+   "c": 20,
+   "g": 2
+  },
+  "guiso": {
+   "k": 120,
+   "p": 8,
+   "c": 12,
+   "g": 3
+  },
+  "pisto": {
+   "k": 60,
+   "p": 2,
+   "c": 7,
+   "g": 3
+  },
+  "crema de verduras": {
+   "k": 45,
+   "p": 2,
+   "c": 6,
+   "g": 1.5
+  },
+  "sopa": {
+   "k": 30,
+   "p": 1.5,
+   "c": 5,
+   "g": 0.3
+  },
+  "salmorejo": {
+   "k": 120,
+   "p": 3,
+   "c": 10,
+   "g": 8
+  },
+  "gazpacho": {
+   "k": 40,
+   "p": 1.5,
+   "c": 6,
+   "g": 1
+  },
+  "croquetas": {
+   "k": 280,
+   "p": 10,
+   "c": 22,
+   "g": 17
+  },
+  "empanada": {
+   "k": 320,
+   "p": 10,
+   "c": 35,
+   "g": 16
+  },
+  "churros": {
+   "k": 370,
+   "p": 5,
+   "c": 44,
+   "g": 20
+  },
+  "dátiles": {
+   "k": 277,
+   "p": 1.8,
+   "c": 75,
+   "g": 0.2
+  },
+  "fruta": {
+   "k": 50,
+   "p": 0.5,
+   "c": 12,
+   "g": 0.3
+  }
+ },
+ "SHOP_RESET_CATS": [
+  {
+   "t": "Proteínas animales",
+   "items": [
+    "Pechuga de pollo",
+    "Carne picada de ternera",
+    "Salmón fresco",
+    "Pescado blanco (merluza, lubina, dorada)",
+    "Caballa en lata",
+    "Bonito / atún al natural <small>(opcional, si no usas la caballa o sardinas)</small>",
+    "Sardinas en lata",
+    "Jamón serrano / ibérico · Pavo en lonchas · Salmón ahumado <small>(puedes rotarlos)</small>",
+    "Huevos"
+   ]
+  },
+  {
+   "t": "Lácteos y fermentados",
+   "items": [
+    "Yogur griego natural",
+    "Yogur de cabra",
+    "Kéfir de cabra / oveja",
+    "Queso feta",
+    "Mozzarella rallada"
+   ]
+  },
+  {
+   "t": "Hidratos de carbono",
+   "items": [
+    "Avena en copos",
+    "Pan integral de espelta / centeno / masa madre",
+    "Arroz vaporizado",
+    "Quinoa",
+    "Patata",
+    "Boniato",
+    "Tortillas integrales <small>(fajitas)</small>",
+    "Harina de trigo sarraceno / avena molida"
+   ]
+  },
+  {
+   "t": "Grasas saludables",
+   "items": [
+    "Aceite de oliva virgen extra",
+    "Aguacate",
+    "Guacamole",
+    "Almendras / nueces / avellanas",
+    "Semillas de lino / sésamo"
+   ]
+  },
+  {
+   "t": "Verduras y hortalizas",
+   "items": [
+    "Espinacas",
+    "Brócoli",
+    "Calabacín / Pepino",
+    "Zanahoria",
+    "Pimiento",
+    "Espárragos trigueros",
+    "Tomate / cherry",
+    "Cebolla",
+    "Ajo",
+    "Calabaza"
+   ]
+  },
+  {
+   "t": "Otros / Extras",
+   "items": [
+    "Cacao puro en polvo sin azúcar",
+    "Chocolate negro &gt;85%",
+    "Miel",
+    "Salsa de soja <small>(opcional)</small>",
+    "Salsa pesto <small>(opcional)</small>",
+    "Salsa de tomate natural sin azúcar",
+    "Vinagre de sidra de manzana",
+    "Chucrut",
+    "Bebida de almendras 0%",
+    "Especias <small>(cúrcuma, pimienta negra, pimentón, comino, orégano, canela)</small>",
+    "Sal marina / sal fina"
+   ]
+  },
+  {
+   "t": "Frutas rotativas",
+   "items": [
+    "Plátano",
+    "Manzana",
+    "Pera",
+    "Mandarina",
+    "Kiwi",
+    "Piña",
+    "Melón",
+    "Papaya",
+    "Mango",
+    "Uvas",
+    "Frutos rojos <small>(fresas, arándanos, frambuesas)</small>"
+   ]
+  }
+ ],
+ "SHOP_PESO_CATS": [
+  {
+   "t": "Proteínas",
+   "items": [
+    "Pechuga de pollo",
+    "Pavo (pechuga o lonchas)",
+    "Ternera magra",
+    "Merluza u otro pescado blanco",
+    "Salmón fresco",
+    "Huevos",
+    "Yogures naturales altos en proteína"
+   ]
+  },
+  {
+   "t": "Carbohidratos",
+   "items": [
+    "Arroz",
+    "Patatas",
+    "Pasta integral",
+    "Avena en copos",
+    "Pan integral",
+    "Lentejas o garbanzos"
+   ]
+  },
+  {
+   "t": "Frutas",
+   "items": [
+    "Plátanos",
+    "Manzanas",
+    "Kiwis",
+    "Naranjas",
+    "Fresas o frutos rojos",
+    "Peras"
+   ]
+  },
+  {
+   "t": "Verduras y hortalizas",
+   "items": [
+    "Brócoli",
+    "Calabacín",
+    "Pimientos",
+    "Tomate",
+    "Lechuga",
+    "Espinacas",
+    "Zanahoria",
+    "Cebolla"
+   ]
+  },
+  {
+   "t": "Grasas y complementos",
+   "items": [
+    "Aceite de oliva virgen extra",
+    "Almendras",
+    "Nueces",
+    "Canela",
+    "Especias <small>(pimienta, pimentón, orégano…)</small>"
+   ]
+  }
+ ],
+ "PESO_PAUTAS": [
+  "Media mañana y merienda: fruta, yogur alto en proteína o un puñado de frutos secos.",
+  "Proteína en comida y cena (150 g aprox. de carne o pescado).",
+  "Verduras en al menos dos comidas al día.",
+  "Hidratos en desayuno, comida y cena (arroz, patata, pasta o pan integrales).",
+  "Cena ligera: tortilla, pescado blanco o pavo con ensalada.",
+  "Unos 2 L de agua al día; AOVE con moderación (1 cucharada)."
+ ],
+ "SHOP_SKIP": [
+  "agua con pizca",
+  "vitamina",
+  "magnesio",
+  "omega",
+  "proteina en polvo"
+ ],
+ "SHOP_DISPLAY": {
+  "15 min antes: chupito de vinagre de sidra de manzana en agua": "Vinagre de sidra de manzana",
+  "Arroz vaporizado en seco (~240 g cocido)": "Arroz vaporizado",
+  "Arroz vaporizado en seco (~300 g cocido)": "Arroz vaporizado",
+  "Arroz vaporizado en seco": "Arroz vaporizado",
+  "Aguacate / 50 g guacamole": "Aguacate",
+  "Aguacate / 80 g guacamole": "Aguacate",
+  "Quinoa en seco (~240 g cocida)": "Quinoa",
+  "Quinoa en seco, lavada previamente": "Quinoa",
+  "Patata cocida": "Patata",
+  "Patata cocida / horno / airfryer": "Patata",
+  "Patata asada": "Patata",
+  "Patata cocida en dados": "Patata",
+  "Patata / 250 g boniato asado o airfryer": "Patata o boniato",
+  "Boniato airfryer / asado": "Boniato",
+  "Calabaza al airfryer": "Calabaza",
+  "Calabaza asada": "Calabaza",
+  "Ñoquis de patata (250 g)": "Ñoquis",
+  "Pasta de lenteja roja (80 g en seco)": "Pasta de lenteja roja",
+  "Caballa / sardinas": "Lata de pescado (caballa, sardinas)",
+  "Caballa / bonito": "Lata de pescado (caballa, sardinas)",
+  "Caballa / atún / bonito": "Lata de pescado (caballa, sardinas)",
+  "Bonito / atún / boquerones": "Lata de pescado (caballa, sardinas)",
+  "Sardinas": "Lata de pescado (caballa, sardinas)",
+  "Huevos revueltos": "Huevos",
+  "Huevos cocidos": "Huevos",
+  "Huevos cocidos salteados con AOVE": "Huevos",
+  "Yogur griego natural": "Yogur griego",
+  "Yogur de cabra / oveja": "Yogur de cabra",
+  "Yogur de cabra + cacao puro + frutos rojos": "Yogur de cabra",
+  "Yogur de coco natural": "Yogur de coco",
+  "Kéfir de cabra/oveja + frutos rojos + canela": "Kéfir de cabra/oveja",
+  "Salmón especiado (sal, pimienta, limón)": "Salmón",
+  "Salmón fresco con limón y especias": "Salmón",
+  "Atún en dados": "Atún",
+  "Pescado blanco (merluza, lubina, dorada)": "Pescado blanco",
+  "Lubina": "Pescado blanco",
+  "Merluza": "Pescado blanco",
+  "Pescado (merluza o salmón)": "Pescado blanco",
+  "Carne picada de ternera especiada + tomate natural sin azúcar": "Carne picada de ternera",
+  "Carne picada / entrecot / chuletas de ternera": "Ternera",
+  "Pechuga de pollo especiada (cúrcuma y pimienta)": "Pechuga de pollo",
+  "Pollo o pavo en tiras (o atún)": "Pollo o pavo",
+  "Pan integral de espelta o centeno (2 rebanadas)": "Pan integral",
+  "Pan integral de centeno (2 rebanadas)": "Pan integral",
+  "Tortillas integrales / 100 g avena molida": "Tortillas integrales o avena molida",
+  "Frutos secos (nueces, almendras, avellanas)": "Frutos secos",
+  "Plátano machacado": "Plátano",
+  "Miel natural": "Miel",
+  "Café / descafeinado espresso": "Café",
+  "Café solo o con bebida de almendras 0%": "Café",
+  "Bebida de almendras 0%": "Bebida de almendras",
+  "Queso feta desmenuzado": "Queso feta",
+  "Tomate fresco, sal y especias": "Tomate",
+  "Tomate rallado o en rodajas": "Tomate",
+  "Zanahoria rallada o cocida": "Zanahoria",
+  "Brócoli cocido": "Brócoli",
+  "Espinacas salteadas": "Espinacas",
+  "Espárragos trigueros + champiñones salteados": "Espárragos y champiñones",
+  "Sal, pimienta y pimentón": "Sal y especias",
+  "Especias: cúrcuma, pimentón, comino, orégano": "Especias",
+  "Verduras salteadas: calabacín, pimiento, espárragos verdes, ajo": "Verduras para saltear",
+  "Zumo de lima o limón al final": "Limones",
+  "Yogur griego para aliñar + AOVE + sal": "Yogur griego",
+  "Yogur griego para salsa + limón + sal + AOVE": "Yogur griego",
+  "Puré caliente de calabaza / calabacín / zanahoria": "Calabaza, calabacín y zanahoria",
+  "½ pimiento rojo + ½ verde, ½ cebolla, ½ calabacín": "Pimientos, cebolla y calabacín",
+  "Canónigos + tomate + cebolla pochada": "Canónigos, tomate y cebolla",
+  "Espinacas y brócoli de acompañamiento": "Espinacas y brócoli",
+  "Pepino o calabacín + zanahoria rallada + espinacas": "Pepino, calabacín, zanahoria y espinacas",
+  "Rúcula o espinaca fresca": "Rúcula o espinacas",
+  "Tomate cherry o natural": "Tomate",
+  "Manzana / pera / mandarina / kiwi": "Fruta variada",
+  "Fruta (postre)": "Fruta variada",
+  "Pavo en lonchas / salmón ahumado / jamón ibérico": "Fiambre (pavo, salmón o jamón)",
+  "Crema de almendras / nueces de Brasil / anacardos": "Crema de frutos secos",
+  "Semillas de lino o chía": "Semillas",
+  "Semillas (sésamo, lino, chía)": "Semillas",
+  "Semillas de sésamo o lino": "Semillas",
+  "Puñado de frutos secos o crema de almendras": "Frutos secos",
+  "Salsa pesto o soja": "Pesto o salsa de soja",
+  "Chorrito de salsa de soja para el salmón": "Salsa de soja",
+  "Chorrito final de AOVE": "AOVE",
+  "AOVE + limón": "AOVE",
+  "AOVE + sal + especias suaves (cúrcuma, jengibre)": "AOVE",
+  "Cacao puro + canela": "Cacao puro sin azúcar",
+  "Boniato asado": "Boniato",
+  "Huevos cocidos o a la plancha": "Huevos",
+  "Miel (postre)": "Miel",
+  "Yogur griego + frutos rojos + canela": "Yogur griego",
+  "Pescado blanco o azul (merluza, salmón)": "Pescado blanco",
+  "Mozzarella rallada / queso feta / guacamole": "Queso feta",
+  "Pesto": "Pesto o salsa de soja",
+  "Espinacas o rúcula salteadas": "Rúcula o espinacas",
+  "Espárragos trigueros salteados": "Espárragos trigueros",
+  "Cebolla pochada": "Cebolla",
+  "Avena remojada": "Avena"
+ },
+ "ALERGIAS": [
+  "Lácteos",
+  "Frutos secos",
+  "Pescado",
+  "Otra…",
+  "Ninguna"
+ ],
+ "PLANS": {
+  "starter": {
+   "name": "Starter",
+   "price": "6 €/mes",
+   "tagline": "Tu dieta, sin extras",
+   "features": [
+    "Dieta personalizada",
+    "Menú semanal completo con recetas y cantidades",
+    "Sustituciones y filtrado por alergias"
+   ]
+  },
+  "pro": {
+   "name": "Pro",
+   "price": "20 €/mes",
+   "tagline": "Plan dinámico con ajuste mensual",
+   "features": [
+    "Plan dinámico con ajuste mensual",
+    "Chat limitado para resolver dudas",
+    "Lista de la compra semanal"
+   ]
+  },
+  "premium": {
+   "name": "Premium",
+   "price": "30 €/mes",
+   "tagline": "Seguimiento continuo y personalizado",
+   "features": [
+    "Seguimiento continuo personalizado",
+    "Feedback sobre tus comidas",
+    "Atención prioritaria sin esperas"
+   ]
+  }
+ },
+ "EVAL_Q": [
+  {
+   "k": "energia",
+   "label": "Energía general",
+   "type": "scale5",
+   "opts": [
+    "Mala",
+    "Regular",
+    "Normal",
+    "Buena",
+    "Óptima"
+   ]
+  },
+  {
+   "k": "adherencia",
+   "label": "Adherencia al plan",
+   "type": "scale5",
+   "opts": [
+    "Me cuesta mucho",
+    "Regular",
+    "Normal",
+    "Buena",
+    "Sin problema"
+   ]
+  },
+  {
+   "k": "digestion",
+   "label": "Digestión",
+   "type": "scale5",
+   "opts": [
+    "Mala",
+    "Regular",
+    "Normal",
+    "Buena",
+    "Muy buena"
+   ]
+  },
+  {
+   "k": "hambre",
+   "label": "Hambre / Saciedad",
+   "type": "scale5",
+   "opts": [
+    "Siempre con hambre",
+    "Hambre frecuente",
+    "Bien",
+    "Saciedad alta",
+    "Sin hambre y saciado"
+   ]
+  },
+  {
+   "k": "sueno",
+   "label": "Sueño promedio",
+   "type": "hours"
+  },
+  {
+   "k": "estres",
+   "label": "Estrés semanal",
+   "type": "range10",
+   "invert": true
+  },
+  {
+   "k": "hidratacion",
+   "label": "Nivel de hidratación",
+   "type": "range10",
+   "invert": false
+  },
+  {
+   "k": "peso",
+   "label": "Peso",
+   "type": "kg"
+  },
+  {
+   "k": "rendimiento",
+   "label": "Rendimiento",
+   "type": "scale5",
+   "opts": [
+    "Malo",
+    "Regular",
+    "Normal",
+    "Bueno",
+    "Muy bueno"
+   ]
+  }
+ ],
+ "EVAL_SHORT": {
+  "energia": "Energía",
+  "adherencia": "Adherencia",
+  "digestion": "Digestión",
+  "hambre": "Hambre/Sac.",
+  "sueno": "Sueño (h)",
+  "estres": "Estrés",
+  "hidratacion": "Hidratación",
+  "peso": "Peso (kg)",
+  "rendimiento": "Rendimiento"
+ },
+ "DAY_TAGS": {
+  "Lunes": "LOW HC · Recovery",
+  "Martes": "LOW-MED HC · Gym",
+  "Miércoles": "MED HC",
+  "Jueves": "MOD HC",
+  "Viernes": "HIGH HC · Pre-match",
+  "Sábado": "HIGH HC",
+  "Domingo": "MODERATE HC · Recovery"
+ },
+ "FIXED_WEEK": {
+  "Lunes": {
+   "desayuno": "Yogur griego proteico con cacao y frutos rojos",
+   "comida": "Pollo con arroz vaporizado y espinacas",
+   "cena": "Salmón con boniato asado y espárragos"
+  },
+  "Martes": {
+   "desayuno": "Tostadas de espelta con huevos, pavo y aguacate",
+   "comida": "Quinoa con caballa, huevo y verduras salteadas",
+   "cena": "Pescado blanco con patata cocida y verduras"
+  },
+  "Miércoles": {
+   "desayuno": "Yogur griego proteico con cacao y frutos rojos",
+   "comida": "Ternera especiada con boniato y espárragos",
+   "cena": "Poke bowl de salmón, quinoa y feta"
+  },
+  "Jueves": {
+   "desayuno": "Tostadas de espelta con huevos, pavo y aguacate",
+   "comida": "Arroz vaporizado con caballa y huevo cocido",
+   "cena": "Fajitas integrales de pollo o pizza casera"
+  },
+  "Viernes": {
+   "desayuno": "Porridge overnight de avena con plátano",
+   "comida": "Pollo con arroz vaporizado y aguacate",
+   "cena": "Hamburguesa completa con boniato asado"
+  },
+  "Sábado": {
+   "desayuno": "Tostadas de espelta con huevos revueltos y aguacate",
+   "comida": "Ensaladilla rusa casera con caballa",
+   "cena": "Hamburguesa completa con boniato asado"
+  },
+  "Domingo": {
+   "desayuno": "Ayuno metabólico / Bulletproof Coffee",
+   "comida": "Ternera con aguacate, rúcula y yogur griego",
+   "cena": "Pescado con puré vegetal y salsa de yogur"
+  }
+ },
+ "DERIVED": {
+  "Yogur de cabra proteico con fresas y nueces": [
+   "Yogur griego proteico con cacao y frutos rojos",
+   {
+    "Yogur griego natural": "Yogur de cabra / oveja",
+    "Frutos rojos": "Fresas",
+    "Crema de almendras / nueces de Brasil / anacardos": "Frutos secos (nueces, almendras, avellanas)",
+    "Chocolate negro >85%": null,
+    "Cacao puro sin azúcar": null
+   }
+  ],
+  "Pavo con quinoa y brócoli": [
+   "Pollo con arroz vaporizado y espinacas",
+   {
+    "Pechuga de pollo especiada (cúrcuma y pimienta)": "Pechuga de pavo",
+    "Arroz vaporizado en seco (~240 g cocido)": "Quinoa en seco (~240 g cocida)"
+   }
+  ],
+  "Trucha con patata asada y judías verdes": [
+   "Salmón con boniato asado y espárragos",
+   {
+    "Salmón fresco con limón y especias": "Trucha",
+    "Patata / 250 g boniato asado o airfryer": "Patata asada",
+    "Espárragos trigueros + champiñones salteados": "Judías verdes",
+    "Yogur de cabra + cacao puro + frutos rojos": null
+   }
+  ],
+  "Pan Wasa con salmón ahumado y aguacate": [
+   "Tostadas de espelta con huevos, pavo y aguacate",
+   {
+    "Pan integral de espelta o centeno (2 rebanadas)": "Pan Wasa",
+    "Pavo en lonchas / salmón ahumado / jamón ibérico": "Salmón ahumado"
+   }
+  ],
+  "Boniato con atún y huevo cocido": [
+   "Arroz vaporizado con caballa y huevo cocido",
+   {
+    "Arroz vaporizado en seco": "Boniato asado",
+    "Caballa / sardinas": "Bonito / atún / boquerones"
+   }
+  ],
+  "Lubina con calabaza asada y espinacas": [
+   "Pescado blanco con patata cocida y verduras",
+   {
+    "Pescado blanco (merluza, lubina, dorada)": "Lubina",
+    "Patata cocida / horno / airfryer": "Calabaza asada",
+    "Espinacas y brócoli de acompañamiento": "Espinacas salteadas"
+   }
+  ],
+  "Solomillo de cerdo con boniato y espárragos": [
+   "Ternera especiada con boniato y espárragos",
+   {
+    "Carne picada de ternera especiada + tomate natural sin azúcar": "Solomillo de cerdo"
+   }
+  ],
+  "Poke bowl de atún, quinoa y mozzarella": [
+   "Poke bowl de salmón, quinoa y feta",
+   {
+    "Salmón especiado (sal, pimienta, limón)": "Atún en dados",
+    "Queso feta desmenuzado": "Mozzarella"
+   }
+  ],
+  "Patata con sardinas y verduras salteadas": [
+   "Arroz vaporizado con caballa y huevo cocido",
+   {
+    "Arroz vaporizado en seco": "Patata cocida"
+   }
+  ],
+  "Pavo con arroz vaporizado y aguacate": [
+   "Pollo con arroz vaporizado y aguacate",
+   {
+    "Pechuga de pollo especiada (cúrcuma y pimienta)": "Pechuga de pavo"
+   }
+  ],
+  "Hamburguesa de cerdo con boniato asado": [
+   "Hamburguesa completa con boniato asado",
+   {
+    "Carne picada de ternera": "Carne picada de cerdo"
+   }
+  ],
+  "Requesón con miel, nueces y fresas": [
+   "Yogur griego proteico con cacao y frutos rojos",
+   {
+    "Yogur griego natural": "Requesón",
+    "Proteína en polvo": null,
+    "Cacao puro sin azúcar": null,
+    "Frutos rojos": "Fresas",
+    "Crema de almendras / nueces de Brasil / anacardos": "Frutos secos (nueces, almendras, avellanas)",
+    "Chocolate negro >85%": null
+   }
+  ],
+  "Ternera con patata y espinacas": [
+   "Pollo con arroz vaporizado y espinacas",
+   {
+    "Pechuga de pollo especiada (cúrcuma y pimienta)": "Carne picada de ternera",
+    "Arroz vaporizado en seco (~240 g cocido)": "Patata cocida"
+   }
+  ],
+  "Sardinas con boniato y ensalada verde": [
+   "Salmón con boniato asado y espárragos",
+   {
+    "Salmón fresco con limón y especias": "Sardinas",
+    "Patata / 250 g boniato asado o airfryer": "Boniato asado",
+    "Espárragos trigueros + champiñones salteados": "Mezcla de hojas verdes",
+    "Yogur de cabra + cacao puro + frutos rojos": null
+   }
+  ],
+  "Tortitas de arroz con huevo y pavo": [
+   "Tostadas de espelta con huevos, pavo y aguacate",
+   {
+    "Pan integral de espelta o centeno (2 rebanadas)": "Tortitas de arroz",
+    "Huevos revueltos": "Huevos cocidos"
+   }
+  ],
+  "Calabaza con caballa y huevo": [
+   "Arroz vaporizado con caballa y huevo cocido",
+   {
+    "Arroz vaporizado en seco": "Calabaza asada"
+   }
+  ],
+  "Filete magro de cerdo con quinoa y verduras": [
+   "Quinoa con caballa, huevo y verduras salteadas",
+   {
+    "Caballa / bonito": "Filete magro de cerdo"
+   }
+  ],
+  "Pollo con ñoquis y espinacas": [
+   "Pollo con arroz vaporizado y aguacate",
+   {
+    "Arroz vaporizado en seco (~300 g cocido)": "Ñoquis de patata (250 g)"
+   }
+  ],
+  "Hamburguesa de pollo con boniato asado": [
+   "Hamburguesa completa con boniato asado",
+   {
+    "Carne picada de ternera": "Carne picada de pollo"
+   }
+  ],
+  "Entrecot con ensalada y yogur griego": [
+   "Ternera con aguacate, rúcula y yogur griego",
+   {
+    "Carne picada / entrecot / chuletas de ternera": "Entrecot"
+   }
+  ],
+  "Yogur de coco con mango y semillas": [
+   "Yogur griego proteico con cacao y frutos rojos",
+   {
+    "Yogur griego natural": "Yogur de coco natural",
+    "Frutos rojos": "Mango",
+    "Chocolate negro >85%": null,
+    "Cacao puro sin azúcar": null
+   }
+  ],
+  "Pollo con pasta de lenteja roja y brócoli": [
+   "Pollo con arroz vaporizado y espinacas",
+   {
+    "Arroz vaporizado en seco (~240 g cocido)": "Pasta de lenteja roja (80 g en seco)"
+   }
+  ],
+  "Salmón con calabaza y espárragos": [
+   "Salmón con boniato asado y espárragos",
+   {
+    "Patata / 250 g boniato asado o airfryer": "Calabaza asada"
+   }
+  ],
+  "Arroz con bonito y verduras": [
+   "Arroz vaporizado con caballa y huevo cocido",
+   {
+    "Caballa / sardinas": "Bonito / atún / boquerones"
+   }
+  ],
+  "Bowl de trucha, patata y feta": [
+   "Poke bowl de salmón, quinoa y feta",
+   {
+    "Salmón especiado (sal, pimienta, limón)": "Trucha",
+    "Quinoa en seco, lavada previamente": "Patata cocida en dados"
+   }
+  ],
+  "Tostadas de centeno con huevos y salmón ahumado": [
+   "Tostadas de espelta con huevos, pavo y aguacate",
+   {
+    "Pavo en lonchas / salmón ahumado / jamón ibérico": "Salmón ahumado",
+    "Pan integral de espelta o centeno (2 rebanadas)": "Pan integral de centeno (2 rebanadas)"
+   }
+  ],
+  "Hamburguesa completa con patata asada": [
+   "Hamburguesa completa con boniato asado",
+   {
+    "Boniato asado": "Patata asada"
+   }
+  ]
+ },
+ "DIAS": [
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+  "Domingo"
+ ],
+ "ACT_FACTORS": {
+  "sedentario": 1.2,
+  "ligero": 1.375,
+  "moderado": 1.55,
+  "intenso": 1.725
+ },
+ "ALLERGEN_RX": [
+  [
+   "Lácteos",
+   {}
+  ],
+  [
+   "Pescado",
+   {}
+  ],
+  [
+   "Frutos secos",
+   {}
+  ]
+ ],
+ "SUP": "SUP"
+}

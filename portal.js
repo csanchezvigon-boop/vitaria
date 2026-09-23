@@ -869,7 +869,7 @@ Object.assign(NDATA,{
 'Tortilla de huevos con ensalada y patata cocida':{kcal:420,p:24,c:30,g:20},'Pechuga de pavo con ensalada y arroz':{kcal:470,p:35,c:38,g:16},'Salmón con brócoli y ensalada':{kcal:450,p:32,c:15,g:22},'Tortilla de verduras con ensalada':{kcal:380,p:22,c:22,g:18},'Merluza con patata y ensalada':{kcal:430,p:34,c:35,g:14},'Pollo a la plancha con ensalada y patata':{kcal:460,p:36,c:32,g:17},'Pavo con ensalada y patata':{kcal:440,p:34,c:30,g:16},'Salmón con verduras y patata':{kcal:460,p:33,c:30,g:18},'Pollo con verduras y arroz':{kcal:470,p:36,c:35,g:15},'Merluza con verduras y patata':{kcal:420,p:33,c:30,g:13},'Pollo con ensalada y arroz':{kcal:450,p:35,c:33,g:15},'Salmón con ensalada y patata':{kcal:450,p:33,c:28,g:17}
 });
 function currentUser(){const s=getSession();return s?(getUsers().find(u=>u.email===s)||null):null;}
-function saveUser(u){setUsers(getUsers().map(x=>x.email===u.email?u:x));}
+function saveUser(u){setUsers(getUsers().map(x=>x.email===u.email?u:x));u._syncAt=Date.now();scheduleUserSync(u);}
 function getND(name){return NDATA[name]||DEFAULT_NDATA;}
 function todayIndex(){const d=new Date().getDay();return d===0?6:d-1;}
 function getDayIndex(dt){const d=dt.getDay();return d===0?6:d-1;}
@@ -926,22 +926,56 @@ function apiGet(path){
     .then(r=>{if(!r.ok)throw new Error(r.j&&r.j.detail?r.j.detail:('HTTP '+r.status));return r.j;});
 }
 function isApiAvailable(){try{return !!window.fetch&&/^https?:$/.test(location.protocol);}catch(e){return false;}}
-function apiSyncUser(dest){
-  if(!isApiAvailable())return dest;
+
+/* --- Sync de TODO el estado del usuario (menú, consumos, bienestar) a Supabase ---
+   El backend persiste el objeto completo del portal en `users.data` (JSON) vía
+   PUT /users/me. Cada saveUser() encola un push debounced; al entrar se hace
+   pull con merge: lo que la nube tenga y local no, se restaura. */
+let _syncTimer=null;
+function scheduleUserSync(u){
+  if(!isApiAvailable()||!localStorage.getItem('vitaria_token'))return;
+  if(_syncTimer)clearTimeout(_syncTimer);
+  _syncTimer=setTimeout(()=>{_syncTimer=null;apiPushUser(u);},700);
+}
+function apiPushUser(u){
   const t=localStorage.getItem('vitaria_token');
-  if(!t)return dest;
-  apiGet('/auth/me').then(me=>{
-    if(!me||!me.email)return;
+  if(!t||!u)return;
+  const safe={};
+  for(const k in u){
+    if(k==='pw'||k==='_syncAt')continue;
+    safe[k]=u[k];
+  }
+  fetch('/api/v1/users/me',{method:'PUT',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({name:u.name,plan_tier:u.plan,data:safe})})
+    .then(r=>{if(!r.ok)throw new Error('sync '+r.status);return r.json();})
+    .then(()=>{})
+    .catch(()=>{});
+}
+function apiSyncUser(dest){
+  if(!isApiAvailable())return Promise.resolve(dest);
+  const t=localStorage.getItem('vitaria_token');
+  if(!t)return Promise.resolve(dest);
+  return apiGet('/auth/me').then(me=>{
+    if(!me||!me.email)return dest;
     const u=dest;
     u.id='u-'+me.id;
     u.name=u.name||me.name||u.name;
     const apiPlan=me.plan_tier||'free';
     if(apiPlan&&apiPlan!=='free')u.plan=apiPlan;
-    if(me.data&&typeof me.data==='object')Object.assign(u,me.data);
+    if(me.data&&typeof me.data==='object'){
+      const remote=me.data;
+      // Merge: remoto llena huecos del local (local es fuente si ya tiene valor)
+      for(const k in remote){
+        if(k==='pw'||k==='_syncAt')continue;
+        const s=JSON.stringify(remote[k]);
+        if(u[k]===undefined||u[k]===null||u[k]===''||JSON.stringify(u[k])===JSON.stringify([])||JSON.stringify(u[k])===JSON.stringify({})){
+          u[k]=remote[k];
+        }
+      }
+    }
     if(!getUsers().some(x=>x.email===u.email))setUsers([...getUsers(),u]);
-    saveUser(u);
-  }).catch(()=>{});
-  return dest;
+    setUsers(getUsers().map(x=>x.email===u.email?u:x));
+    return dest;
+  }).catch(()=>dest);
 }
 
 $('#loginForm').addEventListener('submit',e=>{
@@ -953,9 +987,11 @@ $('#loginForm').addEventListener('submit',e=>{
       localStorage.setItem('vitaria_token',j.access_token);
       let user=getUsers().find(u=>u.email===email);
       if(!user){user={id:'u-api',name:email.split('@')[0],email,pw:'',plan:'pro',tipo:'Equilibrada',objetivo:'Equilibrado',dietaType:'todos',alergias:[],createdAt:new Date().toISOString(),mv:2,menu:[],menuObj:'Equilibrado',consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};setUsers([...getUsers(),user]);}
-      apiSyncUser(user);
       setSession(email);
-      if(!user.physical){showOnboarding();}else{enterPortal();}
+      apiSyncUser(user).then(()=>{
+        const u=currentUser()||user;
+        if(!u.physical){showOnboarding();}else{enterPortal();}
+      });
     }).catch(err=>{
       setMsg('#loginMsg',err.message||'Error de servidor.','err');
     });
@@ -987,6 +1023,7 @@ $('#registerForm').addEventListener('submit',e=>{
       user.id='u-api';
       setUsers([...getUsers().filter(u=>u.email!==email),user]);
       setSession(email);
+      saveUser(user); // sube menu+perfil+prefs a users.data (Supabase)
       showOnboarding();
     }).catch(err=>{
       setMsg('#regMsg',err.message||'Error de servidor.','err');
@@ -3256,7 +3293,9 @@ function verListaCompra(){
     window.__vitariaTest={
       scanLookupCode:function(code){scanLookupCode(code);return scanResultObj;},
       scanShowResult:function(res){scanShowResult(res);return true;},
-      scanClose:function(){scanClose();return true;}
+      scanClose:function(){scanClose();return true;},
+      saveUser:function(u){saveUser(u);return true;},
+      currentUser:function(){return currentUser();}
     };
   }
 

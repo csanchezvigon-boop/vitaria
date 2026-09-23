@@ -84,3 +84,15 @@ La app ya es instalable (manifest + service worker). Tras desplegar, revisa en e
   - si no existe, consulta Open Food Facts
   - guarda en `food_logs` (endpoint `/api/v1/food-logs`)
 - Planes: Starter (6 €), Pro (20 €), Premium (40 €) — ver `landing.html`.
+
+## Sincronización con Supabase (todo el estado del usuario)
+
+El portal sincroniza **todo el estado del usuario** con la API, no solo la identidad:
+
+- **Identidad**: login/registro contra `POST /api/v1/auth/login` y `/auth/register` (pasword hasheada en el backend, usuario en Supabase).
+- **Datos completos** (menú semanal, consumos, agua, sueño, bienestar, evaluaciones, dieta personalizada): cada `saveUser()` del portal serializa el objeto del usuario en `users.data` (JSON) vía `PUT /api/v1/users/me`.
+- **Restauración**: al hacer login (o recargar con sesión activa), `GET /api/v1/auth/me` hace merge — lo que la nube tenga y el dispositivo no, se restaura. Así los datos viajan entre dispositivos.
+- **Offline**: si la API no responde (demo local sin servidor), el portal funciona con `localStorage` como antes; al volver a estar online, el último guardado se sube (debounce 700 ms).
+- **Seguridad**: el hash local de contraseña (`pw`) y el marcador interno `_syncAt` nunca se envían al backend.
+
+Flujo del sync (`portal.js`): `saveUser(u)` → `scheduleUserSync(u)` (debounce 700 ms) → `PUT /api/v1/users/me {name, plan_tier, data: u}` → El backend persiste `users.data` (JSON). `apiSyncUser()` al login/recarga restaura desde `GET /auth/me`.

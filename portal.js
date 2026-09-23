@@ -912,9 +912,56 @@ $('#toLogin').addEventListener('click',()=>{showAuth('login');setMsg('#loginMsg'
 function showAuth(f){$('#loginForm').classList.toggle('hidden',f!=='login');$('#registerForm').classList.toggle('hidden',f!=='register');}
 function setMsg(s,t,c){const e=$(s);e.textContent=t;e.className='auth-msg '+(c||'');}
 
+/* --- Auth API (usuarios en Supabase/backend; localStorage solo como caché) --- */
+function apiPost(path,payload,form){
+  return fetch('/api/v1'+path,{method:'POST',headers:form?{'Content-Type':'application/x-www-form-urlencoded'}:{'Content-Type':'application/json'},body:form?new URLSearchParams(payload).toString():JSON.stringify(payload)})
+    .then(r=>r.json().then(j=>({ok:r.ok,status:r.status,j})))
+    .then(r=>{if(!r.ok)throw new Error(r.j&&r.j.detail?r.j.detail:('HTTP '+r.status));return r.j;});
+}
+function apiGet(path){
+  const t=localStorage.getItem('vitaria_token');
+  if(!t)return Promise.reject(new Error('No token'));
+  return fetch('/api/v1'+path,{headers:{'Authorization':'Bearer '+t}})
+    .then(r=>r.json().then(j=>({ok:r.ok,status:r.status,j})))
+    .then(r=>{if(!r.ok)throw new Error(r.j&&r.j.detail?r.j.detail:('HTTP '+r.status));return r.j;});
+}
+function isApiAvailable(){try{return !!window.fetch&&/^https?:$/.test(location.protocol);}catch(e){return false;}}
+function apiSyncUser(dest){
+  if(!isApiAvailable())return dest;
+  const t=localStorage.getItem('vitaria_token');
+  if(!t)return dest;
+  apiGet('/auth/me').then(me=>{
+    if(!me||!me.email)return;
+    const u=dest;
+    u.id='u-'+me.id;
+    u.name=u.name||me.name||u.name;
+    const apiPlan=me.plan_tier||'free';
+    if(apiPlan&&apiPlan!=='free')u.plan=apiPlan;
+    if(me.data&&typeof me.data==='object')Object.assign(u,me.data);
+    if(!getUsers().some(x=>x.email===u.email))setUsers([...getUsers(),u]);
+    saveUser(u);
+  }).catch(()=>{});
+  return dest;
+}
+
 $('#loginForm').addEventListener('submit',e=>{
   e.preventDefault();
   const email=$('#loginEmail').value.trim().toLowerCase(),pw=$('#loginPw').value;
+  // 1) Intento contra API (Supabase)
+  if(isApiAvailable()){
+    apiPost('/auth/login',{username:email,password:pw},true).then(j=>{
+      localStorage.setItem('vitaria_token',j.access_token);
+      let user=getUsers().find(u=>u.email===email);
+      if(!user){user={id:'u-api',name:email.split('@')[0],email,pw:'',plan:'pro',tipo:'Equilibrada',objetivo:'Equilibrado',dietaType:'todos',alergias:[],createdAt:new Date().toISOString(),mv:2,menu:[],menuObj:'Equilibrado',consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};setUsers([...getUsers(),user]);}
+      apiSyncUser(user);
+      setSession(email);
+      if(!user.physical){showOnboarding();}else{enterPortal();}
+    }).catch(err=>{
+      setMsg('#loginMsg',err.message||'Error de servidor.','err');
+    });
+    return;
+  }
+  // 2) Fallback offline (demo local): mismas reglas que antes
   const user=getUsers().find(u=>u.email===email&&u.pw===hash(pw));
   if(!user){setMsg('#loginMsg','Correo o contraseña incorrectos.','err');return;}
   setSession(user.email);
@@ -930,9 +977,23 @@ $('#registerForm').addEventListener('submit',e=>{
   if(!/^\S+@\S+\.\S+$/.test(email)){setMsg('#regMsg','Correo no válido.','err');return;}
   if(pw.length<6){setMsg('#regMsg','Mínimo 6 caracteres.','err');return;}
   if(pw!==pw2){setMsg('#regMsg','Las contraseñas no coinciden.','err');return;}
-  if(getUsers().some(u=>u.email===email)){setMsg('#regMsg','Ya existe una cuenta con ese correo.','err');return;}
+  if(getUsers().some(u=>u.email===email)&&!isApiAvailable()){setMsg('#regMsg','Ya existe una cuenta con ese correo.','err');return;}
   const user={id:'u-'+Date.now(),name,email,pw:hash(pw),plan,tipo,objetivo,alergias,dietaType:'todos',createdAt:new Date().toISOString(),mv:2,menu:[],menuObj:objetivo,consumed:{},glassed:{},sleep:{},customFoods:{},extraFoods:{},subs:{}};
   try{user.menu=newMenu(tipo,alergias,0,objetivo,'todos',user);}catch(e){console.error('newMenu reg error:',e);user.menu=[];}
+  // 1) Intento contra API (Supabase) → la contraseña vive en la nube
+  if(isApiAvailable()){
+    apiPost('/auth/register',{email,name,password:pw,plan_tier:plan}).then(j=>{
+      localStorage.setItem('vitaria_token',j.access_token);
+      user.id='u-api';
+      setUsers([...getUsers().filter(u=>u.email!==email),user]);
+      setSession(email);
+      showOnboarding();
+    }).catch(err=>{
+      setMsg('#regMsg',err.message||'Error de servidor.','err');
+    });
+    return;
+  }
+  // 2) Fallback offline (demo local)
   setUsers([...getUsers(),user]);setSession(email);showOnboarding();
 });
 
@@ -991,6 +1052,8 @@ function generateStarterMenu(dietaType,objetivo,numComidas,user){
 }
 function enterPortal(){
   let u=currentUser();if(!u){showView('view-auth');showAuth('login');return;}
+  // Usuario con sesión: refresca datos desde Supabase/backend (silencioso)
+  if(isApiAvailable()&&localStorage.getItem('vitaria_token'))apiSyncUser(u);
   if(u.objetivo!=='Regular el peso'&&u.objetivo!=='Equilibrado'&&u.objetivo!=='Ganar masa muscular')u.objetivo='Equilibrado';
   if(!u.dietaType){u.dietaType=u.dieta||'todos';delete u.dieta;saveUser(u);}
   if(!u.plan)u.plan='pro';
@@ -1023,7 +1086,7 @@ function applyPlanGating(u){
 }
 
 $('#perfilNavBtn').addEventListener('click',()=>{activateTab('perfil');});
-$('#logoutBtn').addEventListener('click',()=>{setSession(null);$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
+$('#logoutBtn').addEventListener('click',()=>{setSession(null);localStorage.removeItem('vitaria_token');$('#navUser').classList.add('hidden');showView('view-auth');showAuth('login');});
 
 /* Chips */
 function renderChips(id,opts,sel){

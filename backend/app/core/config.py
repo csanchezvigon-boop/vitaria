@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     DEBUG: bool = False
 
     # Security
-    SECRET_KEY: str = "change-me-in-prod"
+    SECRET_KEY: str = "0e39c2b1f77e727a896a019a359ec6abd64e6e7fb1e2bc71d90b5e2b25fa2ef3"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 días
 

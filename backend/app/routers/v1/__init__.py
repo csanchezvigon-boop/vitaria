@@ -1,7 +1,10 @@
 """Agregador de routers v1."""
 from fastapi import APIRouter
 
-from app.routers.v1 import auth, catalog, diets, exercises, food_logs, foods, meals, payments, plans, shopping, tracking, users
+from app.routers.v1 import (
+    auth, catalog, diets, exercises, food_logs, foods, meals, 
+    payments, plans, shopping, tracking, users, inventory
+)
 
 api_router = APIRouter()
 api_router.include_router(auth.router)
@@ -16,3 +19,4 @@ api_router.include_router(exercises.router)
 api_router.include_router(meals.router)
 api_router.include_router(catalog.router)
 api_router.include_router(diets.router)
+api_router.include_router(inventory.router)

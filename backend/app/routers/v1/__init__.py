@@ -2,7 +2,7 @@
 from fastapi import APIRouter
 
 from app.routers.v1 import (
-    auth, catalog, diets, exercises, food_logs, foods, meals, 
+    auth, catalog, diets, exercises, food_logs, foods, meals,
     payments, plans, shopping, tracking, users, inventory
 )
 
